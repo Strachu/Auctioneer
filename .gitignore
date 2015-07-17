@@ -1,0 +1,5 @@
+Auctioneer.Presentation.v12.suo
+/packages/
+bin/
+obj/
+*.csproj.user
