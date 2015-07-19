@@ -3,3 +3,5 @@ Auctioneer.Presentation.v12.suo
 bin/
 obj/
 *.csproj.user
+*.mdf
+*.ldf

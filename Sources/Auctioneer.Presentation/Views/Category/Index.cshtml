@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Auctioneer.Presentation.Models.CategoryViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<ul>
+    @foreach(var category in Model)
+    {
+        <li>@Html.ActionLink(category.Name, "Index", new { id = category.Id })</li>
+    }
+</ul>
+
