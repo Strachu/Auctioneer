@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 
 using Auctioneer.Logic.Categories;
+using Auctioneer.Logic.Utils;
 using Auctioneer.Presentation.Controllers;
 using Auctioneer.Presentation.Models;
+using Auctioneer.Presentation.Tests.TestUtils;
 
 using FakeItEasy;
 
@@ -40,8 +42,7 @@ namespace Auctioneer.Presentation.Tests.Controllers
 
 			A.CallTo(() => mCategoryServiceMock.GetTopLevelCategories()).Returns(topLevelCategories);
 
-			var viewResult            = await mTestedController.Index(null) as ViewResult;
-			var returnedCategories    = viewResult.Model as IEnumerable<CategoryViewModel>;
+			var returnedCategories    = await mTestedController.Index(null).GetModel<IEnumerable<CategoryViewModel>>();
 			var returnedCategoryNames = returnedCategories.Select(x => x.Name);
 
 			Assert.That(returnedCategoryNames, Is.EquivalentTo(topLevelCategories.Select(x => x.Name)));
@@ -61,11 +62,31 @@ namespace Auctioneer.Presentation.Tests.Controllers
 
 			A.CallTo(() => mCategoryServiceMock.GetCategoryById(2)).Returns(category);
 
-			var viewResult            = await mTestedController.Index(2) as ViewResult;
-			var returnedCategories    = viewResult.Model as IEnumerable<CategoryViewModel>;
+			var returnedCategories    = await mTestedController.Index(2).GetModel<IEnumerable<CategoryViewModel>>();
 			var returnedCategoryNames = returnedCategories.Select(x => x.Name);
 
 			Assert.That(returnedCategoryNames, Is.EquivalentTo(category.SubCategories.Select(x => x.Name)));
+		}
+
+		[Test]
+		public async Task TheCategoriesReturnedByTheControllerAreSortedAlphabetically()
+		{
+			var category = new Category
+			{
+				SubCategories = new Category[]
+				{
+					new Category { Name = "2FirstCategory" },
+					new Category { Name = "1SecondCategory" },
+					new Category { Name = "3LastCategory" },
+					new Category { Name = "ZZZZ" }
+				}
+			};
+
+			A.CallTo(() => mCategoryServiceMock.GetCategoryById(A<int>.Ignored)).Returns(category);
+
+			var returnedCategories = await mTestedController.Index(2).GetModel<IEnumerable<CategoryViewModel>>();
+
+			Assert.That(returnedCategories, Is.Ordered.By(PropertyName.Of(() => returnedCategories.First().Name)));
 		}
 	}
 }

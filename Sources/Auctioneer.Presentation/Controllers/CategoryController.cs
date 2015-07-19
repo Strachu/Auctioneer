@@ -40,6 +40,8 @@ namespace Auctioneer.Presentation.Controllers
 				categories = await mCategoryService.GetTopLevelCategories();
 			}
 
+			categories = categories.OrderBy(x => x.Name);
+
 			var viewModels = categories.Select(x => new CategoryViewModel
 			{
 				Id   = x.Id,
