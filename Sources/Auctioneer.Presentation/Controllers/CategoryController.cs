@@ -15,11 +15,6 @@ namespace Auctioneer.Presentation.Controllers
 	{
 		private readonly ICategoryService mCategoryService;
 
-		public CategoryController()
-		{
-			mCategoryService = new CategoryService(new AuctioneerDbContext());
-		}
-
 		public CategoryController(ICategoryService categoryService)
 		{
 			mCategoryService = categoryService;
