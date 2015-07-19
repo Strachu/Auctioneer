@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 
 namespace Auctioneer.Logic
@@ -13,6 +14,7 @@ namespace Auctioneer.Logic
 	public class AuctioneerDbContext : DbContext
 	{
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<Auction> Auctions { get; set; }
 
 		public AuctioneerDbContext() : base("AuctioneerDbContext")
 		{

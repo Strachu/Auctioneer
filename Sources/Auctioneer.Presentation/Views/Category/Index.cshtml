@@ -1,13 +1,44 @@
-﻿@model IEnumerable<Auctioneer.Presentation.Models.CategoryViewModel>
+﻿@model Auctioneer.Presentation.Models.CategoryListViewModel
 
 @{
     ViewBag.Title = "Index";
 }
 
-<ul>
-    @foreach(var category in Model)
-    {
-        <li>@Html.ActionLink(category.Name, "Index", new { id = category.Id })</li>
-    }
-</ul>
+<div style="width:100%; display:flex;">
+    
+    <ul style="width: 200px">
+        @foreach(var category in Model.Subcategories)
+        {
+            <li>@Html.ActionLink(category.Name, "Index", new { id = category.Id })</li>
+        }
+    </ul>
+    
+    <table style="width:100%">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(x => x.Auctions.First().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.Auctions.First().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.Auctions.First().TimeTillEnd)
+            </th>
+        </tr>
+        @foreach(var auction in Model.Auctions)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Show", "Auction", new { id = auction.Id })">@Html.DisplayFor(x => auction.Title)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(x => auction.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => auction.TimeTillEnd)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
 
