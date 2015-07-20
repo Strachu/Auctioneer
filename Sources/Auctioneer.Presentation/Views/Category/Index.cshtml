@@ -6,12 +6,7 @@
 
 <div style="width:100%; display:flex;">
     
-    <ul style="width: 200px">
-        @foreach(var category in Model.Subcategories)
-        {
-            <li>@Html.ActionLink(category.Name, "Index", new { id = category.Id })</li>
-        }
-    </ul>
+	@{ Html.RenderPartial("_List", Model.Subcategories); }
     
     <table style="width:100%">
         <tr>

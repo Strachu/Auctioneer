@@ -35,43 +35,6 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		}
 
 		[Test]
-		public async Task WhenIdHasBeenNotGiven_IndexAction_ReturnsTopLevelCategories()
-		{
-			var topLevelCategories = new Category[]
-			{
-				new Category { Name = "FirstCategory" },
-				new Category { Name = "SecondCategory" }
-			};
-
-			A.CallTo(() => mCategoryServiceMock.GetTopLevelCategories()).Returns(topLevelCategories);
-
-			var returnedViewModel     = await mTestedController.Index(null).GetModel<CategoryListViewModel>();
-			var returnedCategoryNames = returnedViewModel.Subcategories.Select(x => x.Name);
-
-			Assert.That(returnedCategoryNames, Is.EquivalentTo(topLevelCategories.Select(x => x.Name)));
-		}
-
-		[Test]
-		public async Task WhenIdHasBeenGiven_IndexAction_ReturnsSubCategoriesOfCategoryWithThisId()
-		{
-			var category = new Category
-			{
-				SubCategories = new Category[]
-				{
-					new Category { Name = "FirstSubCategory" },
-					new Category { Name = "SecondSubCategory" }
-				}
-			};
-
-			A.CallTo(() => mCategoryServiceMock.GetCategoryById(2)).Returns(category);
-
-			var returnedViewModel     = await mTestedController.Index(2).GetModel<CategoryListViewModel>();
-			var returnedCategoryNames = returnedViewModel.Subcategories.Select(x => x.Name);
-
-			Assert.That(returnedCategoryNames, Is.EquivalentTo(category.SubCategories.Select(x => x.Name)));
-		}
-
-		[Test]
 		public async Task TheCategoriesReturnedByTheControllerAreSortedAlphabetically()
 		{
 			var category = new Category
@@ -110,6 +73,24 @@ namespace Auctioneer.Presentation.Tests.Controllers
 
 			// TODO assert Price
 			Assert.That(returnedAuctions.Select(x => x.Title), Is.EquivalentTo(auctions.Select(x => x.Title)));
+		}
+
+		[Test]
+		public void TopCategoriesAreSortedAlphabetically()
+		{
+			var categories = new Category[]
+			{
+				new Category { Name = "2FirstCategory" },
+				new Category { Name = "1SecondCategory" },
+				new Category { Name = "3LastCategory" },
+				new Category { Name = "ZZZZ" }
+			};
+
+			A.CallTo(() => mCategoryServiceMock.GetTopLevelCategories()).Returns(categories);
+
+			var returnedCategories = mTestedController.TopCategories().GetModel<IEnumerable<CategoryViewModel>>();
+
+			Assert.That(returnedCategories, Is.Ordered.By(PropertyName.Of(() => returnedCategories.First().Name)));
 		}
 	}
 }

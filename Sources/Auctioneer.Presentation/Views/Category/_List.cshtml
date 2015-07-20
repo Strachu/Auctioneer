@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Auctioneer.Presentation.Models.CategoryViewModel>
+
+<ul style="width: 200px"> @*TODO move style to a css file *@
+	@foreach(var category in Model)
+	{
+		<li>@Html.ActionLink(category.Name, "Index", new { id = category.Id })</li>
+	}
+</ul>

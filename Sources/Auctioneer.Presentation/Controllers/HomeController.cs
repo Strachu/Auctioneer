@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using Auctioneer.Logic;
-using Auctioneer.Logic.Categories;
+using Auctioneer.Logic.Auctions;
+using Auctioneer.Presentation.Models;
 
 namespace Auctioneer.Presentation.Controllers
 {
@@ -13,7 +13,20 @@ namespace Auctioneer.Presentation.Controllers
 	{
 		public ActionResult Index()
 		{
-			return View();
+			var auctions   = new Auction[0]; // TODO
+
+			var viewModels = new CategoryListViewModel
+			{
+				Auctions = auctions.Select(x => new AuctionViewModel
+				{
+					Id = x.Id,
+					Title = x.Title,
+					Price = x.Price,
+					TimeTillEnd = DateTime.Now - x.EndDate
+				})
+			};
+
+			return View(viewModels);
 		}
 	}
 }

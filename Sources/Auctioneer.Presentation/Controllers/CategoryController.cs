@@ -23,26 +23,13 @@ namespace Auctioneer.Presentation.Controllers
 			mAuctionService  = auctionService;
 		}
 
-		public async Task<ActionResult> Index(int? id)
+		[Route("Category/{id}")]
+		public async Task<ActionResult> Index(int id)
 		{
-			IEnumerable<Category> categories;
-			IEnumerable<Auction>  auctions;
+			var category = await mCategoryService.GetCategoryById(id);
+			var auctions = await mAuctionService.GetActiveAuctionsInCategory(id);
 
-			if(id != null)
-			{
-				var category = await mCategoryService.GetCategoryById(id.Value);
-
-				categories = category.SubCategories;
-
-				auctions = await mAuctionService.GetActiveAuctionsInCategory(id.Value);
-			}
-			else
-			{
-				categories = await mCategoryService.GetTopLevelCategories();
-				auctions   = new Auction[0]; // TODO
-			}
-
-			categories = categories.OrderBy(x => x.Name);
+			var categories = category.SubCategories.OrderBy(x => x.Name);
 
 			var viewModels = new CategoryListViewModel
 			{
@@ -62,6 +49,21 @@ namespace Auctioneer.Presentation.Controllers
 			};
 
 			return View(viewModels);
+		}
+
+		[ChildActionOnly]
+		public PartialViewResult TopCategories()
+		{
+			var categories = mCategoryService.GetTopLevelCategories().Result;
+			categories     = categories.OrderBy(x => x.Name);
+
+			var viewModels = categories.Select(x => new CategoryViewModel
+			{
+				Id   = x.Id,
+				Name = x.Name
+			});
+
+			return PartialView("_List", viewModels);
 		}
 	}
 }

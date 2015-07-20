@@ -18,7 +18,7 @@ namespace Auctioneer.Logic.Categories
 
 		public async Task<IEnumerable<Category>> GetTopLevelCategories()
 		{
-			return await mContext.Categories.Where(x => x.Parent == null).ToListAsync();
+			return await mContext.Categories.Where(x => x.Parent == null).ToListAsync().ConfigureAwait(false);
 		}
 
 		public Task<Category> GetCategoryById(int categoryId)
