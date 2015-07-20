@@ -68,5 +68,41 @@ namespace Auctioneer.Presentation.Properties {
                 return ResourceManager.GetString("MostRecentAuctions", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to days.
+        /// </summary>
+        public static string TimeSpan_Days {
+            get {
+                return ResourceManager.GetString("TimeSpan_Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hours.
+        /// </summary>
+        public static string TimeSpan_Hours {
+            get {
+                return ResourceManager.GetString("TimeSpan_Hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Less than a minute.
+        /// </summary>
+        public static string TimeSpan_LessThanMinute {
+            get {
+                return ResourceManager.GetString("TimeSpan_LessThanMinute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minutes.
+        /// </summary>
+        public static string TimeSpan_Minutes {
+            get {
+                return ResourceManager.GetString("TimeSpan_Minutes", resourceCulture);
+            }
+        }
     }
 }

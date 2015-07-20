@@ -30,7 +30,7 @@ namespace Auctioneer.Presentation.Controllers
 					Id          = x.Id,
 					Title       = x.Title,
 					Price       = x.Price,
-					TimeTillEnd = DateTime.Now - x.EndDate
+					TimeTillEnd = x.EndDate - DateTime.Now
 				})
 			};
 

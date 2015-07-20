@@ -120,4 +120,16 @@
   <data name="MostRecentAuctions" xml:space="preserve">
     <value>The most recent auctions:</value>
   </data>
+  <data name="TimeSpan_Days" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="TimeSpan_Hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="TimeSpan_LessThanMinute" xml:space="preserve">
+    <value>Less than a minute</value>
+  </data>
+  <data name="TimeSpan_Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
 </root>
