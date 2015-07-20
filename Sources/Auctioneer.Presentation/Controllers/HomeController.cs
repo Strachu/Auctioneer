@@ -21,18 +21,15 @@ namespace Auctioneer.Presentation.Controllers
 
 		public async Task<ActionResult> Index()
 		{
-			var auctions = await mAuctionService.GetRecentAuctions(20);
+			var auctions = await mAuctionService.GetRecentAuctions(maxResults: 20);
 
-			var viewModels = new CategoryListViewModel
+			var viewModels = auctions.Select(x => new AuctionViewModel
 			{
-				Auctions = auctions.Select(x => new AuctionViewModel
-				{
-					Id          = x.Id,
-					Title       = x.Title,
-					Price       = x.Price,
-					TimeTillEnd = x.EndDate - DateTime.Now
-				})
-			};
+				Id          = x.Id,
+				Title       = x.Title,
+				Price       = x.Price,
+				TimeTillEnd = x.EndDate - DateTime.Now
+			});
 
 			return View(viewModels);
 		}

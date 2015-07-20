@@ -1,4 +1,4 @@
-﻿@model Auctioneer.Presentation.Models.CategoryListViewModel
+﻿@model IEnumerable<Auctioneer.Presentation.Models.AuctionViewModel>
 
 @{
     ViewBag.Title = "Home Page";
@@ -19,16 +19,16 @@
         <table style="width:100%">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(x => x.Auctions.First().Title)
+                    @Html.DisplayNameFor(x => x.First().Title)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(x => x.Auctions.First().Price)
+                    @Html.DisplayNameFor(x => x.First().Price)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(x => x.Auctions.First().TimeTillEnd)
+                    @Html.DisplayNameFor(x => x.First().TimeTillEnd)
                 </th>
             </tr>
-            @foreach(var auction in Model.Auctions)
+            @foreach(var auction in Model)
             {
                 <tr>
                     <td>

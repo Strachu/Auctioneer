@@ -31,19 +31,22 @@ namespace Auctioneer.Presentation.Controllers
 
 			var categories = category.SubCategories.OrderBy(x => x.Name);
 
-			var viewModels = new CategoryListViewModel
+			var viewModels = new CategoryIndexViewModel
 			{
-				Subcategories = categories.Select(x => new CategoryViewModel
+				Category = new CategoryListViewModel
 				{
-					Id = x.Id,
-					Name = x.Name
-				}),
+					Categories = categories.Select(x => new CategoryListViewModel.Category
+					{
+						Id   = x.Id,
+						Name = x.Name
+					}),
+				},
 
 				Auctions = auctions.Select(x => new AuctionViewModel
 				{
-					Id = x.Id,
-					Title = x.Title,
-					Price = x.Price,
+					Id          = x.Id,
+					Title       = x.Title,
+					Price       = x.Price,
 					TimeTillEnd = x.EndDate - DateTime.Now
 				})
 			};
@@ -57,11 +60,14 @@ namespace Auctioneer.Presentation.Controllers
 			var categories = mCategoryService.GetTopLevelCategories().Result;
 			categories     = categories.OrderBy(x => x.Name);
 
-			var viewModels = categories.Select(x => new CategoryViewModel
+			var viewModels = new CategoryListViewModel
 			{
-				Id   = x.Id,
-				Name = x.Name
-			});
+				Categories = categories.Select(x => new CategoryListViewModel.Category
+				{
+					Id   = x.Id,
+					Name = x.Name
+				})
+			};
 
 			return PartialView("_List", viewModels);
 		}

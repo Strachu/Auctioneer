@@ -61,6 +61,15 @@ namespace Auctioneer.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categories:.
+        /// </summary>
+        public static string Categories_Header {
+            get {
+                return ResourceManager.GetString("Categories_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The most recent auctions:.
         /// </summary>
         public static string MostRecentAuctions {

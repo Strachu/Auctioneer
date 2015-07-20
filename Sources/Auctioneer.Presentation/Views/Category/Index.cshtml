@@ -1,4 +1,4 @@
-﻿@model Auctioneer.Presentation.Models.CategoryListViewModel
+﻿@model Auctioneer.Presentation.Models.CategoryIndexViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -6,7 +6,7 @@
 
 <div style="width:100%; display:flex;">
     
-	@{ Html.RenderPartial("_List", Model.Subcategories); }
+	@{ Html.RenderPartial("_List", Model.Category); }
     
     <table style="width:100%">
         <tr>

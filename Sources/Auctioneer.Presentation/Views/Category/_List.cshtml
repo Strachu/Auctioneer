@@ -1,8 +1,11 @@
-﻿@model IEnumerable<Auctioneer.Presentation.Models.CategoryViewModel>
+﻿@model CategoryListViewModel
 
-<ul style="width: 200px"> @*TODO move style to a css file *@
-	@foreach(var category in Model)
-	{
-		<li>@Html.ActionLink(category.Name, "Index", new { id = category.Id })</li>
-	}
-</ul>
+<nav class="category-list">
+	<h1>@Resources.Categories_Header</h1>
+	<ul>
+		@foreach(var category in Model.Categories)
+		{
+			<li>@Html.ActionLink(category.Name, "Index", new { id = category.Id })</li>
+		}
+	</ul>
+</nav>

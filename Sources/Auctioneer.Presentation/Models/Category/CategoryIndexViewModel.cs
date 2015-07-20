@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Auctioneer.Presentation.Models
 {
-	public class CategoryListViewModel
+	public class CategoryIndexViewModel
 	{
-		public IEnumerable<CategoryViewModel> Subcategories { get; set; }
+		public CategoryListViewModel Category { get; set; }
 		public IEnumerable<AuctionViewModel> Auctions { get; set; }
 	}
 }

@@ -1,24 +1,33 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿.category-list
+{
+	background-color: #eeeeee;
+	width           : 200px;
+	padding         : 0;
+	margin-right    : 10px;
+	border-radius   : 4%;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.category-list h1
+{
+	font-size  : 160%;
+	margin-left: 3px;
+	margin-top : 3px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+.category-list ul
+{
+	list-style-type: none;
+	font-size      : 120%;
+	margin-left    : 1em;
+	padding-left   : 0;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.category-list a
+{
+	transition: color 1s ease;
+}
+
+.category-list a:hover
+{
+	color: #00cc00;
 }

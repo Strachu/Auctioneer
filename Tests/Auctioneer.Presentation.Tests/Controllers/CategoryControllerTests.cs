@@ -50,8 +50,8 @@ namespace Auctioneer.Presentation.Tests.Controllers
 
 			A.CallTo(() => mCategoryServiceMock.GetCategoryById(A<int>.Ignored)).Returns(category);
 
-			var returnedViewModel  = await mTestedController.Index(2).GetModel<CategoryListViewModel>();
-			var returnedCategories = returnedViewModel.Subcategories;
+			var returnedViewModel  = await mTestedController.Index(2).GetModel<CategoryIndexViewModel>();
+			var returnedCategories = returnedViewModel.Category.Categories;
 
 			Assert.That(returnedCategories, Is.Ordered.By(PropertyName.Of(() => returnedCategories.First().Name)));
 		}
@@ -68,7 +68,7 @@ namespace Auctioneer.Presentation.Tests.Controllers
 
 			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(2)).Returns(auctions);
 
-			var returnedViewModel = await mTestedController.Index(2).GetModel<CategoryListViewModel>();
+			var returnedViewModel = await mTestedController.Index(2).GetModel<CategoryIndexViewModel>();
 			var returnedAuctions  = returnedViewModel.Auctions;
 
 			// TODO assert Price
@@ -88,7 +88,7 @@ namespace Auctioneer.Presentation.Tests.Controllers
 
 			A.CallTo(() => mCategoryServiceMock.GetTopLevelCategories()).Returns(categories);
 
-			var returnedCategories = mTestedController.TopCategories().GetModel<IEnumerable<CategoryViewModel>>();
+			var returnedCategories = mTestedController.TopCategories().GetModel<CategoryListViewModel>().Categories;
 
 			Assert.That(returnedCategories, Is.Ordered.By(PropertyName.Of(() => returnedCategories.First().Name)));
 		}
