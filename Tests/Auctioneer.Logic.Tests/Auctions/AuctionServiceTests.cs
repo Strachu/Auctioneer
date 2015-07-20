@@ -52,16 +52,35 @@ namespace Auctioneer.Logic.Tests.Auctions
 				new Category { Id = 6, Left = 11, Right = 12 },
 			});
 
-			context.Auctions.Add(new Auction { Title = "1",  CategoryId = 2, EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(2)) });
-			context.Auctions.Add(new Auction { Title = "2",  CategoryId = 6, EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
-			context.Auctions.Add(new Auction { Title = "3",  CategoryId = 6, EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
-			context.Auctions.Add(new Auction { Title = "4",  CategoryId = 2, EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
-			context.Auctions.Add(new Auction { Title = "5",  CategoryId = 2, EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
-			context.Auctions.Add(new Auction { Title = "6",  CategoryId = 2, EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(10)) });
-			context.Auctions.Add(new Auction { Title = "7",  CategoryId = 2, EndDate = DateTime.Now.Add(TimeSpan.FromDays(10)) });
-			context.Auctions.Add(new Auction { Title = "8",  CategoryId = 2, EndDate = DateTime.Now.Add(TimeSpan.FromMinutes(1)) });
-			context.Auctions.Add(new Auction { Title = "9",  CategoryId = 3, EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
-			context.Auctions.Add(new Auction { Title = "10", CategoryId = 5, EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
+			context.Auctions.Add(new Auction { Title = "1",  CategoryId = 2, CreationDate = new DateTime(2015, 3, 12),
+			                                   EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(2)) });
+
+			context.Auctions.Add(new Auction { Title = "2",  CategoryId = 6, CreationDate = new DateTime(2013, 5, 25),
+			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
+
+			context.Auctions.Add(new Auction { Title = "3",  CategoryId = 6, CreationDate = new DateTime(2013, 6, 11),
+			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
+
+			context.Auctions.Add(new Auction { Title = "4",  CategoryId = 2, CreationDate = new DateTime(2014, 9, 16),
+			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
+
+			context.Auctions.Add(new Auction { Title = "5",  CategoryId = 2, CreationDate = new DateTime(2013, 9, 5),
+			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
+
+			context.Auctions.Add(new Auction { Title = "6",  CategoryId = 2, CreationDate = new DateTime(2012, 1, 16),
+			                                   EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(10)) });
+
+			context.Auctions.Add(new Auction { Title = "7",  CategoryId = 2, CreationDate = new DateTime(2014, 12, 22),
+			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(10)) });
+
+			context.Auctions.Add(new Auction { Title = "8",  CategoryId = 2, CreationDate = new DateTime(2013, 1, 12),
+			                                   EndDate = DateTime.Now.Add(TimeSpan.FromMinutes(1)) });
+
+			context.Auctions.Add(new Auction { Title = "9",  CategoryId = 3, CreationDate = new DateTime(2015, 2, 1),
+			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
+
+			context.Auctions.Add(new Auction { Title = "10", CategoryId = 5, CreationDate = new DateTime(2014, 4, 30),
+			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
 			context.SaveChanges();
 		}
 
@@ -96,6 +115,17 @@ namespace Auctioneer.Logic.Tests.Auctions
 			var expectedAuctionTitles = new string[] { "4", "5", "7", "8", "9", "10" };
 
 			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
+		}
+		
+		[Test]
+		public async Task GetRecentAuctions_ReturnsSpecifiedNumberOfAuctionsSortedByTheirCreationDate()
+		{
+			var auctions = await mTestedService.GetRecentAuctions(3);
+
+			var returnedAuctionTitles = auctions.Select(x => x.Title);
+			var expectedAuctionTitles = new string[] { "1", "9", "7" };
+
+			Assert.That(returnedAuctionTitles, Is.EqualTo(expectedAuctionTitles));
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,17 +12,24 @@ namespace Auctioneer.Presentation.Controllers
 {
 	public class HomeController : Controller
 	{
-		public ActionResult Index()
+		private readonly IAuctionService mAuctionService;
+
+		public HomeController(IAuctionService auctionService)
 		{
-			var auctions   = new Auction[0]; // TODO
+			mAuctionService = auctionService;
+		}
+
+		public async Task<ActionResult> Index()
+		{
+			var auctions = await mAuctionService.GetRecentAuctions(20);
 
 			var viewModels = new CategoryListViewModel
 			{
 				Auctions = auctions.Select(x => new AuctionViewModel
 				{
-					Id = x.Id,
-					Title = x.Title,
-					Price = x.Price,
+					Id          = x.Id,
+					Title       = x.Title,
+					Price       = x.Price,
 					TimeTillEnd = DateTime.Now - x.EndDate
 				})
 			};

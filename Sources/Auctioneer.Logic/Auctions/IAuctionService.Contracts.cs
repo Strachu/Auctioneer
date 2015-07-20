@@ -14,5 +14,12 @@ namespace Auctioneer.Logic.Auctions
 		{
 			throw new NotImplementedException();
 		}
+
+		Task<IEnumerable<Auction>> IAuctionService.GetRecentAuctions(int maxResults)
+		{
+			Contract.Requires(maxResults > 0);
+
+			throw new NotImplementedException();
+		}
 	}
 }

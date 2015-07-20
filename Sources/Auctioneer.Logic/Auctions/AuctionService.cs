@@ -28,5 +28,12 @@ namespace Auctioneer.Logic.Auctions
 
 			return await auctions.Where(x => x.EndDate > DateTime.Now).ToListAsync();
 		}
+
+		public async Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults)
+		{
+			return await mContext.Auctions.OrderByDescending(x => x.CreationDate)
+			                              .Take(maxResults)
+			                              .ToListAsync();
+		}
 	}
 }
