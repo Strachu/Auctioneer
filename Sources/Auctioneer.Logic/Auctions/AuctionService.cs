@@ -18,11 +18,13 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<IEnumerable<Auction>> GetActiveAuctionsInCategory(int categoryId)
 		{
-			var rootCategory = await mContext.Categories.FindAsync(categoryId);
+			var auctions = from auction      in mContext.Auctions
+			               from rootCategory in mContext.Categories
+			               where rootCategory.Id == categoryId
 
-			var auctions = from auction  in mContext.Auctions
 			               join category in mContext.Categories
 			               on auction.CategoryId equals category.Id
+
 			               where category.Left >= rootCategory.Left && category.Right <= rootCategory.Right
 			               select auction;
 

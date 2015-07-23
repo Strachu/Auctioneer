@@ -18,6 +18,9 @@ namespace Auctioneer.Logic
 
 		public AuctioneerDbContext() : base("AuctioneerDbContext")
 		{
+#if DEBUG
+			base.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+#endif
 		}
 
 		public AuctioneerDbContext(DbConnection connection) : base(connection, true)
