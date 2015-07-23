@@ -23,5 +23,12 @@ namespace Auctioneer.Logic
 		public AuctioneerDbContext(DbConnection connection) : base(connection, true)
 		{
 		}
+
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
+		}
 	}
 }

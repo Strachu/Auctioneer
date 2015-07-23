@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Auctioneer.Logic.Categories;
+using Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues;
 
 using NUnit.Framework;
 
@@ -18,7 +19,7 @@ namespace Auctioneer.Logic.Tests.Categories
 		[SetUp]
 		public void SetUp()
 		{
-			var context = new AuctioneerDbContext(Effort.DbConnectionFactory.CreateTransient());
+			var context = new TestAuctioneerDbContext(Effort.DbConnectionFactory.CreateTransient());
 
 			AddTestData(context);
 
@@ -27,39 +28,39 @@ namespace Auctioneer.Logic.Tests.Categories
 
 		private void AddTestData(AuctioneerDbContext context)
 		{
-			context.Categories.Add(new Category
+			context.Categories.Add(new TestCategory
 			{
 				Name          = "Computers",
-				SubCategories = new Category[]
+				SubCategories = new TestCategory[]
 				{
-					new Category { Name = "Desktop computers" },
-					new Category { Name = "Mobile computers" },
-					new Category
+					new TestCategory { Name = "Desktop computers" },
+					new TestCategory { Name = "Mobile computers" },
+					new TestCategory
 					{
 						Name          = "Components",
-						SubCategories = new Category[]
+						SubCategories = new TestCategory[]
 						{
-							new Category { Name = "Hard drives" },
-							new Category { Name = "Graphics cards" },
-							new Category { Name = "Motherboards" },
-							new Category { Name = "Processors" },
-							new Category { Name = "RAM memory" },
-							new Category { Name = "Power supplies" },
-							new Category { Name = "Cases" },
+							new TestCategory { Name = "Hard drives" },
+							new TestCategory { Name = "Graphics cards" },
+							new TestCategory { Name = "Motherboards" },
+							new TestCategory { Name = "Processors" },
+							new TestCategory { Name = "RAM memory" },
+							new TestCategory { Name = "Power supplies" },
+							new TestCategory { Name = "Cases" },
 						}
 					}
 				}
 			});
 
-			context.Categories.Add(new Category
+			context.Categories.Add(new TestCategory
 			{
 				Name          = "Software",
-				SubCategories = new Category[]
+				SubCategories = new TestCategory[]
 				{
-					new Category { Name = "Operating systems" },
-					new Category { Name = "Office" },
-					new Category { Name = "Security" },
-					new Category { Name = "Games" },
+					new TestCategory { Name = "Operating systems" },
+					new TestCategory { Name = "Office" },
+					new TestCategory { Name = "Security" },
+					new TestCategory { Name = "Games" },
 				}
 			});
 

@@ -63,15 +63,18 @@
     <Compile Include="AuctioneerDbContext.cs" />
     <Compile Include="AuctioneerDbContextInitializer.cs" />
     <Compile Include="Auctions\Auction.cs" />
+    <Compile Include="Auctions\AuctionMapping.cs" />
     <Compile Include="Auctions\AuctionService.cs" />
     <Compile Include="Auctions\IAuctionService.Contracts.cs">
       <DependentUpon>IAuctionService.cs</DependentUpon>
     </Compile>
     <Compile Include="Auctions\IAuctionService.cs" />
     <Compile Include="Categories\Category.cs" />
+    <Compile Include="Categories\CategoryMapping.cs" />
     <Compile Include="Categories\CategoryService.cs" />
     <Compile Include="Categories\ICategoryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\EntityFrameworkFluentApiExtensions.cs" />
     <Compile Include="Utils\PropertyName.cs" />
     <Compile Include="Utils\SlugGenerator.cs" />
   </ItemGroup>

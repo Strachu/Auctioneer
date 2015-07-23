@@ -80,6 +80,9 @@
     <Compile Include="Auctions\AuctionServiceTests.cs" />
     <Compile Include="Categories\CategoryServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestUtils\ModelsWithDefaultValues\TestAuctioneerDbContext.cs" />
+    <Compile Include="TestUtils\ModelsWithDefaultValues\TestAuction.cs" />
+    <Compile Include="TestUtils\ModelsWithDefaultValues\TestCategory.cs" />
     <Compile Include="Utils\PropertyNameTests.cs" />
   </ItemGroup>
   <ItemGroup>

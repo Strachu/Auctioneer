@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
+using Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues;
 
 using Effort.Provider;
 
@@ -20,7 +21,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[SetUp]
 		public void SetUp()
 		{
-			var context = new AuctioneerDbContext(Effort.DbConnectionFactory.CreateTransient());
+			var context = new TestAuctioneerDbContext(Effort.DbConnectionFactory.CreateTransient());
 
 			AddTestData(context);
 
@@ -29,58 +30,58 @@ namespace Auctioneer.Logic.Tests.Auctions
 
 		private void AddTestData(AuctioneerDbContext context)
 		{
-			context.Categories.AddRange(new Category[]
+			context.Categories.AddRange(new TestCategory[]
 			{
-				new Category
+				new TestCategory
 				{
 					Id = 1, Left = 1, Right = 10,
-					SubCategories = new Category[]
+					SubCategories = new TestCategory[]
 					{
-						new Category { Id = 2, Left = 2, Right = 3 },		
-						new Category
+						new TestCategory { Id = 2, Left = 2, Right = 3 },		
+						new TestCategory
 						{
 							Id = 3, Left = 4, Right = 9,						
-							SubCategories = new Category[]
+							SubCategories = new TestCategory[]
 							{
-								new Category { Id = 4, Left = 5, Right = 6 },		
-								new Category { Id = 5, Left = 7, Right = 8 },					
+								new TestCategory { Id = 4, Left = 5, Right = 6 },		
+								new TestCategory { Id = 5, Left = 7, Right = 8 },					
 							}	
 						},				
 
 					}
 				},
-				new Category { Id = 6, Left = 11, Right = 12 },
+				new TestCategory { Id = 6, Left = 11, Right = 12 },
 			});
 
-			context.Auctions.Add(new Auction { Title = "1",  CategoryId = 2, CreationDate = new DateTime(2015, 3, 12),
-			                                   EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(2)) });
+			context.Auctions.Add(new TestAuction { Title = "1",  CategoryId = 2, CreationDate = new DateTime(2015, 3, 12),
+			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(2)) });
 
-			context.Auctions.Add(new Auction { Title = "2",  CategoryId = 6, CreationDate = new DateTime(2013, 5, 25),
-			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
+			context.Auctions.Add(new TestAuction { Title = "2",  CategoryId = 6, CreationDate = new DateTime(2013, 5, 25),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
 
-			context.Auctions.Add(new Auction { Title = "3",  CategoryId = 6, CreationDate = new DateTime(2013, 6, 11),
-			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
+			context.Auctions.Add(new TestAuction { Title = "3",  CategoryId = 6, CreationDate = new DateTime(2013, 6, 11),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
 
-			context.Auctions.Add(new Auction { Title = "4",  CategoryId = 2, CreationDate = new DateTime(2014, 9, 16),
-			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
+			context.Auctions.Add(new TestAuction { Title = "4",  CategoryId = 2, CreationDate = new DateTime(2014, 9, 16),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
 
-			context.Auctions.Add(new Auction { Title = "5",  CategoryId = 2, CreationDate = new DateTime(2013, 9, 5),
-			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
+			context.Auctions.Add(new TestAuction { Title = "5",  CategoryId = 2, CreationDate = new DateTime(2013, 9, 5),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
 
-			context.Auctions.Add(new Auction { Title = "6",  CategoryId = 2, CreationDate = new DateTime(2012, 1, 16),
-			                                   EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(10)) });
+			context.Auctions.Add(new TestAuction { Title = "6",  CategoryId = 2, CreationDate = new DateTime(2012, 1, 16),
+			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(10)) });
 
-			context.Auctions.Add(new Auction { Title = "7",  CategoryId = 2, CreationDate = new DateTime(2014, 12, 22),
-			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(10)) });
+			context.Auctions.Add(new TestAuction { Title = "7",  CategoryId = 2, CreationDate = new DateTime(2014, 12, 22),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(10)) });
 
-			context.Auctions.Add(new Auction { Title = "8",  CategoryId = 2, CreationDate = new DateTime(2013, 1, 12),
-			                                   EndDate = DateTime.Now.Add(TimeSpan.FromMinutes(1)) });
+			context.Auctions.Add(new TestAuction { Title = "8",  CategoryId = 2, CreationDate = new DateTime(2013, 1, 12),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromMinutes(1)) });
 
-			context.Auctions.Add(new Auction { Title = "9",  CategoryId = 3, CreationDate = new DateTime(2015, 2, 1),
-			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
+			context.Auctions.Add(new TestAuction { Title = "9",  CategoryId = 3, CreationDate = new DateTime(2015, 2, 1),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
 
-			context.Auctions.Add(new Auction { Title = "10", CategoryId = 5, CreationDate = new DateTime(2014, 4, 30),
-			                                   EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
+			context.Auctions.Add(new TestAuction { Title = "10", CategoryId = 5, CreationDate = new DateTime(2014, 4, 30),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
 			context.SaveChanges();
 		}
 
