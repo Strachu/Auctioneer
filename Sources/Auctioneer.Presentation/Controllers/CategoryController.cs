@@ -23,7 +23,7 @@ namespace Auctioneer.Presentation.Controllers
 			mAuctionService  = auctionService;
 		}
 
-		[Route("Category/{id}")]
+		[Route("Category/{id}/{slug}")]
 		public async Task<ActionResult> Index(int id)
 		{
 			var category = await mCategoryService.GetCategoryById(id);

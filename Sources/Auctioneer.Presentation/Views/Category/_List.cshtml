@@ -5,7 +5,7 @@
 	<ul>
 		@foreach(var category in Model.Categories)
 		{
-			<li>@Html.ActionLink(category.Name, "Index", new { id = category.Id })</li>
+			<li>@Html.ActionLinkWithSlug(category.Name, "Index", routeValues: new { id = category.Id })</li>
 		}
 	</ul>
 </nav>
