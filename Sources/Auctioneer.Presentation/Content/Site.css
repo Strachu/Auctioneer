@@ -70,11 +70,31 @@ section, nav, main
 {
 	background-color: #dddddd;
 	margin-bottom   : 5px;
-	height          : 75px;
+	display         : flex;
 	position        : relative;
 }
 
-.auction-list article h1
+.auction-list article .thumbnail
+{
+	background-color: #dddddd;
+	width           : 100px;
+	height          : 100px;
+}
+
+.thumbnail img
+{
+	position   : relative;
+	top        : 50%;
+	transform  : translateY(-50%);	
+}
+
+.auction-list article .auction-info
+{
+	flex     : 1 1 auto;
+	position : relative;
+}
+
+.auction-info h1
 {
 	font-size  : 175%;
 	margin-left: 10px;
@@ -86,7 +106,7 @@ section, nav, main
 	transform  : translateY(-50%);
 }
 
-.auction-list .price
+.auction-info .price
 {
 	font-size  : 120%;
 	color      : red;
@@ -95,11 +115,11 @@ section, nav, main
 	
 	position   : absolute;
 	top        : 50%;
-	right      : 5%;
+	right      : 10%;
 	transform  : translateY(-50%);
 }
 
-.auction-list .time-till-end
+.auction-info .time-till-end
 {
 	color      : black;
 	display    : inline-block;

@@ -134,6 +134,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\TimeSpanFormatter.cs" />
+    <Compile Include="Helpers\UrlHelper.Extensions.cs" />
     <Compile Include="Models\Category\AuctionViewModel.cs" />
     <Compile Include="Models\Category\CategoryIndexViewModel.cs" />
     <Compile Include="Models\Category\CategoryListViewModel.cs" />
