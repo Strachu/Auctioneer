@@ -187,6 +187,7 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\_List.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\TimeSpan.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AuctionViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

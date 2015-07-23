@@ -4,36 +4,14 @@
     ViewBag.Title = "Index";
 }
 
-<div style="width:100%; display:flex;">
-    
+<div class="category-auction-container">
+
 	@{ Html.RenderPartial("_List", Model.Category); }
-    
-    <table style="width:100%">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(x => x.Auctions.First().Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(x => x.Auctions.First().Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(x => x.Auctions.First().TimeTillEnd)
-            </th>
-        </tr>
-        @foreach(var auction in Model.Auctions)
-        {
-            <tr>
-                <td>
-                    <a href="@Url.Action("Show", "Auction", new { id = auction.Id })">@Html.DisplayFor(x => auction.Title)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(x => auction.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(x => auction.TimeTillEnd)
-                </td>
-            </tr>
-        }
-    </table>
+	
+	<main class="auction-list">
+		@Html.DisplayFor(x => x.Auctions)
+	</main>
 </div>
+
+
 

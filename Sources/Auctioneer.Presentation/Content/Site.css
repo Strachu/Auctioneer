@@ -1,10 +1,32 @@
-﻿.category-list
+﻿.page-body
+{
+	margin-top: 70px;
+}
+
+.jumbotron
+{
+	padding-top:    10px;
+	padding-bottom: 10px;
+	margin-bottom:  20px;
+}
+
+section, nav, main
 {
 	background-color: #eeeeee;
+	border-radius   : 10px;		
+}
+
+.category-auction-container
+{
+	display: flex;
+	width  : 100%;
+}
+
+.category-list
+{
 	width           : 200px;
 	padding         : 0;
 	margin-right    : 10px;
-	border-radius   : 4%;
 }
 
 .category-list h1
@@ -30,4 +52,65 @@
 .category-list a:hover
 {
 	color: #00cc00;
+}
+
+.auction-list
+{
+	flex: auto;
+}
+
+.auction-list > h1
+{
+	font-size  : 160%;
+	margin-top : 3px;
+	text-align : center;
+}
+
+.auction-list article
+{
+	background-color: #dddddd;
+	margin-bottom   : 5px;
+	height          : 75px;
+	position        : relative;
+}
+
+.auction-list article h1
+{
+	font-size  : 175%;
+	margin-left: 10px;
+	margin-top : 0;
+	display    : inline-block;
+
+	position   : absolute;
+	top        : 50%;
+	transform  : translateY(-50%);
+}
+
+.auction-list .price
+{
+	font-size  : 120%;
+	color      : red;
+	font-weight: bold;
+	display    : inline-block;
+	
+	position   : absolute;
+	top        : 50%;
+	right      : 5%;
+	transform  : translateY(-50%);
+}
+
+.auction-list .time-till-end
+{
+	color      : black;
+	display    : inline-block;
+
+	position   : absolute;
+	bottom     : 0;
+	left       : 0;
+	margin-left: 30px;
+}
+
+footer
+{
+	text-align: center;
 }

@@ -61,6 +61,15 @@ namespace Auctioneer.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ending in .
+        /// </summary>
+        public static string Auction_EndingIn {
+            get {
+                return ResourceManager.GetString("Auction_EndingIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categories:.
         /// </summary>
         public static string Categories_Header {

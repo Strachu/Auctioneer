@@ -1,47 +1,23 @@
-﻿@model IEnumerable<Auctioneer.Presentation.Models.AuctionViewModel>
+﻿@model IEnumerable<AuctionViewModel>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Welcome";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Auctioneer</h1>
+    <p class="lead">Auctioneer is a platform for buying and selling anything you want.</p>
 </div>
 
-<div style="width:100%; display:flex;">
+<div class="category-auction-container">
 	
 	@{ Html.RenderAction("TopCategories", "Category"); }
 	
-    <main style="flex: auto">
-	 	<div style="text-align:center; width:100%">@Resources.MostRecentAuctions</div>
-        <table style="width:100%">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(x => x.First().Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(x => x.First().Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(x => x.First().TimeTillEnd)
-                </th>
-            </tr>
-            @foreach(var auction in Model)
-            {
-                <tr>
-                    <td>
-                        <a href="@Url.Action("Show", "Auction", new { id = auction.Id })">@Html.DisplayFor(x => auction.Title)</a>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(x => auction.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(x => auction.TimeTillEnd)
-                    </td>
-                </tr>
-            }
-        </table>
-    </main>
+	<main class="auction-list">
+		
+		<h1>@Resources.MostRecentAuctions</h1>
+
+		@Html.DisplayForModel();
+
+	</main>
 </div>

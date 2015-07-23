@@ -1,0 +1,17 @@
+﻿@model AuctionViewModel
+
+<a href="@Url.Action("Show", "Auction", new { id = Model.Id })">
+	<article>
+		<h1>
+			@Html.DisplayFor(x => Model.Title)
+		</h1>
+
+		<div class="price">
+			@Html.DisplayFor(x => Model.Price)
+		</div>
+
+		<div class="time-till-end">
+			@Resources.Auction_EndingIn @Html.DisplayFor(x => Model.TimeTillEnd)
+		</div>
+	</article>
+</a>
