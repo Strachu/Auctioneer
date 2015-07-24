@@ -18,7 +18,10 @@ namespace Auctioneer.Logic.Auctions
 			mContext = context;
 		}
 
-		public Task<IPagedList<Auction>> GetActiveAuctionsInCategory(int categoryId, int pageIndex, int auctionsPerPage)
+		public Task<IPagedList<Auction>> GetActiveAuctionsInCategory(int categoryId,
+		                                                             AuctionSortOrder sortBy,
+		                                                             int pageIndex,
+		                                                             int auctionsPerPage)
 		{
 			var auctions = from auction      in mContext.Auctions
 			               from rootCategory in mContext.Categories
@@ -26,11 +29,36 @@ namespace Auctioneer.Logic.Auctions
 
 			               join category in mContext.Categories
 			               on auction.CategoryId equals category.Id
+			               where auction.EndDate > DateTime.Now
 
 			               where category.Left >= rootCategory.Left && category.Right <= rootCategory.Right
 			               select auction;
 
-			return Task.FromResult(auctions.Where(x => x.EndDate > DateTime.Now).OrderBy(x => x.Id).ToPagedList(pageIndex, auctionsPerPage));
+			switch(sortBy)
+			{
+				case AuctionSortOrder.TitleAscending:
+					auctions = auctions.OrderBy(x => x.Title);
+					break;
+				case AuctionSortOrder.TitleDescending:
+					auctions = auctions.OrderByDescending(x => x.Title);
+					break;
+
+				default: // AuctionSortOrder.EndDateAscending
+					auctions = auctions.OrderBy(x => x.EndDate);
+					break;
+				case AuctionSortOrder.EndDateDescending:
+					auctions = auctions.OrderByDescending(x => x.EndDate);
+					break;
+
+				case AuctionSortOrder.PriceAscending:
+					auctions = auctions.OrderBy(x => x.Price);
+					break;
+				case AuctionSortOrder.PriceDescending:
+					auctions = auctions.OrderByDescending(x => x.Price);
+					break;
+			}
+
+			return Task.FromResult(auctions.ToPagedList(pageIndex, auctionsPerPage));
 		}
 
 		public async Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults)

@@ -59,6 +59,35 @@ section, nav, main
 	flex: auto;
 }
 
+.auction-list .sorting-property-selector
+{
+	font-size    : 120%;
+	margin-top   : 3px;
+	margin-bottom: 3px;
+
+	text-align   : center;
+}
+
+.auction-list .sorting-property-selector > li
+{
+	display: inline;
+}
+
+.auction-list .sorting-property-selector > li:not(:first-child):before
+{
+	content: "|";
+}
+
+.auction-list .sorting-property-selector a:hover
+{
+	text-decoration: none;
+}
+
+.auction-list .sorting-property-selector .active
+{
+	font-weight: bold;
+}
+
 .auction-list > h1
 {
 	font-size  : 160%;

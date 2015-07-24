@@ -88,7 +88,10 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[Test]
 		public async Task GetActiveAuctionsInCategory_ReturnsOnlyAuctionsFromSpecifiedCategory()
 		{
-			var auctions = await mTestedService.GetActiveAuctionsInCategory(categoryId: 6, pageIndex: 1, auctionsPerPage: 100);
+			var auctions = await mTestedService.GetActiveAuctionsInCategory(categoryId: 6,
+			                                                                sortBy: AuctionSortOrder.TitleAscending,
+			                                                                pageIndex: 1,
+			                                                                auctionsPerPage: 100);
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
 			var expectedAuctionTitles = new string[] { "2", "3" };
@@ -99,10 +102,13 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[Test]
 		public async Task GetActiveAuctionsInCategory_ReturnsCategoriesCorrectlyPaged()
 		{
-			var auctions = await mTestedService.GetActiveAuctionsInCategory(categoryId: 1, pageIndex: 2, auctionsPerPage: 2);
+			var auctions = await mTestedService.GetActiveAuctionsInCategory(categoryId: 1,
+			                                                                sortBy: AuctionSortOrder.TitleAscending,
+			                                                                pageIndex: 2,
+			                                                                auctionsPerPage: 2);
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
-			var expectedAuctionTitles = new string[] { "7", "8" };
+			var expectedAuctionTitles = new string[] { "5", "7" };
 
 			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
 		}
@@ -110,7 +116,10 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[Test]
 		public async Task GetActiveAuctionsInCategory_ReturnsOnlyAuctionsWhoseEndDateIsGreateThanCurrentDate()
 		{
-			var auctions = await mTestedService.GetActiveAuctionsInCategory(categoryId: 2, pageIndex: 1, auctionsPerPage: 100);
+			var auctions = await mTestedService.GetActiveAuctionsInCategory(categoryId: 2,
+			                                                                sortBy: AuctionSortOrder.TitleAscending,
+			                                                                pageIndex: 1,
+			                                                                auctionsPerPage: 100);
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
 			var expectedAuctionTitles = new string[] { "4", "5", "7", "8" };
@@ -121,7 +130,10 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[Test]
 		public async Task GetActiveAuctionsInCategory_ReturnsAlsoAuctionsFromSubcategories()
 		{
-			var auctions = await mTestedService.GetActiveAuctionsInCategory(categoryId: 1, pageIndex: 1, auctionsPerPage: 100);
+			var auctions = await mTestedService.GetActiveAuctionsInCategory(categoryId: 1,
+			                                                                sortBy: AuctionSortOrder.TitleAscending,
+			                                                                pageIndex: 1,
+			                                                                auctionsPerPage: 100);
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
 			var expectedAuctionTitles = new string[] { "4", "5", "7", "8", "9", "10" };

@@ -43,7 +43,7 @@ namespace Auctioneer.Presentation.Tests.Controllers
 			var fakePagedList = A.Fake<IPagedList<Auction>>();
 			A.CallTo(() => fakePagedList.PageNumber).Returns(1);
 			A.CallTo(() => fakePagedList.PageSize).Returns(1);
-			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(0, 0, 0)).WithAnyArguments().Returns(fakePagedList);
+			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(0, 0, 0, 0)).WithAnyArguments().Returns(fakePagedList);
 		}
 
 		[Test]
@@ -51,10 +51,9 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		{
 			A.CallTo(() => mRequestMock.Cookies).Returns(new HttpCookieCollection { new HttpCookie("pageSize", "30") });
 
-			await mTestedController.Index(id: 2, page: 2, pageSize: null);
+			await mTestedController.Index(id: 2, page: 2, pageSize: null, sortOrder: null);
 
-			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(A<int>.Ignored, A<int>.Ignored, 30))
-			 .MustHaveHappened();
+			AssertThatUsedPageSizeIsEqualTo(30);
 		}
 
 		[Test]
@@ -62,22 +61,18 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		{
 			A.CallTo(() => mRequestMock.Cookies).Returns(new HttpCookieCollection { new HttpCookie("pageSize", "30") });
 
-			await mTestedController.Index(id: 2, page: 2, pageSize: 40);
+			await mTestedController.Index(id: 2, page: 2, pageSize: 40, sortOrder: null);
 
-			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(A<int>.Ignored, A<int>.Ignored, 40))
-			 .MustHaveHappened();
+			AssertThatUsedPageSizeIsEqualTo(40);
 			A.CallTo(() => mResponseMock.SetCookie(A<HttpCookie>.That.Matches(x => x.Value == "40")));
 		}
 
 		[Test]
 		public async Task DoNotAllowMoreThan50ResultsPerPage()
 		{
-			var maxAllowedResultsPerPage = 50;
+			await mTestedController.Index(id: 2, page: 2, pageSize: 1000, sortOrder: null);
 
-			await mTestedController.Index(id: 2, page: 2, pageSize: 1000);
-
-			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(A<int>.Ignored, A<int>.Ignored, maxAllowedResultsPerPage))
-			 .MustHaveHappened();
+			AssertThatUsedPageSizeIsEqualTo(50);
 		}
 
 		[Test]
@@ -85,11 +80,17 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		{
 			A.CallTo(() => mRequestMock.Cookies).Returns(new HttpCookieCollection { new HttpCookie("pageSize", "1000") });
 
-			var maxAllowedResultsPerPage = 50;
+			await mTestedController.Index(id: 2, page: 2, pageSize: null, sortOrder: null);
 
-			await mTestedController.Index(id: 2, page: 2, pageSize: null);
+			AssertThatUsedPageSizeIsEqualTo(50);
+		}
 
-			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(A<int>.Ignored, A<int>.Ignored, maxAllowedResultsPerPage))
+		private void AssertThatUsedPageSizeIsEqualTo(int expectedPageSize)
+		{
+			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(A<int>._,
+			                                                               A<AuctionSortOrder>._,
+			                                                               A<int>._,
+			                                                               expectedPageSize))
 			 .MustHaveHappened();
 		}
 	}

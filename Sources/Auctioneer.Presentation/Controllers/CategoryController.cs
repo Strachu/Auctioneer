@@ -34,7 +34,7 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[Route("Category/{id}/{slug}")]
-		public async Task<ActionResult> Index(int id, int? page, int? pageSize)
+		public async Task<ActionResult> Index(int id, int? page, int? pageSize, AuctionSortOrder? sortOrder)
 		{
 			if(pageSize == null)
 			{
@@ -52,12 +52,13 @@ namespace Auctioneer.Presentation.Controllers
 				mResponse.SetCookie(new HttpCookie(COOKIE_PAGE_SIZE_KEY, pageSize.ToString()));
 			}
 
-			pageSize = Math.Min(pageSize.Value, MAX_PAGE_SIZE);
+			pageSize  = Math.Min(pageSize.Value, MAX_PAGE_SIZE);
+			sortOrder = sortOrder ?? AuctionSortOrder.EndDateAscending;
 
 			var categories = await mCategoryService.GetSubcategories(parentCategoryId: id);
-			var auctions   = await mAuctionService.GetActiveAuctionsInCategory(id, page ?? 1, pageSize.Value);
+			var auctions   = await mAuctionService.GetActiveAuctionsInCategory(id, sortOrder.Value, page ?? 1, pageSize.Value);
 
-			return View(CategoryIndexViewModelMapper.FromCategoriesAndAuctions(categories, auctions));
+			return View(CategoryIndexViewModelMapper.FromCategoriesAndAuctions(categories, auctions, sortOrder.Value));
 		}
 
 		[ChildActionOnly]

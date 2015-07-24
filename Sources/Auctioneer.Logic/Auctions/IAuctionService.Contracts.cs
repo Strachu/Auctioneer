@@ -12,7 +12,10 @@ namespace Auctioneer.Logic.Auctions
 	[ContractClassFor(typeof(IAuctionService))]
 	internal abstract class IAuctionServiceContractClass : IAuctionService
 	{
-		Task<IPagedList<Auction>> IAuctionService.GetActiveAuctionsInCategory(int categoryId, int pageIndex, int auctionsPerPage)
+		Task<IPagedList<Auction>> IAuctionService.GetActiveAuctionsInCategory(int categoryId,
+		                                                                      AuctionSortOrder sortBy,
+		                                                                      int pageIndex,
+		                                                                      int auctionsPerPage)
 		{
 			Contract.Requires(pageIndex >= 1);
 			Contract.Requires(auctionsPerPage >= 1);

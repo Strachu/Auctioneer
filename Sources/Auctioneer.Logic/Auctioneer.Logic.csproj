@@ -69,6 +69,7 @@
     <Compile Include="Auctions\Auction.cs" />
     <Compile Include="Auctions\AuctionMapping.cs" />
     <Compile Include="Auctions\AuctionService.cs" />
+    <Compile Include="Auctions\AuctionSortOrder.cs" />
     <Compile Include="Auctions\IAuctionService.Contracts.cs">
       <DependentUpon>IAuctionService.cs</DependentUpon>
     </Compile>

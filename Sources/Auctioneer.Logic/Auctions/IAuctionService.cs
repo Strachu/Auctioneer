@@ -12,7 +12,11 @@ namespace Auctioneer.Logic.Auctions
 	[ContractClass(typeof(IAuctionServiceContractClass))]
 	public interface IAuctionService
 	{
-		Task<IPagedList<Auction>> GetActiveAuctionsInCategory(int categoryId, int pageIndex, int auctionsPerPage);
+		Task<IPagedList<Auction>> GetActiveAuctionsInCategory(int categoryId,
+		                                                      AuctionSortOrder sortBy,
+		                                                      int pageIndex,
+		                                                      int auctionsPerPage);
+
 		Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults);
 	}
 }

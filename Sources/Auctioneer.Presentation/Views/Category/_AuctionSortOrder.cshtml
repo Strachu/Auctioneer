@@ -1,0 +1,55 @@
+﻿@model CategoryIndexViewModel
+
+@using Auctioneer.Logic.Auctions
+
+@helper ActiveLink(string title, AuctionSortOrder oppositeSortOrder, bool isAscending)
+{
+	var url = Url.Action("Index", new
+	{
+		sortOrder = oppositeSortOrder,
+		pageSize  = Model.Auctions.PageSize
+	});
+	
+	var glyphclass = isAscending ? "glyphicon-chevron-up" : "glyphicon-chevron-down";
+	
+	<li class="active">
+		<a href="@url">
+			@title <span class="glyphicon @glyphclass"></span>
+		</a>
+	</li>
+}
+
+<ul class="sorting-property-selector">
+	@Resources.AuctionList_SortBy
+	@{
+		var options = new Dictionary<string, AuctionSortOrder[]>
+		{
+			{ Resources.AuctionList_Title,     new [] { AuctionSortOrder.TitleAscending,   AuctionSortOrder.TitleDescending }},
+			{ Resources.AuctionList_TimeToEnd, new [] { AuctionSortOrder.EndDateAscending, AuctionSortOrder.EndDateDescending }},
+			{ Resources.AuctionList_Price,     new [] { AuctionSortOrder.PriceAscending,   AuctionSortOrder.PriceDescending }}
+		};
+
+		foreach(var sortOption in options)
+		{
+			if(Model.CurrentSortOrder == sortOption.Value[0])
+			{
+				@ActiveLink(sortOption.Key, sortOption.Value[1], isAscending: true)
+			}
+			else if(Model.CurrentSortOrder == sortOption.Value[1])
+			{
+				@ActiveLink(sortOption.Key, sortOption.Value[0], isAscending: false)
+			}
+			else
+			{
+				<li>
+					@Html.ActionLink(sortOption.Key, "Index", new
+					{
+						sortOrder = sortOption.Value[0],
+						pageSize  = Model.Auctions.PageSize
+					})
+				</li>
+			}
+		}
+	}
+</ul>
+

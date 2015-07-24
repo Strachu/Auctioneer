@@ -79,11 +79,47 @@ namespace Auctioneer.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Price.
+        /// </summary>
+        public static string AuctionList_Price {
+            get {
+                return ResourceManager.GetString("AuctionList_Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Results per page:.
         /// </summary>
         public static string AuctionList_ResultsPerPage {
             get {
                 return ResourceManager.GetString("AuctionList_ResultsPerPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by:.
+        /// </summary>
+        public static string AuctionList_SortBy {
+            get {
+                return ResourceManager.GetString("AuctionList_SortBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time to end.
+        /// </summary>
+        public static string AuctionList_TimeToEnd {
+            get {
+                return ResourceManager.GetString("AuctionList_TimeToEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string AuctionList_Title {
+            get {
+                return ResourceManager.GetString("AuctionList_Title", resourceCulture);
             }
         }
         

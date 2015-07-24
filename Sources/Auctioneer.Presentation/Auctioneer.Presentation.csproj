@@ -202,6 +202,7 @@
     <Content Include="Views\Shared\DisplayTemplates\TimeSpan.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\AuctionViewModel.cshtml" />
     <Content Include="Views\Category\_AuctionPagination.cshtml" />
+    <Content Include="Views\Category\_AuctionSortOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
