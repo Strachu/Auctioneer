@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using PagedList;
+
 namespace Auctioneer.Logic.Auctions
 {
 	[ContractClass(typeof(IAuctionServiceContractClass))]
 	public interface IAuctionService
 	{
-		Task<IEnumerable<Auction>> GetActiveAuctionsInCategory(int categoryId);
+		Task<IPagedList<Auction>> GetActiveAuctionsInCategory(int categoryId, int pageIndex, int auctionsPerPage);
 		Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults);
 	}
 }

@@ -5,13 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using PagedList;
+
 namespace Auctioneer.Logic.Auctions
 {
 	[ContractClassFor(typeof(IAuctionService))]
 	internal abstract class IAuctionServiceContractClass : IAuctionService
 	{
-		Task<IEnumerable<Auction>> IAuctionService.GetActiveAuctionsInCategory(int categoryId)
+		Task<IPagedList<Auction>> IAuctionService.GetActiveAuctionsInCategory(int categoryId, int pageIndex, int auctionsPerPage)
 		{
+			Contract.Requires(pageIndex >= 1);
+			Contract.Requires(auctionsPerPage >= 1);
+
 			throw new NotImplementedException();
 		}
 

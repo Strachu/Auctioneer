@@ -12,6 +12,9 @@ namespace Auctioneer.Presentation.Controllers
 {
 	public class CategoryController : Controller
 	{
+		private const int DEFAULT_PAGE_SIZE = 20;
+		private const int MAX_PAGE_SIZE     = 50;
+
 		private readonly ICategoryService mCategoryService;
 		private readonly IAuctionService  mAuctionService;
 
@@ -22,10 +25,12 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[Route("Category/{id}/{slug}")]
-		public async Task<ActionResult> Index(int id)
+		public async Task<ActionResult> Index(int id, int? page, int? pageSize)
 		{
+			pageSize = Math.Min(pageSize ?? DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE);
+
 			var categories = await mCategoryService.GetSubcategories(parentCategoryId: id);
-			var auctions   = await mAuctionService.GetActiveAuctionsInCategory(id);
+			var auctions   = await mAuctionService.GetActiveAuctionsInCategory(id, page ?? 1, pageSize.Value);
 
 			return View(CategoryIndexViewModelMapper.FromCategoriesAndAuctions(categories, auctions));
 		}

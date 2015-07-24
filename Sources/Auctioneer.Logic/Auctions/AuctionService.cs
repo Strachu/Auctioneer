@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using PagedList;
+
 namespace Auctioneer.Logic.Auctions
 {
 	public class AuctionService : IAuctionService
@@ -16,7 +18,7 @@ namespace Auctioneer.Logic.Auctions
 			mContext = context;
 		}
 
-		public async Task<IEnumerable<Auction>> GetActiveAuctionsInCategory(int categoryId)
+		public Task<IPagedList<Auction>> GetActiveAuctionsInCategory(int categoryId, int pageIndex, int auctionsPerPage)
 		{
 			var auctions = from auction      in mContext.Auctions
 			               from rootCategory in mContext.Categories
@@ -28,7 +30,7 @@ namespace Auctioneer.Logic.Auctions
 			               where category.Left >= rootCategory.Left && category.Right <= rootCategory.Right
 			               select auction;
 
-			return await auctions.Where(x => x.EndDate > DateTime.Now).ToListAsync();
+			return Task.FromResult(auctions.Where(x => x.EndDate > DateTime.Now).OrderBy(x => x.Id).ToPagedList(pageIndex, auctionsPerPage));
 		}
 
 		public async Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults)

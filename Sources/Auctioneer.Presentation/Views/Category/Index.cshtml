@@ -1,4 +1,4 @@
-﻿@model Auctioneer.Presentation.Models.CategoryIndexViewModel
+﻿@model CategoryIndexViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -9,7 +9,10 @@
 	@{ Html.RenderPartial("_List", Model.Category); }
 	
 	<main class="auction-list">
+		
 		@Html.DisplayFor(x => x.Auctions)
+		@{ Html.RenderPartial("_AuctionPagination", Model.Auctions); }
+
 	</main>
 </div>
 

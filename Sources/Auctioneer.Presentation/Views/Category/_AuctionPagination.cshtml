@@ -1,0 +1,35 @@
+﻿@model PagedList.IPagedList<AuctionViewModel>
+
+<div class="pagination-box">
+	<span class="page-text">@Resources.AuctionList_PageNumber</span>
+
+	@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, pageSize = Model.PageSize }),
+	                     new PagedListRenderOptions
+	                     {
+	                        MaximumPageNumbersToDisplay = 5
+	                     })
+
+	<span class="results-per-page-selector">
+		@Resources.AuctionList_ResultsPerPage
+
+		@{
+			var options = new int[] { 10, 20, 50 };
+			foreach(var pageSize in options)
+			{
+				if(pageSize == Model.PageSize)
+				{
+					@Html.Raw(pageSize)
+				}
+				else
+				{
+					@Html.ActionLink(pageSize.ToString(), "Index", new { pageSize = pageSize })
+				}
+
+				if(pageSize != options.Last())
+				{
+					@Html.Raw(", ");
+				}
+			}
+		}
+	</span>
+</div>

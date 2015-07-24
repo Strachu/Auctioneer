@@ -16,6 +16,8 @@ using FakeItEasy;
 
 using NUnit.Framework;
 
+using PagedList;
+
 namespace Auctioneer.Presentation.Tests.Controllers
 {
 	[TestFixture]
@@ -32,6 +34,22 @@ namespace Auctioneer.Presentation.Tests.Controllers
 			mAuctionServiceMock  = A.Fake<IAuctionService>();
 
 			mTestedController = new CategoryController(mCategoryServiceMock, mAuctionServiceMock);
+		}
+
+		[Test]
+		public async Task DoNotAllowMoreThan50ResultsPerPage()
+		{
+			var fakePagedList = A.Fake<IPagedList<Auction>>();
+			A.CallTo(() => fakePagedList.PageNumber).Returns(1);
+			A.CallTo(() => fakePagedList.PageSize).Returns(1);
+			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(0, 0, 0)).WithAnyArguments().Returns(fakePagedList);
+
+			var maxAllowedResultsPerPage = 50;
+
+			await mTestedController.Index(id: 2, page: 2, pageSize: 1000);
+
+			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(A<int>.Ignored, A<int>.Ignored, maxAllowedResultsPerPage))
+			 .MustHaveHappened();
 		}
 	}
 }

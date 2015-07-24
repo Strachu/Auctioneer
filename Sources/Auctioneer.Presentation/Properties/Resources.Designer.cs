@@ -70,6 +70,24 @@ namespace Auctioneer.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page: .
+        /// </summary>
+        public static string AuctionList_PageNumber {
+            get {
+                return ResourceManager.GetString("AuctionList_PageNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results per page:.
+        /// </summary>
+        public static string AuctionList_ResultsPerPage {
+            get {
+                return ResourceManager.GetString("AuctionList_ResultsPerPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categories:.
         /// </summary>
         public static string Categories_Header {
