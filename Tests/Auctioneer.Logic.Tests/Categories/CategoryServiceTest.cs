@@ -98,32 +98,30 @@ namespace Auctioneer.Logic.Tests.Categories
 			var returnedCategoryNames = categories.Select(x => x.Name);
 			var expectedCategoryNames = new string[] { "Computers", "Software" };
 
-			Assert.That(returnedCategoryNames, Is.EquivalentTo(expectedCategoryNames));
+			Assert.That(returnedCategoryNames, Is.EqualTo(expectedCategoryNames));
 		}
 
 		[Test]
 		public async Task GetTopLevelCategories_ReturnsAlsoCorrectInfoAboutAuctionCount()
 		{
-			var categories = await mTestedService.GetTopLevelCategories();
+			var categories = (await mTestedService.GetTopLevelCategories()).ToDictionary(x => x.Name);
 
-			var returnedAuctionCount = categories.Select(x => x.AuctionCount);
-			var expectedAuctionCount = new int[] { 17, 15 };
-
-			Assert.That(returnedAuctionCount, Is.EqualTo(expectedAuctionCount));
+			Assert.That(categories["Computers"].AuctionCount, Is.EqualTo(17));
+			Assert.That(categories["Software"].AuctionCount,  Is.EqualTo(15));
 		}
 
 		[Test]
-		public async Task GetSubcategories_ReturnsTheCorrectSubcategories()
+		public async Task GetSubcategories_ReturnsTheCorrectSubcategoriesInAlphabeticalOrder()
 		{
 			var categories = await mTestedService.GetSubcategories(4);
 
 			var returnedSubCategoryNames = categories.Select(x => x.Name);
 			var expectedSubCategoryNames = new string[]
 			{
-				"Hard drives", "Graphics cards", "Motherboards", "Processors", "RAM memory", "Power supplies", "Cases"
+				"Cases", "Graphics cards", "Hard drives", "Motherboards", "Power supplies", "Processors", "RAM memory", 
 			};
 
-			Assert.That(returnedSubCategoryNames, Is.EquivalentTo(expectedSubCategoryNames));
+			Assert.That(returnedSubCategoryNames, Is.EqualTo(expectedSubCategoryNames));
 		}
 
 		[Test]
@@ -140,12 +138,12 @@ namespace Auctioneer.Logic.Tests.Categories
 		[Test]
 		public async Task GetSubcategories_ReturnsAlsoCorrectInfoAboutAuctionCount()
 		{
-			var categories = await mTestedService.GetSubcategories(12);
+			var categories = (await mTestedService.GetSubcategories(12)).ToDictionary(x => x.Name);
 
-			var returnedAuctionCount = categories.Select(x => x.AuctionCount);
-			var expectedAuctionCount = new int[] { 0, 2, 0, 10 };
-
-			Assert.That(returnedAuctionCount, Is.EqualTo(expectedAuctionCount));
+			Assert.That(categories["Operating systems"].AuctionCount, Is.EqualTo(0));
+			Assert.That(categories["Office"].AuctionCount,            Is.EqualTo(2));
+			Assert.That(categories["Security"].AuctionCount,          Is.EqualTo(0));
+			Assert.That(categories["Games"].AuctionCount,             Is.EqualTo(10));
 		}
 	}
 }

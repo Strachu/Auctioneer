@@ -42,6 +42,7 @@ namespace Auctioneer.Logic.Categories
 			            from auction in outerJoin.Where(x => x.EndDate > DateTime.Now).DefaultIfEmpty()
 
 			            group auction by rootCategory into auctionByRootCategory
+			            orderby auctionByRootCategory.Key.Name ascending
 			            select new
 			            {
 			               Category     = auctionByRootCategory.Key,

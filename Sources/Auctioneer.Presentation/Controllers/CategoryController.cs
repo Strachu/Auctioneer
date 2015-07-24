@@ -29,8 +29,6 @@ namespace Auctioneer.Presentation.Controllers
 			var categories = await mCategoryService.GetSubcategories(parentCategoryId: id);
 			var auctions   = await mAuctionService.GetActiveAuctionsInCategory(id);
 
-			categories = categories.OrderBy(x => x.Name);
-
 			var viewModels = new CategoryIndexViewModel
 			{
 				Category = new CategoryListViewModel
@@ -59,7 +57,6 @@ namespace Auctioneer.Presentation.Controllers
 		public PartialViewResult TopCategories()
 		{
 			var categories = mCategoryService.GetTopLevelCategories().Result;
-			categories     = categories.OrderBy(x => x.Name);
 
 			var viewModels = new CategoryListViewModel
 			{
