@@ -136,6 +136,9 @@
     <Compile Include="Helpers\HtmlHelper.Extensions.cs" />
     <Compile Include="Helpers\TimeSpanFormatter.cs" />
     <Compile Include="Helpers\UrlHelper.Extensions.cs" />
+    <Compile Include="Mappers\Category\AuctionViewModelMapper.cs" />
+    <Compile Include="Mappers\Category\CategoryIndexViewModelMapper.cs" />
+    <Compile Include="Mappers\Category\CategoryListViewModelMapper.cs" />
     <Compile Include="Models\Category\AuctionViewModel.cs" />
     <Compile Include="Models\Category\CategoryIndexViewModel.cs" />
     <Compile Include="Models\Category\CategoryListViewModel.cs" />

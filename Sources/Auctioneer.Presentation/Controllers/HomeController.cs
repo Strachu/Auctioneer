@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
-using Auctioneer.Presentation.Models;
+using Auctioneer.Presentation.Mappers.Category;
 
 namespace Auctioneer.Presentation.Controllers
 {
@@ -21,15 +21,8 @@ namespace Auctioneer.Presentation.Controllers
 
 		public async Task<ActionResult> Index()
 		{
-			var auctions = await mAuctionService.GetRecentAuctions(maxResults: 20);
-
-			var viewModels = auctions.Select(x => new AuctionViewModel
-			{
-				Id          = x.Id,
-				Title       = x.Title,
-				Price       = x.Price,
-				TimeTillEnd = x.EndDate - DateTime.Now
-			});
+			var auctions   = await mAuctionService.GetRecentAuctions(maxResults: 20);
+			var viewModels = auctions.Select(AuctionViewModelMapper.FromAuction);
 
 			return View(viewModels);
 		}
