@@ -37,18 +37,15 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		[Test]
 		public async Task TheCategoriesReturnedByTheControllerAreSortedAlphabetically()
 		{
-			var category = new Category
+			var categories = new Category[]
 			{
-				SubCategories = new Category[]
-				{
-					new Category { Name = "2FirstCategory" },
-					new Category { Name = "1SecondCategory" },
-					new Category { Name = "3LastCategory" },
-					new Category { Name = "ZZZZ" }
-				}
+				new Category { Name = "2FirstCategory" },
+				new Category { Name = "1SecondCategory" },
+				new Category { Name = "3LastCategory" },
+				new Category { Name = "ZZZZ" }
 			};
 
-			A.CallTo(() => mCategoryServiceMock.GetCategoryById(A<int>.Ignored)).Returns(category);
+			A.CallTo(() => mCategoryServiceMock.GetSubcategories(A<int>.Ignored)).Returns(categories);
 
 			var returnedViewModel  = await mTestedController.Index(2).GetModel<CategoryIndexViewModel>();
 			var returnedCategories = returnedViewModel.Category.Categories;

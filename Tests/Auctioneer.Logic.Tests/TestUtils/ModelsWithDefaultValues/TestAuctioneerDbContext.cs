@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,9 @@ namespace Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues
 			// A bit hacky way to provide default values for properties not needed for tests but still satisfy constraints.
 			modelBuilder.RegisterEntityType(typeof(TestAuction));
 			modelBuilder.RegisterEntityType(typeof(TestCategory));
+
+			modelBuilder.Entity<TestAuction>().Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+			modelBuilder.Entity<TestCategory>().Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 		}
 	}
 }

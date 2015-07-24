@@ -10,8 +10,11 @@ namespace Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues
 {
 	internal class TestCategory : Category
 	{
+		private static int nextId = 1;
+
 		public TestCategory()
 		{
+			Id   = nextId++;
 			Name = "Not important";
 		}
 	}

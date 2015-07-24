@@ -26,10 +26,10 @@ namespace Auctioneer.Presentation.Controllers
 		[Route("Category/{id}/{slug}")]
 		public async Task<ActionResult> Index(int id)
 		{
-			var category = await mCategoryService.GetCategoryById(id);
-			var auctions = await mAuctionService.GetActiveAuctionsInCategory(id);
+			var categories = await mCategoryService.GetSubcategories(parentCategoryId: id);
+			var auctions   = await mAuctionService.GetActiveAuctionsInCategory(id);
 
-			var categories = category.SubCategories.OrderBy(x => x.Name);
+			categories = categories.OrderBy(x => x.Name);
 
 			var viewModels = new CategoryIndexViewModel
 			{
@@ -37,8 +37,9 @@ namespace Auctioneer.Presentation.Controllers
 				{
 					Categories = categories.Select(x => new CategoryListViewModel.Category
 					{
-						Id   = x.Id,
-						Name = x.Name
+						Id           = x.Id,
+						Name         = x.Name,
+						AuctionCount = x.AuctionCount
 					}),
 				},
 
@@ -64,8 +65,9 @@ namespace Auctioneer.Presentation.Controllers
 			{
 				Categories = categories.Select(x => new CategoryListViewModel.Category
 				{
-					Id   = x.Id,
-					Name = x.Name
+					Id           = x.Id,
+					Name         = x.Name,
+					AuctionCount = x.AuctionCount
 				})
 			};
 

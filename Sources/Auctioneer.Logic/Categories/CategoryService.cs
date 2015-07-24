@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,14 +17,46 @@ namespace Auctioneer.Logic.Categories
 			mContext = context;
 		}
 
-		public async Task<IEnumerable<Category>> GetTopLevelCategories()
+		public Task<IEnumerable<Category>> GetTopLevelCategories()
 		{
-			return await mContext.Categories.Where(x => x.Parent == null).ToListAsync().ConfigureAwait(false);
+			return GetCategoriesAlongWithAuctionCount(x => x.ParentId == null);
 		}
 
-		public Task<Category> GetCategoryById(int categoryId)
+		public Task<IEnumerable<Category>> GetSubcategories(int parentCategoryId)
 		{
-			return mContext.Categories.FindAsync(categoryId);
+			return GetCategoriesAlongWithAuctionCount(x => x.ParentId == parentCategoryId);
+		}
+
+		private async Task<IEnumerable<Category>> GetCategoriesAlongWithAuctionCount(
+			Expression<Func<Category, bool>> categoryFilter)
+		{
+			var categories = mContext.Categories.Where(categoryFilter);
+
+			var query = from rootCategory in categories
+			            from subCategory  in mContext.Categories
+			            where subCategory.Left  >= rootCategory.Left &&
+			                  subCategory.Right <= rootCategory.Right
+
+			            join auction in mContext.Auctions
+			            on subCategory.Id equals auction.CategoryId into outerJoin
+			            from auction in outerJoin.Where(x => x.EndDate > DateTime.Now).DefaultIfEmpty()
+
+			            group auction by rootCategory into auctionByRootCategory
+			            select new
+			            {
+			               Category     = auctionByRootCategory.Key,
+			               AuctionCount = auctionByRootCategory.Count(x => x != null)
+			            };			
+
+			var categoriesWithAuctionCount = await query.ToListAsync().ConfigureAwait(false);
+
+			return categoriesWithAuctionCount.Select(x =>
+			{
+				var category = x.Category;
+
+				category.AuctionCount = x.AuctionCount;
+				return category;
+			});
 		}
 	}
 }

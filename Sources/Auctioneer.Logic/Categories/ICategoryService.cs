@@ -6,6 +6,6 @@ namespace Auctioneer.Logic.Categories
 	public interface ICategoryService
 	{
 		Task<IEnumerable<Category>> GetTopLevelCategories();
-		Task<Category> GetCategoryById(int categoryId);
+		Task<IEnumerable<Category>> GetSubcategories(int parentCategoryId);
 	}
 }

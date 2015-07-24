@@ -10,8 +10,11 @@ namespace Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues
 {
 	internal class TestAuction : Auction
 	{
+		private static int nextId = 1;
+
 		public TestAuction()
 		{
+			Id           = nextId++;
 			Title        = "Not important";
 			Description  = "Not important";
 

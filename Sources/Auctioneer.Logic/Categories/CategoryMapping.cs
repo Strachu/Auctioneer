@@ -18,6 +18,8 @@ namespace Auctioneer.Logic.Categories
 			base.HasKey(x => x.Id);
 			base.Property(x => x.Name).IsRequired();
 
+			base.Ignore(x => x.AuctionCount);
+
 			base.Property(x => x.Left).IsIndex();
 			base.Property(x => x.Right).IsIndex();
 		}
