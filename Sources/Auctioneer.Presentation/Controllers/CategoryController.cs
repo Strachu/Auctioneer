@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
@@ -12,22 +13,46 @@ namespace Auctioneer.Presentation.Controllers
 {
 	public class CategoryController : Controller
 	{
-		private const int DEFAULT_PAGE_SIZE = 20;
-		private const int MAX_PAGE_SIZE     = 50;
+		private const string COOKIE_PAGE_SIZE_KEY = "pageSize";
+		private const int    DEFAULT_PAGE_SIZE    = 20;
+		private const int    MAX_PAGE_SIZE        = 50;
 
 		private readonly ICategoryService mCategoryService;
 		private readonly IAuctionService  mAuctionService;
+		private readonly HttpRequestBase  mRequest;
+		private readonly HttpResponseBase mResponse;
 
-		public CategoryController(ICategoryService categoryService, IAuctionService auctionService)
+		public CategoryController(ICategoryService categoryService,
+		                          IAuctionService auctionService,
+		                          HttpRequestBase request,
+		                          HttpResponseBase response)
 		{
 			mCategoryService = categoryService;
 			mAuctionService  = auctionService;
+			mRequest         = request;
+			mResponse        = response;
 		}
 
 		[Route("Category/{id}/{slug}")]
 		public async Task<ActionResult> Index(int id, int? page, int? pageSize)
 		{
-			pageSize = Math.Min(pageSize ?? DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE);
+			if(pageSize == null)
+			{
+				if(mRequest.Cookies[COOKIE_PAGE_SIZE_KEY] != null)
+				{
+					pageSize = Int32.Parse(mRequest.Cookies[COOKIE_PAGE_SIZE_KEY].Value);
+				}
+				else
+				{
+					pageSize = DEFAULT_PAGE_SIZE;
+				}
+			}
+			else
+			{
+				mResponse.SetCookie(new HttpCookie(COOKIE_PAGE_SIZE_KEY, pageSize.ToString()));
+			}
+
+			pageSize = Math.Min(pageSize.Value, MAX_PAGE_SIZE);
 
 			var categories = await mCategoryService.GetSubcategories(parentCategoryId: id);
 			var auctions   = await mAuctionService.GetActiveAuctionsInCategory(id, page ?? 1, pageSize.Value);
