@@ -8,14 +8,16 @@ using System.Web.Mvc;
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Presentation.Mappers.Category;
+using Auctioneer.Presentation.Helpers;
 
 namespace Auctioneer.Presentation.Controllers
 {
 	public class CategoryController : Controller
 	{
-		private const string COOKIE_PAGE_SIZE_KEY = "pageSize";
-		private const int    DEFAULT_PAGE_SIZE    = 20;
-		private const int    MAX_PAGE_SIZE        = 50;
+		private const string COOKIE_SORT_ORDER_KEY = "sortOrder";
+		private const string COOKIE_PAGE_SIZE_KEY  = "pageSize";
+		private const int    DEFAULT_PAGE_SIZE     = 20;
+		private const int    MAX_PAGE_SIZE         = 50;
 
 		private readonly ICategoryService mCategoryService;
 		private readonly IAuctionService  mAuctionService;
@@ -36,24 +38,13 @@ namespace Auctioneer.Presentation.Controllers
 		[Route("Category/{id}/{slug}")]
 		public async Task<ActionResult> Index(int id, int? page, int? pageSize, AuctionSortOrder? sortOrder)
 		{
-			if(pageSize == null)
-			{
-				if(mRequest.Cookies[COOKIE_PAGE_SIZE_KEY] != null)
-				{
-					pageSize = Int32.Parse(mRequest.Cookies[COOKIE_PAGE_SIZE_KEY].Value);
-				}
-				else
-				{
-					pageSize = DEFAULT_PAGE_SIZE;
-				}
-			}
-			else
-			{
-				mResponse.SetCookie(new HttpCookie(COOKIE_PAGE_SIZE_KEY, pageSize.ToString()));
-			}
+			mResponse.SaveToCookieIfNotNull(COOKIE_PAGE_SIZE_KEY,  pageSize);
+			mResponse.SaveToCookieIfNotNull(COOKIE_SORT_ORDER_KEY, sortOrder);
+
+			pageSize  = pageSize  ?? mRequest.ReadIntFromCookie(COOKIE_PAGE_SIZE_KEY)                     ?? DEFAULT_PAGE_SIZE;
+			sortOrder = sortOrder ?? mRequest.ReadEnumFromCookie<AuctionSortOrder>(COOKIE_SORT_ORDER_KEY) ?? AuctionSortOrder.EndDateAscending;
 
 			pageSize  = Math.Min(pageSize.Value, MAX_PAGE_SIZE);
-			sortOrder = sortOrder ?? AuctionSortOrder.EndDateAscending;
 
 			var categories = await mCategoryService.GetSubcategories(parentCategoryId: id);
 			var auctions   = await mAuctionService.GetActiveAuctionsInCategory(id, sortOrder.Value, page ?? 1, pageSize.Value);
