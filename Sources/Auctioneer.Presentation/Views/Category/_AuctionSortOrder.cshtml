@@ -1,13 +1,13 @@
-﻿@model CategoryIndexViewModel
+﻿@model AuctionSortOrder
 
 @using Auctioneer.Logic.Auctions
 
 @helper ActiveLink(string title, AuctionSortOrder oppositeSortOrder, bool isAscending)
 {
-	var url = Url.Action("Index", new
+	var url = Url.ActionWithCurrentParameters("Index", routeValues: new
 	{
-		sortOrder = oppositeSortOrder,
-		pageSize  = Model.Auctions.PageSize
+		page      = 1,
+		sortOrder = oppositeSortOrder
 	});
 	
 	var glyphclass = isAscending ? "glyphicon-chevron-up" : "glyphicon-chevron-down";
@@ -31,21 +31,21 @@
 
 		foreach(var sortOption in options)
 		{
-			if(Model.CurrentSortOrder == sortOption.Value[0])
+			if(Model == sortOption.Value[0])
 			{
 				@ActiveLink(sortOption.Key, sortOption.Value[1], isAscending: true)
 			}
-			else if(Model.CurrentSortOrder == sortOption.Value[1])
+			else if(Model == sortOption.Value[1])
 			{
 				@ActiveLink(sortOption.Key, sortOption.Value[0], isAscending: false)
 			}
 			else
 			{
 				<li>
-					@Html.ActionLink(sortOption.Key, "Index", new
+					@Html.ActionLinkWithCurrentParameters(sortOption.Key, "Index", routeValues: new
 					{
-						sortOrder = sortOption.Value[0],
-						pageSize  = Model.Auctions.PageSize
+						page      = 1,
+						sortOrder = sortOption.Value[0]
 					})
 				</li>
 			}

@@ -1,15 +1,9 @@
-﻿@model CategoryIndexViewModel
+﻿@model PagedList.IPagedList<AuctionViewModel>
 
 <div class="pagination-box">
 	<span class="page-text">@Resources.AuctionList_PageNumber</span>
 
-	@Html.PagedListPager(Model.Auctions, page => Url.Action("Index",
-	                     new
-	                     {
-	                        page      = page,
-	                        pageSize  = Model.Auctions.PageSize,
-	                        sortOrder = Model.CurrentSortOrder
-	                     }),
+	@Html.PagedListPager(Model, page => Url.ActionWithCurrentParameters("Index", routeValues: new { page = page }),
 	                     new PagedListRenderOptions
 	                     {
 	                        MaximumPageNumbersToDisplay = 5
@@ -22,13 +16,17 @@
 			var options = new int[] { 10, 20, 50 };
 			foreach(var pageSize in options)
 			{
-				if(pageSize == Model.Auctions.PageSize)
+				if(pageSize == Model.PageSize)
 				{
 					@Html.Raw(pageSize)
 				}
 				else
 				{
-					@Html.ActionLink(pageSize.ToString(), "Index", new { pageSize = pageSize, sortOrder = Model.CurrentSortOrder })
+					@Html.ActionLinkWithCurrentParameters(pageSize.ToString(), "Index", routeValues: new
+					{
+						page     = 1,
+						pageSize = pageSize
+					})
 				}
 
 				if(pageSize != options.Last())

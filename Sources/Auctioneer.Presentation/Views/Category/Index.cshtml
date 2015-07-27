@@ -10,9 +10,9 @@
 	
 	<main class="auction-list">
 		
-		@{ Html.RenderPartial("_AuctionSortOrder", Model); }
+		@{ Html.RenderPartial("_AuctionSortOrder", Model.CurrentSortOrder); }
 		@Html.DisplayFor(x => x.Auctions)
-		@{ Html.RenderPartial("_AuctionPagination", Model); }
+		@{ Html.RenderPartial("_AuctionPagination", Model.Auctions); }
 
 	</main>
 </div>
