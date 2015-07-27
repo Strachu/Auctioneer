@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using Auctioneer.Logic;
+using Auctioneer.Presentation.Helpers;
 
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -29,6 +30,8 @@ namespace Auctioneer.Presentation
 			RegisterServices(builder);
 
 			builder.RegisterType<AuctioneerDbContext>().InstancePerRequest();
+
+			builder.RegisterType<BreadcrumbBuilder>().As<IBreadcrumbBuilder>().InstancePerDependency();
 
 			var container = builder.Build();	
 

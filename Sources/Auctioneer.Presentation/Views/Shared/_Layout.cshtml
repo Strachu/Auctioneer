@@ -23,6 +23,10 @@
 	</div>
 
 	<div class="container page-body">
+		@RenderSection("Header", required: false)
+
+		@Html.Action("Breadcrumb")
+
 		@RenderBody()
 		<hr />
 		<footer>

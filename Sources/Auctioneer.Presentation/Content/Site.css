@@ -16,6 +16,14 @@ section, nav, main
 	border-radius   : 10px;		
 }
 
+.breadcrumb
+{
+	font-size     : 90%;
+	padding-top   : 5px;
+	padding-bottom: 5px;
+	margin-bottom : 10px;
+}
+
 .category-auction-container
 {
 	display: flex;

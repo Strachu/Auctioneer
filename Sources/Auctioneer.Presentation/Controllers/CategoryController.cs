@@ -9,6 +9,7 @@ using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Presentation.Mappers.Category;
 using Auctioneer.Presentation.Helpers;
+using Auctioneer.Presentation.Models;
 
 namespace Auctioneer.Presentation.Controllers
 {
@@ -19,23 +20,26 @@ namespace Auctioneer.Presentation.Controllers
 		private const int    DEFAULT_PAGE_SIZE     = 20;
 		private const int    MAX_PAGE_SIZE         = 50;
 
-		private readonly ICategoryService mCategoryService;
-		private readonly IAuctionService  mAuctionService;
-		private readonly HttpRequestBase  mRequest;
-		private readonly HttpResponseBase mResponse;
+		private readonly ICategoryService   mCategoryService;
+		private readonly IAuctionService    mAuctionService;
+		private readonly IBreadcrumbBuilder mBreadcrumbBuilder;
+		private readonly HttpRequestBase    mRequest;
+		private readonly HttpResponseBase   mResponse;
 
 		public CategoryController(ICategoryService categoryService,
 		                          IAuctionService auctionService,
+		                          IBreadcrumbBuilder breadcrumbBuilder,
 		                          HttpRequestBase request,
 		                          HttpResponseBase response)
 		{
-			mCategoryService = categoryService;
-			mAuctionService  = auctionService;
-			mRequest         = request;
-			mResponse        = response;
+			mCategoryService   = categoryService;
+			mAuctionService    = auctionService;
+			mBreadcrumbBuilder = breadcrumbBuilder;
+			mRequest           = request;
+			mResponse          = response;
 		}
 
-		[Route("Category/{id}/{slug}")]
+		[Route("Category/{id}/{slug?}")]
 		public async Task<ActionResult> Index(int id, int? page, int? pageSize, AuctionSortOrder? sortOrder)
 		{
 			mResponse.SaveToCookieIfNotNull(COOKIE_PAGE_SIZE_KEY,  pageSize);
@@ -58,6 +62,16 @@ namespace Auctioneer.Presentation.Controllers
 			var categories = mCategoryService.GetTopLevelCategories().Result;
 
 			return PartialView("_List", CategoryListViewModelMapper.FromCategories(categories));
+		}
+
+		[ChildActionOnly]
+		public ActionResult Breadcrumb(int id)
+		{
+			var breadcrumb = mBreadcrumbBuilder.WithHomepageLink()
+			                                   .WithCategoryHierarchy(id)
+			                                   .Build();
+
+			return PartialView("_Breadcrumb", breadcrumb);
 		}
 	}
 }

@@ -10,6 +10,7 @@ using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Logic.Utils;
 using Auctioneer.Presentation.Controllers;
+using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Models;
 using Auctioneer.Presentation.Tests.TestUtils;
 
@@ -27,18 +28,21 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		private CategoryController mTestedController;
 		private ICategoryService   mCategoryServiceMock;
 		private IAuctionService    mAuctionServiceMock;
+		private IBreadcrumbBuilder mBreadcrumbBuilderMock;
 		private HttpRequestBase    mRequestMock;
 		private HttpResponseBase   mResponseMock;
 
 		[SetUp]
 		public void SetUp()
 		{
-			mCategoryServiceMock = A.Fake<ICategoryService>();
-			mAuctionServiceMock  = A.Fake<IAuctionService>();
-			mRequestMock         = A.Fake<HttpRequestBase>();
-			mResponseMock        = A.Fake<HttpResponseBase>();
+			mCategoryServiceMock   = A.Fake<ICategoryService>();
+			mAuctionServiceMock    = A.Fake<IAuctionService>();
+			mBreadcrumbBuilderMock = A.Fake<IBreadcrumbBuilder>();
+			mRequestMock           = A.Fake<HttpRequestBase>();
+			mResponseMock          = A.Fake<HttpResponseBase>();
 
-			mTestedController = new CategoryController(mCategoryServiceMock, mAuctionServiceMock, mRequestMock, mResponseMock);
+			mTestedController = new CategoryController(mCategoryServiceMock, mAuctionServiceMock, mBreadcrumbBuilderMock,
+			                                           mRequestMock, mResponseMock);
 
 			var fakePagedList = A.Fake<IPagedList<Auction>>();
 			A.CallTo(() => fakePagedList.PageNumber).Returns(1);

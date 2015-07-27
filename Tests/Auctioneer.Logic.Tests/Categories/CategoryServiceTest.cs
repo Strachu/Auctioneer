@@ -145,5 +145,16 @@ namespace Auctioneer.Logic.Tests.Categories
 			Assert.That(categories["Security"].AuctionCount,          Is.EqualTo(0));
 			Assert.That(categories["Games"].AuctionCount,             Is.EqualTo(10));
 		}
+
+		[Test]
+		public async Task GetCategoryHierarchy_ReturnsAllCategoriesAlongHierarchyInTopBottomOrder()
+		{
+			var categories = await mTestedService.GetCategoryHierarchy(7);
+
+			var returnedCategoryNames = categories.Select(x => x.Name);
+			var expectedCategoryNames = new string[] { "Computers", "Components", "Motherboards" };
+
+			Assert.That(returnedCategoryNames, Is.EqualTo(expectedCategoryNames));
+		}
 	}
 }

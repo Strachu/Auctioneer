@@ -59,5 +59,17 @@ namespace Auctioneer.Logic.Categories
 				return category;
 			});
 		}
+
+		public async Task<IEnumerable<Category>> GetCategoryHierarchy(int leafCategoryId)
+		{
+			var query = from leafCategory in mContext.Categories
+			            where leafCategory.Id == leafCategoryId
+
+			            from categoryInHierarchy in mContext.Categories
+			            where categoryInHierarchy.Left <= leafCategory.Left && categoryInHierarchy.Right >= leafCategory.Right
+			            select categoryInHierarchy;
+
+			return await query.ToListAsync().ConfigureAwait(false);
+		}
 	}
 }

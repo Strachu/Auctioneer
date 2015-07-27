@@ -1,0 +1,19 @@
+﻿@model BreadcrumbViewModel
+
+<div class="breadcrumb">
+	@{
+		bool first = true;
+		
+		foreach(var item in Model.Items)
+		{
+			if(!first)
+			{
+				@Html.Raw(" - ")
+			}
+			
+			<a href="@item.TargetUrl">@item.Name</a>
+		
+			first = false;
+		}
+	}
+</div>
