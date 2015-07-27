@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models;
 
@@ -14,13 +15,16 @@ namespace Auctioneer.Presentation.Controllers
 {
 	public class AuctionController : Controller
 	{
-		private readonly IAuctionService mAuctionService;
+		private readonly IAuctionService    mAuctionService;
+		private readonly IBreadcrumbBuilder mBreadcrumbBuilder;
 
-		public AuctionController(IAuctionService auctionService)
+		public AuctionController(IAuctionService auctionService, IBreadcrumbBuilder breadcrumbBuilder)
 		{
 			Contract.Requires(auctionService != null);
+			Contract.Requires(breadcrumbBuilder != null);
 
-			mAuctionService = auctionService;
+			mAuctionService    = auctionService;
+			mBreadcrumbBuilder = breadcrumbBuilder;
 		}
 
 		[Route("Auction/{id}/{slug?}")]
@@ -33,10 +37,16 @@ namespace Auctioneer.Presentation.Controllers
 			return View(viewModel);
 		}
 
+		[ChildActionOnly]
 		public ActionResult Breadcrumb(int id)
 		{
-			// TODO
-			return PartialView("_Breadcrumb", new BreadcrumbViewModel { Items = new BreadcrumbViewModel.Item[0] });
+			var auction    = mAuctionService.GetById(id).Result;
+			var breadcrumb = mBreadcrumbBuilder.WithHomepageLink()
+			                                   .WithCategoryHierarchy(auction.CategoryId)
+			                                   .WithAuctionLink(auction)
+			                                   .Build();
+
+			return PartialView("_Breadcrumb", breadcrumb);
 		}
 	}
 }

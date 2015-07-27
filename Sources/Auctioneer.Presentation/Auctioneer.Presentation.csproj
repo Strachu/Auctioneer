@@ -147,6 +147,9 @@
     <Compile Include="Helpers\HttpRequestBase.Extensions.cs" />
     <Compile Include="Helpers\HttpResponseBase.Extensions.cs" />
     <Compile Include="Helpers\IBreadcrumbBuilder.cs" />
+    <Compile Include="Helpers\IBreadcrumbBuilder.Contracts.cs">
+      <DependentUpon>IBreadcrumbBuilder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\TimeSpanFormatter.cs" />
     <Compile Include="Helpers\UrlHelper.Extensions.cs" />
     <Compile Include="Mappers\Auction\AuctionShowViewModelMapper.cs" />

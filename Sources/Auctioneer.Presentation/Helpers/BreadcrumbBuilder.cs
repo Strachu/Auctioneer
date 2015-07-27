@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Logic.Utils;
 using Auctioneer.Presentation.Models;
@@ -56,6 +57,21 @@ namespace Auctioneer.Presentation.Helpers
 			}
 
 			return this;
+		}
+
+		public IBreadcrumbBuilder WithAuctionLink(Auction auction)
+		{
+			mItems.Add(new BreadcrumbViewModel.Item
+			{
+				Name      = auction.Title,
+				TargetUrl = mUrlHelper.Action(controllerName: "Auction", actionName: "Show", routeValues: new
+				{
+					id   = auction.Id,
+					slug = SlugGenerator.SlugFromTitle(auction.Title)
+				})
+			});
+
+			return this;		
 		}
 
 		public BreadcrumbViewModel Build()
