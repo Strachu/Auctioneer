@@ -1,0 +1,26 @@
+﻿@model AuctionShowViewModel
+
+@{
+	ViewBag.Title = "Show";
+}
+
+<main class="auction-details">
+	<header>
+		<h1>@Html.DisplayFor(x => x.Title)</h1>
+		<div class="end-time">@Resources.Auction_EndingIn @Html.DisplayFor(x => x.TimeTillEnd) (@Html.DisplayFor(x => x.EndDate))</div>
+		
+		<div class="dl-horizontal">
+			<dt>
+				@Html.DisplayNameFor(model => model.Price)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Price)
+			</dd>
+		</div>
+	</header>
+
+	<div class="auction-description">
+		@Html.DisplayFor(x => x.Description)
+	</div>
+
+</main>

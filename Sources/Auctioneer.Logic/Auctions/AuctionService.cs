@@ -67,5 +67,10 @@ namespace Auctioneer.Logic.Auctions
 			                              .Take(maxResults)
 			                              .ToListAsync();
 		}
+
+		public async Task<Auction> GetById(int id)
+		{
+			return await mContext.Auctions.FindAsync(id);
+		}
 	}
 }

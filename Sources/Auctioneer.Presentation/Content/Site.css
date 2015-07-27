@@ -10,7 +10,7 @@
 	margin-bottom:  20px;
 }
 
-section, nav, main
+section, nav, main, header
 {
 	background-color: #eeeeee;
 	border-radius   : 10px;		
@@ -194,6 +194,32 @@ section, nav, main
 	margin-right  : 15px;
 
 	text-align    : right;
+}
+
+.auction-details
+{
+	background-color : white;
+}
+
+.auction-details header
+{
+	margin-bottom : 20px;
+}
+
+.auction-details header > h1
+{
+	text-align   : center;
+	margin-bottom: 0;
+}
+
+.auction-details header > .end-time
+{
+	text-align : center;
+}
+
+.auction-description
+{
+	border: 2px dashed #dddddd
 }
 
 footer

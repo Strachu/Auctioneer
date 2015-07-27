@@ -136,6 +136,7 @@
     <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuctionController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -148,9 +149,11 @@
     <Compile Include="Helpers\IBreadcrumbBuilder.cs" />
     <Compile Include="Helpers\TimeSpanFormatter.cs" />
     <Compile Include="Helpers\UrlHelper.Extensions.cs" />
+    <Compile Include="Mappers\Auction\AuctionShowViewModelMapper.cs" />
     <Compile Include="Mappers\Category\AuctionViewModelMapper.cs" />
     <Compile Include="Mappers\Category\CategoryIndexViewModelMapper.cs" />
     <Compile Include="Mappers\Category\CategoryListViewModelMapper.cs" />
+    <Compile Include="Models\Auction\AuctionShowViewModel.cs" />
     <Compile Include="Models\Category\AuctionViewModel.cs" />
     <Compile Include="Models\Category\CategoryIndexViewModel.cs" />
     <Compile Include="Models\Category\CategoryListViewModel.cs" />
@@ -209,6 +212,7 @@
     <Content Include="Views\Category\_AuctionPagination.cshtml" />
     <Content Include="Views\Category\_AuctionSortOrder.cshtml" />
     <Content Include="Views\Shared\_Breadcrumb.cshtml" />
+    <Content Include="Views\Auction\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -29,5 +29,10 @@ namespace Auctioneer.Logic.Auctions
 
 			throw new NotImplementedException();
 		}
+
+		Task<Auction> IAuctionService.GetById(int id)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
