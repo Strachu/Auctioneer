@@ -6,3 +6,4 @@ obj/
 *.mdf
 *.ldf
 Sources/Auctioneer.Presentation/Content/Auctions/Thumbnails/
+Sources/Auctioneer.Presentation/Content/UserContent/*

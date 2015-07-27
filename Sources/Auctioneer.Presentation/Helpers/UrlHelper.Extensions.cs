@@ -14,7 +14,14 @@ namespace Auctioneer.Presentation.Helpers
 		{
 			var fileName = auctionId + ".jpg";
 
-			return url.Content("~/Content/Auctions/Thumbnails/" + fileName);
+			return url.Content("~/Content/UserContent/Auctions/Thumbnails/" + fileName);
+		}
+
+		public static string AuctionPhoto(this UrlHelper url, int auctionId, int photoIndex)
+		{
+			var fileName = photoIndex + ".jpg";
+
+			return url.Content("~/Content/UserContent/Auctions/Photos/" + auctionId + "/" + fileName);
 		}
 
 		public static string ActionWithCurrentParameters(this UrlHelper helper,

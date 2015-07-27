@@ -4,6 +4,15 @@
 	ViewBag.Title = "Show";
 }
 
+@section head
+{
+	<link rel="stylesheet" href="~/Content/Lightbox/lightbox.css" />
+}
+@section scripts
+{
+	<script src="~/Scripts/lightbox.min.js"></script>
+}
+
 <main class="auction-details">
 	<header>
 		<h1>@Html.DisplayFor(x => x.Title)</h1>
@@ -16,6 +25,15 @@
 			<dd>
 				@Html.DisplayFor(model => model.Price)
 			</dd>
+		</div>
+		
+		<div class="photos">
+			@foreach(var photo in Model.Photos)
+			{
+				<a href="@photo.Url" data-lightbox="auction-photos">
+					<img src="@photo.Url" width="150" height="150">
+				</a>
+			}
 		</div>
 	</header>
 

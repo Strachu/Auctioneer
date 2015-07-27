@@ -16,6 +16,8 @@ namespace Auctioneer.Logic.Auctions
 			base.Property(x => x.Description).IsRequired();
 
 			base.Property(x => x.Price).HasPrecision(9, 2);
+
+			base.Property(x => x.PhotoCount).IsRequired();
 		}
 	}
 }

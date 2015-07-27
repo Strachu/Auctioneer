@@ -11,7 +11,7 @@ namespace Auctioneer.Presentation.Mappers
 {
 	public class AuctionShowViewModelMapper
 	{		
-		public static AuctionShowViewModel FromAuction(Auction auction)
+		public static AuctionShowViewModel FromAuction(Auction auction, IEnumerable<string> photoUrls)
 		{
 			Contract.Requires(auction != null);
 
@@ -21,6 +21,10 @@ namespace Auctioneer.Presentation.Mappers
 				Description = auction.Description,
 				EndDate     = auction.EndDate,
 				Price       = auction.Price,
+				Photos      = photoUrls.Select(x => new AuctionShowViewModel.Photo
+				{
+					Url = x
+				})
 			};
 		}
 	}

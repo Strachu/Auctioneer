@@ -217,6 +217,25 @@ section, nav, main, header
 	text-align : center;
 }
 
+.auction-details .photos
+{
+	display        : flex;
+	border         : 1px solid black;
+	margin-top     : 10px;
+	padding-top    : 3px;
+	padding-bottom : 3px;
+	
+	flex-wrap      : nowrap;
+	justify-content: center;
+	overflow       : hidden;
+}
+
+.auction-details .photos img
+{
+	margin-left : 5px;
+	margin-right: 5px;
+}
+
 .auction-description
 {
 	border: 2px dashed #dddddd

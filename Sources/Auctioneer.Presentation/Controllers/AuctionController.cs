@@ -32,7 +32,14 @@ namespace Auctioneer.Presentation.Controllers
 		{
 			// TODO what if there's no auction with that id?
 			var auction   = await mAuctionService.GetById(id);
-			var viewModel = AuctionShowViewModelMapper.FromAuction(auction);
+
+			var photoUrls = new List<string>(auction.PhotoCount);
+			for(int photoIndex = 0; photoIndex < auction.PhotoCount; ++photoIndex)
+			{
+				photoUrls.Add(Url.AuctionPhoto(id, photoIndex));
+			}
+
+			var viewModel = AuctionShowViewModelMapper.FromAuction(auction, photoUrls);
 
 			return View(viewModel);
 		}

@@ -19,7 +19,6 @@ namespace Auctioneer.Logic
 		{
 			AddCategories(context);
 			AddAuctions(context);
-			AddThumbnails(context);
 
 			base.Seed(context);
 		}
@@ -152,8 +151,9 @@ namespace Auctioneer.Logic
 
 		private void AddAuctions(AuctioneerDbContext context)
 		{
-			var rndGenerator  = new Random(Seed: 746293114);
-			var categoryCount = context.Categories.Count();
+			var rndGenerator     = new Random(Seed: 746293114);
+			var imageInitializer = new AuctionImageInitializer();
+			var categoryCount    = context.Categories.Count();
 
 			var auctions = new Auction[100000];
 			for(int i = 0; i < auctions.Length; ++i)
@@ -172,39 +172,113 @@ namespace Auctioneer.Logic
 				{
 					CategoryId   = rndGenerator.Next(categoryCount) + 1,
 					Title        = "The auction #" + (i + 1),
-					Description  = "The description of auction number " + i,
+					Description  = "The description of auction number " + (i + 1),
 					CreationDate = creationDate,
 					EndDate      = creationDate.AddDays(rndGenerator.NextDouble() * 14),
 					Price        = rndGenerator.Next(1, 1000),
+					PhotoCount   = 0
 				};
+
+				if(auctions[i].EndDate > DateTime.Now)
+				{
+					imageInitializer.CopyRandomThumbnailForAuction(i + 1);
+					imageInitializer.CopyRandomPhotosForAuction(i + 1);
+
+					auctions[i].PhotoCount = imageInitializer.GetAuctionPhotoCount(i + 1);
+				}
 			}
 
 			context.BulkInsert(auctions);
 		}
 
-		private void AddThumbnails(AuctioneerDbContext context)
+		private class AuctionImageInitializer
 		{
-			var aspNetAppPath        = AppDomain.CurrentDomain.BaseDirectory;
-			var sampleThumbnailsPath = Path.Combine(aspNetAppPath, "Content/SampleThumbnails");
-			var thumbnailsPath       = Path.Combine(aspNetAppPath, "Content/Auctions/Thumbnails");
+			private readonly Random mRandomGenerator = new Random(Seed: 746293114);
 
-			if(!Directory.Exists(sampleThumbnailsPath) || Directory.Exists(thumbnailsPath))
-				return;
+			private readonly string mSampleThumbnailsPath;
+			private readonly string mSamplePhotosPath;
+			private readonly string mThumbnailsPath;
+			private readonly string mPhotosPath;
 
-			Directory.CreateDirectory(thumbnailsPath);
+			private readonly bool   mCopyThumbnails = false;
+			private readonly bool   mCopyPhotos = false;
 
-			var rndGenerator          = new Random(Seed: 746293114);
-			var minId                 = context.Auctions.Min(x => x.Id);
-			var maxId                 = context.Auctions.Max(x => x.Id);
-			var sampleThumbnailsCount = Directory.EnumerateFiles(sampleThumbnailsPath, "*.jpg").Count();
+			private readonly int    mSampleThumbnailsCount;
+			private readonly int    mSamplePhotosCount;
 
-			for(int i = minId; i <= maxId; ++i)
+			public AuctionImageInitializer()
 			{
-				var thumbnailIndex      = rndGenerator.Next(sampleThumbnailsCount) + 1;
-				var sampleThumbnailPath = Path.Combine(sampleThumbnailsPath, thumbnailIndex + ".jpg");
-				var destinationPath     = Path.Combine(thumbnailsPath, i + ".jpg");
+				var aspNetAppPath     = AppDomain.CurrentDomain.BaseDirectory;
+				mSampleThumbnailsPath = Path.Combine(aspNetAppPath, "Content/SampleThumbnails");
+				mSamplePhotosPath     = Path.Combine(aspNetAppPath, "Content/SamplePhotos");
+				mThumbnailsPath       = Path.Combine(aspNetAppPath, "Content/UserContent/Auctions/Thumbnails");
+				mPhotosPath           = Path.Combine(aspNetAppPath, "Content/UserContent/Auctions/Photos");
+
+				Directory.CreateDirectory(mThumbnailsPath);
+				Directory.CreateDirectory(mPhotosPath);
+
+				if(Directory.Exists(mSampleThumbnailsPath) && !Directory.EnumerateFiles(mThumbnailsPath, "*.jpg").Any())
+				{
+					mCopyThumbnails        = true;
+					mSampleThumbnailsCount = Directory.EnumerateFiles(mSampleThumbnailsPath, "*.jpg").Count();
+				}
+
+				if(Directory.Exists(mSamplePhotosPath) &&
+				  !Directory.EnumerateFiles(mPhotosPath, "*.jpg", SearchOption.AllDirectories).Any())
+				{
+					mCopyPhotos        = true;
+					mSamplePhotosCount = Directory.EnumerateFiles(mSamplePhotosPath, "*.jpg").Count();
+				}
+			}
+
+			public void CopyRandomThumbnailForAuction(int auctionId)
+			{
+				if(!mCopyThumbnails)
+					return;
+
+				var thumbnailIndex      = mRandomGenerator.Next(mSampleThumbnailsCount) + 1;
+				var sampleThumbnailPath = Path.Combine(mSampleThumbnailsPath, thumbnailIndex + ".jpg");
+				var destinationPath     = Path.Combine(mThumbnailsPath, auctionId + ".jpg");
 
 				File.Copy(sampleThumbnailPath, destinationPath, overwrite: false);
+			}
+
+			public void CopyRandomPhotosForAuction(int auctionId)
+			{
+				if(!mCopyPhotos)
+					return;
+
+				var alreadyCopied = new HashSet<int>();
+
+				var photosToCopy = mRandomGenerator.Next(4) + 1;
+				for(int i = 0; i < photosToCopy; ++i)
+				{
+					int photoIndex;
+					do
+					{
+						photoIndex = mRandomGenerator.Next(mSamplePhotosCount) + 1;
+					}
+					while(alreadyCopied.Contains(photoIndex));
+
+					alreadyCopied.Add(photoIndex);
+
+					var samplePhotoPath      = Path.Combine(mSamplePhotosPath, photoIndex + ".jpg");
+					var destinationDirectory = Path.Combine(mPhotosPath, auctionId.ToString());
+					var destinationPath      = Path.Combine(destinationDirectory, i + ".jpg");
+
+					Directory.CreateDirectory(destinationDirectory);
+
+					File.Copy(samplePhotoPath, destinationPath, overwrite: false);
+				}
+			}
+
+			public int GetAuctionPhotoCount(int auctionId)
+			{
+				var photosDirectory = Path.Combine(mPhotosPath, auctionId.ToString());
+				if(!Directory.Exists(photosDirectory))
+					return 0;
+
+				return Directory.EnumerateFiles(photosDirectory, "*.jpg").Count();
 			}
 		}
 	}

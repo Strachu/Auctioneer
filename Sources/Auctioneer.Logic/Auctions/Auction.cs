@@ -20,6 +20,8 @@ namespace Auctioneer.Logic.Auctions
 
 		public decimal Price { get; set; }
 
+		public int PhotoCount { get; set; }
+
 		public int CategoryId { get; set; }
 		public virtual Category Category { get; set; }
 	}

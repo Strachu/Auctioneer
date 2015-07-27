@@ -24,5 +24,13 @@ namespace Auctioneer.Presentation.Models
 
 		[DataType(DataType.Currency)]
 		public decimal Price { get; set; }
+
+		public IEnumerable<Photo> Photos { get; set; }
+
+		public class Photo
+		{
+			[DataType(DataType.ImageUrl)]
+			public string Url { get; set; }
+		}
 	}
 }
