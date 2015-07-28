@@ -168,6 +168,9 @@ namespace Auctioneer.Logic
 					second : rndGenerator.Next(0, 60)
 				);
 
+				if(creationDate > DateTime.Now)
+					creationDate = DateTime.Now;
+
 				auctions[i] = new Auction
 				{
 					CategoryId   = rndGenerator.Next(categoryCount) + 1,

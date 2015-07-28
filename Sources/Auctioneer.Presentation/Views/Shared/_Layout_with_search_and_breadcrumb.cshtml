@@ -1,0 +1,19 @@
+﻿@{
+	Layout = "_Layout.cshtml";
+}
+
+@* Forwarding of sections required in the case of nested layouts *@
+@section Head
+{
+	@RenderSection("Head", false)
+}
+@section scripts
+{
+	@RenderSection("scripts", false)
+}
+
+@RenderSection("Header", required: false)
+
+@Html.Action("Breadcrumb")
+
+@RenderBody()

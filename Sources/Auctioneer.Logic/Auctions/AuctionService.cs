@@ -76,5 +76,10 @@ namespace Auctioneer.Logic.Auctions
 
 			return auction;
 		}
+
+		public void AddAuction(Auction newAuction)
+		{
+			mContext.Auctions.Add(newAuction);
+		}
 	}
 }

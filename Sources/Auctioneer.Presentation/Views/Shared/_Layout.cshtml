@@ -20,14 +20,16 @@
 				</button>
 				@Html.ActionLink("Auctioneer", "Index", "Home", null, new { @class = "navbar-brand" })
 			</div>
+
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li>@Html.ActionLink(Resources.AddAuctionLink, controllerName: "Auction", actionName: "Add")</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 
 	<div class="container page-body">
-		@RenderSection("Header", required: false)
-
-		@Html.Action("Breadcrumb")
-
 		@RenderBody()
 		<hr />
 		<footer>
@@ -36,6 +38,7 @@
 	</div>
 
 	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryval")
 	@Scripts.Render("~/bundles/bootstrap")
 	@RenderSection("scripts", required: false)
 </body>

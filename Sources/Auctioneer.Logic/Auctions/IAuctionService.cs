@@ -20,5 +20,7 @@ namespace Auctioneer.Logic.Auctions
 		Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults);
 
 		Task<Auction> GetById(int id);
+
+		void AddAuction(Auction newAuction);
 	}
 }

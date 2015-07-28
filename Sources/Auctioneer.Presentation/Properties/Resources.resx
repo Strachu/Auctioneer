@@ -117,6 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAuctionLink" xml:space="preserve">
+    <value>Add an auction</value>
+  </data>
+  <data name="AddAuction_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="AddAuction_CategoryDropdownDefaultValue" xml:space="preserve">
+    <value>-- Pick a category --</value>
+  </data>
+  <data name="AddAuction_DaysToEnd" xml:space="preserve">
+    <value>Duration (days)</value>
+  </data>
+  <data name="AddAuction_Description" xml:space="preserve">
+    <value>Description of the auction</value>
+  </data>
+  <data name="AddAuction_DescriptionPlaceholder" xml:space="preserve">
+    <value>Write something about the items you intend to sell</value>
+  </data>
+  <data name="AddAuction_DescriptionRequired" xml:space="preserve">
+    <value>A description of the auction is required.</value>
+  </data>
+  <data name="AddAuction_Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="AddAuction_SubmitText" xml:space="preserve">
+    <value>Add the auction</value>
+  </data>
+  <data name="AddAuction_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
   <data name="AuctionList_PageNumber" xml:space="preserve">
     <value>Page: </value>
   </data>

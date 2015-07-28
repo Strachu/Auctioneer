@@ -61,6 +61,96 @@ namespace Auctioneer.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string AddAuction_Category {
+            get {
+                return ResourceManager.GetString("AddAuction_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- Pick a category --.
+        /// </summary>
+        public static string AddAuction_CategoryDropdownDefaultValue {
+            get {
+                return ResourceManager.GetString("AddAuction_CategoryDropdownDefaultValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration (days).
+        /// </summary>
+        public static string AddAuction_DaysToEnd {
+            get {
+                return ResourceManager.GetString("AddAuction_DaysToEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description of the auction.
+        /// </summary>
+        public static string AddAuction_Description {
+            get {
+                return ResourceManager.GetString("AddAuction_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write something about the items you intend to sell.
+        /// </summary>
+        public static string AddAuction_DescriptionPlaceholder {
+            get {
+                return ResourceManager.GetString("AddAuction_DescriptionPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A description of the auction is required..
+        /// </summary>
+        public static string AddAuction_DescriptionRequired {
+            get {
+                return ResourceManager.GetString("AddAuction_DescriptionRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price.
+        /// </summary>
+        public static string AddAuction_Price {
+            get {
+                return ResourceManager.GetString("AddAuction_Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add the auction.
+        /// </summary>
+        public static string AddAuction_SubmitText {
+            get {
+                return ResourceManager.GetString("AddAuction_SubmitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string AddAuction_Title {
+            get {
+                return ResourceManager.GetString("AddAuction_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add an auction.
+        /// </summary>
+        public static string AddAuctionLink {
+            get {
+                return ResourceManager.GetString("AddAuctionLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ending in .
         /// </summary>
         public static string Auction_EndingIn {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
@@ -15,6 +15,25 @@ namespace Auctioneer.Logic.Categories
 		public CategoryService(AuctioneerDbContext context)
 		{
 			mContext = context;
+		}
+
+		public async Task<IEnumerable<CategoryHierarchyLevelPair>> GetAllCategoriesWithHierarchyLevel()
+		{
+			var query = from category       in mContext.Categories
+			            from parentCategory in mContext.Categories
+			            where category.Left  >= parentCategory.Left &&
+			                  category.Right <= parentCategory.Right
+
+			            group parentCategory by category into grouping
+			            orderby grouping.Key.Left ascending
+
+			            select new CategoryHierarchyLevelPair
+			            {
+				            Category       = grouping.Key,
+				            HierarchyDepth = grouping.Count() - 1
+			            };
+
+			return await query.ToListAsync();
 		}
 
 		public Task<IEnumerable<Category>> GetTopLevelCategories()

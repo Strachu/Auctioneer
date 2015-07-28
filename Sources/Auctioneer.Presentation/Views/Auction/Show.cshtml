@@ -1,6 +1,7 @@
 ﻿@model AuctionShowViewModel
 
 @{
+	Layout        = "~/Views/Shared/_Layout_with_search_and_breadcrumb.cshtml";
 	ViewBag.Title = "Show";
 }
 
@@ -37,7 +38,7 @@
 		</div>
 	</header>
 
-	<div class="auction-description">
+	<div>
 		@Html.DisplayFor(x => x.Description)
 	</div>
 

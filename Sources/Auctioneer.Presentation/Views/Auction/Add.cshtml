@@ -1,0 +1,52 @@
+﻿@model AuctionAddViewModel
+
+@{
+	ViewBag.Title = "Add";
+}
+
+<main class="form-container">
+	<h1>Add an auction</h1>
+
+	@using(Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+		@Html.ValidationSummary(excludePropertyErrors: true)
+
+		<div class="form-group">
+			@Html.LabelFor(x => x.Title)
+			@Html.EditorFor(x => x.Title)
+			@Html.ValidationMessageFor(x => x.Title)
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(x => x.DaysToEnd)
+			@Html.DropDownListFor(x => x.DaysToEnd, Model.AvailableDaysToEnd)
+			@Html.ValidationMessageFor(x => x.DaysToEnd)
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(x => x.Price)
+			<span class="input-with-suffix">@Html.EditorFor(x => x.Price) PLN</span>
+			@Html.ValidationMessageFor(x => x.Price)
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(x => x.CategoryId)
+			@Html.DropDownListFor(x => x.CategoryId, Model.AvailableCategories, Resources.AddAuction_CategoryDropdownDefaultValue)
+			@Html.ValidationMessageFor(x => x.CategoryId)
+		</div>
+
+		<div class="form-group-vertical">
+			@Html.LabelFor(x => x.Description)
+			@Html.EditorFor(x => x.Description, new { htmlAttributes = new
+			{
+				placeholder = @Resources.AddAuction_DescriptionPlaceholder
+			}})
+			@Html.ValidationMessageFor(x => x.Description)
+		</div>
+
+		<div class="submit-button-container">
+			<input type="submit" value="@Resources.AddAuction_SubmitText" />
+		</div>
+	}
+</main>

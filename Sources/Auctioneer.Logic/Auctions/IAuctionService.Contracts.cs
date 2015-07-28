@@ -34,5 +34,10 @@ namespace Auctioneer.Logic.Auctions
 		{
 			throw new NotImplementedException();
 		}
+
+		void IAuctionService.AddAuction(Auction newAuction)
+		{
+			Contract.Requires(newAuction != null);
+		}
 	}
 }

@@ -45,8 +45,8 @@ namespace Auctioneer.Logic.Tests.Categories
 							new TestCategory { Id = 7,  Name = "Motherboards",   Left = 11, Right = 12 },
 							new TestCategory { Id = 8,  Name = "Processors",     Left = 13, Right = 14 },
 							new TestCategory { Id = 9,  Name = "RAM memory",     Left = 15, Right = 16 },
-							new TestCategory { Id = 10, Name = "Power supplies", Left = 17, Right = 18 },
-							new TestCategory { Id = 11, Name = "Cases",          Left = 19, Right = 20 },
+							new TestCategory { Id = 15, Name = "Power supplies", Left = 17, Right = 18 },
+							new TestCategory { Id = 16, Name = "Cases",          Left = 19, Right = 20 },
 						}
 					}
 				}
@@ -59,8 +59,8 @@ namespace Auctioneer.Logic.Tests.Categories
 				{
 					new TestCategory { Id = 13, Name = "Operating systems", Left = 24, Right = 25 },
 					new TestCategory { Id = 14, Name = "Office",            Left = 26, Right = 27 },
-					new TestCategory { Id = 15, Name = "Security",          Left = 28, Right = 29 },
-					new TestCategory { Id = 16, Name = "Games",             Left = 30, Right = 31 },
+					new TestCategory { Id = 10, Name = "Security",          Left = 28, Right = 29 },
+					new TestCategory { Id = 11, Name = "Games",             Left = 30, Right = 31 },
 				}
 			});
 
@@ -73,7 +73,7 @@ namespace Auctioneer.Logic.Tests.Categories
 			AddAuctionsToCategory(context, 8,  7);
 			AddAuctionsToCategory(context, 12, 3);
 			AddAuctionsToCategory(context, 14, 2);
-			AddAuctionsToCategory(context, 16, 10);
+			AddAuctionsToCategory(context, 11, 10);
 
 			context.SaveChanges();
 		}
@@ -88,6 +88,45 @@ namespace Auctioneer.Logic.Tests.Categories
 					EndDate    = active ? DateTime.Now.Add(TimeSpan.FromDays(1)) : DateTime.Now.Subtract(TimeSpan.FromDays(1))
 				});
 			}
+		}
+
+		[Test]
+		public async Task GetAllCategoriesWithHierarchyInfo_ReturnsCorrectHierarchyLevel()
+		{
+			var categories = (await mTestedService.GetAllCategoriesWithHierarchyLevel()).ToDictionary(x => x.Category.Name);
+
+			Assert.That(categories["Computers"].HierarchyDepth,         Is.EqualTo(0));
+			Assert.That(categories["Desktop computers"].HierarchyDepth, Is.EqualTo(1));
+			Assert.That(categories["Mobile computers"].HierarchyDepth,  Is.EqualTo(1));
+			Assert.That(categories["Components"].HierarchyDepth,        Is.EqualTo(1));
+			Assert.That(categories["Hard drives"].HierarchyDepth,       Is.EqualTo(2));
+			Assert.That(categories["Graphics cards"].HierarchyDepth,    Is.EqualTo(2));
+			Assert.That(categories["Motherboards"].HierarchyDepth,      Is.EqualTo(2));
+			Assert.That(categories["Processors"].HierarchyDepth,        Is.EqualTo(2));
+			Assert.That(categories["RAM memory"].HierarchyDepth,        Is.EqualTo(2));
+			Assert.That(categories["Power supplies"].HierarchyDepth,    Is.EqualTo(2));
+			Assert.That(categories["Cases"].HierarchyDepth,             Is.EqualTo(2));
+			Assert.That(categories["Software"].HierarchyDepth,          Is.EqualTo(0));
+			Assert.That(categories["Operating systems"].HierarchyDepth, Is.EqualTo(1));
+			Assert.That(categories["Office"].HierarchyDepth,            Is.EqualTo(1));
+			Assert.That(categories["Security"].HierarchyDepth,          Is.EqualTo(1));
+			Assert.That(categories["Games"].HierarchyDepth,             Is.EqualTo(1));
+		}
+
+		[Test]
+		public async Task GetAllCategoriesWithHierarchyInfo_ReturnsEntriesInDepthFirstOrder()
+		{
+			var categories = await mTestedService.GetAllCategoriesWithHierarchyLevel();
+
+			var returnedCategoryNames = categories.Select(x => x.Category.Name);
+			var expectedCategoryNames = new string[]
+			{
+				"Computers", "Desktop computers", "Mobile computers", "Components", "Hard drives", "Graphics cards",
+				"Motherboards", "Processors", "RAM memory", "Power supplies", "Cases", "Software", "Operating systems",
+				"Office", "Security", "Games"
+			};
+
+			Assert.That(returnedCategoryNames, Is.EqualTo(expectedCategoryNames));
 		}
 
 		[Test]

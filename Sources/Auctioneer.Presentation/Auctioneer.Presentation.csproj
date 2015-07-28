@@ -47,6 +47,14 @@
       <HintPath>..\..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DataAnnotationsExtensions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=358a5681c50fd84c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DataAnnotationsExtensions.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DataAnnotationsExtensions.ClientValidation, Version=1.1.0.0, Culture=neutral, PublicKeyToken=358a5681c50fd84c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DataAnnotationsExtensions.MVC3.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.ClientValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -117,6 +125,10 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivator, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebActivator.1.2.0.0\lib\NETFramework40\WebActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -135,6 +147,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuctionController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -153,6 +166,8 @@
     </Compile>
     <Compile Include="Helpers\TimeSpanFormatter.cs" />
     <Compile Include="Helpers\UrlHelper.Extensions.cs" />
+    <Compile Include="Mappers\Auction\AuctionAddViewModelMapper.cs" />
+    <Compile Include="Models\Auction\AuctionAddViewModel.cs" />
     <Compile Include="Mappers\Auction\AuctionShowViewModelMapper.cs" />
     <Compile Include="Mappers\Category\AuctionViewModelMapper.cs" />
     <Compile Include="Mappers\Category\CategoryIndexViewModelMapper.cs" />
@@ -223,6 +238,9 @@
     <Content Include="Views\Category\_AuctionSortOrder.cshtml" />
     <Content Include="Views\Shared\_Breadcrumb.cshtml" />
     <Content Include="Views\Auction\Show.cshtml" />
+    <Content Include="Views\Shared\_Layout_with_search_and_breadcrumb.cshtml" />
+    <Content Include="Views\Auction\Add.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MultilineText.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

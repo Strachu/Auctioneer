@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 using Auctioneer.Logic;
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Logic.Categories;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models;
@@ -16,19 +18,28 @@ namespace Auctioneer.Presentation.Controllers
 {
 	public class AuctionController : Controller
 	{
-		private readonly IAuctionService    mAuctionService;
-		private readonly IBreadcrumbBuilder mBreadcrumbBuilder;
+		private readonly IAuctionService     mAuctionService;
+		private readonly ICategoryService    mCategoryService;
+		private readonly IUnitOfWork         mUnitOfWork;
+		private readonly IBreadcrumbBuilder  mBreadcrumbBuilder;
 
-		public AuctionController(IAuctionService auctionService, IBreadcrumbBuilder breadcrumbBuilder)
+		public AuctionController(IAuctionService auctionService,
+		                         ICategoryService categoryService,
+		                         IUnitOfWork unitOfWork,
+		                         IBreadcrumbBuilder breadcrumbBuilder)
 		{
 			Contract.Requires(auctionService != null);
+			Contract.Requires(categoryService != null);
+			Contract.Requires(unitOfWork != null);
 			Contract.Requires(breadcrumbBuilder != null);
 
 			mAuctionService    = auctionService;
+			mCategoryService   = categoryService;
+			mUnitOfWork        = unitOfWork;
 			mBreadcrumbBuilder = breadcrumbBuilder;
 		}
 
-		[Route("Auction/{id}/{slug?}")]
+		[Route("Auction/{id:int}/{slug?}")]
 		public async Task<ActionResult> Show(int id)
 		{
 			var auction = await mAuctionService.GetById(id);
@@ -54,6 +65,44 @@ namespace Auctioneer.Presentation.Controllers
 			                                   .Build();
 
 			return PartialView("_Breadcrumb", breadcrumb);
+		}
+
+		public async Task<ActionResult> Add()
+		{
+			var viewModel = new AuctionAddViewModel();
+
+			await PopulateAvailableCategoryList(viewModel);
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> Add(AuctionAddViewModel input)
+		{
+			if(ModelState.IsValid)
+			{
+				var newAuction = AuctionAddViewModelMapper.ToAuction(input);
+
+				mAuctionService.AddAuction(newAuction);
+				await mUnitOfWork.Commit();
+
+				return RedirectToAction("Show", new { id = newAuction.Id });
+			}
+
+			await PopulateAvailableCategoryList(input);
+			return View(input);
+		}
+
+		private async Task PopulateAvailableCategoryList(AuctionAddViewModel viewModel)
+		{
+			var nbsp       = '\xA0';
+			var categories = await mCategoryService.GetAllCategoriesWithHierarchyLevel();
+
+			viewModel.AvailableCategories = categories.Select(x => new SelectListItem
+			{
+				Text  = new string(nbsp, count: x.HierarchyDepth * 3) + x.Category.Name,
+				Value = x.Category.Id.ToString()
+			});
 		}
 	}
 }
