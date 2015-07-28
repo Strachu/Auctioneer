@@ -17,5 +17,7 @@ namespace Auctioneer.Presentation.Models
 
 		[DataType(DataType.Currency)]
 		public decimal Price { get; set; }
+
+		public string Slug { get; set; }
 	}
 }

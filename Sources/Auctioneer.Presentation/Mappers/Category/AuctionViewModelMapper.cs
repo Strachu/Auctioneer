@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Logic.Utils;
 using Auctioneer.Presentation.Models;
 
 namespace Auctioneer.Presentation.Mappers.Category
@@ -20,7 +21,8 @@ namespace Auctioneer.Presentation.Mappers.Category
 				Id          = auction.Id,
 				Title       = auction.Title,
 				Price       = auction.Price,
-				TimeTillEnd = auction.EndDate - DateTime.Now
+				TimeTillEnd = auction.EndDate - DateTime.Now,
+				Slug        = SlugGenerator.SlugFromTitle(auction.Title)
 			};
 		}
 	}

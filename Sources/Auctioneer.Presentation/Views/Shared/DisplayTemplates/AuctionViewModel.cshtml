@@ -1,6 +1,6 @@
 ﻿@model AuctionViewModel
 
-<a href="@Url.Action("Show", "Auction", new { id = Model.Id })">
+<a href="@Url.Action("Show", "Auction", new { id = Model.Id, slug = Model.Slug })">
 	<article>
 		<div class="thumbnail">
 			<img src="@Url.AuctionThumbnail(Model.Id)" />
