@@ -70,7 +70,11 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<Auction> GetById(int id)
 		{
-			return await mContext.Auctions.FindAsync(id);
+			var auction = await mContext.Auctions.FindAsync(id);
+			if(auction == null)
+				throw new ObjectNotFoundException("Auction with id = " + id + " does not exist.");
+
+			return auction;
 		}
 	}
 }

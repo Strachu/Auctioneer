@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
+using Auctioneer.Logic;
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Mappers;
@@ -30,8 +31,7 @@ namespace Auctioneer.Presentation.Controllers
 		[Route("Auction/{id}/{slug?}")]
 		public async Task<ActionResult> Show(int id)
 		{
-			// TODO what if there's no auction with that id?
-			var auction   = await mAuctionService.GetById(id);
+			var auction = await mAuctionService.GetById(id);
 
 			var photoUrls = new List<string>(auction.PhotoCount);
 			for(int photoIndex = 0; photoIndex < auction.PhotoCount; ++photoIndex)
