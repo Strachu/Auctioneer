@@ -23,7 +23,7 @@ namespace Auctioneer.Presentation.Mappers
 				EndDate      = DateTime.Now.AddDays(viewModel.DaysToEnd),
 				CategoryId   = viewModel.CategoryId,
 				Price        = viewModel.Price.Value,
-				PhotoCount   = 0,
+				PhotoCount   = viewModel.Photos.Count(),
 			};
 		}
 	}

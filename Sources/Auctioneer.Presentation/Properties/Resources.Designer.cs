@@ -115,6 +115,24 @@ namespace Auctioneer.Presentation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only images in a JPEG format are supported..
+        /// </summary>
+        public static string AddAuction_OnlyJPEGImagesSupported {
+            get {
+                return ResourceManager.GetString("AddAuction_OnlyJPEGImagesSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The photos of the item.
+        /// </summary>
+        public static string AddAuction_Photos {
+            get {
+                return ResourceManager.GetString("AddAuction_Photos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
         public static string AddAuction_Price {

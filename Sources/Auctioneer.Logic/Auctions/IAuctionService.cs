@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,5 +23,6 @@ namespace Auctioneer.Logic.Auctions
 		Task<Auction> GetById(int id);
 
 		void AddAuction(Auction newAuction);
+		Task StoreAuctionPhotos(int auctionId, IEnumerable<Stream> dataStreams);
 	}
 }

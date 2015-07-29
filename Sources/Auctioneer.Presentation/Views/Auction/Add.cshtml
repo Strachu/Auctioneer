@@ -7,7 +7,7 @@
 <main class="form-container">
 	<h1>Add an auction</h1>
 
-	@using(Html.BeginForm())
+	@using(Html.BeginForm("Add", method: FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data" }, controllerName: null))
 	{
 		@Html.AntiForgeryToken()
 		@Html.ValidationSummary(excludePropertyErrors: true)
@@ -36,6 +36,12 @@
 			@Html.ValidationMessageFor(x => x.CategoryId)
 		</div>
 
+		<div class="form-group">
+			@Html.LabelFor(x => x.Photos)
+			@Html.FileUploadFor(x => x.Photos, acceptFilter: "image/jpeg")
+			@Html.ValidationMessageFor(x => x.Photos)
+		</div>
+		
 		<div class="form-group-vertical">
 			@Html.LabelFor(x => x.Description)
 			@Html.EditorFor(x => x.Description, new { htmlAttributes = new

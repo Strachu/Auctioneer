@@ -66,6 +66,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <Choose>
@@ -87,6 +88,7 @@
     <Compile Include="TestUtils\ModelsWithDefaultValues\TestAuctioneerDbContext.cs" />
     <Compile Include="TestUtils\ModelsWithDefaultValues\TestAuction.cs" />
     <Compile Include="TestUtils\ModelsWithDefaultValues\TestCategory.cs" />
+    <Compile Include="Utils\ImageExtensionsTests.cs" />
     <Compile Include="Utils\PropertyNameTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -25,7 +25,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 
 			AddTestData(context);
 
-			mTestedService = new AuctionService(context);
+			mTestedService = new AuctionService(context, "Ignored", "Ignored");
 		}
 
 		private void AddTestData(AuctioneerDbContext context)

@@ -183,6 +183,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Validation\ContentTypeAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\AuctioneerDbContext.mdf" />

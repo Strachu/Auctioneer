@@ -1,21 +1,39 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using PagedList;
 
+using Auctioneer.Logic.Utils;
+
 namespace Auctioneer.Logic.Auctions
 {
 	public class AuctionService : IAuctionService
 	{
-		private readonly AuctioneerDbContext mContext;
+		private static readonly Size THUMBNAIL_SIZE = new Size(100, 100);
 
-		public AuctionService(AuctioneerDbContext context)
+		private readonly AuctioneerDbContext mContext;
+		private readonly string              mAuctionPhotoDirectoryPath;
+		private readonly string              mAuctionThumbnailDirectoryPath;
+
+		public AuctionService(AuctioneerDbContext context,
+		                      string photoDirectoryPath,
+		                      string thumbnailDirectoryPath)
 		{
-			mContext = context;
+			Contract.Requires(context != null);
+			Contract.Requires(!String.IsNullOrWhiteSpace(photoDirectoryPath));
+			Contract.Requires(!String.IsNullOrWhiteSpace(thumbnailDirectoryPath));
+
+			mContext                       = context;
+			mAuctionPhotoDirectoryPath     = photoDirectoryPath;
+			mAuctionThumbnailDirectoryPath = thumbnailDirectoryPath;
 		}
 
 		public Task<IPagedList<Auction>> GetActiveAuctionsInCategory(int categoryId,
@@ -80,6 +98,45 @@ namespace Auctioneer.Logic.Auctions
 		public void AddAuction(Auction newAuction)
 		{
 			mContext.Auctions.Add(newAuction);
+		}
+
+		public async Task StoreAuctionPhotos(int auctionId, IEnumerable<Stream> dataStreams)
+		{
+			var currentAuctionPhotosDirectory = Path.Combine(mAuctionPhotoDirectoryPath, auctionId.ToString());
+			
+			Directory.CreateDirectory(currentAuctionPhotosDirectory);
+
+			await SavePhotos(currentAuctionPhotosDirectory, dataStreams);
+
+			SaveThumbnailForFirstPhoto(currentAuctionPhotosDirectory, auctionId);
+		}
+
+		private async Task SavePhotos(string photosDirectory, IEnumerable<Stream> dataStreams)
+		{
+			int photoIndex = 0;
+			foreach(var photoStream in dataStreams)
+			{
+				var destinationPath = Path.Combine(photosDirectory, photoIndex + ".jpg");
+
+				using(var destinationStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None))
+				{
+					await photoStream.CopyToAsync(destinationStream).ConfigureAwait(false);
+				}
+
+				++photoIndex;
+			}
+		}
+
+		private void SaveThumbnailForFirstPhoto(string photosDirectory, int auctionId)
+		{
+			var firstPhotoPath = Path.Combine(photosDirectory, "0.jpg");
+			var firstPhotoData = new FileStream(firstPhotoPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+			var firstPhoto     = new Bitmap(firstPhotoData);
+
+			var thumbnail      = firstPhoto.ScaleToFitPreservingAspectRatio(THUMBNAIL_SIZE);
+			var thumbnailPath  = Path.Combine(mAuctionThumbnailDirectoryPath, auctionId + ".jpg");
+
+			thumbnail.Save(thumbnailPath, ImageFormat.Jpeg);			
 		}
 	}
 }

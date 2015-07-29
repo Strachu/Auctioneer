@@ -138,6 +138,12 @@
   <data name="AddAuction_DescriptionRequired" xml:space="preserve">
     <value>A description of the auction is required.</value>
   </data>
+  <data name="AddAuction_OnlyJPEGImagesSupported" xml:space="preserve">
+    <value>Only images in a JPEG format are supported.</value>
+  </data>
+  <data name="AddAuction_Photos" xml:space="preserve">
+    <value>The photos of the item</value>
+  </data>
   <data name="AddAuction_Price" xml:space="preserve">
     <value>Price</value>
   </data>

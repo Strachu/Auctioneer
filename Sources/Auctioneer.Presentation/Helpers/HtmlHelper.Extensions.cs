@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -50,6 +53,23 @@ namespace Auctioneer.Presentation.Helpers
 			}
 
 			return helper.ActionLink(linkText, actionName, controllerName, routeDictionary, htmlAttibutesDictionary);
+		}
+
+		public static IHtmlString FileUploadFor<TModel, TProperty>(this HtmlHelper<TModel> html,
+		                                                           Expression<Func<TModel, TProperty>> expression,
+		                                                           string acceptFilter)
+		{
+			Contract.Requires(html != null);
+			Contract.Requires(expression != null);
+
+			bool allowMultiple = typeof(IEnumerable).IsAssignableFrom(expression.ReturnType);
+
+			return html.TextBoxFor(expression, htmlAttributes: new
+			{
+				type     = "file",
+				accept   = acceptFilter,
+				multiple = allowMultiple
+			});
 		}
 	}
 }

@@ -6,8 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 
 using Auctioneer.Presentation.Properties;
+using Auctioneer.Presentation.Validation;
 
 using DataAnnotationsExtensions;
+
+using FileExtensions = System.ComponentModel.DataAnnotations.FileExtensionsAttribute;
 
 namespace Auctioneer.Presentation.Models
 {
@@ -42,7 +45,11 @@ namespace Auctioneer.Presentation.Models
 		public int CategoryId { get; set; }
 		public IEnumerable<SelectListItem> AvailableCategories { get; set; }
 
-		// TODO Photo uploading
+		[Required]
+		[ContentType("image/jpeg", // TODO the better solution would be to accept any image and convert it to a JPEG automatically
+			ErrorMessageResourceName = "AddAuction_OnlyJPEGImagesSupported", ErrorMessageResourceType = typeof(Resources))]
+		[Display(Name = "AddAuction_Photos", ResourceType = typeof(Resources))]
+		public IEnumerable<HttpPostedFileBase> Photos { get; set; }
 
 		// TODO WYSIWYG html editor
 		[Required(ErrorMessageResourceName = "AddAuction_DescriptionRequired", ErrorMessageResourceType = typeof(Resources))]

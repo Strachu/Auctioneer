@@ -86,6 +86,8 @@ namespace Auctioneer.Presentation.Controllers
 				mAuctionService.AddAuction(newAuction);
 				await mUnitOfWork.Commit();
 
+				await mAuctionService.StoreAuctionPhotos(newAuction.Id, input.Photos.Select(x => x.InputStream));
+
 				return RedirectToAction("Show", new { id = newAuction.Id });
 			}
 
