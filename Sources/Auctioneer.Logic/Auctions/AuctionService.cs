@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Ganss.XSS;
+
 using PagedList;
 
 using Auctioneer.Logic.Utils;
@@ -97,6 +99,10 @@ namespace Auctioneer.Logic.Auctions
 
 		public void AddAuction(Auction newAuction)
 		{
+			var sanitizer = new HtmlSanitizer();
+			
+			newAuction.Description = sanitizer.Sanitize(newAuction.Description);
+
 			mContext.Auctions.Add(newAuction);
 		}
 
