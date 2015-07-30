@@ -1,0 +1,52 @@
+﻿.auction-details
+{
+	background-color : white;
+}
+
+.auction-details header
+{
+	margin-bottom : 20px;
+}
+
+.auction-details header > h1
+{
+	text-align   : center;
+	margin-bottom: 0;
+}
+
+.auction-details header > .end-time
+{
+	text-align : center;
+}
+
+.auction-details .photos
+{
+	display        : flex;
+	border         : 1px solid black;
+	margin-top     : 10px;
+	padding-top    : 3px;
+	padding-bottom : 3px;
+	
+	flex-wrap      : nowrap;
+	justify-content: center;
+	overflow       : hidden;
+}
+
+.auction-details .photos img
+{
+	margin-left : 5px;
+	margin-right: 5px;
+}
+
+.auction-details .auction-description
+{
+	background-color: #F5F5F5;
+	border          : 1px solid #CCC;
+	border-radius   : 4px;
+	padding         : 10px;
+}
+
+.auction-details .auction-description img
+{
+	max-width : 100%;
+}

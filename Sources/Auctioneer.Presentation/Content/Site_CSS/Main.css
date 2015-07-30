@@ -1,0 +1,22 @@
+﻿.page-body
+{
+	margin-top: 70px;
+}
+
+.jumbotron
+{
+	padding-top:    10px;
+	padding-bottom: 10px;
+	margin-bottom:  20px;
+}
+
+section, nav, main, header
+{
+	background-color: #eeeeee;
+	border-radius   : 10px;		
+}
+
+footer
+{
+	text-align: center;
+}

@@ -355,6 +355,10 @@
     <Content Include="Content\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Content\ckeditor\skins\moono\images\spinner.gif" />
     <Content Include="Content\ckeditor\styles.js" />
+    <Content Include="Content\Site_CSS\AuctionListing.css" />
+    <Content Include="Content\Site_CSS\Main.css" />
+    <Content Include="Content\Site_CSS\AuctionDetails.css" />
+    <Content Include="Content\Site_CSS\Forms.css" />
     <Content Include="Content\Lightbox\close.png" />
     <Content Include="Content\Lightbox\lightbox.css" />
     <Content Include="Content\Lightbox\loading.gif" />
@@ -363,7 +367,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\ckeditor\CHANGES.md" />

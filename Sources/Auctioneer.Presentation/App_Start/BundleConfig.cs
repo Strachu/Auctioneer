@@ -25,7 +25,7 @@ namespace Auctioneer.Presentation
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 						 "~/Content/bootstrap.css",
-						 "~/Content/site.css"));
+						 "~/Content/Site_CSS/*.css"));
 		}
 	}
 }

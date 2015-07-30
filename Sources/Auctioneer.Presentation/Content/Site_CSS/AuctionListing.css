@@ -1,0 +1,179 @@
+﻿.breadcrumb
+{
+	font-size     : 90%;
+	padding-top   : 5px;
+	padding-bottom: 5px;
+	margin-bottom : 10px;
+}
+
+.category-auction-container
+{
+	display: flex;
+	width  : 100%;
+}
+
+.category-list
+{
+	width           : 200px;
+	padding         : 0;
+	margin-right    : 10px;
+}
+
+.category-list h1
+{
+	font-size  : 160%;
+	margin-left: 3px;
+	margin-top : 3px;
+}
+
+.category-list ul
+{
+	list-style-type: none;
+	font-size      : 120%;
+	margin-left    : 1em;
+	padding-left   : 0;
+}
+
+.category-list a
+{
+	transition: color 1s ease;
+}
+
+.category-list a:hover
+{
+	color: #00cc00;
+}
+
+.auction-list
+{
+	flex: auto;
+}
+
+.auction-list .sorting-property-selector
+{
+	font-size    : 120%;
+	margin-top   : 3px;
+	margin-bottom: 3px;
+
+	text-align   : center;
+}
+
+.auction-list .sorting-property-selector > li
+{
+	display: inline;
+}
+
+.auction-list .sorting-property-selector > li:not(:first-child):before
+{
+	content: "|";
+}
+
+.auction-list .sorting-property-selector a:hover
+{
+	text-decoration: none;
+}
+
+.auction-list .sorting-property-selector .active
+{
+	font-weight: bold;
+}
+
+.auction-list > h1
+{
+	font-size  : 160%;
+	margin-top : 3px;
+	text-align : center;
+}
+
+.auction-list article
+{
+	background-color: #dddddd;
+	margin-bottom   : 5px;
+	display         : flex;
+	position        : relative;
+}
+
+.auction-list article .thumbnail
+{
+	background-color: #dddddd;
+	width           : 100px;
+	height          : 100px;
+}
+
+.thumbnail img
+{
+	position   : relative;
+	top        : 50%;
+	transform  : translateY(-50%);	
+}
+
+.auction-list article .auction-info
+{
+	flex     : 1 1 auto;
+	position : relative;
+}
+
+.auction-info h1
+{
+	font-size  : 175%;
+	margin-left: 10px;
+	margin-top : 0;
+	display    : inline-block;
+
+	position   : absolute;
+	top        : 50%;
+	transform  : translateY(-50%);
+}
+
+.auction-info .price
+{
+	font-size  : 120%;
+	color      : red;
+	font-weight: bold;
+	display    : inline-block;
+	
+	position   : absolute;
+	top        : 50%;
+	right      : 10%;
+	transform  : translateY(-50%);
+}
+
+.auction-info .time-till-end
+{
+	color      : black;
+	display    : inline-block;
+
+	position   : absolute;
+	bottom     : 0;
+	left       : 0;
+	margin-left: 30px;
+}
+
+.pagination-box
+{
+	display    : flex;
+	margin-left: 15px;
+}
+
+.pagination-box .page-text
+{
+	font-size    : 120%;
+	align-self   : center;
+	margin-bottom: 7px;
+	margin-right : 10px;
+}
+
+.pagination-box .pagination-container
+{
+	flex: 1 1 auto;
+}
+
+.pagination-box .results-per-page-selector
+{
+	font-size     : 120%;
+	align-self    : center;
+	margin-bottom : 7px;
+	margin-right  : 15px;
+
+	text-align    : right;
+}
