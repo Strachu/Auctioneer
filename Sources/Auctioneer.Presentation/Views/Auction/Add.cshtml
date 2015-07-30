@@ -56,3 +56,51 @@
 		</div>
 	}
 </main>
+
+@section scripts
+{
+	<script src="~/Content/ckeditor/ckeditor.js"></script>
+	<script>
+		CKEDITOR.replace("Description", {
+			contentsCss: '@Styles.Url("~/Content/css")',
+			stylesSet: 'styles',
+			disableNativeSpellChecker: false,
+			linkShowTargetTab: false,
+			removeButtons: 'Subscript,Superscript,Scayt,Anchor,SpecialChar,Format,About',
+			toolbarGroups: [
+				{ name: 'clipboard', groups: ['clipboard', 'undo'] },
+				{ name: 'editing', groups: ['find', 'selection', 'editing'] },
+				{ name: 'links', groups: ['links'] },
+				{ name: 'insert', groups: ['insert'] },
+				{ name: 'forms', groups: ['forms'] },
+				{ name: 'tools', groups: ['tools'] },
+				{ name: 'document', groups: ['mode', 'document', 'doctools'] },
+				{ name: 'others', groups: ['others'] },
+				'/',
+				{ name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+				{ name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
+				{ name: 'styles', groups: ['styles'] },
+				{ name: 'colors', groups: ['colors'] },
+				{ name: 'about', groups: ['about'] }
+			]
+		});
+
+		CKEDITOR.stylesSet.add('styles', [
+			{ name: 'Paragraph', element: 'p' },
+			{ name: 'Heading 1', element: 'h1' },
+			{ name: 'Heading 2', element: 'h2' },
+			{ name: 'Heading 3', element: 'h3' },
+			{ name: 'Heading 4', element: 'h4' },
+			{
+				name: 'Container',
+				element: 'div',
+				styles: {
+					padding: '5px 10px',
+					background: '#eee',
+					border: '1px solid #ccc'
+				}
+			},
+			{ name: 'Marker', element: 'mark' },
+		]);
+	</script>
+}

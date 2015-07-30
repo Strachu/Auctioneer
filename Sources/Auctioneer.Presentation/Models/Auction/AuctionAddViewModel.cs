@@ -51,9 +51,9 @@ namespace Auctioneer.Presentation.Models
 		[Display(Name = "AddAuction_Photos", ResourceType = typeof(Resources))]
 		public IEnumerable<HttpPostedFileBase> Photos { get; set; }
 
-		// TODO WYSIWYG html editor
+		[AllowHtml]
+		[DataType(DataType.Html)]
 		[Required(ErrorMessageResourceName = "AddAuction_DescriptionRequired", ErrorMessageResourceType = typeof(Resources))]
-		[DataType(DataType.MultilineText)]
 		[Display(Name = "AddAuction_Description", ResourceType = typeof(Resources))]
 		public string Description { get; set; }
 	}

@@ -10,7 +10,7 @@ namespace Auctioneer.Presentation.Models
 	{
 		public string Title { get; set; }
 
-		[DataType(DataType.MultilineText)]
+		[DataType(DataType.Html)]
 		public string Description { get; set; }
 
 		[DataType(DataType.DateTime)]
