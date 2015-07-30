@@ -97,13 +97,14 @@ namespace Auctioneer.Logic.Auctions
 			return auction;
 		}
 
-		public void AddAuction(Auction newAuction)
+		public async Task AddAuction(Auction newAuction)
 		{
 			var sanitizer = new HtmlSanitizer();
 			
 			newAuction.Description = sanitizer.Sanitize(newAuction.Description);
 
 			mContext.Auctions.Add(newAuction);
+			await mContext.SaveChangesAsync();
 		}
 
 		public async Task StoreAuctionPhotos(int auctionId, IEnumerable<Stream> dataStreams)

@@ -22,7 +22,7 @@ namespace Auctioneer.Logic.Auctions
 
 		Task<Auction> GetById(int id);
 
-		void AddAuction(Auction newAuction);
+		Task AddAuction(Auction newAuction);
 		Task StoreAuctionPhotos(int auctionId, IEnumerable<Stream> dataStreams);
 	}
 }

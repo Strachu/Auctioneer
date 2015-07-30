@@ -32,7 +32,7 @@ namespace Auctioneer.Presentation
 
 			RegisterServices(builder);
 
-			builder.RegisterType<AuctioneerDbContext>().As<AuctioneerDbContext>().As<IUnitOfWork>().InstancePerRequest();
+			builder.RegisterType<AuctioneerDbContext>().InstancePerRequest();
 
 			builder.RegisterType<BreadcrumbBuilder>().As<IBreadcrumbBuilder>().InstancePerDependency();
 			builder.RegisterType<AuctionService>().As<IAuctionService>().InstancePerRequest().WithParameters(new Parameter[]

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,24 +19,20 @@ namespace Auctioneer.Presentation.Controllers
 {
 	public class AuctionController : Controller
 	{
-		private readonly IAuctionService     mAuctionService;
-		private readonly ICategoryService    mCategoryService;
-		private readonly IUnitOfWork         mUnitOfWork;
-		private readonly IBreadcrumbBuilder  mBreadcrumbBuilder;
+		private readonly IAuctionService    mAuctionService;
+		private readonly ICategoryService   mCategoryService;
+		private readonly IBreadcrumbBuilder mBreadcrumbBuilder;
 
 		public AuctionController(IAuctionService auctionService,
 		                         ICategoryService categoryService,
-		                         IUnitOfWork unitOfWork,
 		                         IBreadcrumbBuilder breadcrumbBuilder)
 		{
 			Contract.Requires(auctionService != null);
 			Contract.Requires(categoryService != null);
-			Contract.Requires(unitOfWork != null);
 			Contract.Requires(breadcrumbBuilder != null);
 
 			mAuctionService    = auctionService;
 			mCategoryService   = categoryService;
-			mUnitOfWork        = unitOfWork;
 			mBreadcrumbBuilder = breadcrumbBuilder;
 		}
 
@@ -83,10 +80,13 @@ namespace Auctioneer.Presentation.Controllers
 			{
 				var newAuction = AuctionAddViewModelMapper.ToAuction(input);
 
-				mAuctionService.AddAuction(newAuction);
-				await mUnitOfWork.Commit();
+				using(var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+				{
+					await mAuctionService.AddAuction(newAuction);
+					await mAuctionService.StoreAuctionPhotos(newAuction.Id, input.Photos.Select(x => x.InputStream));
 
-				await mAuctionService.StoreAuctionPhotos(newAuction.Id, input.Photos.Select(x => x.InputStream));
+					transaction.Complete();
+				}
 
 				return RedirectToAction("Show", new { id = newAuction.Id });
 			}

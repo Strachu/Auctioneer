@@ -35,9 +35,11 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 
-		void IAuctionService.AddAuction(Auction newAuction)
+		Task IAuctionService.AddAuction(Auction newAuction)
 		{
 			Contract.Requires(newAuction != null);
+
+			throw new NotImplementedException();
 		}
 
 		public Task StoreAuctionPhotos(int auctionId, IEnumerable<System.IO.Stream> dataStreams)

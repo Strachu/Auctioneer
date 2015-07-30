@@ -11,7 +11,7 @@ using Auctioneer.Logic.Categories;
 
 namespace Auctioneer.Logic
 {
-	public class AuctioneerDbContext : DbContext, IUnitOfWork
+	public class AuctioneerDbContext : DbContext
 	{
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Auction> Auctions { get; set; }
@@ -32,11 +32,6 @@ namespace Auctioneer.Logic
 			base.OnModelCreating(modelBuilder);
 
 			modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
-		}
-
-		async Task IUnitOfWork.Commit()
-		{
-			await SaveChangesAsync();
 		}
 	}
 }
