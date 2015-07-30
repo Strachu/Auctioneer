@@ -22,6 +22,7 @@ namespace Auctioneer.Presentation.Controllers
 			mBreadcrumbBuilder = breadcrumbBuilder;
 		}
 
+		[OutputCache(Duration = 10)]
 		public async Task<ActionResult> Index()
 		{
 			var auctions   = await mAuctionService.GetRecentAuctions(maxResults: 20);

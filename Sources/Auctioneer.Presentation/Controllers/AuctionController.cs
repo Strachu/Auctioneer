@@ -64,6 +64,7 @@ namespace Auctioneer.Presentation.Controllers
 			return PartialView("_Breadcrumb", breadcrumb);
 		}
 
+		[OutputCache(Duration = 7200)]
 		public async Task<ActionResult> Add()
 		{
 			var viewModel = new AuctionAddViewModel();

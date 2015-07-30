@@ -57,6 +57,7 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[ChildActionOnly]
+		[OutputCache(Duration = 7200)]
 		public PartialViewResult TopCategories()
 		{
 			var categories = mCategoryService.GetTopLevelCategories().Result;
@@ -65,6 +66,7 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[ChildActionOnly]
+		[OutputCache(Duration = Constants.DAY, VaryByParam = "id")]
 		public ActionResult Breadcrumb(int id)
 		{
 			var breadcrumb = mBreadcrumbBuilder.WithHomepageLink()
