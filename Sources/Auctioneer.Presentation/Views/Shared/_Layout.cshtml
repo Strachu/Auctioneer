@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Lang = Auctioneer.Presentation.Resources.Shared.Layout;
+
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -23,7 +25,7 @@
 
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li>@Html.ActionLink(Resources.AddAuctionLink, controllerName: "Auction", actionName: "Add")</li>
+					<li>@Html.ActionLink(Lang.AddAuctionLink, controllerName: "Auction", actionName: "Add")</li>
 				</ul>
 			</div>
 		</div>

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<AuctionViewModel>
+@using Lang = Auctioneer.Presentation.Resources.Home.Index;
 
 @{
 	Layout        = "~/Views/Shared/_Layout_with_search_and_breadcrumb.cshtml";
@@ -9,7 +10,7 @@
 {
 	<div class="jumbotron">
 		<h1>Auctioneer</h1>
-		<p class="lead">Auctioneer is a platform for buying and selling anything you want.</p>
+		<p class="lead">@Lang.AuctioneerDescription</p>
 	</div>
 }
 
@@ -19,7 +20,7 @@
 	
 	<main class="auction-list">
 		
-		<h1>@Resources.MostRecentAuctions</h1>
+		<h1>@Lang.MostRecentAuctions</h1>
 
 		@Html.DisplayForModel()
 

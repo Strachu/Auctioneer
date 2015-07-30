@@ -1,7 +1,8 @@
 ﻿@model PagedList.IPagedList<AuctionViewModel>
+@using Lang = Auctioneer.Presentation.Resources.Category.Index;
 
 <div class="pagination-box">
-	<span class="page-text">@Resources.AuctionList_PageNumber</span>
+	<span class="page-text">@Lang.PageNumber</span>
 
 	@Html.PagedListPager(Model, page => Url.ActionWithCurrentParameters("Index", routeValues: new { page = page }),
 	                     new PagedListRenderOptions
@@ -10,7 +11,7 @@
 	                     })
 
 	<span class="results-per-page-selector">
-		@Resources.AuctionList_ResultsPerPage
+		@Lang.ResultsPerPage
 
 		@{
 			var options = new int[] { 10, 20, 50 };

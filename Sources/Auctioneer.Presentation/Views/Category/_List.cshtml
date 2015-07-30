@@ -1,7 +1,8 @@
 ﻿@model CategoryListViewModel
+@using Lang = Auctioneer.Presentation.Resources.Category.Index;
 
 <nav class="category-list">
-	<h1>@Resources.Categories_Header</h1>
+	<h1>@Lang.Header</h1>
 	<ul>
 		@foreach(var category in Model.Categories)
 		{

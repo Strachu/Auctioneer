@@ -1,4 +1,5 @@
 ﻿@model AuctionSortOrder
+@using Lang = Auctioneer.Presentation.Resources.Category.Index;
 
 @using Auctioneer.Logic.Auctions
 
@@ -20,13 +21,13 @@
 }
 
 <ul class="sorting-property-selector">
-	@Resources.AuctionList_SortBy
+	@Lang.SortBy
 	@{
 		var options = new Dictionary<string, AuctionSortOrder[]>
 		{
-			{ Resources.AuctionList_Title,     new [] { AuctionSortOrder.TitleAscending,   AuctionSortOrder.TitleDescending }},
-			{ Resources.AuctionList_TimeToEnd, new [] { AuctionSortOrder.EndDateAscending, AuctionSortOrder.EndDateDescending }},
-			{ Resources.AuctionList_Price,     new [] { AuctionSortOrder.PriceAscending,   AuctionSortOrder.PriceDescending }}
+			{ Lang.Title,     new [] { AuctionSortOrder.TitleAscending,   AuctionSortOrder.TitleDescending }},
+			{ Lang.TimeToEnd, new [] { AuctionSortOrder.EndDateAscending, AuctionSortOrder.EndDateDescending }},
+			{ Lang.Price,     new [] { AuctionSortOrder.PriceAscending,   AuctionSortOrder.PriceDescending }}
 		};
 
 		foreach(var sortOption in options)

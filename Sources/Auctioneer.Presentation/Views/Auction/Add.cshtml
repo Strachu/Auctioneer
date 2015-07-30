@@ -1,4 +1,5 @@
 ﻿@model AuctionAddViewModel
+@using Lang = Auctioneer.Presentation.Resources.Auction.Add;
 
 @{
 	ViewBag.Title = "Add";
@@ -32,7 +33,7 @@
 
 		<div class="form-group">
 			@Html.LabelFor(x => x.CategoryId)
-			@Html.DropDownListFor(x => x.CategoryId, Model.AvailableCategories, Resources.AddAuction_CategoryDropdownDefaultValue)
+			@Html.DropDownListFor(x => x.CategoryId, Model.AvailableCategories, Lang.CategoryDropdownDefaultValue)
 			@Html.ValidationMessageFor(x => x.CategoryId)
 		</div>
 
@@ -46,13 +47,13 @@
 			@Html.LabelFor(x => x.Description)
 			@Html.EditorFor(x => x.Description, new { htmlAttributes = new
 			{
-				placeholder = @Resources.AddAuction_DescriptionPlaceholder
+				placeholder = @Lang.DescriptionPlaceholder
 			}})
 			@Html.ValidationMessageFor(x => x.Description)
 		</div>
 
 		<div class="submit-button-container">
-			<input type="submit" value="@Resources.AddAuction_SubmitText" />
+			<input type="submit" value="@Lang.SubmitText" />
 		</div>
 	}
 </main>

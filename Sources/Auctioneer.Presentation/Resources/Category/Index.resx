@@ -117,79 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddAuctionLink" xml:space="preserve">
-    <value>Add an auction</value>
-  </data>
-  <data name="AddAuction_Category" xml:space="preserve">
-    <value>Category</value>
-  </data>
-  <data name="AddAuction_CategoryDropdownDefaultValue" xml:space="preserve">
-    <value>-- Pick a category --</value>
-  </data>
-  <data name="AddAuction_DaysToEnd" xml:space="preserve">
-    <value>Duration (days)</value>
-  </data>
-  <data name="AddAuction_Description" xml:space="preserve">
-    <value>Description of the auction</value>
-  </data>
-  <data name="AddAuction_DescriptionPlaceholder" xml:space="preserve">
-    <value>Write something about the items you intend to sell</value>
-  </data>
-  <data name="AddAuction_DescriptionRequired" xml:space="preserve">
-    <value>A description of the auction is required.</value>
-  </data>
-  <data name="AddAuction_OnlyJPEGImagesSupported" xml:space="preserve">
-    <value>Only images in a JPEG format are supported.</value>
-  </data>
-  <data name="AddAuction_Photos" xml:space="preserve">
-    <value>The photos of the item</value>
-  </data>
-  <data name="AddAuction_Price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="AddAuction_SubmitText" xml:space="preserve">
-    <value>Add the auction</value>
-  </data>
-  <data name="AddAuction_Title" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="AuctionList_PageNumber" xml:space="preserve">
-    <value>Page: </value>
-  </data>
-  <data name="AuctionList_Price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="AuctionList_ResultsPerPage" xml:space="preserve">
-    <value>Results per page:</value>
-  </data>
-  <data name="AuctionList_SortBy" xml:space="preserve">
-    <value>Sort by:</value>
-  </data>
-  <data name="AuctionList_TimeToEnd" xml:space="preserve">
-    <value>Time to end</value>
-  </data>
-  <data name="AuctionList_Title" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="Auction_EndingIn" xml:space="preserve">
-    <value>Ending in </value>
-  </data>
-  <data name="Categories_Header" xml:space="preserve">
+  <data name="Header" xml:space="preserve">
     <value>Categories:</value>
   </data>
-  <data name="MostRecentAuctions" xml:space="preserve">
-    <value>The most recent auctions:</value>
+  <data name="PageNumber" xml:space="preserve">
+    <value>Page: </value>
   </data>
-  <data name="TimeSpan_Days" xml:space="preserve">
-    <value>days</value>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
   </data>
-  <data name="TimeSpan_Hours" xml:space="preserve">
-    <value>hours</value>
+  <data name="ResultsPerPage" xml:space="preserve">
+    <value>Results per page:</value>
   </data>
-  <data name="TimeSpan_LessThanMinute" xml:space="preserve">
-    <value>Less than a minute</value>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sort by:</value>
   </data>
-  <data name="TimeSpan_Minutes" xml:space="preserve">
-    <value>minutes</value>
+  <data name="TimeToEnd" xml:space="preserve">
+    <value>Time to end</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
   </data>
 </root>

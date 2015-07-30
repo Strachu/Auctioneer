@@ -1,4 +1,5 @@
 ﻿@model AuctionViewModel
+@using Lang = Auctioneer.Presentation.Resources.Auction.Show;
 
 <a href="@Url.Action("Show", "Auction", new { id = Model.Id, slug = Model.Slug })">
 	<article>
@@ -16,7 +17,7 @@
 			</div>
 
 			<div class="time-till-end">
-				@Resources.Auction_EndingIn @Html.DisplayFor(x => Model.TimeTillEnd)
+				@Lang.EndingIn @Html.DisplayFor(x => Model.TimeTillEnd)
 			</div>
 		</div>
 	</article>

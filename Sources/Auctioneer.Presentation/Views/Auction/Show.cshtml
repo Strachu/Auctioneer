@@ -1,4 +1,5 @@
 ﻿@model AuctionShowViewModel
+@using Lang = Auctioneer.Presentation.Resources.Auction.Show;
 
 @{
 	Layout        = "~/Views/Shared/_Layout_with_search_and_breadcrumb.cshtml";
@@ -17,7 +18,7 @@
 <main class="auction-details">
 	<header>
 		<h1>@Html.DisplayFor(x => x.Title)</h1>
-		<div class="end-time">@Resources.Auction_EndingIn @Html.DisplayFor(x => x.TimeTillEnd) (@Html.DisplayFor(x => x.EndDate))</div>
+		<div class="end-time">@Lang.EndingIn @Html.DisplayFor(x => x.TimeTillEnd) (@Html.DisplayFor(x => x.EndDate))</div>
 		
 		<div class="dl-horizontal">
 			<dt>

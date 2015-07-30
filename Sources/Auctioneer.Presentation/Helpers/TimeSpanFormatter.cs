@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-using Lang = Auctioneer.Presentation.Properties.Resources;
+using Lang = Auctioneer.Presentation.Resources.Other;
 
 namespace Auctioneer.Presentation.Helpers
 {
