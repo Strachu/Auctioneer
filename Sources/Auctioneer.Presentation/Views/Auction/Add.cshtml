@@ -67,21 +67,18 @@
 			disableNativeSpellChecker: false,
 			linkShowTargetTab: false,
 			removeButtons: 'Subscript,Superscript,Scayt,Anchor,SpecialChar,Format,About',
-			toolbarGroups: [
-				{ name: 'clipboard', groups: ['clipboard', 'undo'] },
-				{ name: 'editing', groups: ['find', 'selection', 'editing'] },
-				{ name: 'links', groups: ['links'] },
-				{ name: 'insert', groups: ['insert'] },
-				{ name: 'forms', groups: ['forms'] },
-				{ name: 'tools', groups: ['tools'] },
-				{ name: 'document', groups: ['mode', 'document', 'doctools'] },
-				{ name: 'others', groups: ['others'] },
+			toolbar: [
+				{ name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+				{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+				{ name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule' ] },
+				{ name: 'tools', items: [ 'Maximize' ] },
+				{ name: 'document', items: [ 'Source' ] },
 				'/',
-				{ name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
-				{ name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
-				{ name: 'styles', groups: ['styles'] },
-				{ name: 'colors', groups: ['colors'] },
-				{ name: 'about', groups: ['about'] }
+				{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
+				{ name: 'aligning', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+				{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+				{ name: 'styles', items: [ 'Styles', 'Font', 'FontSize' ] },
+				{ name: 'colors', items: [ 'TextColor', 'BGColor' ] }
 			]
 		});
 

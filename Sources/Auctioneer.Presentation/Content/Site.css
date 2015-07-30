@@ -244,6 +244,11 @@ section, nav, main, header
 	padding         : 10px;
 }
 
+.auction-details .auction-description img
+{
+	max-width : 100%;
+}
+
 .form-container > h1
 {
 	margin-top : 5px;
