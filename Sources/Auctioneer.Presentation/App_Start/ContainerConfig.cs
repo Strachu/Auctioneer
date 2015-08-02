@@ -30,9 +30,12 @@ namespace Auctioneer.Presentation
 			builder.RegisterSource(new ViewRegistrationSource());
 			builder.RegisterFilterProvider();
 
+			builder.Register(x => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
+
 			RegisterServices(builder);
 
 			builder.RegisterType<AuctioneerDbContext>().InstancePerRequest();
+			builder.RegisterType<AuthenticationManager>().InstancePerRequest();
 
 			builder.RegisterType<BreadcrumbBuilder>().As<IBreadcrumbBuilder>().InstancePerDependency();
 			builder.RegisterType<AuctionService>().As<IAuctionService>().InstancePerRequest().WithParameters(new Parameter[]
@@ -48,8 +51,9 @@ namespace Auctioneer.Presentation
 
 		private static void RegisterServices(ContainerBuilder builder)
 		{
-			builder.RegisterAssemblyTypes(typeof(Auctioneer.Logic.AuctioneerDbContext).Assembly)
+			builder.RegisterAssemblyTypes(typeof(IAuctionService).Assembly)
 			       .Where(t => t.Name.EndsWith("Service"))
+					 .AsSelf()
 			       .AsImplementedInterfaces()
 			       .InstancePerRequest();
 		}

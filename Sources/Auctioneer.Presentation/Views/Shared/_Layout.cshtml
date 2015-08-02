@@ -26,6 +26,15 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li>@Html.ActionLink(Lang.AddAuctionLink, controllerName: "Auction", actionName: "Add")</li>
+					@if(!User.Identity.IsAuthenticated)
+					{
+						<li>@Html.ActionLink(Lang.CreateAccount, controllerName: "User", actionName: "Create")</li>
+						<li>@Html.ActionLink(Lang.LogIn, controllerName: "User", actionName: "Login")</li>
+					}
+					else
+					{
+						<li>@Html.ActionLink(Lang.LogOut, controllerName: "User", actionName: "Logout")</li>
+					}
 				</ul>
 			</div>
 		</div>

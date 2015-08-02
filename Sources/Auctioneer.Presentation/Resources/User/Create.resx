@@ -117,40 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Category" xml:space="preserve">
-    <value>Category</value>
+  <data name="Address" xml:space="preserve">
+    <value>Mailing address</value>
   </data>
-  <data name="CategoryDropdownDefaultValue" xml:space="preserve">
-    <value>-- Pick a category --</value>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm your password</value>
   </data>
-  <data name="DaysToEnd" xml:space="preserve">
-    <value>Duration (days)</value>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail address</value>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description of the auction</value>
-  </data>
-  <data name="DescriptionPlaceholder" xml:space="preserve">
-    <value>Write something about the items you intend to sell</value>
-  </data>
-  <data name="DescriptionRequired" xml:space="preserve">
-    <value>A description of the auction is required.</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>First name</value>
   </data>
   <data name="FormHeader" xml:space="preserve">
-    <value>Add an auction</value>
+    <value>Create an account</value>
   </data>
-  <data name="OnlyJPEGImagesSupported" xml:space="preserve">
-    <value>Only images in a JPEG format are supported.</value>
+  <data name="LastName" xml:space="preserve">
+    <value>Last name</value>
   </data>
-  <data name="Photos" xml:space="preserve">
-    <value>The photos of the item</value>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Entered passwords do not match.</value>
   </data>
   <data name="SubmitText" xml:space="preserve">
-    <value>Add the auction</value>
+    <value>Create</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

@@ -115,6 +115,15 @@ namespace Auctioneer.Presentation.Resources.Auction {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add an auction.
+        /// </summary>
+        public static string FormHeader {
+            get {
+                return ResourceManager.GetString("FormHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only images in a JPEG format are supported..
         /// </summary>
         public static string OnlyJPEGImagesSupported {
