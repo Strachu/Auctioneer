@@ -271,6 +271,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Resources\User\LockedOut.Designer.cs">
+      <DependentUpon>LockedOut.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\User\ResentMailConfirmation.Designer.cs">
       <DependentUpon>ResentMailConfirmation.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -554,6 +559,7 @@
     <Content Include="Views\User\EmailNotConfirmed.cshtml" />
     <Content Include="Views\User\ResentMailConfirmation.cshtml" />
     <Content Include="Emails\User\ConfirmationMail\ConfirmationMail.cshtml" />
+    <Content Include="Views\User\LockedOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Auction\Show.resx">
@@ -584,6 +590,10 @@
     <EmbeddedResource Include="Resources\Shared\Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Layout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\LockedOut.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LockedOut.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\User\ResentMailConfirmation.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

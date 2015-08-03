@@ -20,7 +20,7 @@ namespace Auctioneer.Presentation.Helpers
 
 		public Task<SignInStatus> SignIn(string userName, string password)
 		{
-			return base.PasswordSignInAsync(userName, password, isPersistent: false, shouldLockout: false);
+			return base.PasswordSignInAsync(userName, password, isPersistent: false, shouldLockout: true);
 		}
 
 		public Task SignOut()

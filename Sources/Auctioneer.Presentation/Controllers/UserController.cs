@@ -112,6 +112,9 @@ namespace Auctioneer.Presentation.Controllers
 				return View(input);
 			}
 
+			if(result == SignInStatus.LockedOut)
+				return View("LockedOut");
+
 			var user = await mUserService.GetUserByUsername(input.Username);
 			if(!user.EmailConfirmed)
 			{

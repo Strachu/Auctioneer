@@ -33,6 +33,10 @@ namespace Auctioneer.Logic.Users
 				RequireUniqueEmail             = true
 			};
 
+			base.UserLockoutEnabledByDefault          = true;
+			base.MaxFailedAccessAttemptsBeforeLockout = 5;
+			base.DefaultAccountLockoutTimeSpan        = TimeSpan.FromMinutes(10);
+
 			// http://stackoverflow.com/questions/22629936/no-iusertokenprovider-is-registered
 			var protectionProvider = new DpapiDataProtectionProvider("Auctioneer");
 			base.UserTokenProvider = new DataProtectorTokenProvider<User>(protectionProvider.Create("Auctioneer_Tokens"));
