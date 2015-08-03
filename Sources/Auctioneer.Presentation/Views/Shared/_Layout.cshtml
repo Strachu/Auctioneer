@@ -22,27 +22,8 @@
 				</button>
 				@Html.ActionLink("Auctioneer", "Index", "Home", null, new { @class = "navbar-brand" })
 			</div>
-
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li>@Html.ActionLink(Lang.AddAuctionLink, controllerName: "Auction", actionName: "Add")</li>
-					@if(!User.Identity.IsAuthenticated)
-					{
-						<li>@Html.ActionLink(Lang.CreateAccount, controllerName: "User", actionName: "Create")</li>
-						<li>
-							@Html.ActionLink(Lang.LogIn, controllerName: "User", actionName: "Login", htmlAttributes: null,
-							                 routeValues: new
-							                 {
-													  returnUrl = Request.RawUrl
-												  })
-						</li>
-					}
-					else
-					{
-						<li>@Html.ActionLink(Lang.LogOut, controllerName: "User", actionName: "Logout")</li>
-					}
-				</ul>
-			</div>
+			
+			@{ Html.RenderPartial("_TopMenu"); }
 		</div>
 	</div>
 

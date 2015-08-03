@@ -44,7 +44,7 @@ namespace Auctioneer.Logic.Users
 
 		public async Task<User> GetUserById(string id)
 		{
-			var user = await base.FindByIdAsync(id);
+			var user = await base.FindByIdAsync(id).ConfigureAwait(false);
 			if(user == null)
 				throw new ObjectNotFoundException("User with id = " + id + " does not exist.");
 
@@ -53,7 +53,7 @@ namespace Auctioneer.Logic.Users
 
 		public async Task<User> GetUserByUsername(string username)
 		{
-			var user = await base.FindByNameAsync(username);
+			var user = await base.FindByNameAsync(username).ConfigureAwait(false);
 			if(user == null)
 				throw new ObjectNotFoundException("User with user name = " + username + " does not exist.");
 
@@ -62,7 +62,7 @@ namespace Auctioneer.Logic.Users
 
 		public async Task<User> GetUserByEmail(string email)
 		{
-			var user = await base.FindByEmailAsync(email);
+			var user = await base.FindByEmailAsync(email).ConfigureAwait(false);
 			if(user == null)
 				throw new ObjectNotFoundException("User with e-mail = " + email + " does not exist.");
 
@@ -71,7 +71,7 @@ namespace Auctioneer.Logic.Users
 
 		public async Task AddUser(User user, string password, IValidationErrorNotifier errors)
 		{
-			var result = await base.CreateAsync(user, password);
+			var result = await base.CreateAsync(user, password).ConfigureAwait(false);
 
 			errors.AddIdentityResult(result);
 		}
@@ -83,7 +83,7 @@ namespace Auctioneer.Logic.Users
 
 		public async Task ConfirmUserEmail(string userId, string confirmationToken, IValidationErrorNotifier errors)
 		{
-			var result = await base.ConfirmEmailAsync(userId, confirmationToken);
+			var result = await base.ConfirmEmailAsync(userId, confirmationToken).ConfigureAwait(false);
 
 			errors.AddIdentityResult(result);
 		}
@@ -95,8 +95,8 @@ namespace Auctioneer.Logic.Users
 
 		public async Task ResetUserPassword(string userName, string newPassword, string resetToken, IValidationErrorNotifier errors)
 		{
-			var user   = await this.GetUserByUsername(userName);
-			var result = await base.ResetPasswordAsync(user.Id, resetToken, newPassword);
+			var user   = await this.GetUserByUsername(userName).ConfigureAwait(false);
+			var result = await base.ResetPasswordAsync(user.Id, resetToken, newPassword).ConfigureAwait(false);
 
 			errors.AddIdentityResult(result);
 		}

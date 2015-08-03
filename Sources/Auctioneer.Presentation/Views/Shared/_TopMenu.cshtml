@@ -1,0 +1,26 @@
+﻿@using Lang = Auctioneer.Presentation.Resources.Shared.Layout;
+
+<div class="navbar-collapse collapse">
+	<ul class="nav navbar-nav navbar-right">
+		
+		@{ Html.RenderAction(controllerName: "User", actionName: "Greetings"); }
+
+		<li>@Html.ActionLink(Lang.AddAuctionLink, controllerName: "Auction", actionName: "Add")</li>
+
+		@if(User.Identity.IsAuthenticated)
+		{
+			<li>@Html.ActionLink(Lang.LogOut, controllerName: "User", actionName: "Logout")</li>
+		}
+		else
+		{
+			<li>@Html.ActionLink(Lang.CreateAccount, controllerName: "User", actionName: "Create")</li>
+			<li>
+				@Html.ActionLink(Lang.LogIn, controllerName: "User", actionName: "Login", htmlAttributes: null,
+				                 routeValues: new
+				                 {
+				                    returnUrl = Request.RawUrl
+				                 })
+			</li>
+		}
+	</ul>
+</div>

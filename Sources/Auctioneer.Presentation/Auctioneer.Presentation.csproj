@@ -299,6 +299,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Resources\User\_Greetings.Designer.cs">
+      <DependentUpon>_Greetings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\User\ResetPasswordMailSent.Designer.cs">
       <DependentUpon>ResetPasswordMailSent.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -588,6 +593,8 @@
     <Content Include="Views\User\ResetPasswordMailSent.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\User\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Shared\_TopMenu.cshtml" />
+    <Content Include="Views\User\_Greetings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Auction\Show.resx">
@@ -638,6 +645,10 @@
     <EmbeddedResource Include="Resources\User\ResetPassword.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResetPassword.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\_Greetings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>_Greetings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\User\ResetPasswordMailSent.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

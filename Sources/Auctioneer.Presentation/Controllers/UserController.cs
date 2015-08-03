@@ -12,6 +12,7 @@ using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models.User;
 
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
 using Postal;
@@ -207,6 +208,19 @@ namespace Auctioneer.Presentation.Controllers
 			await mAuthManager.SignOut();
 
 			return RedirectToAction(controllerName: "Home", actionName: "Index");
+		}
+
+		[ChildActionOnly]
+		public ActionResult Greetings()
+		{
+			if(User.Identity.IsAuthenticated)
+			{
+				var user = mUserService.GetUserById(User.Identity.GetUserId()).Result;
+
+				return PartialView("_Greetings", user);
+			}
+
+			return new EmptyResult();
 		}
 	}
 }
