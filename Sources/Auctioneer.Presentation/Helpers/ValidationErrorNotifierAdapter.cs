@@ -9,11 +9,11 @@ using Auctioneer.Logic;
 
 namespace Auctioneer.Presentation.Helpers
 {
-	public class ModelStateValidationErrorNotifierAdapter : IValidationErrorNotifier
+	public class ValidationErrorNotifierAdapter : IValidationErrorNotifier
 	{
 		private readonly ModelStateDictionary mModelState;
 
-		public ModelStateValidationErrorNotifierAdapter(ModelStateDictionary modelState)
+		public ValidationErrorNotifierAdapter(ModelStateDictionary modelState)
 		{
 			Contract.Requires(modelState != null);
 

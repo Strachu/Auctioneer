@@ -1,0 +1,33 @@
+﻿.error-info
+{
+	/* http://stackoverflow.com/questions/5495476/parent-div-not-wrapping-child-element-with-float-attribute */
+	overflow: hidden;
+}
+
+.error-info h1
+{
+	font-size    : 200%;
+	font-weight  : bold;
+	color        : red;
+	text-align   : center;
+
+	margin-top   : 10px;
+	margin-bottom: 0;
+}
+
+.error-info p
+{
+	text-align : center;
+}
+
+.error-info .validation-summary-errors
+{
+	border : 0;
+}
+
+.error-info .validation-summary-errors ul
+{
+	list-style-type: none;
+	margin-left    : 0;
+	padding-left   : 0;
+}

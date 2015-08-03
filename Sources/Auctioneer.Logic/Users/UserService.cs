@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security.DataProtection;
 
 namespace Auctioneer.Logic.Users
 {
@@ -31,6 +32,28 @@ namespace Auctioneer.Logic.Users
 				AllowOnlyAlphanumericUserNames = true,
 				RequireUniqueEmail             = true
 			};
+
+			// http://stackoverflow.com/questions/22629936/no-iusertokenprovider-is-registered
+			var protectionProvider = new DpapiDataProtectionProvider("Auctioneer");
+			base.UserTokenProvider = new DataProtectorTokenProvider<User>(protectionProvider.Create("Auctioneer_Tokens"));
+		}
+
+		public async Task<User> GetUserById(string id)
+		{
+			var user = await base.FindByIdAsync(id);
+			if(user == null)
+				throw new ObjectNotFoundException("User with id = " + id + " does not exist.");
+
+			return user;
+		}
+
+		public async Task<User> GetUserByUsername(string username)
+		{
+			var user = await base.FindByNameAsync(username);
+			if(user == null)
+				throw new ObjectNotFoundException("User with user name = " + username + " does not exist.");
+
+			return user;
 		}
 
 		public async Task AddUser(User user, string password, IValidationErrorNotifier errors)
@@ -38,8 +61,18 @@ namespace Auctioneer.Logic.Users
 			var result = await base.CreateAsync(user, password);
 
 			errors.AddIdentityResult(result);
+		}
 
-			// TODO send confirmation mail
+		public Task<string> GenerateEmailConfirmationToken(User user)
+		{
+			return base.GenerateEmailConfirmationTokenAsync(user.Id);
+		}
+
+		public async Task ConfirmUserEmail(string userId, string confirmationToken, IValidationErrorNotifier errors)
+		{
+			var result = await base.ConfirmEmailAsync(userId, confirmationToken);
+
+			errors.AddIdentityResult(result);
 		}
 	}
 }

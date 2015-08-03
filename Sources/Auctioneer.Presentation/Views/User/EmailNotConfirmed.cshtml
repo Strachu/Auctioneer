@@ -1,0 +1,14 @@
+﻿@using Lang = Auctioneer.Presentation.Resources.User.EmailNotConfirmed;
+
+@{
+	ViewBag.Title = "EmailNotConfirmed";
+}
+
+<main class="error-info">
+	<h1>@Lang.Header</h1>
+	<p>@Lang.Message</p>
+	<p>
+		@Html.ActionLink(Lang.ResentLinkText, actionName: "ResentMailConfirmation", routeValues: new { userId = ViewBag.UserId })
+	</p>
+</main>
+

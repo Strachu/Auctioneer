@@ -7,3 +7,4 @@ obj/
 *.ldf
 Sources/Auctioneer.Presentation/Content/Auctions/Thumbnails/
 Sources/Auctioneer.Presentation/Content/UserContent/*
+Sources/Auctioneer.Presentation/smtp.config

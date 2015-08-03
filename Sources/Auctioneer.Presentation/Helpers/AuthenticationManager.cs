@@ -1,26 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 using Auctioneer.Logic.Users;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 
 namespace Auctioneer.Presentation.Helpers
 {
-	public class AuthenticationManager : SignInManager<User, string>
+	public class AuthenticationManager : SignInManager<User, string>, IAuthenticationManager
 	{
-		public AuthenticationManager(UserService userService, IAuthenticationManager authenticationManager) :
-			base(userService, authenticationManager)
+		public AuthenticationManager(UserService userService, Microsoft.Owin.Security.IAuthenticationManager authenticationManager) 
+			: base(userService, authenticationManager)
 		{
 		}
 
-		public void SignOut()
+		public Task<SignInStatus> SignIn(string userName, string password)
+		{
+			return base.PasswordSignInAsync(userName, password, isPersistent: false, shouldLockout: false);
+		}
+
+		public Task SignOut()
 		{
 			base.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+			return Task.FromResult(0);
 		}
 	}
 }
