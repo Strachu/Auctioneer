@@ -31,6 +31,10 @@
 					@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
 				</div>
 			</div>
+			
+			<div style="text-align : center">
+				@Html.ActionLink(Lang.ForgotPasswordLinkText, actionName: "ForgotPassword")
+			</div>
 
 			<div class="submit-button-container">
 				<input type="submit" value="@Lang.SubmitText" class="btn btn-default" />

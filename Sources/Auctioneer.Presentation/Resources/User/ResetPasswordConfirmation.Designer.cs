@@ -22,14 +22,14 @@ namespace Auctioneer.Presentation.Resources.User {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Login {
+    public class ResetPasswordConfirmation {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Login() {
+        internal ResetPasswordConfirmation() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Auctioneer.Presentation.Resources.User {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.User.Login", typeof(Login).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.User.ResetPasswordConfirmation", typeof(ResetPasswordConfirmation).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,29 @@ namespace Auctioneer.Presentation.Resources.User {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I don&apos;t remember my password..
+        ///   Looks up a localized string similar to Your password has been changed.
         /// </summary>
-        public static string ForgotPasswordLinkText {
+        public static string Header {
             get {
-                return ResourceManager.GetString("ForgotPasswordLinkText", resourceCulture);
+                return ResourceManager.GetString("Header", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log in.
+        ///   Looks up a localized string similar to log in.
         /// </summary>
-        public static string FormHeader {
+        public static string LoginLinkText {
             get {
-                return ResourceManager.GetString("FormHeader", resourceCulture);
+                return ResourceManager.GetString("LoginLinkText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid username or password..
+        ///   Looks up a localized string similar to You can now {0} to your account..
         /// </summary>
-        public static string InvalidValues {
+        public static string Message {
             get {
-                return ResourceManager.GetString("InvalidValues", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password.
-        /// </summary>
-        public static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in.
-        /// </summary>
-        public static string SubmitText {
-            get {
-                return ResourceManager.GetString("SubmitText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Username.
-        /// </summary>
-        public static string Username {
-            get {
-                return ResourceManager.GetString("Username", resourceCulture);
+                return ResourceManager.GetString("Message", resourceCulture);
             }
         }
     }

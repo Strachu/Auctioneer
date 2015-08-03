@@ -14,8 +14,12 @@ namespace Auctioneer.Logic.Users
 
 		Task<User> GetUserById(string id);
 		Task<User> GetUserByUsername(string username);
+		Task<User> GetUserByEmail(string email);
 
 		Task<string> GenerateEmailConfirmationToken(User user);
 		Task ConfirmUserEmail(string userId, string confirmationToken, IValidationErrorNotifier errors);
+
+		Task<string> GeneratePasswordResetToken(User user);
+		Task ResetUserPassword(string userName, string newPassword, string resetToken, IValidationErrorNotifier errors);
 	}
 }

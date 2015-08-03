@@ -60,6 +60,15 @@ namespace Auctioneer.Logic.Users
 			return user;
 		}
 
+		public async Task<User> GetUserByEmail(string email)
+		{
+			var user = await base.FindByEmailAsync(email);
+			if(user == null)
+				throw new ObjectNotFoundException("User with e-mail = " + email + " does not exist.");
+
+			return user;
+		}
+
 		public async Task AddUser(User user, string password, IValidationErrorNotifier errors)
 		{
 			var result = await base.CreateAsync(user, password);
@@ -75,6 +84,19 @@ namespace Auctioneer.Logic.Users
 		public async Task ConfirmUserEmail(string userId, string confirmationToken, IValidationErrorNotifier errors)
 		{
 			var result = await base.ConfirmEmailAsync(userId, confirmationToken);
+
+			errors.AddIdentityResult(result);
+		}
+
+		public Task<string> GeneratePasswordResetToken(User user)
+		{
+			return base.GeneratePasswordResetTokenAsync(user.Id);
+		}
+
+		public async Task ResetUserPassword(string userName, string newPassword, string resetToken, IValidationErrorNotifier errors)
+		{
+			var user   = await this.GetUserByUsername(userName);
+			var result = await base.ResetPasswordAsync(user.Id, resetToken, newPassword);
 
 			errors.AddIdentityResult(result);
 		}

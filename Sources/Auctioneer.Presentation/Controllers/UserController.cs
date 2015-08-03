@@ -67,7 +67,7 @@ namespace Auctioneer.Presentation.Controllers
 
 			await mMailService.SendAsync(new ConfirmationMail
 			{
-				To            = userToSentTo.Email,
+				UserMail      = userToSentTo.Email,
 				UserFirstName = userToSentTo.FirstName,
 				UserId        = userToSentTo.Id,
 				ConfirmToken  = mailConfirmationToken
@@ -139,6 +139,66 @@ namespace Auctioneer.Presentation.Controllers
 
 			await SendConfirmationMail(user);
 
+			return View();
+		}
+
+		public ActionResult ForgotPassword()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> ForgotPassword(UserForgotPasswordViewModel input)
+		{
+			if(!ModelState.IsValid)
+				return View(input);
+
+			var user               = await mUserService.GetUserByEmail(input.Email);
+			var passwordResetToken = await mUserService.GeneratePasswordResetToken(user);
+
+			await mMailService.SendAsync(new ForgotPasswordMail
+			{
+				UserMail           = user.Email,
+				UserFirstName      = user.FirstName,
+				PasswordResetToken = passwordResetToken
+			});
+
+			return RedirectToAction("ResetPasswordMailSent");
+		}
+
+		public ActionResult ResetPasswordMailSent()
+		{
+			return View();
+		}
+
+		public ActionResult ResetPassword(string resetToken)
+		{
+			if(String.IsNullOrWhiteSpace(resetToken))
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+			var viewModel = new UserResetPasswordViewModel { ResetToken = resetToken };
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> ResetPassword(UserResetPasswordViewModel input)
+		{
+			if(!ModelState.IsValid)
+				return View(input);
+
+			await mUserService.ResetUserPassword(input.Username, input.NewPassword, input.ResetToken, 
+			                                     new ValidationErrorNotifierAdapter(ModelState));
+
+			if(!ModelState.IsValid)
+				return View(input);
+
+			return RedirectToAction("ResetPasswordConfirmation");
+		}
+
+		public ActionResult ResetPasswordConfirmation()
+		{
 			return View();
 		}
 

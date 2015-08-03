@@ -200,6 +200,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Emails\User\ForgotPassword\ForgotPasswordMail.cs" />
     <Compile Include="Emails\User\ConfirmationMail\ConfirmationMail.cs" />
     <Compile Include="Filters\ObjectNotFoundExceptionHandlerAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -233,6 +234,8 @@
     <Compile Include="Models\Category\CategoryIndexViewModel.cs" />
     <Compile Include="Models\Category\CategoryListViewModel.cs" />
     <Compile Include="Models\Shared\BreadcrumbViewModel.cs" />
+    <Compile Include="Models\User\UserResetPasswordViewModel.cs" />
+    <Compile Include="Models\User\UserForgotPasswordViewModel.cs" />
     <Compile Include="Models\User\UserLoginViewModel.cs" />
     <Compile Include="Models\User\UserCreateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -271,6 +274,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Resources\User\ResetPasswordConfirmation.Designer.cs">
+      <DependentUpon>ResetPasswordConfirmation.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\ForgotPassword.Designer.cs">
+      <DependentUpon>ForgotPassword.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\User\LockedOut.Designer.cs">
       <DependentUpon>LockedOut.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -278,6 +291,16 @@
     </Compile>
     <Compile Include="Resources\User\ResentMailConfirmation.Designer.cs">
       <DependentUpon>ResentMailConfirmation.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\ResetPassword.Designer.cs">
+      <DependentUpon>ResetPassword.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\ResetPasswordMailSent.Designer.cs">
+      <DependentUpon>ResetPasswordMailSent.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -513,6 +536,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Emails\Web.config" />
+    <Content Include="Emails\User\ForgotPassword\ForgotPasswordMail.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -560,6 +584,10 @@
     <Content Include="Views\User\ResentMailConfirmation.cshtml" />
     <Content Include="Emails\User\ConfirmationMail\ConfirmationMail.cshtml" />
     <Content Include="Views\User\LockedOut.cshtml" />
+    <Content Include="Views\User\ForgotPassword.cshtml" />
+    <Content Include="Views\User\ResetPasswordMailSent.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\User\ResetPasswordConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Auction\Show.resx">
@@ -591,6 +619,14 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Layout.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\ResetPasswordConfirmation.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResetPasswordConfirmation.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\ForgotPassword.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ForgotPassword.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\User\LockedOut.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LockedOut.Designer.cs</LastGenOutput>
@@ -598,6 +634,14 @@
     <EmbeddedResource Include="Resources\User\ResentMailConfirmation.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResentMailConfirmation.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\ResetPassword.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResetPassword.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\ResetPasswordMailSent.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResetPasswordMailSent.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\User\EmailNotConfirmed.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

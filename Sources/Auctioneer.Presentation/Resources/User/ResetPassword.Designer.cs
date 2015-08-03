@@ -22,14 +22,14 @@ namespace Auctioneer.Presentation.Resources.User {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Login {
+    public class ResetPassword {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Login() {
+        internal ResetPassword() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Auctioneer.Presentation.Resources.User {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.User.Login", typeof(Login).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.User.ResetPassword", typeof(ResetPassword).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,16 +61,16 @@ namespace Auctioneer.Presentation.Resources.User {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I don&apos;t remember my password..
+        ///   Looks up a localized string similar to Confirm your new password.
         /// </summary>
-        public static string ForgotPasswordLinkText {
+        public static string ConfirmNewPassword {
             get {
-                return ResourceManager.GetString("ForgotPasswordLinkText", resourceCulture);
+                return ResourceManager.GetString("ConfirmNewPassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log in.
+        ///   Looks up a localized string similar to Enter a new password for your account.
         /// </summary>
         public static string FormHeader {
             get {
@@ -79,25 +79,25 @@ namespace Auctioneer.Presentation.Resources.User {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid username or password..
+        ///   Looks up a localized string similar to New password.
         /// </summary>
-        public static string InvalidValues {
+        public static string NewPassword {
             get {
-                return ResourceManager.GetString("InvalidValues", resourceCulture);
+                return ResourceManager.GetString("NewPassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password.
+        ///   Looks up a localized string similar to Entered passwords do not match..
         /// </summary>
-        public static string Password {
+        public static string PasswordsDoNotMatch {
             get {
-                return ResourceManager.GetString("Password", resourceCulture);
+                return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log in.
+        ///   Looks up a localized string similar to Change the password.
         /// </summary>
         public static string SubmitText {
             get {
@@ -106,7 +106,7 @@ namespace Auctioneer.Presentation.Resources.User {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username.
+        ///   Looks up a localized string similar to User name.
         /// </summary>
         public static string Username {
             get {

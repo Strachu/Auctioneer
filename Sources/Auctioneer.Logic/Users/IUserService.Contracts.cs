@@ -32,6 +32,13 @@ namespace Auctioneer.Logic.Users
 
 			throw new NotImplementedException();
 		}
+		
+		Task<User> IUserService.GetUserByEmail(string email)
+		{
+			Contract.Requires(!String.IsNullOrWhiteSpace(email));
+
+			throw new NotImplementedException();
+		}
 
 		Task<string> IUserService.GenerateEmailConfirmationToken(User user)
 		{
@@ -44,6 +51,23 @@ namespace Auctioneer.Logic.Users
 		{
 			Contract.Requires(!String.IsNullOrWhiteSpace(userId));
 			Contract.Requires(!String.IsNullOrWhiteSpace(confirmationToken));
+			Contract.Requires(errors != null);
+
+			throw new NotImplementedException();
+		}
+
+		Task<string> IUserService.GeneratePasswordResetToken(User user)
+		{
+			Contract.Requires(user != null);
+
+			throw new NotImplementedException();
+		}
+
+		Task IUserService.ResetUserPassword(string userName, string newPassword, string resetToken, IValidationErrorNotifier errors)
+		{
+			Contract.Requires(!String.IsNullOrWhiteSpace(userName));
+			Contract.Requires(!String.IsNullOrWhiteSpace(newPassword));
+			Contract.Requires(!String.IsNullOrWhiteSpace(resetToken));
 			Contract.Requires(errors != null);
 
 			throw new NotImplementedException();
