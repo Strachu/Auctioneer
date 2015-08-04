@@ -16,6 +16,17 @@ section, nav, main, header
 	border-radius   : 10px;		
 }
 
+main hr
+{
+	margin-top   : 10px;
+	margin-bottom: 10px;
+	height       : 1px;
+	border       : 0;
+
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+10,000000+50,ffffff+90&0+10,1+50,0+90 */
+	background   : linear-gradient(to right, rgba(255,255,255,0) 10%, rgba(0,0,0,1) 50%, rgba(255,255,255,0) 90%);
+}
+
 .user-greetings
 {
 	font-size     : 120%;

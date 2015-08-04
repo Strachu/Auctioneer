@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuctionController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -222,8 +223,10 @@
     <Compile Include="Helpers\ValidationErrorNotifierAdapter.cs" />
     <Compile Include="Helpers\TimeSpanFormatter.cs" />
     <Compile Include="Helpers\UrlHelper.Extensions.cs" />
+    <Compile Include="Mappers\Account\AccountEditViewModelMapper.cs" />
     <Compile Include="Mappers\Auction\AuctionAddViewModelMapper.cs" />
     <Compile Include="Mappers\User\UserCreateViewModelMapper.cs" />
+    <Compile Include="Models\Account\AccountEditViewModel.cs" />
     <Compile Include="Models\Auction\AuctionAddViewModel.cs" />
     <Compile Include="Mappers\Auction\AuctionShowViewModelMapper.cs" />
     <Compile Include="Mappers\Category\AuctionViewModelMapper.cs" />
@@ -239,6 +242,21 @@
     <Compile Include="Models\User\UserLoginViewModel.cs" />
     <Compile Include="Models\User\UserCreateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Account\AccountDetailsUpdated.Designer.cs">
+      <DependentUpon>AccountDetailsUpdated.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Account\Edit.Designer.cs">
+      <DependentUpon>Edit.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Account\Layout.Designer.cs">
+      <DependentUpon>Layout.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\Auction\Show.Designer.cs">
       <DependentUpon>Show.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -504,6 +522,7 @@
     <Content Include="Content\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Content\ckeditor\skins\moono\images\spinner.gif" />
     <Content Include="Content\ckeditor\styles.js" />
+    <Content Include="Content\Site_CSS\Account.css" />
     <Content Include="Content\Site_CSS\AuctionListing.css" />
     <Content Include="Content\Site_CSS\Message.css" />
     <Content Include="Content\Site_CSS\Error.css" />
@@ -542,6 +561,7 @@
     </Content>
     <Content Include="Emails\Web.config" />
     <Content Include="Emails\User\ForgotPassword\ForgotPasswordMail.cshtml" />
+    <Content Include="CodeTemplates\MvcView\Edit.cs.t4" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -595,8 +615,26 @@
     <Content Include="Views\User\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Shared\_TopMenu.cshtml" />
     <Content Include="Views\User\_Greetings.cshtml" />
+    <Content Include="Views\Account\_Layout.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\_ViewStart.cshtml" />
+    <Content Include="Views\Account\Edit.LoginDetailsForm.cshtml" />
+    <Content Include="Views\Account\Edit.PersonalInfoForm.cshtml" />
+    <Content Include="Views\Account\AccountDetailsUpdated.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Account\AccountDetailsUpdated.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountDetailsUpdated.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Account\Edit.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Edit.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Account\Layout.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Layout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Auction\Show.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Show.Designer.cs</LastGenOutput>

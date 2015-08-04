@@ -104,15 +104,15 @@
 
 .field-validation-error, .validation-summary-errors
 {
-	color : red;
+	color       : red;
 	font-weight : bold;
 }
 
 .form-container .submit-button-container
 {
-	text-align     : center;
-	padding-top    : 10px;
-	padding-bottom : 10px;
+	text-align    : center;
+	margin-top    : 10px;
+	margin-bottom : 10px;
 }
 
 .form-container input[type="submit"]

@@ -40,6 +40,39 @@ namespace Auctioneer.Logic.Users
 			throw new NotImplementedException();
 		}
 
+		Task IUserService.UpdateUser(User user)
+		{
+			Contract.Requires(user != null);
+
+			throw new NotImplementedException();
+		}
+
+		Task IUserService.UpdateUserEmail(string userId,
+		                                  string currentPassword,
+		                                  string newEmail,
+		                                  IValidationErrorNotifier errors)
+		{
+			Contract.Requires(!String.IsNullOrWhiteSpace(userId));
+			Contract.Requires(!String.IsNullOrWhiteSpace(currentPassword));
+			Contract.Requires(!String.IsNullOrWhiteSpace(newEmail));
+			Contract.Requires(errors != null);
+
+			throw new NotImplementedException();
+		}
+
+		Task IUserService.UpdateUserPassword(string userId,
+		                                     string currentPassword,
+		                                     string newPassword,
+		                                     IValidationErrorNotifier errors)
+		{
+			Contract.Requires(!String.IsNullOrWhiteSpace(userId));
+			Contract.Requires(!String.IsNullOrWhiteSpace(currentPassword));
+			Contract.Requires(!String.IsNullOrWhiteSpace(newPassword));
+			Contract.Requires(errors != null);
+
+			throw new NotImplementedException();
+		}
+
 		Task<string> IUserService.GenerateEmailConfirmationToken(User user)
 		{
 			Contract.Requires(user != null);

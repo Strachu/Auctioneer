@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -42,6 +42,13 @@ namespace Auctioneer.Logic.Users
 			base.UserTokenProvider = new DataProtectorTokenProvider<User>(protectionProvider.Create("Auctioneer_Tokens"));
 		}
 
+		public async Task AddUser(User user, string password, IValidationErrorNotifier errors)
+		{
+			var result = await base.CreateAsync(user, password).ConfigureAwait(false);
+
+			errors.AddIdentityResult(result);
+		}
+
 		public async Task<User> GetUserById(string id)
 		{
 			var user = await base.FindByIdAsync(id).ConfigureAwait(false);
@@ -69,9 +76,37 @@ namespace Auctioneer.Logic.Users
 			return user;
 		}
 
-		public async Task AddUser(User user, string password, IValidationErrorNotifier errors)
+		public Task UpdateUser(User user)
 		{
-			var result = await base.CreateAsync(user, password).ConfigureAwait(false);
+			return base.UpdateAsync(user);
+		}
+
+		public async Task UpdateUserEmail(string userId,
+		                                  string currentPassword,
+		                                  string newEmail,
+		                                  IValidationErrorNotifier errors)
+		{
+			var user              = await this.GetUserById(userId);
+			var passwordIsCorrect = await base.CheckPasswordAsync(user, currentPassword);
+			if(!passwordIsCorrect)
+			{
+				errors.AddError("Invalid password."); // TODO localize
+				return;
+			}
+
+			var result = await base.SetEmailAsync(userId, newEmail);
+			
+			// TODO Is mail confirmation needed? If so, send confirmation e-mail
+
+			errors.AddIdentityResult(result);
+		}
+
+		public async Task UpdateUserPassword(string userId,
+		                                     string currentPassword,
+		                                     string newPassword,
+		                                     IValidationErrorNotifier errors)
+		{
+			var result = await base.ChangePasswordAsync(userId, currentPassword, newPassword);
 
 			errors.AddIdentityResult(result);
 		}

@@ -117,19 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddAuctionLink" xml:space="preserve">
-    <value>Add an auction</value>
+  <data name="EditLink" xml:space="preserve">
+    <value>Your info</value>
   </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>Create an account</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Log in</value>
-  </data>
-  <data name="LogOut" xml:space="preserve">
-    <value>Log out</value>
-  </data>
-  <data name="MyAccount" xml:space="preserve">
-    <value>My account</value>
+  <data name="MenuHeader" xml:space="preserve">
+    <value>Menu:</value>
   </data>
 </root>

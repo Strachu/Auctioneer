@@ -1,0 +1,42 @@
+﻿@model Auctioneer.Presentation.Models.Account.AccountEditViewModel.PersonalInfoViewModel
+@using Lang = Auctioneer.Presentation.Resources.Account.Edit;
+
+@using(Html.BeginForm(actionName: "EditPersonalInfo", controllerName: null))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		@if(Model.ShowValidationSummary)
+		{
+			@Html.ValidationSummary(excludePropertyErrors: true, message: "", htmlAttributes: new { @class = "text-danger" });
+		}
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-8">
+				@Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-8">
+				@Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-8">
+				@Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="submit-button-container">
+			<input type="submit" value="@Lang.SubmitText" class="btn btn-default" />
+		</div>
+	</div>
+}

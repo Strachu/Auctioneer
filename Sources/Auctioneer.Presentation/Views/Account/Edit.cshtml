@@ -1,0 +1,22 @@
+﻿@model Auctioneer.Presentation.Models.Account.AccountEditViewModel
+@using Lang = Auctioneer.Presentation.Resources.Account.Edit;
+
+@{
+	ViewBag.Title = "Edit";
+}
+
+<main class="form-container">
+	<section>
+		<h1>@Lang.LoginDetailsFormHeader</h1>
+
+		@{ Html.RenderPartial("Edit.LoginDetailsForm", Model.LoginDetails); }
+	</section>
+
+	<hr/>
+
+	<section>
+		<h1>@Lang.PersonalInfoFormHeader</h1>
+
+		@{ Html.RenderPartial("Edit.PersonalInfoForm", Model.PersonalInfo); }
+	</section>
+</main>

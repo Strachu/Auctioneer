@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Auctioneer.Presentation.Resources.Shared {
+namespace Auctioneer.Presentation.Resources.Account {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Auctioneer.Presentation.Resources.Shared {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Layout {
+    public class AccountDetailsUpdated {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Layout() {
+        internal AccountDetailsUpdated() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Auctioneer.Presentation.Resources.Shared {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.Shared.Layout", typeof(Layout).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.Account.AccountDetailsUpdated", typeof(AccountDetailsUpdated).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,11 @@ namespace Auctioneer.Presentation.Resources.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add an auction.
+        ///   Looks up a localized string similar to Your account details has been updated..
         /// </summary>
-        public static string AddAuctionLink {
+        public static string Header {
             get {
-                return ResourceManager.GetString("AddAuctionLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create an account.
-        /// </summary>
-        public static string CreateAccount {
-            get {
-                return ResourceManager.GetString("CreateAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in.
-        /// </summary>
-        public static string LogIn {
-            get {
-                return ResourceManager.GetString("LogIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log out.
-        /// </summary>
-        public static string LogOut {
-            get {
-                return ResourceManager.GetString("LogOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My account.
-        /// </summary>
-        public static string MyAccount {
-            get {
-                return ResourceManager.GetString("MyAccount", resourceCulture);
+                return ResourceManager.GetString("Header", resourceCulture);
             }
         }
     }

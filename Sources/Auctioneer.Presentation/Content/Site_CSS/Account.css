@@ -1,0 +1,47 @@
+﻿.account-container
+{
+	display: flex;
+	width  : 100%;
+}
+
+.account-container nav
+{
+	width           : 200px;
+	text-align      : center;
+	padding         : 0;
+	margin-right    : 10px;
+}
+
+.account-container nav h1
+{
+	font-size     : 160%;
+	margin-bottom : 3px;
+	margin-top    : 3px;
+}
+
+.account-container nav ul
+{
+	list-style-type: none;
+	font-size      : 120%;
+	border-top     : 1px solid black;
+
+	margin-left    : 0;
+	padding-left   : 0;
+}
+
+.account-container nav li
+{
+	border-bottom : 1px solid black;
+}
+
+.account-container main
+{
+	flex: auto;
+}
+
+.account-container main h1
+{
+	font-size  : 160%;
+	margin-top : 10px;
+	text-align : center;
+}

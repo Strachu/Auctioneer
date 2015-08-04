@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Auctioneer.Presentation.Resources.Shared {
+namespace Auctioneer.Presentation.Resources.Account {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Auctioneer.Presentation.Resources.Shared {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.Shared.Layout", typeof(Layout).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.Account.Layout", typeof(Layout).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,20 @@ namespace Auctioneer.Presentation.Resources.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add an auction.
+        ///   Looks up a localized string similar to Your info.
         /// </summary>
-        public static string AddAuctionLink {
+        public static string EditLink {
             get {
-                return ResourceManager.GetString("AddAuctionLink", resourceCulture);
+                return ResourceManager.GetString("EditLink", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create an account.
+        ///   Looks up a localized string similar to Menu:.
         /// </summary>
-        public static string CreateAccount {
+        public static string MenuHeader {
             get {
-                return ResourceManager.GetString("CreateAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in.
-        /// </summary>
-        public static string LogIn {
-            get {
-                return ResourceManager.GetString("LogIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log out.
-        /// </summary>
-        public static string LogOut {
-            get {
-                return ResourceManager.GetString("LogOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My account.
-        /// </summary>
-        public static string MyAccount {
-            get {
-                return ResourceManager.GetString("MyAccount", resourceCulture);
+                return ResourceManager.GetString("MenuHeader", resourceCulture);
             }
         }
     }
