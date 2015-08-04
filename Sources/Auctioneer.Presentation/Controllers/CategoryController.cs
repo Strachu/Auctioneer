@@ -11,6 +11,8 @@ using Auctioneer.Presentation.Mappers.Category;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Models;
 
+using DevTrends.MvcDonutCaching;
+
 namespace Auctioneer.Presentation.Controllers
 {
 	public class CategoryController : Controller
@@ -57,7 +59,7 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[ChildActionOnly]
-		[OutputCache(Duration = 7200)]
+		[DonutOutputCache(Duration = 7200)]
 		public PartialViewResult TopCategories()
 		{
 			var categories = mCategoryService.GetTopLevelCategories().Result;
@@ -66,7 +68,7 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[ChildActionOnly]
-		[OutputCache(Duration = Constants.DAY, VaryByParam = "id")]
+		[DonutOutputCache(Duration = Constants.DAY, VaryByParam = "id")]
 		public ActionResult Breadcrumb(int id)
 		{
 			var breadcrumb = mBreadcrumbBuilder.WithHomepageLink()

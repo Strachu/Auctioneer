@@ -15,6 +15,8 @@ using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models;
 
+using DevTrends.MvcDonutCaching;
+
 namespace Auctioneer.Presentation.Controllers
 {
 	public class AuctionController : Controller
@@ -64,7 +66,7 @@ namespace Auctioneer.Presentation.Controllers
 			return PartialView("_Breadcrumb", breadcrumb);
 		}
 
-		[OutputCache(Duration = 7200)]
+		[DonutOutputCache(Duration = 7200)]
 		public async Task<ActionResult> Add()
 		{
 			var viewModel = new AuctionAddViewModel();

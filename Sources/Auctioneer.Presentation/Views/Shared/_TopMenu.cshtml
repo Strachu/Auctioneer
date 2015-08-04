@@ -3,25 +3,11 @@
 <div class="navbar-collapse collapse">
 	<ul class="nav navbar-nav navbar-right">
 		
-		@{ Html.RenderAction(controllerName: "User", actionName: "Greetings"); }
+		@{ Html.RenderAction(controllerName: "User", actionName: "Greetings", excludeFromParentCache: true); }
 
 		<li>@Html.ActionLink(Lang.AddAuctionLink, controllerName: "Auction", actionName: "Add")</li>
+		
+		@{ Html.RenderAction(controllerName: "Layout", actionName: "LoginLinks", excludeFromParentCache: true); }
 
-		@if(User.Identity.IsAuthenticated)
-		{
-			<li>@Html.ActionLink(Lang.MyAccount, controllerName: "Account", actionName: "Index")</li>
-			<li>@Html.ActionLink(Lang.LogOut, controllerName: "User", actionName: "Logout")</li>
-		}
-		else
-		{
-			<li>@Html.ActionLink(Lang.CreateAccount, controllerName: "User", actionName: "Create")</li>
-			<li>
-				@Html.ActionLink(Lang.LogIn, controllerName: "User", actionName: "Login", htmlAttributes: null,
-				                 routeValues: new
-				                 {
-				                    returnUrl = Request.RawUrl
-				                 })
-			</li>
-		}
 	</ul>
 </div>
