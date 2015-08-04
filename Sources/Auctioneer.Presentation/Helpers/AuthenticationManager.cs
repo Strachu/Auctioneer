@@ -18,9 +18,9 @@ namespace Auctioneer.Presentation.Helpers
 		{
 		}
 
-		public Task<SignInStatus> SignIn(string userName, string password)
+		public Task<SignInStatus> SignIn(string userName, string password, bool rememberMe)
 		{
-			return base.PasswordSignInAsync(userName, password, isPersistent: false, shouldLockout: true);
+			return base.PasswordSignInAsync(userName, password, rememberMe, shouldLockout: true);
 		}
 
 		public Task SignOut()

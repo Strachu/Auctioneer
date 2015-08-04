@@ -106,7 +106,7 @@ namespace Auctioneer.Presentation.Controllers
 			if(!ModelState.IsValid)
 				return View(input);
 
-			var result = await mAuthManager.SignIn(input.Username, input.Password);
+			var result = await mAuthManager.SignIn(input.Username, input.Password, input.RememberMe);
 			if(result == SignInStatus.Failure)
 			{
 				ModelState.AddModelError(String.Empty, Lang.Login.InvalidValues);

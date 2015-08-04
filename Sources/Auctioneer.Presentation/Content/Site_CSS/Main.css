@@ -31,6 +31,13 @@ section, nav, main, header
 	content: ":"
 }
 
+.horizontally-centered
+{
+	position  : relative;
+	left      : 50%;
+	transform : translateX(-50%);
+}
+
 footer
 {
 	text-align: center;

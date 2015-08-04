@@ -12,7 +12,7 @@ namespace Auctioneer.Presentation.Helpers
 	[ContractClassFor(typeof(IAuthenticationManager))]
 	internal abstract class IAuthenticationManagerContractClass : IAuthenticationManager
 	{
-		Task<SignInStatus> IAuthenticationManager.SignIn(string userName, string password)
+		Task<SignInStatus> IAuthenticationManager.SignIn(string userName, string password, bool rememberMe)
 		{
 			Contract.Requires(!String.IsNullOrWhiteSpace(userName));
 			Contract.Requires(!String.IsNullOrWhiteSpace(password));

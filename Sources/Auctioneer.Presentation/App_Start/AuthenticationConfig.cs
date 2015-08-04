@@ -22,6 +22,7 @@ namespace Auctioneer.Presentation
 				CookieSecure       = CookieSecureOption.Always,
 				LoginPath          = new PathString("/User/Login"),
 				ReturnUrlParameter = "returnUrl",
+				ExpireTimeSpan     = TimeSpan.FromDays(30),
 				SlidingExpiration  = true,
 			});            
 		}

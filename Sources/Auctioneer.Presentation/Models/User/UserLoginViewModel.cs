@@ -20,6 +20,9 @@ namespace Auctioneer.Presentation.Models.User
 		[Display(Name = "Password", ResourceType = typeof(Lang))]
 		public string Password { get; set; }
 
+		[Display(Name = "RememberMe", ResourceType = typeof(Lang))]
+		public bool RememberMe { get; set; }
+
 		[HiddenInput]
 		public string ReturnUrl { get; set; }
 	}

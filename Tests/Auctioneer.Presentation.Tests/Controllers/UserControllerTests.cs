@@ -95,7 +95,7 @@ namespace Auctioneer.Presentation.Tests.Controllers
 
 		private class AuthenticationManagerMock : IAuthenticationManager
 		{
-			public Task<SignInStatus> SignIn(string userName, string password)
+			public Task<SignInStatus> SignIn(string userName, string password, bool rememberMe)
 			{
 				LoggedUserName = userName;
 

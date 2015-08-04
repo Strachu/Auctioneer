@@ -12,7 +12,7 @@ namespace Auctioneer.Presentation.Helpers
 	[ContractClass(typeof(IAuthenticationManagerContractClass))]
 	public interface IAuthenticationManager
 	{
-		Task<SignInStatus> SignIn(string userName, string password);
+		Task<SignInStatus> SignIn(string userName, string password, bool rememberMe);
 
 		Task SignOut();
 	}
