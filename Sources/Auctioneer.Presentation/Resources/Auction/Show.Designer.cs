@@ -68,5 +68,14 @@ namespace Auctioneer.Presentation.Resources.Auction {
                 return ResourceManager.GetString("EndingIn", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seller.
+        /// </summary>
+        public static string SellerUserName {
+            get {
+                return ResourceManager.GetString("SellerUserName", resourceCulture);
+            }
+        }
     }
 }

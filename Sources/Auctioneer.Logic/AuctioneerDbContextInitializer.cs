@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 
+using Auctioneer.Logic.Users;
+
 using EntityFramework.BulkInsert.Extensions;
 using System.Linq;
 using System.Text;
@@ -17,10 +19,33 @@ namespace Auctioneer.Logic
 	{
 		protected override void Seed(AuctioneerDbContext context)
 		{
+			AddUsers(context);
 			AddCategories(context);
 			AddAuctions(context);
 
 			base.Seed(context);
+		}
+
+		private void AddUsers(AuctioneerDbContext context)
+		{
+			var rndGenerator = new Random(Seed: 2934228);
+			var userService  = new UserService(context);
+			var firstNames   = new string[] { "Alexa", "Amanda", "Olivia", "Jacob", "William", "Michael", "John" };
+			var lastNames    = new string[] { "Smith", "Johnson", "Williams", "Brown", "Miller", "King", "Kelly", "Foster" };
+			
+			for(int i = 0; i < 50; ++i)
+			{
+				var user = new User();
+
+				user.FirstName      = firstNames[rndGenerator.Next(firstNames.Length)];
+				user.LastName       = lastNames[rndGenerator.Next(lastNames.Length)];
+				user.Address        = "ul. Wawelska 84/32\n45-345 Warszawa";
+				user.Email          = user.FirstName + user.LastName + "@mail.abc";
+				user.EmailConfirmed = true;
+				user.UserName       = String.Format("{0}_{1}", user.FirstName, user.LastName).ToLower();
+
+				userService.AddUser(user, "Password", new NullValidationErrorNotifier()).Wait();
+			}
 		}
 
 		private void AddCategories(AuctioneerDbContext context)
@@ -154,6 +179,7 @@ namespace Auctioneer.Logic
 			var rndGenerator     = new Random(Seed: 746293114);
 			var imageInitializer = new AuctionImageInitializer();
 			var categoryCount    = context.Categories.Count();
+			var userIds          = context.Users.Select(x => x.Id).ToList();
 
 			var auctions = new Auction[100000];
 			for(int i = 0; i < auctions.Length; ++i)
@@ -176,6 +202,7 @@ namespace Auctioneer.Logic
 					CategoryId   = rndGenerator.Next(categoryCount) + 1,
 					Title        = "The auction #" + (i + 1),
 					Description  = "The description of auction number " + (i + 1),
+					SellerId     = userIds[rndGenerator.Next(userIds.Count)],
 					CreationDate = creationDate,
 					EndDate      = creationDate.AddDays(rndGenerator.NextDouble() * 14),
 					Price        = rndGenerator.Next(1, 1000),
@@ -282,6 +309,13 @@ namespace Auctioneer.Logic
 					return 0;
 
 				return Directory.EnumerateFiles(photosDirectory, "*.jpg").Count();
+			}
+		}
+
+		private class NullValidationErrorNotifier : IValidationErrorNotifier
+		{
+			public void AddError(string errorMessage)
+			{
 			}
 		}
 	}

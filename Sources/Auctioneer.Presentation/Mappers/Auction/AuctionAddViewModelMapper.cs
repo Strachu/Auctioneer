@@ -11,7 +11,7 @@ namespace Auctioneer.Presentation.Mappers
 {
 	public class AuctionAddViewModelMapper
 	{		
-		public static Auction ToAuction(AuctionAddViewModel viewModel)
+		public static Auction ToAuction(AuctionAddViewModel viewModel, string sellerId)
 		{
 			Contract.Requires(viewModel != null);
 
@@ -24,6 +24,7 @@ namespace Auctioneer.Presentation.Mappers
 				CategoryId   = viewModel.CategoryId,
 				Price        = viewModel.Price.Value,
 				PhotoCount   = viewModel.Photos.Count(),
+				SellerId     = sellerId
 			};
 		}
 	}

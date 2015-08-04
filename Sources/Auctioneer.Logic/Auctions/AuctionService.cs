@@ -90,7 +90,9 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<Auction> GetById(int id)
 		{
-			var auction = await mContext.Auctions.FindAsync(id);
+			var auction = await mContext.Auctions.Include(x => x.Seller)
+			                                     .SingleOrDefaultAsync(x => x.Id == id)
+			                                     .ConfigureAwait(false);
 			if(auction == null)
 				throw new ObjectNotFoundException("Auction with id = " + id + " does not exist.");
 

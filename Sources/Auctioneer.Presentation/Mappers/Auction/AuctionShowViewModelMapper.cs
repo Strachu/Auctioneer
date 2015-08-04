@@ -17,11 +17,12 @@ namespace Auctioneer.Presentation.Mappers
 
 			return new AuctionShowViewModel
 			{
-				Title       = auction.Title,
-				Description = auction.Description,
-				EndDate     = auction.EndDate,
-				Price       = auction.Price,
-				Photos      = photoUrls.Select(x => new AuctionShowViewModel.Photo
+				Title          = auction.Title,
+				Description    = auction.Description,
+				EndDate        = auction.EndDate,
+				Price          = auction.Price,
+				SellerUserName = auction.Seller.UserName,
+				Photos         = photoUrls.Select(x => new AuctionShowViewModel.Photo
 				{
 					Url = x
 				})

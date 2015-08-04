@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using Lang = Auctioneer.Presentation.Resources.Auction.Show;
+
 namespace Auctioneer.Presentation.Models
 {
 	public class AuctionShowViewModel
@@ -24,6 +26,9 @@ namespace Auctioneer.Presentation.Models
 
 		[DataType(DataType.Currency)]
 		public decimal Price { get; set; }
+
+		[Display(Name = "SellerUserName", ResourceType = typeof(Lang))]
+		public string SellerUserName { get; set; }
 
 		public IEnumerable<Photo> Photos { get; set; }
 

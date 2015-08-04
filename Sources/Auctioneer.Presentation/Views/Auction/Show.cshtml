@@ -28,7 +28,16 @@
 				@Html.DisplayFor(model => model.Price)
 			</dd>
 		</div>
-		
+
+		<div class="dl-horizontal">
+			<dt>
+				@Html.DisplayNameFor(model => model.SellerUserName)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.SellerUserName)
+			</dd>
+		</div>
+				
 		<div class="photos">
 			@foreach(var photo in Model.Photos)
 			{

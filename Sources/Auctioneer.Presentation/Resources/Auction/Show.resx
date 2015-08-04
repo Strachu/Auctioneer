@@ -120,4 +120,7 @@
   <data name="EndingIn" xml:space="preserve">
     <value>Ending in </value>
   </data>
+  <data name="SellerUserName" xml:space="preserve">
+    <value>Seller</value>
+  </data>
 </root>

@@ -15,6 +15,8 @@ using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models;
 
+using Microsoft.AspNet.Identity;
+
 using DevTrends.MvcDonutCaching;
 
 namespace Auctioneer.Presentation.Controllers
@@ -66,6 +68,7 @@ namespace Auctioneer.Presentation.Controllers
 			return PartialView("_Breadcrumb", breadcrumb);
 		}
 
+		[Authorize]
 		[DonutOutputCache(Duration = 7200)]
 		public async Task<ActionResult> Add()
 		{
@@ -76,26 +79,27 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Add(AuctionAddViewModel input)
 		{
-			if(ModelState.IsValid)
+			if(!ModelState.IsValid)
 			{
-				var newAuction = AuctionAddViewModelMapper.ToAuction(input);
-
-				using(var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-				{
-					await mAuctionService.AddAuction(newAuction);
-					await mAuctionService.StoreAuctionPhotos(newAuction.Id, input.Photos.Select(x => x.InputStream));
-
-					transaction.Complete();
-				}
-
-				return RedirectToAction("Show", new { id = newAuction.Id });
+				await PopulateAvailableCategoryList(input);
+				return View(input);
 			}
 
-			await PopulateAvailableCategoryList(input);
-			return View(input);
+			var newAuction = AuctionAddViewModelMapper.ToAuction(input, User.Identity.GetUserId());
+
+			using(var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+			{
+				await mAuctionService.AddAuction(newAuction);
+				await mAuctionService.StoreAuctionPhotos(newAuction.Id, input.Photos.Select(x => x.InputStream));
+
+				transaction.Complete();
+			}
+
+			return RedirectToAction("Show", new { id = newAuction.Id });
 		}
 
 		private async Task PopulateAvailableCategoryList(AuctionAddViewModel viewModel)
