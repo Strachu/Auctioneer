@@ -8,7 +8,10 @@ namespace Auctioneer.Presentation.Helpers
 {
 	internal static class HttpResponseBaseExtensions
 	{
-		public static void SaveToCookieIfNotNull<T>(this HttpResponseBase response, string cookieKey, T value)
+		public static void SaveToCookieIfNotNull<T>(this HttpResponseBase response,
+		                                            string cookieKey,
+		                                            T value,
+		                                            bool isPersistent = true)
 		{
 			Contract.Requires(response != null);
 			Contract.Requires(!String.IsNullOrWhiteSpace(cookieKey));
@@ -16,7 +19,14 @@ namespace Auctioneer.Presentation.Helpers
 			if(value == null)
 				return;
 
-			response.SetCookie(new HttpCookie(cookieKey, value.ToString()));
+			var newCookie = new HttpCookie(cookieKey, value.ToString());
+
+			if(isPersistent)
+			{
+				newCookie.Expires = DateTime.Now.AddYears(1);
+			}
+
+			response.SetCookie(newCookie);
 		}
 	}
 }
