@@ -1,0 +1,111 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model <#= ViewDataTypeName #>
+@using Lang = Auctioneer.Presentation.Resources.Controller.<#= ViewName#>;
+<#
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+	ViewBag.Title = "<#= ViewName#>";
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+	Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+
+<h1><#= ViewName#></h1>
+
+<#
+} else {
+#>
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title><#= ViewName #></title>
+</head>
+<body>
+<#
+	PushIndent("	");
+}
+#>
+<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+	<tr>
+<#
+	var model        = System.Web.Mvc.ModelMetadataProviders.Current.GetMetadataForType(null, GetType(ViewDataTypeName));
+	var property     = model.Properties.First();
+	var propertyName = property.PropertyName;
+	var prefix       = property.PropertyName + ".";
+	if(IsCollection(property))
+	{
+		property = GetMetadataForCollectionElements(property);
+		prefix   = prefix + "First().";
+	}
+
+	foreach (var subProperty in property.Properties)
+	{
+#>
+		<th>
+			@Html.DisplayNameFor(x => x.<#= prefix + subProperty.PropertyName #>)
+		</th>
+<#
+	}
+#>
+		<th>
+		</th>
+	</tr>
+
+@foreach (var item in Model.<#= propertyName #>)
+{
+	<tr>
+<#
+	foreach (var subProperty in property.Properties)
+	{
+#>
+		<td>
+			@Html.DisplayFor(x => item.<#= subProperty.PropertyName #>)
+		</td>
+<#
+	}
+#>
+		<td>
+			@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+			@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+			@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+		</td>
+	</tr>
+}
+
+</table>
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+	ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

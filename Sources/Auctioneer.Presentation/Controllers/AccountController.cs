@@ -7,6 +7,7 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
+using Auctioneer.Logic.Auctions;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Mappers.Account;
 
@@ -20,13 +21,16 @@ namespace Auctioneer.Presentation.Controllers
 	[Authorize]
 	public class AccountController : Controller
 	{
-		private readonly IUserService mUserService;
+		private readonly IAuctionService mAuctionService;
+		private readonly IUserService    mUserService;
 
-		public AccountController(IUserService userService)
+		public AccountController(IAuctionService auctionService, IUserService userService)
 		{
+			Contract.Requires(auctionService != null);
 			Contract.Requires(userService != null);
 
-			mUserService = userService;
+			mAuctionService = auctionService;
+			mUserService    = userService;
 		}
 
 		public Task<ViewResult> Index()
@@ -104,6 +108,14 @@ namespace Auctioneer.Presentation.Controllers
 		public ActionResult AccountDetailsUpdated()
 		{
 			return View();
+		}
+
+		public async Task<ActionResult> MyAuctions(int page = 1)
+		{
+			var auctions  = await mAuctionService.GetAuctionsByUser(User.Identity.GetUserId(), page, auctionsPerPage: 50);
+			var viewModel = AccountMyAuctionsViewModelMapper.FromAuctions(auctions);
+
+			return View(viewModel);
 		}
 	}
 }

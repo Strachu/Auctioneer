@@ -81,6 +81,15 @@ namespace Auctioneer.Logic.Auctions
 			return Task.FromResult(auctions.ToPagedList(pageIndex, auctionsPerPage));
 		}
 
+		public Task<IPagedList<Auction>> GetAuctionsByUser(string userId, int pageIndex, int auctionsPerPage)
+		{
+			var auctions = mContext.Auctions.Include(x => x.Category)
+			                                .Where(x => x.SellerId == userId)
+			                                .OrderBy(x => x.Title);
+
+			return Task.FromResult(auctions.ToPagedList(pageIndex, auctionsPerPage));
+		}
+
 		public async Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults)
 		{
 			return await mContext.Auctions.OrderByDescending(x => x.CreationDate)

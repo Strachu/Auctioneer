@@ -1,0 +1,66 @@
+﻿@model Auctioneer.Presentation.Models.Account.AccountMyAuctionsViewModel
+@using Lang = Auctioneer.Presentation.Resources.Account.MyAuctions;
+
+@{
+	ViewBag.Title = "MyAuctions";
+}
+
+<h1>@Lang.Header</h1>
+
+<table class="table my-auctions">
+	<tr>
+		<th class="title">
+			@Html.DisplayNameFor(x => x.Auctions.First().Title)
+		</th>
+		<th class="category">
+			@Html.DisplayNameFor(x => x.Auctions.First().CategoryName)
+		</th>
+		<th class="time">
+			@Html.DisplayNameFor(x => x.Auctions.First().TimeTillEnd)
+		</th>
+		<th class="price">
+			@Html.DisplayNameFor(x => x.Auctions.First().Price)
+		</th>
+	</tr>
+
+	@foreach (var auction in Model.Auctions)
+	{
+		<tr>
+			<td class="title">
+				@Html.ActionLinkWithSlug(auction.Title, controllerName: "Auction", actionName: "Show", routeValues: new
+				{
+					id = auction.Id,
+				})
+			</td>
+			<td class="category">
+				@Html.ActionLinkWithSlug(auction.CategoryName, controllerName: "Category", actionName: "Index", routeValues: new
+				{
+					id = auction.CategoryId,
+				})
+			</td>
+			<td class="time">
+				@if(!auction.Expired)
+				{
+					@Html.DisplayFor(x => auction.TimeTillEnd)
+				}
+				else
+				{
+					@Html.Raw(Lang.Expired)
+				}
+			</td>
+			<td class="price">
+				@Html.DisplayFor(x => auction.Price)
+			</td>
+		</tr>
+	}
+</table>
+
+<div class="pagination-box">
+	<span class="page-text">@Lang.PageNumber</span>
+
+	@Html.PagedListPager(Model.Auctions, page => Url.ActionWithCurrentParameters(actionName: null, routeValues: new { page }),
+								new PagedListRenderOptions
+								{
+									MaximumPageNumbersToDisplay = 7
+								})
+</div>

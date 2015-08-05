@@ -1,0 +1,15 @@
+﻿.my-auctions th
+{
+	text-align : center;
+}
+
+.my-auctions .title
+{
+	width      : 60%;
+	text-align : left;
+}
+
+.my-auctions .category, .my-auctions .time, .my-auctions .price
+{
+	text-align : center;
+}

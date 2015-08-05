@@ -22,14 +22,14 @@ namespace Auctioneer.Presentation.Resources.Account {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Layout {
+    public class MyAuctions {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Layout() {
+        internal MyAuctions() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Auctioneer.Presentation.Resources.Account {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.Account.Layout", typeof(Layout).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.Account.MyAuctions", typeof(MyAuctions).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,65 @@ namespace Auctioneer.Presentation.Resources.Account {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your info.
+        ///   Looks up a localized string similar to Category.
         /// </summary>
-        public static string EditLink {
+        public static string CategoryName {
             get {
-                return ResourceManager.GetString("EditLink", resourceCulture);
+                return ResourceManager.GetString("CategoryName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Menu:.
+        ///   Looks up a localized string similar to Expired.
         /// </summary>
-        public static string MenuHeader {
+        public static string Expired {
             get {
-                return ResourceManager.GetString("MenuHeader", resourceCulture);
+                return ResourceManager.GetString("Expired", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My auctions.
+        ///   Looks up a localized string similar to Your auctions.
         /// </summary>
-        public static string MyAuctionsLink {
+        public static string Header {
             get {
-                return ResourceManager.GetString("MyAuctionsLink", resourceCulture);
+                return ResourceManager.GetString("Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page: .
+        /// </summary>
+        public static string PageNumber {
+            get {
+                return ResourceManager.GetString("PageNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price.
+        /// </summary>
+        public static string Price {
+            get {
+                return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To end.
+        /// </summary>
+        public static string TimeTillEnd {
+            get {
+                return ResourceManager.GetString("TimeTillEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }

@@ -117,13 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EditLink" xml:space="preserve">
-    <value>Your info</value>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Category</value>
   </data>
-  <data name="MenuHeader" xml:space="preserve">
-    <value>Menu:</value>
+  <data name="Expired" xml:space="preserve">
+    <value>Expired</value>
   </data>
-  <data name="MyAuctionsLink" xml:space="preserve">
-    <value>My auctions</value>
+  <data name="Header" xml:space="preserve">
+    <value>Your auctions</value>
+  </data>
+  <data name="PageNumber" xml:space="preserve">
+    <value>Page: </value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="TimeTillEnd" xml:space="preserve">
+    <value>To end</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Name</value>
   </data>
 </root>

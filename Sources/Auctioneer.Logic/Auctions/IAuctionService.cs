@@ -18,6 +18,10 @@ namespace Auctioneer.Logic.Auctions
 		                                                      int pageIndex,
 		                                                      int auctionsPerPage);
 
+		Task<IPagedList<Auction>> GetAuctionsByUser(string userId,
+		                                            int pageIndex,
+		                                            int auctionsPerPage);
+
 		Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults);
 
 		Task<Auction> GetById(int id);
