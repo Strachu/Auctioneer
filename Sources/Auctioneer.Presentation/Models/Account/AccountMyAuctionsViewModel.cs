@@ -13,6 +13,7 @@ namespace Auctioneer.Presentation.Models.Account
 	public class AccountMyAuctionsViewModel
 	{
 		public IPagedList<Item> Auctions { get; set; }
+		public TimeSpan CreatedIn { get; set; }
 
 		public class Item
 		{

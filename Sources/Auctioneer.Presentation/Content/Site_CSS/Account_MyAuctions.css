@@ -1,4 +1,44 @@
-﻿.my-auctions th
+﻿.my-auctions form
+{
+	border       : 1px solid black;
+	margin-left  : 1px;
+	margin-right : 1px;
+	padding      : 2px;
+}
+
+.my-auctions form *
+{
+	display : inline;
+}
+
+.my-auctions form h1
+{
+	font-size     : 100%;
+	font-weight   : bold;
+
+	margin-top    : 0;
+	margin-bottom : 0;
+}
+
+.my-auctions .created-in
+{
+	display : inline;
+	width   : 5em;
+	height  : 25px;
+}
+
+.my-auctions .filter-button
+{
+	display      : inline-block;
+	float        : right;
+	margin-right : 5px;
+	height       : 25px;
+	line-height  : 0.5;
+	position  : relative;
+	top : 50%;
+}
+
+.my-auctions th
 {
 	text-align : center;
 }

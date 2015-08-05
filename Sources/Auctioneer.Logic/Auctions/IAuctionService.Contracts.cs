@@ -23,7 +23,7 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 
-		public Task<IPagedList<Auction>> GetAuctionsByUser(string userId, int pageIndex, int auctionsPerPage)
+		public Task<IPagedList<Auction>> GetAuctionsByUser(string userId, TimeSpan createdIn, int pageIndex, int auctionsPerPage)
 		{
 			Contract.Requires(pageIndex >= 1);
 			Contract.Requires(auctionsPerPage >= 1);

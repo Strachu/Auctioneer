@@ -70,11 +70,38 @@ namespace Auctioneer.Presentation.Resources.Account {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auctions created in last {0} days.
+        /// </summary>
+        public static string CreatedInFilter {
+            get {
+                return ResourceManager.GetString("CreatedInFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expired.
         /// </summary>
         public static string Expired {
             get {
                 return ResourceManager.GetString("Expired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filtering options:.
+        /// </summary>
+        public static string FilteringOptionsHeader {
+            get {
+                return ResourceManager.GetString("FilteringOptionsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string FilteringOptionsSubmitText {
+            get {
+                return ResourceManager.GetString("FilteringOptionsSubmitText", resourceCulture);
             }
         }
         

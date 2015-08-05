@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data.Entity;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -81,10 +81,13 @@ namespace Auctioneer.Logic.Auctions
 			return Task.FromResult(auctions.ToPagedList(pageIndex, auctionsPerPage));
 		}
 
-		public Task<IPagedList<Auction>> GetAuctionsByUser(string userId, int pageIndex, int auctionsPerPage)
+		public Task<IPagedList<Auction>> GetAuctionsByUser(string userId, TimeSpan createdIn, int pageIndex, int auctionsPerPage)
 		{
+			var createdAfter = DateTime.Now.Subtract(createdIn);
+
 			var auctions = mContext.Auctions.Include(x => x.Category)
 			                                .Where(x => x.SellerId == userId)
+			                                .Where(x => x.CreationDate >= createdAfter)
 			                                .OrderBy(x => x.Title);
 
 			return Task.FromResult(auctions.ToPagedList(pageIndex, auctionsPerPage));

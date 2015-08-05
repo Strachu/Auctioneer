@@ -110,10 +110,13 @@ namespace Auctioneer.Presentation.Controllers
 			return View();
 		}
 
-		public async Task<ActionResult> MyAuctions(int page = 1)
+		public async Task<ActionResult> MyAuctions(int page = 1, int createdInDays = 30)
 		{
-			var auctions  = await mAuctionService.GetAuctionsByUser(User.Identity.GetUserId(), page, auctionsPerPage: 50);
-			var viewModel = AccountMyAuctionsViewModelMapper.FromAuctions(auctions);
+			createdInDays = Math.Min(Math.Max(createdInDays, 1), 30);
+
+			var auctions  = await mAuctionService.GetAuctionsByUser(User.Identity.GetUserId(), TimeSpan.FromDays(createdInDays),
+			                                                        page, auctionsPerPage: 50);
+			var viewModel = AccountMyAuctionsViewModelMapper.FromAuctions(auctions, createdInDays);
 
 			return View(viewModel);
 		}

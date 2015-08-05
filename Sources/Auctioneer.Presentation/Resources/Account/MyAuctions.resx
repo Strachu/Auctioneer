@@ -120,8 +120,17 @@
   <data name="CategoryName" xml:space="preserve">
     <value>Category</value>
   </data>
+  <data name="CreatedInFilter" xml:space="preserve">
+    <value>Auctions created in last {0} days</value>
+  </data>
   <data name="Expired" xml:space="preserve">
     <value>Expired</value>
+  </data>
+  <data name="FilteringOptionsHeader" xml:space="preserve">
+    <value>Filtering options:</value>
+  </data>
+  <data name="FilteringOptionsSubmitText" xml:space="preserve">
+    <value>Filter</value>
   </data>
   <data name="Header" xml:space="preserve">
     <value>Your auctions</value>

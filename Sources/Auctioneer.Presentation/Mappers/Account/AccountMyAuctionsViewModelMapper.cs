@@ -13,7 +13,7 @@ namespace Auctioneer.Presentation.Mappers.Account
 {
 	public class AccountMyAuctionsViewModelMapper
 	{
-		public static AccountMyAuctionsViewModel FromAuctions(IPagedList<Auction> auctions)
+		public static AccountMyAuctionsViewModel FromAuctions(IPagedList<Auction> auctions, int createdInDays)
 		{
 			Contract.Requires(auctions != null);
 
@@ -29,7 +29,8 @@ namespace Auctioneer.Presentation.Mappers.Account
 
 			return new AccountMyAuctionsViewModel
 			{
-				Auctions = new StaticPagedList<AccountMyAuctionsViewModel.Item>(items, auctions)
+				Auctions  = new StaticPagedList<AccountMyAuctionsViewModel.Item>(items, auctions),
+				CreatedIn = TimeSpan.FromDays(createdInDays)
 			};
 		}
 	}
