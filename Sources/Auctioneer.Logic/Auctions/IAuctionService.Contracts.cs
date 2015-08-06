@@ -61,5 +61,12 @@ namespace Auctioneer.Logic.Auctions
 
 			throw new NotImplementedException();
 		}
+
+		public Task RemoveAuctions(params int[] ids)
+		{
+			Contract.Requires(ids != null);
+
+			throw new NotImplementedException();
+		}
 	}
 }

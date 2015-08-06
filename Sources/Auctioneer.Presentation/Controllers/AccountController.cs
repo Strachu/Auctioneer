@@ -123,5 +123,14 @@ namespace Auctioneer.Presentation.Controllers
 
 			return View(viewModel);
 		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> DeleteAuctions(IEnumerable<int> ids, string queryString)
+		{
+			await mAuctionService.RemoveAuctions(ids.ToArray());
+
+			return RedirectToAction("MyAuctions", HttpUtility.ParseQueryString(queryString).ToRouteDictionary());
+		}
 	}
 }

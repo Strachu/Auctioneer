@@ -227,6 +227,7 @@
     <Compile Include="Helpers\IBreadcrumbBuilder.Contracts.cs">
       <DependentUpon>IBreadcrumbBuilder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NameValueCollection.Extensions.cs" />
     <Compile Include="Helpers\ValidationErrorNotifierAdapter.cs" />
     <Compile Include="Helpers\TimeSpanFormatter.cs" />
     <Compile Include="Helpers\UrlHelper.Extensions.cs" />

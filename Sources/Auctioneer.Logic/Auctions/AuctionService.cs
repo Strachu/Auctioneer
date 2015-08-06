@@ -180,5 +180,16 @@ namespace Auctioneer.Logic.Auctions
 
 			thumbnail.Save(thumbnailPath, ImageFormat.Jpeg);			
 		}
+
+		public async Task RemoveAuctions(params int[] ids)
+		{
+			var inactiveAuctions = mContext.Auctions.Where(x => ids.Contains(x.Id) && x.EndDate <= DateTime.Now);
+			if(await inactiveAuctions.AnyAsync())
+				throw new LogicException("Inactive auctions cannot be removed.");
+
+			// Cannot use an array with ExecuteSqlCommandAsync(), concatenating int elements should be safe.
+			var sql = String.Format("DELETE FROM Auctions WHERE id IN ({0})", String.Join(",", ids));
+			await mContext.Database.ExecuteSqlCommandAsync(sql);
+		}
 	}
 }

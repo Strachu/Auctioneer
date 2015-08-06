@@ -31,5 +31,7 @@ namespace Auctioneer.Logic.Auctions
 
 		Task AddAuction(Auction newAuction);
 		Task StoreAuctionPhotos(int auctionId, IEnumerable<Stream> dataStreams);
+
+		Task RemoveAuctions(params int[] ids);
 	}
 }

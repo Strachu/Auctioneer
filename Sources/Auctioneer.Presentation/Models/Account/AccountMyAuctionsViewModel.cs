@@ -14,7 +14,7 @@ namespace Auctioneer.Presentation.Models.Account
 {
 	public class AccountMyAuctionsViewModel
 	{
-		public IPagedList<Item> Auctions { get; set; }
+		public IPagedList<Item>    Auctions { get; set; }
 
 		public TimeSpan            CreatedIn { get; set; }
 		public AuctionStatusFilter CurrentStatusFilter { get; set; }
@@ -42,6 +42,11 @@ namespace Auctioneer.Presentation.Models.Account
 			public bool Expired
 			{
 				get { return TimeTillEnd.TotalSeconds <= 0; }
+			}
+
+			public bool CanBeRemoved
+			{
+				get { return !Expired; }
 			}
 		}
 	}

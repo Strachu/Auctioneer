@@ -1,4 +1,4 @@
-﻿.my-auctions form
+﻿.my-auctions .filter-form
 {
 	display         : flex;
 	align-content   : center;
@@ -9,7 +9,7 @@
 	margin-right    : 1px;
 }
 
-.my-auctions form > *
+.my-auctions .filter-form > *
 {
 	display       : inline-block;
 	align-self    : center;
@@ -20,7 +20,7 @@
 	margin-right  : 5px;
 }
 
-.my-auctions form h1
+.my-auctions .filter-form h1
 {
 	font-size     : 100%;
 	font-weight   : bold;
@@ -30,29 +30,34 @@
 	margin-right  : 10px;
 }
 
-.my-auctions form #createdInDays
+.my-auctions .filter-form #createdInDays
 {
 	display : inline;
 	width   : 5em;
 	height  : 25px;
 }
 
-.my-auctions form .status-filter
+.my-auctions .filter-form .status-filter
 {
 	flex      : 1 1 auto;
 	min-width : 180px;
 }
 
-.my-auctions form input#title
+.my-auctions .filter-form input#title
 {
 	flex    : 2 1 auto;
 	width   : auto;
 	height  : 30px;
 }
 
-.my-auctions form .filter-button
+.my-auctions .filter-form .filter-button
 {
 	line-height : 1.2;
+}
+
+.my-auctions table
+{
+	margin-bottom : 0;
 }
 
 .my-auctions th
@@ -69,6 +74,13 @@
 .my-auctions .category, .my-auctions .time, .my-auctions .price
 {
 	text-align : center;
+}
+
+.my-auctions .selected-items-control-panel
+{
+	border       : 1px solid black;
+	margin-left  : 1px;
+	margin-right : 1px;
 }
 
 .results-not-found

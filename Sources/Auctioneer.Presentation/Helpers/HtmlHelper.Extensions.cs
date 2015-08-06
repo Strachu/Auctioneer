@@ -37,15 +37,9 @@ namespace Auctioneer.Presentation.Helpers
 		                                                          object routeValues = null,
 		                                                          object htmlAttributes = null)
 		{
-			var currentParameters       = HttpContext.Current.Request.QueryString;
-			var routeDictionary         = new RouteValueDictionary();
+			var routeDictionary         = HttpContext.Current.Request.QueryString.ToRouteDictionary();
 			var routeOverrides          = new RouteValueDictionary(routeValues);
 			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
-
-			foreach(var parameter in currentParameters.AllKeys)
-			{
-				routeDictionary[parameter] = currentParameters[parameter];
-			}
 
 			foreach(var routeOverride in routeOverrides)
 			{
@@ -81,6 +75,24 @@ namespace Auctioneer.Presentation.Helpers
 			var selectList = EnumSelectList.FromSelectedValue(value);
 
 			return html.DropDownList(name, selectList, htmlAttributes);
+		}
+
+		public static IHtmlString CheckBox<T>(this HtmlHelper html,
+		                                      string name,
+		                                      T value,
+		                                      bool disabled = false)
+		{
+			var builder = new TagBuilder("input");
+			builder.Attributes.Add("type", "checkbox");
+			builder.Attributes.Add("name", name);
+			builder.Attributes.Add("id",   name);
+			builder.Attributes.Add("value", value.ToString());
+			if(disabled)
+			{
+				builder.Attributes.Add("disabled", "true");
+			}
+
+			return new HtmlString(builder.ToString());
 		}
 	}
 }
