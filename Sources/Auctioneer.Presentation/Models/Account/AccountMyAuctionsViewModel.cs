@@ -18,6 +18,7 @@ namespace Auctioneer.Presentation.Models.Account
 
 		public TimeSpan            CreatedIn { get; set; }
 		public AuctionStatusFilter CurrentStatusFilter { get; set; }
+		public string              TitleFilter { get; set; }
 
 		public class Item
 		{

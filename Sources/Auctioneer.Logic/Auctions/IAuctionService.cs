@@ -20,9 +20,10 @@ namespace Auctioneer.Logic.Auctions
 
 		Task<IPagedList<Auction>> GetAuctionsByUser(string userId,
 		                                            TimeSpan createdIn,
-		                                            AuctionStatusFilter statusFilter,
-		                                            int pageIndex,
-		                                            int auctionsPerPage);
+		                                            string titleFilter = null,
+		                                            AuctionStatusFilter statusFilter = AuctionStatusFilter.All,
+		                                            int pageIndex = 1,
+		                                            int auctionsPerPage = int.MaxValue);
 
 		Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults);
 

@@ -13,7 +13,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 {
 	internal class AuctionServiceTests
 	{
-		private AuctionService mTestedService;
+		private IAuctionService mTestedService;
 
 		[SetUp]
 		public void SetUp()
@@ -158,9 +158,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[Test]
 		public async Task GetAuctionsByUser_ReturnsOnlyAuctionsAddedBySpecifiedUser()
 		{
-			var auctions = await mTestedService.GetAuctionsByUser(userId: "2", statusFilter: AuctionStatusFilter.All,
-			                                                      createdIn: TimeSpan.FromDays(9999), pageIndex: 1,
-			                                                      auctionsPerPage: 1000);
+			var auctions = await mTestedService.GetAuctionsByUser(userId: "2", createdIn: TimeSpan.FromDays(9999));
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
 			var expectedAuctionTitles = new string[] { "3", "9", "11" };
@@ -172,8 +170,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 		public async Task WhenOnlyExpiredStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnActiveAuctions()
 		{
 			var auctions = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: AuctionStatusFilter.Expired,
-			                                                      createdIn: TimeSpan.FromDays(9999), pageIndex: 1,
-			                                                      auctionsPerPage: 1000);
+			                                                      createdIn: TimeSpan.FromDays(9999));
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
 			var expectedAuctionTitles = new string[] { "1", "6" };
@@ -185,8 +182,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 		public async Task WhenOnlyActiveStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnInactiveAuctions()
 		{
 			var auctions = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: AuctionStatusFilter.Active,
-			                                                      createdIn: TimeSpan.FromDays(9999), pageIndex: 1,
-			                                                      auctionsPerPage: 1000);
+			                                                      createdIn: TimeSpan.FromDays(9999));
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
 			var expectedAuctionTitles = new string[] { "2", "4", "5", "7", "8", "10" };

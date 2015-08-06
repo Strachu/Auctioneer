@@ -83,6 +83,7 @@ namespace Auctioneer.Logic.Auctions
 
 		public Task<IPagedList<Auction>> GetAuctionsByUser(string userId,
 		                                                   TimeSpan createdIn,
+		                                                   string titleFilter,
 		                                                   AuctionStatusFilter statusFilter,
 		                                                   int pageIndex,
 		                                                   int auctionsPerPage)
@@ -101,6 +102,11 @@ namespace Auctioneer.Logic.Auctions
 			if(statusFilter.HasFlag(AuctionStatusFilter.Expired) == false)
 			{
 				auctions = auctions.Where(x => x.EndDate > DateTime.Now);
+			}
+
+			if(!String.IsNullOrWhiteSpace(titleFilter))
+			{
+				auctions = auctions.Where(x => x.Title.Contains(titleFilter));
 			}
 
 			auctions = auctions.OrderBy(x => x.Title);

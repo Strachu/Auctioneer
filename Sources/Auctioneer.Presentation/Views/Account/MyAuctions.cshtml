@@ -33,6 +33,13 @@
 			multiple = true,
 			@class   = "status-filter"
 		})
+		
+		@Html.TextBox("title", Model.TitleFilter, htmlAttributes: new
+		{
+			type        = "search",
+			placeholder = Lang.TitleFilterPlaceholderText,
+			@class      = "form-control",
+		})
 
 		<input type="submit" value="@Lang.FilteringOptionsSubmitText" class="btn btn-default filter-button" />
 	}

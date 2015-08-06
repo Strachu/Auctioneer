@@ -14,6 +14,7 @@ namespace Auctioneer.Presentation.Mappers.Account
 	public class AccountMyAuctionsViewModelMapper
 	{
 		public static AccountMyAuctionsViewModel FromAuctions(IPagedList<Auction> auctions,
+		                                                      string titleFilter,
 		                                                      int createdInDays,
 		                                                      AuctionStatusFilter currentStatusFilter)
 		{
@@ -32,6 +33,7 @@ namespace Auctioneer.Presentation.Mappers.Account
 			return new AccountMyAuctionsViewModel
 			{
 				Auctions            = new StaticPagedList<AccountMyAuctionsViewModel.Item>(items, auctions),
+				TitleFilter         = titleFilter,
 				CreatedIn           = TimeSpan.FromDays(createdInDays),
 				CurrentStatusFilter = currentStatusFilter
 			};

@@ -25,6 +25,7 @@ namespace Auctioneer.Logic.Auctions
 
 		public Task<IPagedList<Auction>> GetAuctionsByUser(string userId,
 		                                                   TimeSpan createdIn,
+		                                                   string titleFilter,
 		                                                   AuctionStatusFilter statusFilter,
 		                                                   int pageIndex,
 		                                                   int auctionsPerPage)

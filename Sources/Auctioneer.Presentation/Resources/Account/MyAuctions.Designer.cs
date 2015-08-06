@@ -158,5 +158,14 @@ namespace Auctioneer.Presentation.Resources.Account {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by title....
+        /// </summary>
+        public static string TitleFilterPlaceholderText {
+            get {
+                return ResourceManager.GetString("TitleFilterPlaceholderText", resourceCulture);
+            }
+        }
     }
 }

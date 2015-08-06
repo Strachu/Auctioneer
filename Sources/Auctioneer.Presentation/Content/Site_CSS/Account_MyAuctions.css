@@ -1,20 +1,23 @@
 ﻿.my-auctions form
 {
-	border       : 1px solid black;
-	margin-left  : 1px;
-	margin-right : 1px;
-	padding      : 2px;
+	display         : flex;
+	align-content   : center;
+	justify-content : space-between;
+
+	border          : 1px solid black;
+	margin-left     : 1px;
+	margin-right    : 1px;
 }
 
-.my-auctions form *
+.my-auctions form > *
 {
-	display : inline;
-}
+	display       : inline-block;
+	align-self    : center;
 
-/* a conflict with ".my-auctions form *" - chosen requires inline-block to work correctly */
-.my-auctions #status_chosen *
-{
-	display : inline-block;
+	margin-top    : 2px;
+	margin-bottom : 2px;
+	margin-left   : 5px;
+	margin-right  : 5px;
 }
 
 .my-auctions form h1
@@ -22,31 +25,34 @@
 	font-size     : 100%;
 	font-weight   : bold;
 
-	margin-top    : 0;
-	margin-bottom : 0;
+	margin-top    : 2px;
+	margin-bottom : 2px;
+	margin-right  : 10px;
 }
 
-.my-auctions #createdInDays
+.my-auctions form #createdInDays
 {
 	display : inline;
 	width   : 5em;
 	height  : 25px;
 }
 
-.my-auctions .status-filter
+.my-auctions form .status-filter
 {
-	display     : inline-block;
-	width       : 180px;
-	margin-left : 10px;
+	flex      : 1 1 auto;
+	min-width : 180px;
 }
 
-.my-auctions .filter-button
+.my-auctions form input#title
 {
-	display      : inline-block;
-	float        : right;
-	margin-right : 5px;
-	height       : 25px;
-	line-height  : 0.5;
+	flex    : 2 1 auto;
+	width   : auto;
+	height  : 30px;
+}
+
+.my-auctions form .filter-button
+{
+	line-height : 1.2;
 }
 
 .my-auctions th
