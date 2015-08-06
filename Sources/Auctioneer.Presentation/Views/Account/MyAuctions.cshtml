@@ -5,6 +5,11 @@
 	ViewBag.Title = "MyAuctions";
 }
 
+@section head
+{
+	<link rel="stylesheet" href="~/Content/Chosen/chosen.min.css" />
+}
+
 <h1>@Lang.Header</h1>
 
 <main class="my-auctions">
@@ -16,12 +21,18 @@
 		var textbox = Html.TextBox("createdInDays", value: Model.CreatedIn.Days, htmlAttributes: new
 		{
 			type   = "number",
-			@class = "form-control created-in",
+			@class = "form-control",
 			min    = 1,
 			max    = 30
 		});
 
 		<p>@Html.Raw(String.Format(Lang.CreatedInFilter, textbox))</p>
+		
+		@Html.EnumDropDownList("status", Model.CurrentStatusFilter, htmlAttributes: new
+		{
+			multiple = true,
+			@class   = "status-filter"
+		})
 
 		<input type="submit" value="@Lang.FilteringOptionsSubmitText" class="btn btn-default filter-button" />
 	}
@@ -84,3 +95,15 @@
 		                     })
 	</div>
 </main>
+
+@section scripts
+{
+	<script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+
+	<script>
+		$('#status').chosen({
+			placeholder_text_multiple: "@Lang.StatusFilterNotSelectedText",
+			inherit_select_classes   : true
+		})
+	</script>
+}

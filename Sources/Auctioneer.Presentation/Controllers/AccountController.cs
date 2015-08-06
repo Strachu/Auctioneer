@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -110,13 +110,15 @@ namespace Auctioneer.Presentation.Controllers
 			return View();
 		}
 
-		public async Task<ActionResult> MyAuctions(int page = 1, int createdInDays = 30)
+		public async Task<ActionResult> MyAuctions(int page = 1,
+		                                           int createdInDays = 30,
+		                                           AuctionStatusFilter status = AuctionStatusFilter.All)
 		{
 			createdInDays = Math.Min(Math.Max(createdInDays, 1), 30);
 
 			var auctions  = await mAuctionService.GetAuctionsByUser(User.Identity.GetUserId(), TimeSpan.FromDays(createdInDays),
-			                                                        page, auctionsPerPage: 50);
-			var viewModel = AccountMyAuctionsViewModelMapper.FromAuctions(auctions, createdInDays);
+			                                                        status, page, auctionsPerPage: 50);
+			var viewModel = AccountMyAuctionsViewModelMapper.FromAuctions(auctions, createdInDays, status);
 
 			return View(viewModel);
 		}

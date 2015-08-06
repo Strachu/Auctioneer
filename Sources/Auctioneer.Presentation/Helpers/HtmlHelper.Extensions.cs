@@ -71,5 +71,16 @@ namespace Auctioneer.Presentation.Helpers
 				multiple = allowMultiple
 			});
 		}
+
+		public static IHtmlString EnumDropDownList(this HtmlHelper html,
+		                                           string name,
+		                                           Enum value,
+		                                           object htmlAttributes = null)
+		{
+			// EnumHelper.GetSelectList does not work with [Flags].
+			var selectList = EnumSelectList.FromSelectedValue(value);
+
+			return html.DropDownList(name, selectList, htmlAttributes);
+		}
 	}
 }

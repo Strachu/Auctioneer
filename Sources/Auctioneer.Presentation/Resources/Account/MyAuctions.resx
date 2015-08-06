@@ -141,6 +141,9 @@
   <data name="Price" xml:space="preserve">
     <value>Price</value>
   </data>
+  <data name="StatusFilterNotSelectedText" xml:space="preserve">
+    <value>Status filters</value>
+  </data>
   <data name="TimeTillEnd" xml:space="preserve">
     <value>To end</value>
   </data>

@@ -11,6 +11,12 @@
 	display : inline;
 }
 
+/* a conflict with ".my-auctions form *" - chosen requires inline-block to work correctly */
+.my-auctions #status_chosen *
+{
+	display : inline-block;
+}
+
 .my-auctions form h1
 {
 	font-size     : 100%;
@@ -20,11 +26,18 @@
 	margin-bottom : 0;
 }
 
-.my-auctions .created-in
+.my-auctions #createdInDays
 {
 	display : inline;
 	width   : 5em;
 	height  : 25px;
+}
+
+.my-auctions .status-filter
+{
+	display     : inline-block;
+	width       : 180px;
+	margin-left : 10px;
 }
 
 .my-auctions .filter-button
@@ -34,8 +47,6 @@
 	margin-right : 5px;
 	height       : 25px;
 	line-height  : 0.5;
-	position  : relative;
-	top : 50%;
 }
 
 .my-auctions th

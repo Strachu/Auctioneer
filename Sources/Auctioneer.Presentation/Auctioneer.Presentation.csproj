@@ -196,6 +196,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\AuthenticationConfig.cs" />
+    <Compile Include="App_Start\ModelBinderConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -214,6 +215,7 @@
     </Compile>
     <Compile Include="Helpers\AuthenticationManager.cs" />
     <Compile Include="Helpers\BreadcrumbBuilder.cs" />
+    <Compile Include="Helpers\EnumSelectList.cs" />
     <Compile Include="Helpers\HtmlHelper.Extensions.cs" />
     <Compile Include="Helpers\HttpRequestBase.Extensions.cs" />
     <Compile Include="Helpers\HttpResponseBase.Extensions.cs" />
@@ -232,6 +234,7 @@
     <Compile Include="Mappers\Account\AccountMyAuctionsViewModelMapper.cs" />
     <Compile Include="Mappers\Auction\AuctionAddViewModelMapper.cs" />
     <Compile Include="Mappers\User\UserCreateViewModelMapper.cs" />
+    <Compile Include="ModelBinders\FlagsEnumModelBinder.cs" />
     <Compile Include="Models\Account\AccountEditViewModel.cs" />
     <Compile Include="Models\Account\AccountMyAuctionsViewModel.cs" />
     <Compile Include="Models\Auction\AuctionAddViewModel.cs" />
@@ -373,6 +376,22 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\Chosen\chosen-sprite.png" />
+    <Content Include="Content\Chosen\chosen.css" />
+    <Content Include="Content\Chosen\chosen.jquery.js" />
+    <Content Include="Content\Chosen\chosen.jquery.min.js" />
+    <Content Include="Content\Chosen\chosen.min.css" />
+    <Content Include="Content\Chosen\chosen.proto.js" />
+    <Content Include="Content\Chosen\chosen.proto.min.js" />
+    <Content Include="Content\Chosen\docsupport\chosen.png" />
+    <Content Include="Content\Chosen\docsupport\oss-credit.png" />
+    <Content Include="Content\Chosen\docsupport\prism.css" />
+    <Content Include="Content\Chosen\docsupport\prism.js" />
+    <Content Include="Content\Chosen\docsupport\style.css" />
+    <Content Include="Content\Chosen\index.html" />
+    <Content Include="Content\Chosen\index.proto.html" />
+    <Content Include="Content\Chosen\options.html" />
     <Content Include="Content\ckeditor\adapters\jquery.js" />
     <Content Include="Content\ckeditor\build-config.js" />
     <Content Include="Content\ckeditor\ckeditor.js" />
@@ -576,6 +595,7 @@
     <Content Include="Emails\User\ForgotPassword\ForgotPasswordMail.cshtml" />
     <Content Include="CodeTemplates\MvcView\Edit.cs.t4" />
     <Content Include="CodeTemplates\MvcView\List.cs.t4" />
+    <Content Include="Content\Chosen\bower.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

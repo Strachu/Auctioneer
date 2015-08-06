@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using Auctioneer.Logic.Auctions;
+
 using PagedList;
 
 using Lang = Auctioneer.Presentation.Resources.Account.MyAuctions;
@@ -13,7 +15,9 @@ namespace Auctioneer.Presentation.Models.Account
 	public class AccountMyAuctionsViewModel
 	{
 		public IPagedList<Item> Auctions { get; set; }
-		public TimeSpan CreatedIn { get; set; }
+
+		public TimeSpan            CreatedIn { get; set; }
+		public AuctionStatusFilter CurrentStatusFilter { get; set; }
 
 		public class Item
 		{

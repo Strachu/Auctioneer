@@ -81,14 +81,29 @@ namespace Auctioneer.Logic.Auctions
 			return Task.FromResult(auctions.ToPagedList(pageIndex, auctionsPerPage));
 		}
 
-		public Task<IPagedList<Auction>> GetAuctionsByUser(string userId, TimeSpan createdIn, int pageIndex, int auctionsPerPage)
+		public Task<IPagedList<Auction>> GetAuctionsByUser(string userId,
+		                                                   TimeSpan createdIn,
+		                                                   AuctionStatusFilter statusFilter,
+		                                                   int pageIndex,
+		                                                   int auctionsPerPage)
 		{
 			var createdAfter = DateTime.Now.Subtract(createdIn);
 
 			var auctions = mContext.Auctions.Include(x => x.Category)
 			                                .Where(x => x.SellerId == userId)
-			                                .Where(x => x.CreationDate >= createdAfter)
-			                                .OrderBy(x => x.Title);
+			                                .Where(x => x.CreationDate >= createdAfter);
+
+			if(statusFilter.HasFlag(AuctionStatusFilter.Active) == false)
+			{
+				auctions = auctions.Where(x => x.EndDate <= DateTime.Now);
+			}
+
+			if(statusFilter.HasFlag(AuctionStatusFilter.Expired) == false)
+			{
+				auctions = auctions.Where(x => x.EndDate > DateTime.Now);
+			}
+
+			auctions = auctions.OrderBy(x => x.Title);
 
 			return Task.FromResult(auctions.ToPagedList(pageIndex, auctionsPerPage));
 		}

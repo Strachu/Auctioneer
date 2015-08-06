@@ -133,6 +133,15 @@ namespace Auctioneer.Presentation.Resources.Account {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status filters.
+        /// </summary>
+        public static string StatusFilterNotSelectedText {
+            get {
+                return ResourceManager.GetString("StatusFilterNotSelectedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To end.
         /// </summary>
         public static string TimeTillEnd {
