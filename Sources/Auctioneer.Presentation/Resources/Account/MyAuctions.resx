@@ -135,6 +135,9 @@
   <data name="Header" xml:space="preserve">
     <value>Your auctions</value>
   </data>
+  <data name="NoResultsFound" xml:space="preserve">
+    <value>No auctions matching specified criteria have been found.</value>
+  </data>
   <data name="PageNumber" xml:space="preserve">
     <value>Page: </value>
   </data>

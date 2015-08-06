@@ -70,3 +70,12 @@
 {
 	text-align : center;
 }
+
+.results-not-found
+{
+	font-weight   : bold;
+	text-align    : center;
+
+	margin-top    : 20px;
+	margin-bottom : 20px;
+}

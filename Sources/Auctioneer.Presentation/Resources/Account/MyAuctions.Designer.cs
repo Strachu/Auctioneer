@@ -115,6 +115,15 @@ namespace Auctioneer.Presentation.Resources.Account {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No auctions matching specified criteria have been found..
+        /// </summary>
+        public static string NoResultsFound {
+            get {
+                return ResourceManager.GetString("NoResultsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Page: .
         /// </summary>
         public static string PageNumber {
