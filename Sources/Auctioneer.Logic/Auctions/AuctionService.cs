@@ -193,6 +193,20 @@ namespace Auctioneer.Logic.Auctions
 			// Cannot use an array with ExecuteSqlCommandAsync(), concatenating int elements should be safe.
 			var sql = String.Format("DELETE FROM Auctions WHERE id IN ({0})", String.Join(",", ids));
 			await mContext.Database.ExecuteSqlCommandAsync(sql);
+
+			foreach(var auctionId in ids)
+			{
+				RemoveAuctionPhotos(auctionId);
+			}
+		}
+
+		private void RemoveAuctionPhotos(int auctionId)
+		{
+			var currentAuctionPhotosDirectory = Path.Combine(mAuctionPhotoDirectoryPath,     auctionId.ToString());
+			var thumbnailPath                 = Path.Combine(mAuctionThumbnailDirectoryPath, auctionId + ".jpg");
+		
+			File.Delete(thumbnailPath);
+			Directory.Delete(currentAuctionPhotosDirectory, recursive: true);
 		}
 	}
 }

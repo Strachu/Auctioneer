@@ -8,7 +8,6 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
-using Auctioneer.Logic;
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Presentation.Helpers;
