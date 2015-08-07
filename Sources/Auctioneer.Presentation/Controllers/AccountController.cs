@@ -128,7 +128,7 @@ namespace Auctioneer.Presentation.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> DeleteAuctions(IEnumerable<int> ids, string queryString)
 		{
-			await mAuctionService.RemoveAuctions(ids.ToArray());
+			await mAuctionService.RemoveAuctions(User.Identity.GetUserId(), ids.ToArray());
 
 			return RedirectToAction("MyAuctions", HttpUtility.ParseQueryString(queryString).ToRouteDictionary());
 		}

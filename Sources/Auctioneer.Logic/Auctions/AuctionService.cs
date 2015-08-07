@@ -181,10 +181,13 @@ namespace Auctioneer.Logic.Auctions
 			thumbnail.Save(thumbnailPath, ImageFormat.Jpeg);			
 		}
 
-		public async Task RemoveAuctions(params int[] ids)
+		public async Task RemoveAuctions(string removingUserId, params int[] ids)
 		{
-			var inactiveAuctions = mContext.Auctions.Where(x => ids.Contains(x.Id) && x.EndDate <= DateTime.Now);
-			if(await inactiveAuctions.AnyAsync())
+			var auctions = await mContext.Auctions.Where(x => ids.Contains(x.Id)).ToListAsync();
+			if(auctions.Any(x => x.SellerId != removingUserId))
+				throw new LogicException("Cannot remove auctions of another user.");
+
+			if(auctions.Any(x => x.EndDate <= DateTime.Now))
 				throw new LogicException("Inactive auctions cannot be removed.");
 
 			// Cannot use an array with ExecuteSqlCommandAsync(), concatenating int elements should be safe.

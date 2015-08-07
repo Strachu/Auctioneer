@@ -62,8 +62,9 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 
-		public Task RemoveAuctions(params int[] ids)
+		public Task RemoveAuctions(string removingUserId, params int[] ids)
 		{
+			Contract.Requires(removingUserId != null);
 			Contract.Requires(ids != null);
 
 			throw new NotImplementedException();
