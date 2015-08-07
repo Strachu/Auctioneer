@@ -18,7 +18,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 using Postal;
 
-using Lang = Auctioneer.Presentation.Resources.User;
+using Lang = Auctioneer.Resources.User;
 
 namespace Auctioneer.Presentation.Controllers
 {

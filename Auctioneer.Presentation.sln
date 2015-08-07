@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctioneer.Presentation.Inf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctioneer.Presentation.Infrastructure.Tests", "Tests\Auctioneer.Presentation.Infrastructure.Tests\Auctioneer.Presentation.Infrastructure.Tests.csproj", "{40B92DF6-AFF9-44CF-B7B9-B9B6C06E79DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auctioneer.Resources", "Resources\Auctioneer.Resources.csproj", "{069DB833-0565-45C7-AFBA-DF3C8905C29E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{40B92DF6-AFF9-44CF-B7B9-B9B6C06E79DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40B92DF6-AFF9-44CF-B7B9-B9B6C06E79DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40B92DF6-AFF9-44CF-B7B9-B9B6C06E79DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{069DB833-0565-45C7-AFBA-DF3C8905C29E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069DB833-0565-45C7-AFBA-DF3C8905C29E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069DB833-0565-45C7-AFBA-DF3C8905C29E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069DB833-0565-45C7-AFBA-DF3C8905C29E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

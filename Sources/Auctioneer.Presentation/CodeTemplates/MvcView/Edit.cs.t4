@@ -2,7 +2,7 @@
 <#@ output extension=".cshtml" #>
 <#@ include file="Imports.include.t4" #>
 @model <#= ViewDataTypeName #>
-@using Lang = Auctioneer.Presentation.Resources.Controller.<#= ViewName#>;
+@using Lang = Auctioneer.Resources.Controller.<#= ViewName#>;
 <#
 // "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
 string boolType = "System.Boolean";

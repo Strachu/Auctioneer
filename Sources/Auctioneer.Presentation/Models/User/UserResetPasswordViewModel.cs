@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using Compare = System.ComponentModel.DataAnnotations.CompareAttribute;
-using Lang    = Auctioneer.Presentation.Resources.User.ResetPassword;
+using Lang    = Auctioneer.Resources.User.ResetPassword;
 
 namespace Auctioneer.Presentation.Models.User
 {

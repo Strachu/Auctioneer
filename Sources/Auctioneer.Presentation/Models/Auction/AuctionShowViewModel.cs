@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-using Lang = Auctioneer.Presentation.Resources.Auction.Show;
+using Lang = Auctioneer.Resources.Auction.Show;
 
 namespace Auctioneer.Presentation.Models
 {

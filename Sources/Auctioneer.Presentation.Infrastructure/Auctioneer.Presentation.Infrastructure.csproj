@@ -142,6 +142,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Resources\Auctioneer.Resources.csproj">
+      <Project>{069db833-0565-45c7-afba-df3c8905c29e}</Project>
+      <Name>Auctioneer.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Auctioneer.Logic\Auctioneer.Logic.csproj">
       <Project>{be1523cb-a2be-40e2-b006-e923119a4a7d}</Project>
       <Name>Auctioneer.Logic</Name>

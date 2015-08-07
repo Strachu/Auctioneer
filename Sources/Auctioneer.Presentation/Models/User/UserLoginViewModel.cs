@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using Lang = Auctioneer.Presentation.Resources.User.Login;
+using Lang = Auctioneer.Resources.User.Login;
 
 namespace Auctioneer.Presentation.Models.User
 {

@@ -10,7 +10,7 @@ using Auctioneer.Presentation.Infrastructure.Validation;
 using DataAnnotationsExtensions;
 
 using FileExtensions = System.ComponentModel.DataAnnotations.FileExtensionsAttribute;
-using Lang           = Auctioneer.Presentation.Resources.Auction.Add;
+using Lang           = Auctioneer.Resources.Auction.Add;
 
 namespace Auctioneer.Presentation.Models
 {

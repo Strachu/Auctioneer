@@ -8,7 +8,7 @@ using Auctioneer.Logic.Auctions;
 
 using PagedList;
 
-using Lang = Auctioneer.Presentation.Resources.Account.MyAuctions;
+using Lang = Auctioneer.Resources.Account.MyAuctions;
 
 namespace Auctioneer.Presentation.Models.Account
 {
