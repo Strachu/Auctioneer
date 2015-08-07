@@ -1,0 +1,4 @@
+<smtp deliveryMethod="Network" from="SOURCE_EMAIL">
+	<network host="SMTP_SERVER_ADDRESS" enableSsl="true" defaultCredentials="false"
+	         userName="USERNAME" password="PASSWORD"/>
+</smtp>

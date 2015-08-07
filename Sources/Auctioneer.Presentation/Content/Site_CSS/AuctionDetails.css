@@ -8,9 +8,18 @@
 	margin-bottom : 20px;
 }
 
+.auction-details .control-panel
+{
+	border-bottom : 1px solid black;
+	padding       : 3px;
+	padding-left  : 10%;
+	margin-bottom : 0;
+}
+
 .auction-details header > h1
 {
 	text-align   : center;
+	margin-top   : 0;
 	margin-bottom: 0;
 }
 

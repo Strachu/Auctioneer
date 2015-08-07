@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeleteAuction" xml:space="preserve">
+    <value>Delete the auction</value>
+  </data>
   <data name="EndingIn" xml:space="preserve">
     <value>Ending in </value>
+  </data>
+  <data name="SellerUserName" xml:space="preserve">
+    <value>Seller</value>
   </data>
 </root>

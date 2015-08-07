@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Auctioneer.Logic
 {
-	public class ObjectNotFoundException : Exception
+	public class ObjectNotFoundException : LogicException
 	{
 		public ObjectNotFoundException(string message) : base(message)
 		{

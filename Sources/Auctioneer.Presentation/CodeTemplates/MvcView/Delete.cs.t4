@@ -1,0 +1,96 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model <#= ViewDataTypeName #>
+@using Lang = Auctioneer.Presentation.Resources.Controller.<#= ViewName#>;
+<#
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+	ViewBag.Title = "<#= ViewName#>";
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+	Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+
+<main>
+	<h1>@Lang.AreYouSure</h1>
+
+<#
+} else {
+#>
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title><#= ViewName #></title>
+</head>
+<body>
+<#
+	PushIndent("	");
+}
+#>
+	<div>
+		<dl class="dl-horizontal">
+<#
+foreach (PropertyMetadata property in ModelMetadata.Properties) {
+	 if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+<#
+		  // We do not want to show any association properties for which there is
+		  // no associated foreign key.
+		  if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+				continue;
+		  }
+#>
+			<dt>
+				@Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.<#= GetValueExpression(property) #>)
+			</dd>
+<#
+	 }
+}
+#>
+		</dl>
+
+		@using (Html.BeginForm())
+		{
+			@Html.AntiForgeryToken()
+			@Html.HiddenFor(x => x.Id)
+
+			<input type="submit" value="Delete" class="btn btn-danger horizontally-centered" />
+		}
+	</div>
+</main>
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+	ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44301</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -56,6 +56,10 @@
       <HintPath>..\..\packages\DataAnnotationsExtensions.MVC3.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.ClientValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevTrends.MvcDonutCaching, Version=1.3.0.0, Culture=neutral, PublicKeyToken=73c58d802958a09f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MvcDonutCaching.1.3.0\lib\net40\DevTrends.MvcDonutCaching.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -64,13 +68,57 @@
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Postal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=45719375b8b4d528, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Postal.Mvc5.1.2.0\lib\net45\Postal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.4.1.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RazorEngine.3.4.1\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -147,39 +195,90 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
+    <Compile Include="App_Start\AuthenticationConfig.cs" />
+    <Compile Include="App_Start\ModelBinderConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuctionController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Emails\User\ForgotPassword\ForgotPasswordMail.cs" />
+    <Compile Include="Emails\User\ConfirmationMail\ConfirmationMail.cs" />
     <Compile Include="Filters\ObjectNotFoundExceptionHandlerAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AuthenticationManager.cs" />
     <Compile Include="Helpers\BreadcrumbBuilder.cs" />
+    <Compile Include="Helpers\EnumSelectList.cs" />
     <Compile Include="Helpers\HtmlHelper.Extensions.cs" />
     <Compile Include="Helpers\HttpRequestBase.Extensions.cs" />
     <Compile Include="Helpers\HttpResponseBase.Extensions.cs" />
+    <Compile Include="Helpers\IAuthenticationManager.Contracts.cs">
+      <DependentUpon>IAuthenticationManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\IAuthenticationManager.cs" />
     <Compile Include="Helpers\IBreadcrumbBuilder.cs" />
     <Compile Include="Helpers\IBreadcrumbBuilder.Contracts.cs">
       <DependentUpon>IBreadcrumbBuilder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NameValueCollection.Extensions.cs" />
+    <Compile Include="Helpers\ValidationErrorNotifierAdapter.cs" />
     <Compile Include="Helpers\TimeSpanFormatter.cs" />
     <Compile Include="Helpers\UrlHelper.Extensions.cs" />
+    <Compile Include="Mappers\Account\AccountEditViewModelMapper.cs" />
+    <Compile Include="Mappers\Account\AccountMyAuctionsViewModelMapper.cs" />
     <Compile Include="Mappers\Auction\AuctionAddViewModelMapper.cs" />
+    <Compile Include="Mappers\User\UserCreateViewModelMapper.cs" />
+    <Compile Include="ModelBinders\FlagsEnumModelBinder.cs" />
+    <Compile Include="Models\Account\AccountEditViewModel.cs" />
+    <Compile Include="Models\Account\AccountMyAuctionsViewModel.cs" />
     <Compile Include="Models\Auction\AuctionAddViewModel.cs" />
     <Compile Include="Mappers\Auction\AuctionShowViewModelMapper.cs" />
     <Compile Include="Mappers\Category\AuctionViewModelMapper.cs" />
     <Compile Include="Mappers\Category\CategoryIndexViewModelMapper.cs" />
     <Compile Include="Mappers\Category\CategoryListViewModelMapper.cs" />
+    <Compile Include="Models\Auction\AuctionDeleteViewModel.cs" />
     <Compile Include="Models\Auction\AuctionShowViewModel.cs" />
     <Compile Include="Models\Category\AuctionViewModel.cs" />
     <Compile Include="Models\Category\CategoryIndexViewModel.cs" />
     <Compile Include="Models\Category\CategoryListViewModel.cs" />
     <Compile Include="Models\Shared\BreadcrumbViewModel.cs" />
+    <Compile Include="Models\User\UserResetPasswordViewModel.cs" />
+    <Compile Include="Models\User\UserForgotPasswordViewModel.cs" />
+    <Compile Include="Models\User\UserLoginViewModel.cs" />
+    <Compile Include="Models\User\UserCreateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Account\AccountDetailsUpdated.Designer.cs">
+      <DependentUpon>AccountDetailsUpdated.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Account\MyAuctions.Designer.cs">
+      <DependentUpon>MyAuctions.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Account\Edit.Designer.cs">
+      <DependentUpon>Edit.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Account\Layout.Designer.cs">
+      <DependentUpon>Layout.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Auction\Delete.Designer.cs">
+      <DependentUpon>Delete.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\Auction\Show.Designer.cs">
       <DependentUpon>Show.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -205,10 +304,75 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Resources\Shared\Error.Designer.cs">
+      <DependentUpon>Error.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\Shared\Layout.Designer.cs">
       <DependentUpon>Layout.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\ResetPasswordConfirmation.Designer.cs">
+      <DependentUpon>ResetPasswordConfirmation.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\ForgotPassword.Designer.cs">
+      <DependentUpon>ForgotPassword.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\LockedOut.Designer.cs">
+      <DependentUpon>LockedOut.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\ResentMailConfirmation.Designer.cs">
+      <DependentUpon>ResentMailConfirmation.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\ResetPassword.Designer.cs">
+      <DependentUpon>ResetPassword.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\_Greetings.Designer.cs">
+      <DependentUpon>_Greetings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\ResetPasswordMailSent.Designer.cs">
+      <DependentUpon>ResetPasswordMailSent.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\EmailNotConfirmed.Designer.cs">
+      <DependentUpon>EmailNotConfirmed.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\ConfirmMail.Designer.cs">
+      <DependentUpon>ConfirmMail.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\AccountCreated.Designer.cs">
+      <DependentUpon>AccountCreated.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\Create.Designer.cs">
+      <DependentUpon>Create.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\User\Login.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Login.resx</DependentUpon>
     </Compile>
     <Compile Include="Validation\ContentTypeAttribute.cs" />
   </ItemGroup>
@@ -219,6 +383,22 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\Chosen\chosen-sprite.png" />
+    <Content Include="Content\Chosen\chosen.css" />
+    <Content Include="Content\Chosen\chosen.jquery.js" />
+    <Content Include="Content\Chosen\chosen.jquery.min.js" />
+    <Content Include="Content\Chosen\chosen.min.css" />
+    <Content Include="Content\Chosen\chosen.proto.js" />
+    <Content Include="Content\Chosen\chosen.proto.min.js" />
+    <Content Include="Content\Chosen\docsupport\chosen.png" />
+    <Content Include="Content\Chosen\docsupport\oss-credit.png" />
+    <Content Include="Content\Chosen\docsupport\prism.css" />
+    <Content Include="Content\Chosen\docsupport\prism.js" />
+    <Content Include="Content\Chosen\docsupport\style.css" />
+    <Content Include="Content\Chosen\index.html" />
+    <Content Include="Content\Chosen\index.proto.html" />
+    <Content Include="Content\Chosen\options.html" />
     <Content Include="Content\ckeditor\adapters\jquery.js" />
     <Content Include="Content\ckeditor\build-config.js" />
     <Content Include="Content\ckeditor\ckeditor.js" />
@@ -380,7 +560,11 @@
     <Content Include="Content\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Content\ckeditor\skins\moono\images\spinner.gif" />
     <Content Include="Content\ckeditor\styles.js" />
+    <Content Include="Content\Site_CSS\Account_MyAuctions.css" />
+    <Content Include="Content\Site_CSS\Account.css" />
     <Content Include="Content\Site_CSS\AuctionListing.css" />
+    <Content Include="Content\Site_CSS\Message.css" />
+    <Content Include="Content\Site_CSS\Error.css" />
     <Content Include="Content\Site_CSS\Main.css" />
     <Content Include="Content\Site_CSS\AuctionDetails.css" />
     <Content Include="Content\Site_CSS\Forms.css" />
@@ -410,6 +594,16 @@
     <Content Include="CodeTemplates\MvcView\Empty.cs.t4" />
     <Content Include="CodeTemplates\MvcView\Imports.include.t4" />
     <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
+    <Content Include="CodeTemplates\MvcViewWithoutModel\Imports.include.t4" />
+    <Content Include="smtp.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Emails\Web.config" />
+    <Content Include="Emails\User\ForgotPassword\ForgotPasswordMail.cshtml" />
+    <Content Include="CodeTemplates\MvcView\Edit.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\List.cs.t4" />
+    <Content Include="Content\Chosen\bower.json" />
+    <Content Include="CodeTemplates\MvcView\Delete.cs.t4" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -449,8 +643,52 @@
     <Content Include="Views\Shared\_Layout_with_search_and_breadcrumb.cshtml" />
     <Content Include="Views\Auction\Add.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Html.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\AccountCreated.cshtml" />
+    <Content Include="Views\User\ConfirmMail.cshtml" />
+    <Content Include="Views\User\EmailNotConfirmed.cshtml" />
+    <Content Include="Views\User\ResentMailConfirmation.cshtml" />
+    <Content Include="Emails\User\ConfirmationMail\ConfirmationMail.cshtml" />
+    <Content Include="Views\User\LockedOut.cshtml" />
+    <Content Include="Views\User\ForgotPassword.cshtml" />
+    <Content Include="Views\User\ResetPasswordMailSent.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\User\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Shared\_TopMenu.cshtml" />
+    <Content Include="Views\User\_Greetings.cshtml" />
+    <Content Include="Views\Account\_Layout.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\_ViewStart.cshtml" />
+    <Content Include="Views\Account\Edit.LoginDetailsForm.cshtml" />
+    <Content Include="Views\Account\Edit.PersonalInfoForm.cshtml" />
+    <Content Include="Views\Account\AccountDetailsUpdated.cshtml" />
+    <Content Include="Views\Shared\_LoginLinks.NotAuthenticated.cshtml" />
+    <Content Include="Views\Shared\_LoginLinks.Authenticated.cshtml" />
+    <Content Include="Views\Account\MyAuctions.cshtml" />
+    <Content Include="Views\Auction\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Account\AccountDetailsUpdated.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountDetailsUpdated.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Account\MyAuctions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MyAuctions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Account\Edit.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Edit.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Account\Layout.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Layout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Auction\Delete.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Delete.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Auction\Show.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Show.Designer.cs</LastGenOutput>
@@ -472,9 +710,61 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Other.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Shared\Error.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Error.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Shared\Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Layout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\ResetPasswordConfirmation.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResetPasswordConfirmation.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\ForgotPassword.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ForgotPassword.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\LockedOut.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LockedOut.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\ResentMailConfirmation.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResentMailConfirmation.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\ResetPassword.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResetPassword.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\_Greetings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>_Greetings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\ResetPasswordMailSent.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResetPasswordMailSent.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\EmailNotConfirmed.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EmailNotConfirmed.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\ConfirmMail.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ConfirmMail.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\AccountCreated.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountCreated.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\Create.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Create.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User\Login.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Login.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -511,7 +801,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1917</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1549/</IISUrl>
+          <IISUrl>https://localhost:44301/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,0 +1,79 @@
+﻿@model Auctioneer.Presentation.Models.User.UserCreateViewModel
+@using Lang = Auctioneer.Presentation.Resources.User.Create;
+
+@{
+	ViewBag.Title = "Create";
+}
+
+<main class="form-container">
+	<h1>@Lang.FormHeader</h1>
+
+	@using(Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-horizontal">
+			@Html.ValidationSummary(excludePropertyErrors: true, message: "", htmlAttributes: new { @class = "text-danger" })
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.RepeatedPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.RepeatedPassword, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.RepeatedPassword, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			
+			<hr/>
+
+			<div class="form-group form-inline">
+				@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-2" })
+				<div class="col-md-5">
+					@Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+				</div>
+
+				@Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-5">
+					@Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="submit-button-container">
+				<input type="submit" value="@Lang.SubmitText" class="btn btn-default" />
+			</div>
+		</div>
+	}
+</main>

@@ -33,7 +33,7 @@ if (!String.IsNullOrEmpty(LayoutPageFile)) {
 #>
 
 @{
-	 Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
@@ -161,7 +161,7 @@ if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
 #>
 
 @section Scripts {
-	 @Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/bundles/jqueryval")
 }
 <#
 }

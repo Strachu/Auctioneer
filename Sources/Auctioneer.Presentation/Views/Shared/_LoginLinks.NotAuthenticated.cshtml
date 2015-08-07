@@ -1,0 +1,9 @@
+﻿@using Lang = Auctioneer.Presentation.Resources.Shared.Layout;
+
+<li>@Html.ActionLink(Lang.CreateAccount, controllerName: "User", actionName: "Create")</li>
+<li>
+	@Html.ActionLink(Lang.LogIn, controllerName: "User", actionName: "Login", htmlAttributes: null, routeValues: new
+	{
+		returnUrl = Request.RawUrl
+	})
+</li>

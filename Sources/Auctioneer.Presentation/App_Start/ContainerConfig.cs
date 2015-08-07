@@ -14,6 +14,8 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
 
+using Postal;
+
 namespace Auctioneer.Presentation
 {
 	public class ContainerConfig
@@ -30,11 +32,15 @@ namespace Auctioneer.Presentation
 			builder.RegisterSource(new ViewRegistrationSource());
 			builder.RegisterFilterProvider();
 
+			builder.Register(x => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
+			builder.RegisterType<EmailService>().As<IEmailService>().InstancePerLifetimeScope();
+
 			RegisterServices(builder);
 
 			builder.RegisterType<AuctioneerDbContext>().InstancePerRequest();
 
 			builder.RegisterType<BreadcrumbBuilder>().As<IBreadcrumbBuilder>().InstancePerDependency();
+			builder.RegisterType<AuthenticationManager>().As<IAuthenticationManager>().InstancePerRequest();
 			builder.RegisterType<AuctionService>().As<IAuctionService>().InstancePerRequest().WithParameters(new Parameter[]
 			{
 				new NamedParameter("photoDirectoryPath",     HostingEnvironment.MapPath("~/Content/UserContent/Auctions/Photos")),
@@ -48,8 +54,9 @@ namespace Auctioneer.Presentation
 
 		private static void RegisterServices(ContainerBuilder builder)
 		{
-			builder.RegisterAssemblyTypes(typeof(Auctioneer.Logic.AuctioneerDbContext).Assembly)
+			builder.RegisterAssemblyTypes(typeof(IAuctionService).Assembly)
 			       .Where(t => t.Name.EndsWith("Service"))
+					 .AsSelf()
 			       .AsImplementedInterfaces()
 			       .InstancePerRequest();
 		}

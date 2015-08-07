@@ -4,10 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using Lang = Auctioneer.Presentation.Resources.Auction.Show;
+
 namespace Auctioneer.Presentation.Models
 {
 	public class AuctionShowViewModel
 	{
+		public int Id { get; set; }
+
 		public string Title { get; set; }
 
 		[DataType(DataType.Html)]
@@ -25,6 +29,9 @@ namespace Auctioneer.Presentation.Models
 		[DataType(DataType.Currency)]
 		public decimal Price { get; set; }
 
+		[Display(Name = "SellerUserName", ResourceType = typeof(Lang))]
+		public string SellerUserName { get; set; }
+
 		public IEnumerable<Photo> Photos { get; set; }
 
 		public class Photo
@@ -32,5 +39,7 @@ namespace Auctioneer.Presentation.Models
 			[DataType(DataType.ImageUrl)]
 			public string Url { get; set; }
 		}
+
+		public bool CanBeRemoved { get; set; }
 	}
 }

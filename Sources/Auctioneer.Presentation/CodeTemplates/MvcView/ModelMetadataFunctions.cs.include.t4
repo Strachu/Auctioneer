@@ -40,4 +40,29 @@ string GetPrimaryKeyName() {
 bool IsPropertyGuid(PropertyMetadata property) {
     return String.Equals("System.Guid", property.TypeName, StringComparison.OrdinalIgnoreCase);
 }
+
+Type GetType(string typeName)
+{
+	var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+	foreach(var assembly in assemblies)
+	{
+		var types = assembly.GetTypes();
+		var type = types.FirstOrDefault(t => t.FullName == typeName);
+		if(type != null)
+		{
+			return type;
+		}
+	}
+	throw new Exception("Not found " + typeName);
+}
+
+bool IsCollection(System.Web.Mvc.ModelMetadata property)
+{
+	return typeof(System.Collections.IEnumerable).IsAssignableFrom(property.ModelType);
+}
+
+System.Web.Mvc.ModelMetadata GetMetadataForCollectionElements(System.Web.Mvc.ModelMetadata property)
+{
+	return System.Web.Mvc.ModelMetadataProviders.Current.GetMetadataForType(null, property.ModelType.GetGenericArguments().First());
+}
 #>

@@ -68,5 +68,41 @@ namespace Auctioneer.Presentation.Resources.Shared {
                 return ResourceManager.GetString("AddAuctionLink", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create an account.
+        /// </summary>
+        public static string CreateAccount {
+            get {
+                return ResourceManager.GetString("CreateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        public static string LogIn {
+            get {
+                return ResourceManager.GetString("LogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My account.
+        /// </summary>
+        public static string MyAccount {
+            get {
+                return ResourceManager.GetString("MyAccount", resourceCulture);
+            }
+        }
     }
 }

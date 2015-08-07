@@ -9,6 +9,8 @@ using Auctioneer.Logic.Auctions;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Mappers.Category;
 
+using DevTrends.MvcDonutCaching;
+
 namespace Auctioneer.Presentation.Controllers
 {
 	public class HomeController : Controller
@@ -22,7 +24,7 @@ namespace Auctioneer.Presentation.Controllers
 			mBreadcrumbBuilder = breadcrumbBuilder;
 		}
 
-		[OutputCache(Duration = 10)]
+		[DonutOutputCache(Duration = 10)]
 		public async Task<ActionResult> Index()
 		{
 			var auctions   = await mAuctionService.GetRecentAuctions(maxResults: 20);

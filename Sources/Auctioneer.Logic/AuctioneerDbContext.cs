@@ -8,23 +8,33 @@ using System.Threading.Tasks;
 
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
+using Auctioneer.Logic.Users;
+
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Auctioneer.Logic
 {
-	public class AuctioneerDbContext : DbContext
+	public class AuctioneerDbContext : IdentityDbContext<User>
 	{
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Auction> Auctions { get; set; }
 
 		public AuctioneerDbContext() : base("AuctioneerDbContext")
 		{
-#if DEBUG
-			base.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-#endif
+			Init();
 		}
 
 		public AuctioneerDbContext(DbConnection connection) : base(connection, true)
 		{
+			Init();
+		}
+
+		private void Init()
+		{
+#if DEBUG
+			base.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+#endif
+			base.RequireUniqueEmail = true;
 		}
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)

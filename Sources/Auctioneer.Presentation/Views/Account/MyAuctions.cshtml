@@ -1,0 +1,143 @@
+@model Auctioneer.Presentation.Models.Account.AccountMyAuctionsViewModel
+@using Lang = Auctioneer.Presentation.Resources.Account.MyAuctions;
+
+@{
+	ViewBag.Title = "MyAuctions";
+}
+
+@section head
+{
+	<link rel="stylesheet" href="~/Content/Chosen/chosen.min.css" />
+}
+
+<h1>@Lang.Header</h1>
+
+<main class="my-auctions">
+	
+	@using(Html.BeginForm(method: FormMethod.Get, controllerName: null, actionName: null, htmlAttributes: new
+	       {
+	          @class = "filter-form"
+	       }))
+	{
+		<h1>@Lang.FilteringOptionsHeader</h1>
+
+		var textbox = Html.TextBox("createdInDays", value: Model.CreatedIn.Days, htmlAttributes: new
+		{
+			type   = "number",
+			@class = "form-control",
+			min    = 1,
+			max    = 30
+		});
+
+		<p>@Html.Raw(String.Format(Lang.CreatedInFilter, textbox))</p>
+		
+		@Html.EnumDropDownList("status", Model.CurrentStatusFilter, htmlAttributes: new
+		{
+			multiple = true,
+			@class   = "status-filter"
+		})
+		
+		@Html.TextBox("title", Model.TitleFilter, htmlAttributes: new
+		{
+			type        = "search",
+			placeholder = Lang.TitleFilterPlaceholderText,
+			@class      = "form-control",
+		})
+
+		<input type="submit" value="@Lang.FilteringOptionsSubmitText" class="btn btn-default filter-button" />
+	}
+	
+	@if(Model.Auctions.Any())
+	{
+		using(Html.BeginForm(actionName: "DeleteAuctions", controllerName: null))
+		{
+			@Html.AntiForgeryToken()
+			@Html.Hidden("queryString", Request.Url.Query)
+			
+			<table class="table">
+				<tr>
+					<th>
+					</th>
+					<th class="title">
+						@Html.DisplayNameFor(x => x.Auctions.First().Title)
+					</th>
+					<th class="category">
+						@Html.DisplayNameFor(x => x.Auctions.First().CategoryName)
+					</th>
+					<th class="time">
+						@Html.DisplayNameFor(x => x.Auctions.First().TimeTillEnd)
+					</th>
+					<th class="price">
+						@Html.DisplayNameFor(x => x.Auctions.First().Price)
+					</th>
+				</tr>
+
+				@foreach(var auction in Model.Auctions)
+				{
+					<tr>
+						<td>
+							@Html.CheckBox("ids", value: auction.Id, disabled: !auction.CanBeRemoved)
+						</td>
+						<td class="title">
+							@Html.ActionLinkWithSlug(auction.Title, controllerName: "Auction", actionName: "Show", routeValues: new
+							{
+								id = auction.Id,
+							})
+						</td>
+						<td class="category">
+							@Html.ActionLinkWithSlug(auction.CategoryName, controllerName: "Category", actionName: "Index",
+							                         routeValues: new
+							                         {
+								                         id = auction.CategoryId,
+							                         })
+						</td>
+						<td class="time">
+							@if(!auction.Expired)
+							{
+								@Html.DisplayFor(x => auction.TimeTillEnd)
+							}
+							else
+							{
+								@Html.Raw(Lang.Expired)
+							}
+						</td>
+						<td class="price">
+							@Html.DisplayFor(x => auction.Price)
+						</td>
+					</tr>
+				}
+			</table>
+
+			<div class="selected-items-control-panel">
+				<button type="submit" class="btn btn-link">Remove selected</button>
+			</div>
+		}
+
+		<div class="pagination-box">
+			<span class="page-text">@Lang.PageNumber</span>
+
+			@Html.PagedListPager(Model.Auctions, page => Url.ActionWithCurrentParameters(actionName: null,
+			                     routeValues: new { page }),
+			                     new PagedListRenderOptions
+			                     {
+			                        MaximumPageNumbersToDisplay = 7
+			                     })
+		</div>
+	}
+	else
+	{
+		<p class="results-not-found">@Lang.NoResultsFound</p>
+	}
+</main>
+
+@section scripts
+{
+	<script src="~/Content/Chosen/chosen.jquery.min.js"></script>
+
+	<script>
+		$('#status').chosen({
+			placeholder_text_multiple: "@Lang.StatusFilterNotSelectedText",
+			inherit_select_classes   : true
+		})
+	</script>
+}

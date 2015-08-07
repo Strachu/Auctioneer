@@ -135,6 +135,9 @@
   <data name="DescriptionRequired" xml:space="preserve">
     <value>A description of the auction is required.</value>
   </data>
+  <data name="FormHeader" xml:space="preserve">
+    <value>Add an auction</value>
+  </data>
   <data name="OnlyJPEGImagesSupported" xml:space="preserve">
     <value>Only images in a JPEG format are supported.</value>
   </data>

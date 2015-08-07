@@ -1,0 +1,13 @@
+﻿@using Lang = Auctioneer.Presentation.Resources.Shared.Layout;
+
+<div class="navbar-collapse collapse">
+	<ul class="nav navbar-nav navbar-right">
+		
+		@{ Html.RenderAction(controllerName: "User", actionName: "Greetings", excludeFromParentCache: true); }
+
+		<li>@Html.ActionLink(Lang.AddAuctionLink, controllerName: "Auction", actionName: "Add")</li>
+		
+		@{ Html.RenderAction(controllerName: "Layout", actionName: "LoginLinks", excludeFromParentCache: true); }
+
+	</ul>
+</div>

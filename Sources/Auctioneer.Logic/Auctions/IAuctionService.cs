@@ -18,11 +18,20 @@ namespace Auctioneer.Logic.Auctions
 		                                                      int pageIndex,
 		                                                      int auctionsPerPage);
 
+		Task<IPagedList<Auction>> GetAuctionsByUser(string userId,
+		                                            TimeSpan createdIn,
+		                                            string titleFilter = null,
+		                                            AuctionStatusFilter statusFilter = AuctionStatusFilter.All,
+		                                            int pageIndex = 1,
+		                                            int auctionsPerPage = int.MaxValue);
+
 		Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults);
 
 		Task<Auction> GetById(int id);
 
 		Task AddAuction(Auction newAuction);
 		Task StoreAuctionPhotos(int auctionId, IEnumerable<Stream> dataStreams);
+
+		Task RemoveAuctions(string removingUserId, params int[] ids);
 	}
 }

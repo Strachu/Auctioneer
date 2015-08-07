@@ -1,0 +1,93 @@
+﻿.my-auctions .filter-form
+{
+	display         : flex;
+	align-content   : center;
+	justify-content : space-between;
+
+	border          : 1px solid black;
+	margin-left     : 1px;
+	margin-right    : 1px;
+}
+
+.my-auctions .filter-form > *
+{
+	display       : inline-block;
+	align-self    : center;
+
+	margin-top    : 2px;
+	margin-bottom : 2px;
+	margin-left   : 5px;
+	margin-right  : 5px;
+}
+
+.my-auctions .filter-form h1
+{
+	font-size     : 100%;
+	font-weight   : bold;
+
+	margin-top    : 2px;
+	margin-bottom : 2px;
+	margin-right  : 10px;
+}
+
+.my-auctions .filter-form #createdInDays
+{
+	display : inline;
+	width   : 5em;
+	height  : 25px;
+}
+
+.my-auctions .filter-form .status-filter
+{
+	flex      : 1 1 auto;
+	min-width : 180px;
+}
+
+.my-auctions .filter-form input#title
+{
+	flex    : 2 1 auto;
+	width   : auto;
+	height  : 30px;
+}
+
+.my-auctions .filter-form .filter-button
+{
+	line-height : 1.2;
+}
+
+.my-auctions table
+{
+	margin-bottom : 0;
+}
+
+.my-auctions th
+{
+	text-align : center;
+}
+
+.my-auctions .title
+{
+	width      : 60%;
+	text-align : left;
+}
+
+.my-auctions .category, .my-auctions .time, .my-auctions .price
+{
+	text-align : center;
+}
+
+.my-auctions .selected-items-control-panel
+{
+	border       : 1px solid black;
+	margin-left  : 1px;
+	margin-right : 1px;
+}
+
+.results-not-found
+{
+	font-weight   : bold;
+	text-align    : center;
+
+	margin-top    : 20px;
+	margin-bottom : 20px;
+}

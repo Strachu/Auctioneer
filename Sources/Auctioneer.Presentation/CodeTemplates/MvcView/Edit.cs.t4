@@ -1,0 +1,192 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model <#= ViewDataTypeName #>
+@using Lang = Auctioneer.Presentation.Resources.Controller.<#= ViewName#>;
+<#
+// "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
+string boolType = "System.Boolean";
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+	Layout        = "<#= LayoutPageFile#>";
+<#
+}
+#>
+	ViewBag.Title = "<#= ViewName#>";
+}
+
+<main class="form-container">
+	<h1>@Lang.FormHeader</h1>
+
+<#
+} else {
+#>
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title><#= ViewName #></title>
+</head>
+<body>
+<#
+	PushIndent("	");
+}
+#>
+<#
+if (ReferenceScriptLibraries) {
+#>
+<#
+	if (!IsLayoutPageSelected && IsBundleConfigPresent) {
+#>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<#
+	}
+#>
+<#
+	else if (!IsLayoutPageSelected) {
+#>
+<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<#
+	}
+#>
+
+<#
+}
+#>
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+	 
+		<div class="form-horizontal">
+			@Html.ValidationSummary(excludePropertyErrors: true, message: "", htmlAttributes: new { @class = "text-danger" })
+
+<#
+foreach (PropertyMetadata property in ModelMetadata.Properties) {
+		if (property.Scaffold && !property.IsAssociation) {
+			if (property.IsPrimaryKey) {
+#>
+			@Html.HiddenFor(model => model.<#= property.PropertyName #>)
+
+<#
+		} else if (!property.IsReadOnly) {
+#>
+			<div class="form-group">
+<#
+				if (property.IsForeignKey) {
+#>
+				@Html.LabelFor(model => model.<#= property.PropertyName #>, "<#= GetAssociationName(property) #>", htmlAttributes: new { @class = "control-label col-md-2" })
+<#
+				} else {
+#>
+				@Html.LabelFor(model => model.<#= property.PropertyName #>, htmlAttributes: new { @class = "control-label col-md-2" })
+<#
+				}
+#>
+				<div class="col-md-10">
+<#
+				bool isCheckbox = property.TypeName.Equals(boolType);
+				if (property.IsForeignKey) {
+#>
+					@Html.DropDownList("<#= property.PropertyName #>", null, htmlAttributes: new { @class = "form-control" })
+<#
+				} else {
+					 if (isCheckbox) {
+#>
+					<div class="checkbox">
+<#
+						  PushIndent("	");
+#>
+					@Html.EditorFor(model => model.<#= property.PropertyName #>)
+<#
+					 } else if (property.IsEnum && !property.IsEnumFlags) {
+#>
+					@Html.EnumDropDownListFor(model => model.<#= property.PropertyName #>, htmlAttributes: new { @class = "form-control" })
+<#
+					 } else {
+#>
+					@Html.EditorFor(model => model.<#= property.PropertyName #>, new { htmlAttributes = new { @class = "form-control" } })
+<#
+					 }
+				}
+#>
+					@Html.ValidationMessageFor(model => model.<#= property.PropertyName #>, "", new { @class = "text-danger" })
+<#
+				if (isCheckbox) {
+					 PopIndent();
+#>
+					</div>
+<#
+				}
+#>
+				</div>
+			</div>
+
+<#
+		  }
+	 }
+}
+#>
+			<div class="submit-button-container">
+				<input type="submit" value="@Lang.SubmitText" class="btn btn-default" />
+			</div>
+		</div>
+	}
+
+	<div>
+		@Html.ActionLink("Back to List", "Index")
+	</div>
+</main>
+<#
+if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
+#>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+<#
+}
+#>
+<#
+else if(IsLayoutPageSelected && ReferenceScriptLibraries) {
+#>
+
+<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<#
+}
+#>
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+	ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

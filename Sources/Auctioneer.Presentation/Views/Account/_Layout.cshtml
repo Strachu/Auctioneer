@@ -1,0 +1,28 @@
+﻿@using Lang = Auctioneer.Presentation.Resources.Account.Layout
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Forwarding of sections required in the case of nested layouts *@
+@section Head
+{
+	@RenderSection("Head", required: false)
+}
+@section scripts
+{
+	@RenderSection("scripts", required: false)
+}
+
+<div class="account-container">
+	<nav>
+		<h1>@Lang.MenuHeader</h1>
+		<ul>
+			<li>@Html.ActionLink(Lang.EditLink, "Edit")</li>
+			<li>@Html.ActionLink(Lang.MyAuctionsLink, "MyAuctions")</li>
+		</ul>
+	</nav>
+
+	<main>
+		@RenderBody()
+	</main>
+</div>

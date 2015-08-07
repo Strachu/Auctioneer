@@ -5,10 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Auctioneer.Logic.Auctions;
-using Auctioneer.Logic.Categories;
 using Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues;
-
-using Effort.Provider;
 
 using NUnit.Framework;
 
@@ -16,7 +13,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 {
 	internal class AuctionServiceTests
 	{
-		private AuctionService mTestedService;
+		private IAuctionService mTestedService;
 
 		[SetUp]
 		public void SetUp()
@@ -53,35 +50,41 @@ namespace Auctioneer.Logic.Tests.Auctions
 				new TestCategory { Id = 6, Left = 11, Right = 12 },
 			});
 
-			context.Auctions.Add(new TestAuction { Title = "1",  CategoryId = 2, CreationDate = new DateTime(2015, 3, 12),
-			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(2)) });
+			context.Users.Add(new TestUser { Id = "1" });
+			context.Users.Add(new TestUser { Id = "2" });
 
-			context.Auctions.Add(new TestAuction { Title = "2",  CategoryId = 6, CreationDate = new DateTime(2013, 5, 25),
-			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
+			context.Auctions.Add(new TestAuction { Id = 1,  Title = "1",  CategoryId = 2, CreationDate = new DateTime(2015, 3, 12),
+			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(2)), SellerId = "1" });
 
-			context.Auctions.Add(new TestAuction { Title = "3",  CategoryId = 6, CreationDate = new DateTime(2013, 6, 11),
-			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
+			context.Auctions.Add(new TestAuction { Id = 2,  Title = "2",  CategoryId = 6, CreationDate = new DateTime(2013, 5, 25),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)), SellerId = "1" });
 
-			context.Auctions.Add(new TestAuction { Title = "4",  CategoryId = 2, CreationDate = new DateTime(2014, 9, 16),
-			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
+			context.Auctions.Add(new TestAuction { Id = 3,  Title = "3",  CategoryId = 6, CreationDate = new DateTime(2013, 6, 11),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)), SellerId = "2" });
 
-			context.Auctions.Add(new TestAuction { Title = "5",  CategoryId = 2, CreationDate = new DateTime(2013, 9, 5),
-			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)) });
+			context.Auctions.Add(new TestAuction { Id = 4,  Title = "4",  CategoryId = 2, CreationDate = new DateTime(2014, 9, 16),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)), SellerId = "1" });
 
-			context.Auctions.Add(new TestAuction { Title = "6",  CategoryId = 2, CreationDate = new DateTime(2012, 1, 16),
-			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(10)) });
+			context.Auctions.Add(new TestAuction { Id = 5,  Title = "5",  CategoryId = 2, CreationDate = new DateTime(2013, 9, 5),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)), SellerId = "1" });
 
-			context.Auctions.Add(new TestAuction { Title = "7",  CategoryId = 2, CreationDate = new DateTime(2014, 12, 22),
-			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(10)) });
+			context.Auctions.Add(new TestAuction { Id = 6,  Title = "6",  CategoryId = 2, CreationDate = new DateTime(2012, 1, 16),
+			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(10)), SellerId = "1" });
 
-			context.Auctions.Add(new TestAuction { Title = "8",  CategoryId = 2, CreationDate = new DateTime(2013, 1, 12),
-			                                       EndDate = DateTime.Now.Add(TimeSpan.FromMinutes(1)) });
+			context.Auctions.Add(new TestAuction { Id = 7,  Title = "7",  CategoryId = 2, CreationDate = new DateTime(2014, 12, 22),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(10)), SellerId = "1" });
 
-			context.Auctions.Add(new TestAuction { Title = "9",  CategoryId = 3, CreationDate = new DateTime(2015, 2, 1),
-			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
+			context.Auctions.Add(new TestAuction { Id = 8,  Title = "8",  CategoryId = 2, CreationDate = new DateTime(2013, 1, 12),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromMinutes(1)), SellerId = "1" });
 
-			context.Auctions.Add(new TestAuction { Title = "10", CategoryId = 5, CreationDate = new DateTime(2014, 4, 30),
-			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)) });
+			context.Auctions.Add(new TestAuction { Id = 9,  Title = "9",  CategoryId = 3, CreationDate = new DateTime(2015, 2, 1),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)), SellerId = "2" });
+
+			context.Auctions.Add(new TestAuction { Id = 10, Title = "10", CategoryId = 5, CreationDate = new DateTime(2014, 4, 30),
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)), SellerId = "1" });
+
+			context.Auctions.Add(new TestAuction { Id = 11, Title = "11",  CategoryId = 3, CreationDate = new DateTime(2013, 2, 1),
+			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(1)), SellerId = "2" });
 			context.SaveChanges();
 		}
 
@@ -150,6 +153,59 @@ namespace Auctioneer.Logic.Tests.Auctions
 			var expectedAuctionTitles = new string[] { "1", "9", "7" };
 
 			Assert.That(returnedAuctionTitles, Is.EqualTo(expectedAuctionTitles));
+		}
+		
+		[Test]
+		public async Task GetAuctionsByUser_ReturnsOnlyAuctionsAddedBySpecifiedUser()
+		{
+			var auctions = await mTestedService.GetAuctionsByUser(userId: "2", createdIn: TimeSpan.FromDays(9999));
+
+			var returnedAuctionTitles = auctions.Select(x => x.Title);
+			var expectedAuctionTitles = new string[] { "3", "9", "11" };
+
+			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
+		}
+		
+		[Test]
+		public async Task WhenOnlyExpiredStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnActiveAuctions()
+		{
+			var auctions = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: AuctionStatusFilter.Expired,
+			                                                      createdIn: TimeSpan.FromDays(9999));
+
+			var returnedAuctionTitles = auctions.Select(x => x.Title);
+			var expectedAuctionTitles = new string[] { "1", "6" };
+
+			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
+		}
+		
+		[Test]
+		public async Task WhenOnlyActiveStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnInactiveAuctions()
+		{
+			var auctions = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: AuctionStatusFilter.Active,
+			                                                      createdIn: TimeSpan.FromDays(9999));
+
+			var returnedAuctionTitles = auctions.Select(x => x.Title);
+			var expectedAuctionTitles = new string[] { "2", "4", "5", "7", "8", "10" };
+
+			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
+		}
+		
+		[Test]
+		public void WhenUserTriesToRemoveAuctionOfAnotherUser_AnExceptionIsThrown()
+		{
+			Assert.Throws<LogicException>(async () =>
+			{
+				await mTestedService.RemoveAuctions(removingUserId: "2", ids: new int[] { 4, 5 });
+			});
+		}
+		
+		[Test]
+		public void DoNotAllowRemovalOfInactiveAuctions()
+		{
+			Assert.Throws<LogicException>(async () =>
+			{
+				await mTestedService.RemoveAuctions(removingUserId: "1", ids: new int[] { 7, 8, 6 });
+			});
 		}
 	}
 }

@@ -1,0 +1,11 @@
+﻿@using Lang = Auctioneer.Presentation.Resources.User.ConfirmMail;
+
+@{
+	ViewBag.Title = "ConfirmMail";
+}
+
+<main class="message">
+	<h1>@Lang.Header</h1>
+	<p>@Html.Raw(String.Format(Lang.Message, Html.ActionLink(Lang.LoginLinkText, actionName: "Login")))</p>
+</main>
+

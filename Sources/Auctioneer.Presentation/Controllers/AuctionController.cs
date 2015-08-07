@@ -8,12 +8,15 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
-using Auctioneer.Logic;
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models;
+
+using Microsoft.AspNet.Identity;
+
+using DevTrends.MvcDonutCaching;
 
 namespace Auctioneer.Presentation.Controllers
 {
@@ -49,6 +52,8 @@ namespace Auctioneer.Presentation.Controllers
 
 			var viewModel = AuctionShowViewModelMapper.FromAuction(auction, photoUrls);
 
+			viewModel.CanBeRemoved = auction.IsActive && auction.SellerId == User.Identity.GetUserId(); // TODO move it to a service?
+
 			return View(viewModel);
 		}
 
@@ -64,7 +69,8 @@ namespace Auctioneer.Presentation.Controllers
 			return PartialView("_Breadcrumb", breadcrumb);
 		}
 
-		[OutputCache(Duration = 7200)]
+		[Authorize]
+		[DonutOutputCache(Duration = 7200)]
 		public async Task<ActionResult> Add()
 		{
 			var viewModel = new AuctionAddViewModel();
@@ -74,26 +80,27 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Add(AuctionAddViewModel input)
 		{
-			if(ModelState.IsValid)
+			if(!ModelState.IsValid)
 			{
-				var newAuction = AuctionAddViewModelMapper.ToAuction(input);
-
-				using(var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-				{
-					await mAuctionService.AddAuction(newAuction);
-					await mAuctionService.StoreAuctionPhotos(newAuction.Id, input.Photos.Select(x => x.InputStream));
-
-					transaction.Complete();
-				}
-
-				return RedirectToAction("Show", new { id = newAuction.Id });
+				await PopulateAvailableCategoryList(input);
+				return View(input);
 			}
 
-			await PopulateAvailableCategoryList(input);
-			return View(input);
+			var newAuction = AuctionAddViewModelMapper.ToAuction(input, User.Identity.GetUserId());
+
+			using(var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+			{
+				await mAuctionService.AddAuction(newAuction);
+				await mAuctionService.StoreAuctionPhotos(newAuction.Id, input.Photos.Select(x => x.InputStream));
+
+				transaction.Complete();
+			}
+
+			return RedirectToAction("Show", new { id = newAuction.Id });
 		}
 
 		private async Task PopulateAvailableCategoryList(AuctionAddViewModel viewModel)
@@ -106,6 +113,25 @@ namespace Auctioneer.Presentation.Controllers
 				Text  = new string(nbsp, count: x.HierarchyDepth * 3) + x.Category.Name,
 				Value = x.Category.Id.ToString()
 			});
+		}
+
+		public async Task<ActionResult> Delete(int id)
+		{
+			var auction   = await mAuctionService.GetById(id);
+			var viewModel = new AuctionDeleteViewModel { Id = id, Title = auction.Title };
+
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		[ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> DeletePost(int id)
+		{
+			await mAuctionService.RemoveAuctions(User.Identity.GetUserId(), id);
+
+			// TODO This should display some confirmation that the auction was deleted and redirect to previous page
+			return RedirectToAction(controllerName: "Home", actionName: "Index");
 		}
 	}
 }

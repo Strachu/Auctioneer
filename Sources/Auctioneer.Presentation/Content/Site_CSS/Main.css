@@ -16,6 +16,35 @@ section, nav, main, header
 	border-radius   : 10px;		
 }
 
+.user-greetings
+{
+	font-size     : 120%;
+	float         : left;
+	color         : #CCC;
+	margin        : 0;
+	padding-top   : 13px;
+	padding-bottom: 13px;
+}
+
+.user-greetings::after
+{
+	content: ":"
+}
+
+.alert h1
+{
+	font-size  : 150%;
+	text-align : center;
+	margin-top : 0;
+}
+
+.horizontally-centered
+{
+	position  : relative;
+	left      : 50%;
+	transform : translateX(-50%);
+}
+
 footer
 {
 	text-align: center;

@@ -1,0 +1,50 @@
+﻿@model Auctioneer.Presentation.Models.Account.AccountEditViewModel.LoginDetailsViewModel
+@using Lang = Auctioneer.Presentation.Resources.Account.Edit;
+
+@using(Html.BeginForm(actionName: "EditLoginDetails", controllerName: null))
+{
+	@Html.AntiForgeryToken()
+	 
+	<div class="form-horizontal">
+		@if(Model.ShowValidationSummary)
+		{
+			@Html.ValidationSummary(excludePropertyErrors: true, message: "", htmlAttributes: new { @class = "text-danger" });
+		}
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-8">
+				@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.CurrentPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-8">
+				@Html.EditorFor(model => model.CurrentPassword, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.CurrentPassword, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.NewPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-8">
+				@Html.EditorFor(model => model.NewPassword, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.NewPasswordRepeated, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-8">
+				@Html.EditorFor(model => model.NewPasswordRepeated, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.NewPasswordRepeated, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="submit-button-container">
+			<input type="submit" value="@Lang.SubmitText" class="btn btn-default" />
+		</div>
+	</div>
+}

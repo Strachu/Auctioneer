@@ -1,6 +1,7 @@
 ﻿<#@ assembly name="System.Core" #>
 <#@ assembly name="System.Data.Entity" #>
 <#@ assembly name="System.Data.Linq" #>
+<#@ assembly name="System.Web.Mvc" #>
 <#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Collections.Generic" #>

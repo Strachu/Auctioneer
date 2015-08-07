@@ -61,11 +61,29 @@ namespace Auctioneer.Presentation.Resources.Auction {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete the auction.
+        /// </summary>
+        public static string DeleteAuction {
+            get {
+                return ResourceManager.GetString("DeleteAuction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ending in .
         /// </summary>
         public static string EndingIn {
             get {
                 return ResourceManager.GetString("EndingIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seller.
+        /// </summary>
+        public static string SellerUserName {
+            get {
+                return ResourceManager.GetString("SellerUserName", resourceCulture);
             }
         }
     }
