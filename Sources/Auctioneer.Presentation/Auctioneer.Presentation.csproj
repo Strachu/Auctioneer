@@ -243,6 +243,7 @@
     <Compile Include="Mappers\Category\AuctionViewModelMapper.cs" />
     <Compile Include="Mappers\Category\CategoryIndexViewModelMapper.cs" />
     <Compile Include="Mappers\Category\CategoryListViewModelMapper.cs" />
+    <Compile Include="Models\Auction\AuctionDeleteViewModel.cs" />
     <Compile Include="Models\Auction\AuctionShowViewModel.cs" />
     <Compile Include="Models\Category\AuctionViewModel.cs" />
     <Compile Include="Models\Category\CategoryIndexViewModel.cs" />
@@ -270,6 +271,11 @@
     </Compile>
     <Compile Include="Resources\Account\Layout.Designer.cs">
       <DependentUpon>Layout.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Auction\Delete.Designer.cs">
+      <DependentUpon>Delete.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -597,6 +603,7 @@
     <Content Include="CodeTemplates\MvcView\Edit.cs.t4" />
     <Content Include="CodeTemplates\MvcView\List.cs.t4" />
     <Content Include="Content\Chosen\bower.json" />
+    <Content Include="CodeTemplates\MvcView\Delete.cs.t4" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -659,6 +666,7 @@
     <Content Include="Views\Shared\_LoginLinks.NotAuthenticated.cshtml" />
     <Content Include="Views\Shared\_LoginLinks.Authenticated.cshtml" />
     <Content Include="Views\Account\MyAuctions.cshtml" />
+    <Content Include="Views\Auction\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Account\AccountDetailsUpdated.resx">
@@ -676,6 +684,10 @@
     <EmbeddedResource Include="Resources\Account\Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Layout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Auction\Delete.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Delete.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Auction\Show.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

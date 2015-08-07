@@ -10,6 +10,8 @@ namespace Auctioneer.Presentation.Models
 {
 	public class AuctionShowViewModel
 	{
+		public int Id { get; set; }
+
 		public string Title { get; set; }
 
 		[DataType(DataType.Html)]
@@ -37,5 +39,7 @@ namespace Auctioneer.Presentation.Models
 			[DataType(DataType.ImageUrl)]
 			public string Url { get; set; }
 		}
+
+		public bool CanBeRemoved { get; set; }
 	}
 }

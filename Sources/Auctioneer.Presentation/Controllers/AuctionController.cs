@@ -53,6 +53,8 @@ namespace Auctioneer.Presentation.Controllers
 
 			var viewModel = AuctionShowViewModelMapper.FromAuction(auction, photoUrls);
 
+			viewModel.CanBeRemoved = auction.IsActive && auction.SellerId == User.Identity.GetUserId(); // TODO move it to a service?
+
 			return View(viewModel);
 		}
 
@@ -112,6 +114,25 @@ namespace Auctioneer.Presentation.Controllers
 				Text  = new string(nbsp, count: x.HierarchyDepth * 3) + x.Category.Name,
 				Value = x.Category.Id.ToString()
 			});
+		}
+
+		public async Task<ActionResult> Delete(int id)
+		{
+			var auction   = await mAuctionService.GetById(id);
+			var viewModel = new AuctionDeleteViewModel { Id = id, Title = auction.Title };
+
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		[ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> DeletePost(int id)
+		{
+			await mAuctionService.RemoveAuctions(User.Identity.GetUserId(), id);
+
+			// TODO This should display some confirmation that the auction was deleted and redirect to previous page
+			return RedirectToAction(controllerName: "Home", actionName: "Index");
 		}
 	}
 }

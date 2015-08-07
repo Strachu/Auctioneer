@@ -17,6 +17,7 @@ namespace Auctioneer.Presentation.Mappers
 
 			return new AuctionShowViewModel
 			{
+				Id             = auction.Id,
 				Title          = auction.Title,
 				Description    = auction.Description,
 				EndDate        = auction.EndDate,

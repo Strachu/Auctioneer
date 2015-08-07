@@ -31,6 +31,13 @@ section, nav, main, header
 	content: ":"
 }
 
+.alert h1
+{
+	font-size  : 150%;
+	text-align : center;
+	margin-top : 0;
+}
+
 .horizontally-centered
 {
 	position  : relative;

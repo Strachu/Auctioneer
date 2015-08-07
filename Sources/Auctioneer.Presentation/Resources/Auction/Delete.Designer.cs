@@ -22,14 +22,14 @@ namespace Auctioneer.Presentation.Resources.Auction {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Show {
+    public class Delete {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Show() {
+        internal Delete() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Auctioneer.Presentation.Resources.Auction {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.Auction.Show", typeof(Show).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Presentation.Resources.Auction.Delete", typeof(Delete).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,11 @@ namespace Auctioneer.Presentation.Resources.Auction {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete the auction.
+        ///   Looks up a localized string similar to Are you sure you want to delete the auction &quot;{0}&quot;? This action cannot be reverted..
         /// </summary>
-        public static string DeleteAuction {
+        public static string AreYouSure {
             get {
-                return ResourceManager.GetString("DeleteAuction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ending in .
-        /// </summary>
-        public static string EndingIn {
-            get {
-                return ResourceManager.GetString("EndingIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seller.
-        /// </summary>
-        public static string SellerUserName {
-            get {
-                return ResourceManager.GetString("SellerUserName", resourceCulture);
+                return ResourceManager.GetString("AreYouSure", resourceCulture);
             }
         }
     }

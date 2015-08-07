@@ -28,5 +28,10 @@ namespace Auctioneer.Logic.Auctions
 
 		public string SellerId { get; set; }
 		public virtual User Seller { get; set; }
+
+		public bool IsActive
+		{
+			get { return EndDate >= DateTime.Now; }
+		}
 	}
 }

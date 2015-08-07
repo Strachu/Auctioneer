@@ -10,13 +10,20 @@
 {
 	<link rel="stylesheet" href="~/Content/Lightbox/lightbox.css" />
 }
-@section scripts
-{
-	<script src="~/Scripts/lightbox.min.js"></script>
-}
 
 <main class="auction-details">
+	
 	<header>
+		@if(Model.CanBeRemoved)
+		{
+			<div class="control-panel">
+				@Html.ActionLink(Lang.DeleteAuction, "Delete", htmlAttributes: new { @class = "btn btn-danger" }, routeValues: new
+				{
+					id = Model.Id
+				})
+			</div>
+		}
+
 		<h1>@Html.DisplayFor(x => x.Title)</h1>
 		<div class="end-time">@Lang.EndingIn @Html.DisplayFor(x => x.TimeTillEnd) (@Html.DisplayFor(x => x.EndDate))</div>
 		
@@ -53,3 +60,8 @@
 	</div>
 
 </main>
+
+@section scripts
+{
+	<script src="~/Scripts/lightbox.min.js"></script>
+}
