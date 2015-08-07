@@ -9,7 +9,7 @@ using Auctioneer.Logic.Users;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
-namespace Auctioneer.Presentation.Helpers
+namespace Auctioneer.Presentation.Infrastructure.Security
 {
 	public class AuthenticationManager : SignInManager<User, string>, IAuthenticationManager
 	{

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 using Auctioneer.Logic;
 using Auctioneer.Logic.Users;
+
 using Auctioneer.Presentation.Controllers;
 using Auctioneer.Presentation.Emails;
-using Auctioneer.Presentation.Helpers;
+using Auctioneer.Presentation.Infrastructure.Security;
 using Auctioneer.Presentation.Models.User;
 
 using FakeItEasy;

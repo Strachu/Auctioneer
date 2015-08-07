@@ -4,9 +4,9 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
-namespace Auctioneer.Presentation.Helpers
+namespace Auctioneer.Presentation.Infrastructure.Http
 {
-	internal static class HttpRequestBaseExtensions
+	public static class HttpRequestBaseExtensions
 	{
 		public static T ReadFromCookie<T>(this HttpRequestBase request, string cookieKey, Func<string, T> valueParser)
 		{

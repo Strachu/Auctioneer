@@ -7,7 +7,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
-namespace Auctioneer.Presentation.Validation
+namespace Auctioneer.Presentation.Infrastructure.Validation
 {
 	public class ContentTypeAttribute : ValidationAttribute
 	{

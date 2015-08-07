@@ -6,11 +6,14 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+using Auctioneer.Presentation.Infrastructure.ModelBinders;
+using Auctioneer.Presentation.Infrastructure.Security;
+
 using Owin;
 
 namespace Auctioneer.Presentation
 {
-	public class MvcApplication : System.Web.HttpApplication
+	public class MvcApplication : HttpApplication
 	{
 		protected void Application_Start()
 		{

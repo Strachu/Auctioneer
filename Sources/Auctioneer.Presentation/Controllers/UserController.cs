@@ -8,7 +8,8 @@ using System.Web.Mvc;
 
 using Auctioneer.Logic.Users;
 using Auctioneer.Presentation.Emails;
-using Auctioneer.Presentation.Helpers;
+using Auctioneer.Presentation.Infrastructure.Security;
+using Auctioneer.Presentation.Infrastructure.Validation;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models.User;
 

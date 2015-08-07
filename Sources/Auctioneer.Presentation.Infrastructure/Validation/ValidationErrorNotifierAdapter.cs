@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 using Auctioneer.Logic;
 
-namespace Auctioneer.Presentation.Helpers
+namespace Auctioneer.Presentation.Infrastructure.Validation
 {
 	public class ValidationErrorNotifierAdapter : IValidationErrorNotifier
 	{

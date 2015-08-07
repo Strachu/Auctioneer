@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 using Auctioneer.Logic;
 
-namespace Auctioneer.Presentation.Filters
+namespace Auctioneer.Presentation.Infrastructure.Filters
 {
 	public class ObjectNotFoundExceptionHandlerAttribute : ActionFilterAttribute
 	{

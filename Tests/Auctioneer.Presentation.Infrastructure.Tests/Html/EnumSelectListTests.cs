@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-using Auctioneer.Presentation.Helpers;
+using Auctioneer.Presentation.Infrastructure.Html;
 
 using NUnit.Framework;
 
-namespace Auctioneer.Presentation.Tests.Helpers
+namespace Auctioneer.Presentation.Infrastructure.Tests.Html
 {
 	internal class EnumSelectListTests
 	{

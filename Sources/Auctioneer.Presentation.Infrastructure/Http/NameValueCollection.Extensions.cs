@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Routing;
 
-namespace Auctioneer.Presentation.Helpers
+namespace Auctioneer.Presentation.Infrastructure.Http
 {
 	public static class NameValueCollectionExtensions
 	{

@@ -195,8 +195,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
-    <Compile Include="App_Start\AuthenticationConfig.cs" />
-    <Compile Include="App_Start\ModelBinderConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -209,33 +207,19 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Emails\User\ForgotPassword\ForgotPasswordMail.cs" />
     <Compile Include="Emails\User\ConfirmationMail\ConfirmationMail.cs" />
-    <Compile Include="Filters\ObjectNotFoundExceptionHandlerAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\AuthenticationManager.cs" />
     <Compile Include="Helpers\BreadcrumbBuilder.cs" />
-    <Compile Include="Helpers\EnumSelectList.cs" />
-    <Compile Include="Helpers\HtmlHelper.Extensions.cs" />
-    <Compile Include="Helpers\HttpRequestBase.Extensions.cs" />
-    <Compile Include="Helpers\HttpResponseBase.Extensions.cs" />
-    <Compile Include="Helpers\IAuthenticationManager.Contracts.cs">
-      <DependentUpon>IAuthenticationManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\IAuthenticationManager.cs" />
     <Compile Include="Helpers\IBreadcrumbBuilder.cs" />
     <Compile Include="Helpers\IBreadcrumbBuilder.Contracts.cs">
       <DependentUpon>IBreadcrumbBuilder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\NameValueCollection.Extensions.cs" />
-    <Compile Include="Helpers\ValidationErrorNotifierAdapter.cs" />
-    <Compile Include="Helpers\TimeSpanFormatter.cs" />
     <Compile Include="Helpers\UrlHelper.Extensions.cs" />
     <Compile Include="Mappers\Account\AccountEditViewModelMapper.cs" />
     <Compile Include="Mappers\Account\AccountMyAuctionsViewModelMapper.cs" />
     <Compile Include="Mappers\Auction\AuctionAddViewModelMapper.cs" />
     <Compile Include="Mappers\User\UserCreateViewModelMapper.cs" />
-    <Compile Include="ModelBinders\FlagsEnumModelBinder.cs" />
     <Compile Include="Models\Account\AccountEditViewModel.cs" />
     <Compile Include="Models\Account\AccountMyAuctionsViewModel.cs" />
     <Compile Include="Models\Auction\AuctionAddViewModel.cs" />
@@ -374,13 +358,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Login.resx</DependentUpon>
     </Compile>
-    <Compile Include="Validation\ContentTypeAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\AuctioneerDbContext.mdf" />
-    <Content Include="App_Data\AuctioneerDbContext_log.ldf">
-      <DependentUpon>AuctioneerDbContext.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Chosen\chosen-sprite%402x.png" />
@@ -777,6 +756,10 @@
     <ProjectReference Include="..\Auctioneer.Logic\Auctioneer.Logic.csproj">
       <Project>{be1523cb-a2be-40e2-b006-e923119a4a7d}</Project>
       <Name>Auctioneer.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Auctioneer.Presentation.Infrastructure\Auctioneer.Presentation.Infrastructure.csproj">
+      <Project>{31d6568d-9e61-4211-9fe4-3ab593f9eabd}</Project>
+      <Name>Auctioneer.Presentation.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -9,9 +9,9 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 
-using Auctioneer.Logic.Utils;
+using Auctioneer.Presentation.Infrastructure.Http;
 
-namespace Auctioneer.Presentation.Helpers
+namespace Auctioneer.Presentation.Infrastructure.Html
 {
 	public static class HtmlHelperExtensions
 	{

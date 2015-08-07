@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Slugify;
 
-namespace Auctioneer.Logic.Utils
+namespace Auctioneer.Presentation.Infrastructure
 {
 	public static class SlugGenerator
 	{

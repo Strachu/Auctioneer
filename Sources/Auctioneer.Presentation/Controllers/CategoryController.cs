@@ -9,7 +9,7 @@ using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Presentation.Mappers.Category;
 using Auctioneer.Presentation.Helpers;
-using Auctioneer.Presentation.Models;
+using Auctioneer.Presentation.Infrastructure.Http;
 
 using DevTrends.MvcDonutCaching;
 

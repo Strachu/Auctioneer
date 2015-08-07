@@ -8,7 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
-using Auctioneer.Presentation.Helpers;
+using Auctioneer.Presentation.Infrastructure.Http;
+using Auctioneer.Presentation.Infrastructure.Validation;
 using Auctioneer.Presentation.Mappers.Account;
 
 using Microsoft.AspNet.Identity;

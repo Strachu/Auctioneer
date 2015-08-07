@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-using Auctioneer.Presentation.Filters;
+using Auctioneer.Presentation.Infrastructure.Filters;
 
 namespace Auctioneer.Presentation
 {

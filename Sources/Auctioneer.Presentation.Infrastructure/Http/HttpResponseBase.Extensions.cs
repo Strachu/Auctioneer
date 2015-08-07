@@ -4,9 +4,9 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
-namespace Auctioneer.Presentation.Helpers
+namespace Auctioneer.Presentation.Infrastructure.Http
 {
-	internal static class HttpResponseBaseExtensions
+	public static class HttpResponseBaseExtensions
 	{
 		public static void SaveToCookieIfNotNull<T>(this HttpResponseBase response,
 		                                            string cookieKey,

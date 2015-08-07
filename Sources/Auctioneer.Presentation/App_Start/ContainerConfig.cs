@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Auctioneer.Logic;
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Presentation.Helpers;
+using Auctioneer.Presentation.Infrastructure.Security;
 
 using Autofac;
 using Autofac.Core;

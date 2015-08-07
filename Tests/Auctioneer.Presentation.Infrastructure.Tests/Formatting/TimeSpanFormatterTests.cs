@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Auctioneer.Presentation.Helpers;
+using Auctioneer.Presentation.Infrastructure.Formatting;
 
 using NUnit.Framework;
 
-namespace Auctioneer.Presentation.Tests.Helpers
+namespace Auctioneer.Presentation.Infrastructure.Tests.Formatting
 {
 	[TestFixture]
 	public class TimeSpanFormatterTests

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using Auctioneer.Presentation.Validation;
+using Auctioneer.Presentation.Infrastructure.Validation;
 
 using DataAnnotationsExtensions;
 

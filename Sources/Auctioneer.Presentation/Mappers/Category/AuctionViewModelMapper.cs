@@ -5,7 +5,8 @@ using System.Linq;
 using System.Web;
 
 using Auctioneer.Logic.Auctions;
-using Auctioneer.Logic.Utils;
+
+using Auctioneer.Presentation.Infrastructure;
 using Auctioneer.Presentation.Models;
 
 namespace Auctioneer.Presentation.Mappers.Category

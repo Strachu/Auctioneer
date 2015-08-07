@@ -4,10 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace Auctioneer.Presentation.Helpers
+namespace Auctioneer.Presentation.Infrastructure.Html
 {
 	public class EnumSelectList : Collection<SelectListItem>
 	{

@@ -7,7 +7,8 @@ using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
-using Auctioneer.Logic.Utils;
+
+using Auctioneer.Presentation.Infrastructure;
 using Auctioneer.Presentation.Models;
 
 namespace Auctioneer.Presentation.Helpers

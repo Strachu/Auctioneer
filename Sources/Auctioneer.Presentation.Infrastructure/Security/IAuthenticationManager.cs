@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity.Owin;
 
-namespace Auctioneer.Presentation.Helpers
+namespace Auctioneer.Presentation.Infrastructure.Security
 {
 	[ContractClass(typeof(IAuthenticationManagerContractClass))]
 	public interface IAuthenticationManager

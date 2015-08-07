@@ -1,9 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-using Auctioneer.Presentation.ModelBinders;
-
-namespace Auctioneer.Presentation
+namespace Auctioneer.Presentation.Infrastructure.ModelBinders
 {
 	public class ModelBinderConfig
 	{

@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-using Auctioneer.Presentation.Validation;
+using Auctioneer.Presentation.Infrastructure.Validation;
 
 using FakeItEasy;
 
 using NUnit.Framework;
 
-namespace Auctioneer.Presentation.Tests.Validation
+namespace Auctioneer.Presentation.Infrastructure.Tests.Validation
 {
 	internal class ContentTypeAttributesTests
 	{

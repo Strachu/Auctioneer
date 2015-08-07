@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Web;
-using System.Web.Mvc;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
@@ -9,7 +7,7 @@ using Microsoft.Owin.Security.Cookies;
 
 using Owin;
 
-namespace Auctioneer.Presentation
+namespace Auctioneer.Presentation.Infrastructure.Security
 {
 	public class AuthenticationConfig
 	{
