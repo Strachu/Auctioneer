@@ -79,7 +79,7 @@ if (ReferenceScriptLibraries) {
 		@Html.AntiForgeryToken()
 	 
 		<div class="form-horizontal">
-			@Html.ValidationSummary(excludePropertyErrors: true, message: "", htmlAttributes: new { @class = "text-danger" })
+			@Html.ValidationSummary(excludePropertyErrors: true, htmlAttributes: new { @class = "text-danger" })
 
 <#
 foreach (PropertyMetadata property in ModelMetadata.Properties) {

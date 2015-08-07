@@ -14,42 +14,11 @@
 
 <main class="my-auctions">
 	
-	@using(Html.BeginForm(method: FormMethod.Get, controllerName: null, actionName: null, htmlAttributes: new
-	       {
-	          @class = "filter-form"
-	       }))
-	{
-		<h1>@Lang.FilteringOptionsHeader</h1>
-
-		var textbox = Html.TextBox("createdInDays", value: Model.CreatedIn.Days, htmlAttributes: new
-		{
-			type   = "number",
-			@class = "form-control",
-			min    = 1,
-			max    = 30
-		});
-
-		<p>@Html.Raw(String.Format(Lang.CreatedInFilter, textbox))</p>
-		
-		@Html.EnumDropDownList("status", Model.CurrentStatusFilter, htmlAttributes: new
-		{
-			multiple = true,
-			@class   = "status-filter"
-		})
-		
-		@Html.TextBox("title", Model.TitleFilter, htmlAttributes: new
-		{
-			type        = "search",
-			placeholder = Lang.TitleFilterPlaceholderText,
-			@class      = "form-control",
-		})
-
-		<input type="submit" value="@Lang.FilteringOptionsSubmitText" class="btn btn-default filter-button" />
-	}
+	@{ Html.RenderPartial("MyAuctions.FilteringOptions"); }
 	
 	@if(Model.Auctions.Any())
 	{
-		using(Html.BeginForm(actionName: "DeleteAuctions", controllerName: null))
+		using(Html.BeginForm(actionName: "DeleteAuctions"))
 		{
 			@Html.AntiForgeryToken()
 			@Html.Hidden("queryString", Request.Url.Query)
@@ -109,15 +78,14 @@
 			</table>
 
 			<div class="selected-items-control-panel">
-				<button type="submit" class="btn btn-link">Remove selected</button>
+				<button type="submit" class="btn btn-link">@Lang.RemoveSelected</button>
 			</div>
 		}
 
 		<div class="pagination-box">
 			<span class="page-text">@Lang.PageNumber</span>
 
-			@Html.PagedListPager(Model.Auctions, page => Url.ActionWithCurrentParameters(actionName: null,
-			                     routeValues: new { page }),
+			@Html.PagedListPager(Model.Auctions, page => Url.ActionWithCurrentParameters(routeValues: new { page }),
 			                     new PagedListRenderOptions
 			                     {
 			                        MaximumPageNumbersToDisplay = 7

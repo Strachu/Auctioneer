@@ -1,7 +1,7 @@
 ﻿@model AuctionViewModel
 @using Lang = Auctioneer.Resources.Auction.Show;
 
-<a href="@Url.Action("Show", "Auction", new { id = Model.Id, slug = Model.Slug })">
+<a href="@Url.Action(controllerName: "Auction", actionName: "Show", routeValues: new { id = Model.Id, slug = Model.Slug })">
 	<article>
 		<div class="thumbnail">
 			<img src="@Url.AuctionThumbnail(Model.Id)" />

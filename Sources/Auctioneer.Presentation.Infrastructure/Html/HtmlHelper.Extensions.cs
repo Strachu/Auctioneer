@@ -32,7 +32,7 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 
 		public static IHtmlString ActionLinkWithCurrentParameters(this HtmlHelper helper,
 		                                                          string linkText,
-		                                                          string actionName,
+		                                                          string actionName = null,
 		                                                          string controllerName = null,
 		                                                          object routeValues = null,
 		                                                          object htmlAttributes = null)
@@ -69,12 +69,26 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 		public static IHtmlString EnumDropDownList(this HtmlHelper html,
 		                                           string name,
 		                                           Enum value,
+		                                           bool multiple = false,
+		                                           string cssClass = "",
 		                                           object htmlAttributes = null)
 		{
+			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+
+			if(!String.IsNullOrWhiteSpace(cssClass))
+			{
+				htmlAttibutesDictionary["class"] = cssClass;
+			}
+
+			if(multiple)
+			{
+				htmlAttibutesDictionary["multiple"] = true;
+			}
+
 			// EnumHelper.GetSelectList does not work with [Flags].
 			var selectList = EnumSelectList.FromSelectedValue(value);
 
-			return html.DropDownList(name, selectList, htmlAttributes);
+			return html.DropDownList(name, selectList, htmlAttibutesDictionary);
 		}
 
 		public static IHtmlString CheckBox<T>(this HtmlHelper html,
@@ -93,6 +107,60 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 			}
 
 			return new HtmlString(builder.ToString());
+		}
+
+		public static IHtmlString NumberInput<T>(this HtmlHelper html,
+		                                         string name,
+		                                         T value,
+		                                         string cssClass = "",
+		                                         int? min = null,
+		                                         int? max = null,
+		                                         object htmlAttributes = null)
+		{
+			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+
+			htmlAttibutesDictionary["type"] = "number";
+
+			if(!String.IsNullOrWhiteSpace(cssClass))
+			{
+				htmlAttibutesDictionary["class"] = cssClass;
+			}
+
+			if(min.HasValue)
+			{
+				htmlAttibutesDictionary["min"] = min;
+			}
+
+			if(max.HasValue)
+			{
+				htmlAttibutesDictionary["max"] = max;
+			}
+
+			return html.TextBox(name, value: value, htmlAttributes: htmlAttibutesDictionary);
+		}
+
+		public static IHtmlString SearchBox(this HtmlHelper html,
+		                                         string name,
+		                                         object value,
+		                                         string cssClass = "",
+		                                         string placeholder = "",
+		                                         object htmlAttributes = null)
+		{
+			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+
+			htmlAttibutesDictionary["type"] = "search";
+
+			if(!String.IsNullOrWhiteSpace(cssClass))
+			{
+				htmlAttibutesDictionary["class"] = cssClass;
+			}
+
+			if(!String.IsNullOrWhiteSpace(placeholder))
+			{
+				htmlAttibutesDictionary["placeHolder"] = placeholder;
+			}
+
+			return html.TextBox(name, value: value, htmlAttributes: htmlAttibutesDictionary);
 		}
 	}
 }

@@ -1,14 +1,14 @@
 ﻿@model Auctioneer.Presentation.Models.Account.AccountEditViewModel.PersonalInfoViewModel
 @using Lang = Auctioneer.Resources.Account.Edit;
 
-@using(Html.BeginForm(actionName: "EditPersonalInfo", controllerName: null))
+@using(Html.BeginForm(actionName: "EditPersonalInfo"))
 {
 	@Html.AntiForgeryToken()
 
 	<div class="form-horizontal">
 		@if(Model.ShowValidationSummary)
 		{
-			@Html.ValidationSummary(excludePropertyErrors: true, message: "", htmlAttributes: new { @class = "text-danger" });
+			@Html.ValidationSummary(excludePropertyErrors: true, htmlAttributes: new { @class = "text-danger" })
 		}
 
 		<div class="form-group">

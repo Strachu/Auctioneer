@@ -11,7 +11,7 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 	public static class UrlHelperExtensions
 	{
 		public static string ActionWithCurrentParameters(this UrlHelper helper,
-		                                                 string actionName,
+		                                                 string actionName = null,
 		                                                 string controllerName = null,
 		                                                 object routeValues = null)
 		{

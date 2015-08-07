@@ -17,10 +17,7 @@
 		@if(Model.CanBeRemoved)
 		{
 			<div class="control-panel">
-				@Html.ActionLink(Lang.DeleteAuction, "Delete", htmlAttributes: new { @class = "btn btn-danger" }, routeValues: new
-				{
-					id = Model.Id
-				})
+				@Html.ActionLink(Lang.DeleteAuction, "Delete", cssClass: "btn btn-danger", routeValues: new { id = Model.Id })
 			</div>
 		}
 

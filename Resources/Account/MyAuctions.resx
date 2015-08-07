@@ -144,6 +144,9 @@
   <data name="Price" xml:space="preserve">
     <value>Price</value>
   </data>
+  <data name="RemoveSelected" xml:space="preserve">
+    <value>Remove selected</value>
+  </data>
   <data name="StatusFilterNotSelectedText" xml:space="preserve">
     <value>Status filters</value>
   </data>

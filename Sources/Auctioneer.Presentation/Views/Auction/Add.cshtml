@@ -8,7 +8,7 @@
 <main class="form-container">
 	<h1>@Lang.FormHeader</h1>
 
-	@using(Html.BeginForm("Add", method: FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data" }, controllerName: null))
+	@using(Html.BeginForm(actionName: "Add", method: FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data" }))
 	{
 		@Html.AntiForgeryToken()
 		@Html.ValidationSummary(excludePropertyErrors: true)

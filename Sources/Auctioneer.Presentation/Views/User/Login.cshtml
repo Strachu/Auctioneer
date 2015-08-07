@@ -11,10 +11,10 @@
 	@using (Html.BeginForm()) 
 	{
 		@Html.AntiForgeryToken()
-		@Html.HiddenFor(x => x.ReturnUrl);
+		@Html.HiddenFor(x => x.ReturnUrl)
 	 
 		<div class="form-horizontal">
-			@Html.ValidationSummary(excludePropertyErrors: true, message: "", htmlAttributes: new { @class = "text-danger" })
+			@Html.ValidationSummary(excludePropertyErrors: true, htmlAttributes: new { @class = "text-danger" })
 
 			<div class="form-group">
 				@Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })

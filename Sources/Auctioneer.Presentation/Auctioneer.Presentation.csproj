@@ -463,6 +463,7 @@
     <Content Include="CodeTemplates\MvcView\List.cs.t4" />
     <Content Include="Content\Libraries\Chosen\bower.json" />
     <Content Include="CodeTemplates\MvcView\Delete.cs.t4" />
+    <Content Include="CodeTemplates\MvcViewWithoutModel\ConfirmationPage.cs.t4" />
     <None Include="Content\Libraries\JQuery\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\Libraries\JQuery\jquery-1.10.2.js" />
     <Content Include="Content\Libraries\JQuery\jquery-1.10.2.min.js" />
@@ -526,6 +527,7 @@
     <Content Include="Views\Shared\_LoginLinks.Authenticated.cshtml" />
     <Content Include="Views\Account\MyAuctions.cshtml" />
     <Content Include="Views\Auction\Delete.cshtml" />
+    <Content Include="Views\Account\MyAuctions.FilteringOptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

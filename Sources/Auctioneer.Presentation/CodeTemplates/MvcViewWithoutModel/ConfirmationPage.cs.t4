@@ -1,0 +1,14 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model <#= ViewDataTypeName #>
+@using Lang = Auctioneer.Resources.Controller.<#= ViewName#>;
+
+@{
+	ViewBag.Title = "<#= ViewName#>";
+}
+
+<main class="message">
+	<h1>@Lang.Header</h1>
+	<p>@Lang.Message</p>
+</main>

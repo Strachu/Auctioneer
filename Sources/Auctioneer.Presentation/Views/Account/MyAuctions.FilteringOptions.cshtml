@@ -1,0 +1,17 @@
+@model Auctioneer.Presentation.Models.Account.AccountMyAuctionsViewModel
+@using Lang = Auctioneer.Resources.Account.MyAuctions;
+
+@using(Html.BeginForm(method: FormMethod.Get, cssClass: "filter-form"))
+{
+	<h1>@Lang.FilteringOptionsHeader</h1>
+
+	var textbox = Html.NumberInput("createdInDays", value: Model.CreatedIn.Days, min: 1, max: 30, cssClass: "form-control");
+
+	<p>@Html.Raw(String.Format(Lang.CreatedInFilter, textbox))</p>
+		
+	@Html.EnumDropDownList("status", Model.CurrentStatusFilter, multiple: true, cssClass: "status-filter")
+
+	@Html.SearchBox("title", Model.TitleFilter, placeholder: Lang.TitleFilterPlaceholderText, cssClass: "form-control")
+
+	<input type="submit" value="@Lang.FilteringOptionsSubmitText" class="btn btn-default filter-button" />
+}

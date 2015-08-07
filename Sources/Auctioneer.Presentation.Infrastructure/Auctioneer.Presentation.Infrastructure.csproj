@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="Filters\ObjectNotFoundExceptionHandlerAttribute.cs" />
     <Compile Include="Html\EnumSelectList.cs" />
+    <Compile Include="Html\HtmlHelper.Extensions.WithOptionalParameters.cs" />
     <Compile Include="Html\HtmlHelper.Extensions.cs" />
     <Compile Include="Http\HttpRequestBase.Extensions.cs" />
     <Compile Include="Http\HttpResponseBase.Extensions.cs" />
