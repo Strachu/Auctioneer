@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
 
+using Lang = Auctioneer.Resources.Account;
+
 namespace Auctioneer.Logic.Users
 {
 	public class UserService : UserManager<User>, IUserService
@@ -90,7 +92,7 @@ namespace Auctioneer.Logic.Users
 			var passwordIsCorrect = await base.CheckPasswordAsync(user, currentPassword);
 			if(!passwordIsCorrect)
 			{
-				errors.AddError("Invalid password."); // TODO localize
+				errors.AddError(Lang.Edit.InvalidPassword);
 				return;
 			}
 

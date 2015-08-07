@@ -103,6 +103,15 @@ namespace Auctioneer.Resources.Account {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid password..
+        /// </summary>
+        public static string InvalidPassword {
+            get {
+                return ResourceManager.GetString("InvalidPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         public static string LastName {

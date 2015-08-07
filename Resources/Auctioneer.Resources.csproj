@@ -70,6 +70,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Auction\Other.Designer.cs">
+      <DependentUpon>Other.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Auction\Show.Designer.cs">
       <DependentUpon>Show.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -187,6 +192,10 @@
     <EmbeddedResource Include="Auction\Delete.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Delete.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Auction\Other.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Other.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Auction\Show.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
