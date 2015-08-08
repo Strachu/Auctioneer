@@ -1,0 +1,53 @@
+﻿.auction-buy-confirmation > h1
+{
+	font-size   : 150%;
+	text-align  : center;
+	padding-top : 10px;
+	margin-top  : 0;
+}
+
+.auction-buy-confirmation .auction-info
+{
+	display      : flex;
+	align-items  : center;
+
+	margin-left  : 10px;
+	margin-right : 10px;
+	border       : 1px solid black;
+}
+
+.auction-buy-confirmation .thumbnail
+{
+	width            : 100px;
+	height           : 100px;
+	background-color : transparent;
+	border           : 0;
+}
+
+.auction-buy-confirmation .auction-info .title
+{
+	text-align : center;
+	flex       : 2 1 100%;
+}
+
+.auction-buy-confirmation .auction-info .title h1
+{
+	font-size : 200%;
+	margin    : 0;
+}
+
+.auction-buy-confirmation .auction-info .price
+{
+	font-size  : 150%;
+	color      : red;
+	text-align : center;
+	font-weight: bold;
+	flex       : 1 1 25%;
+}
+
+.auction-buy-confirmation input[type="submit"]
+{
+	margin-top    : 10px;
+	margin-bottom : 10px;
+	min-width     : 100px;
+}

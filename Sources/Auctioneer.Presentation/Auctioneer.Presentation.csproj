@@ -229,6 +229,7 @@
     <Compile Include="Mappers\Category\CategoryListViewModelMapper.cs" />
     <Compile Include="Models\Auction\AuctionDeleteViewModel.cs" />
     <Compile Include="Models\Auction\AuctionShowViewModel.cs" />
+    <Compile Include="Models\Auction\AuctionBuyViewModel.cs" />
     <Compile Include="Models\Category\AuctionViewModel.cs" />
     <Compile Include="Models\Category\CategoryIndexViewModel.cs" />
     <Compile Include="Models\Category\CategoryListViewModel.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CSS\AuctionBuyConfirmation.css" />
     <Content Include="Content\Libraries\Bootstrap\bootstrap.css" />
     <Content Include="Content\Libraries\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\Libraries\Chosen\chosen-sprite%402x.png" />
@@ -528,6 +530,8 @@
     <Content Include="Views\Account\MyAuctions.cshtml" />
     <Content Include="Views\Auction\Delete.cshtml" />
     <Content Include="Views\Account\MyAuctions.FilteringOptions.cshtml" />
+    <Content Include="Views\Auction\Buy.cshtml" />
+    <Content Include="Views\Auction\OrderConfirmed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

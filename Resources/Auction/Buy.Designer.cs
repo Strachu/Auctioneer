@@ -22,14 +22,14 @@ namespace Auctioneer.Resources.Auction {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Show {
+    public class Buy {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Show() {
+        internal Buy() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Auctioneer.Resources.Auction {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.Auction.Show", typeof(Show).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.Auction.Buy", typeof(Buy).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,29 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to buy an item from this auction?.
+        /// </summary>
+        public static string AreYouSure {
+            get {
+                return ResourceManager.GetString("AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Buy.
         /// </summary>
-        public static string Buy {
+        public static string SubmitText {
             get {
-                return ResourceManager.GetString("Buy", resourceCulture);
+                return ResourceManager.GetString("SubmitText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bought by.
+        ///   Looks up a localized string similar to Thumbnail.
         /// </summary>
-        public static string BuyerUserName {
+        public static string ThumbnailAltText {
             get {
-                return ResourceManager.GetString("BuyerUserName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete the auction.
-        /// </summary>
-        public static string DeleteAuction {
-            get {
-                return ResourceManager.GetString("DeleteAuction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ending in .
-        /// </summary>
-        public static string EndingIn {
-            get {
-                return ResourceManager.GetString("EndingIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seller.
-        /// </summary>
-        public static string SellerUserName {
-            get {
-                return ResourceManager.GetString("SellerUserName", resourceCulture);
+                return ResourceManager.GetString("ThumbnailAltText", resourceCulture);
             }
         }
     }

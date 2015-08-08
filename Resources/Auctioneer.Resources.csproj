@@ -65,6 +65,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Auction\OrderConfirmed.Designer.cs">
+      <DependentUpon>OrderConfirmed.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Auction\Delete.Designer.cs">
       <DependentUpon>Delete.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -72,6 +77,11 @@
     </Compile>
     <Compile Include="Auction\Other.Designer.cs">
       <DependentUpon>Other.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Auction\Buy.Designer.cs">
+      <DependentUpon>Buy.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -189,6 +199,10 @@
       <LastGenOutput>Add.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Auction\OrderConfirmed.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>OrderConfirmed.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Auction\Delete.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Delete.Designer.cs</LastGenOutput>
@@ -196,6 +210,10 @@
     <EmbeddedResource Include="Auction\Other.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Other.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Auction\Buy.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Buy.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Auction\Show.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

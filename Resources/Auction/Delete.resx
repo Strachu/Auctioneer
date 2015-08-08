@@ -120,4 +120,7 @@
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure you want to delete the auction "{0}"? This action cannot be reverted.</value>
   </data>
+  <data name="SubmitText" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>

@@ -1,0 +1,34 @@
+﻿@model AuctionBuyViewModel
+@using Lang = Auctioneer.Resources.Auction.Buy;
+
+@{
+	ViewBag.Title = "Buy";
+}
+
+<main class="auction-buy-confirmation">
+	<h1>@Lang.AreYouSure</h1>
+	
+	<div class="auction-info">
+		<div class="thumbnail">
+			<img src="@Url.AuctionThumbnail(Model.Id)" alt="@Lang.ThumbnailAltText" />
+		</div>
+		
+		<div class="title">
+			<h1>
+				@Html.ActionLinkWithSlug(Model.Title, actionName: "Show", routeValues: new { id = Model.Id })
+			</h1>
+		</div>
+
+		<div class="price">
+			@Html.DisplayFor(x => Model.Price)
+		</div>
+	</div>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+		@Html.HiddenFor(x => x.Id)
+
+		<input type="submit" value="@Lang.SubmitText" class="btn btn-success horizontally-centered" />
+	}
+</main>

@@ -32,6 +32,9 @@ namespace Auctioneer.Presentation.Models
 		[Display(Name = "SellerUserName", ResourceType = typeof(Lang))]
 		public string SellerUserName { get; set; }
 
+		[Display(Name = "BuyerUserName", ResourceType = typeof(Lang))]
+		public string BuyerUserName { get; set; }
+
 		public IEnumerable<Photo> Photos { get; set; }
 
 		public class Photo
@@ -40,6 +43,7 @@ namespace Auctioneer.Presentation.Models
 			public string Url { get; set; }
 		}
 
+		public bool CanBeBought { get; set; }
 		public bool CanBeRemoved { get; set; }
 	}
 }

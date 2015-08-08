@@ -20,6 +20,7 @@ namespace Auctioneer.Logic.Auctions
 			base.Property(x => x.PhotoCount).IsRequired();
 
 			base.Property(x => x.SellerId).IsRequired();
+			base.Property(x => x.BuyerId).IsOptional();
 		}
 	}
 }

@@ -22,14 +22,14 @@ namespace Auctioneer.Resources.Auction {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Show {
+    public class OrderConfirmed {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Show() {
+        internal OrderConfirmed() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Auctioneer.Resources.Auction {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.Auction.Show", typeof(Show).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.Auction.OrderConfirmed", typeof(OrderConfirmed).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,20 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Buy.
+        ///   Looks up a localized string similar to Your order has been confirmed..
         /// </summary>
-        public static string Buy {
+        public static string Header {
             get {
-                return ResourceManager.GetString("Buy", resourceCulture);
+                return ResourceManager.GetString("Header", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bought by.
+        ///   Looks up a localized string similar to Check your mailbox for more information..
         /// </summary>
-        public static string BuyerUserName {
+        public static string Message {
             get {
-                return ResourceManager.GetString("BuyerUserName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete the auction.
-        /// </summary>
-        public static string DeleteAuction {
-            get {
-                return ResourceManager.GetString("DeleteAuction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ending in .
-        /// </summary>
-        public static string EndingIn {
-            get {
-                return ResourceManager.GetString("EndingIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seller.
-        /// </summary>
-        public static string SellerUserName {
-            get {
-                return ResourceManager.GetString("SellerUserName", resourceCulture);
+                return ResourceManager.GetString("Message", resourceCulture);
             }
         }
     }

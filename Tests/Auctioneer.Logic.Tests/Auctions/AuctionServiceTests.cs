@@ -207,5 +207,35 @@ namespace Auctioneer.Logic.Tests.Auctions
 				await mTestedService.RemoveAuctions(removingUserId: "1", ids: new int[] { 7, 8, 6 });
 			});
 		}
+
+		[Test]
+		public async Task UserCannotBuyHisOwnAuctions()
+		{
+			var auction = await mTestedService.GetById(2);
+			var result  = mTestedService.CanBeBought(auction, buyerId: "1");
+
+			Assert.That(result, Is.False);
+		}
+
+		[Test]
+		public async Task WhenAuctionIsInactive_ItCannotBeBought()
+		{
+			var auction = await mTestedService.GetById(6);
+			var result  = mTestedService.CanBeBought(auction, buyerId: "2");
+
+			Assert.That(result, Is.False);
+		}
+
+		// TODO cannot be bought if its already sold...
+
+		[Test]
+		public async Task BuyingAuctionSetsTheBuyerId()
+		{
+			await mTestedService.Buy(3, buyerId: "1");
+
+			var boughtAction = await mTestedService.GetById(3);
+
+			Assert.That(boughtAction.BuyerId, Is.EqualTo("1"));
+		}
 	}
 }

@@ -117,19 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Buy" xml:space="preserve">
-    <value>Buy</value>
+  <data name="Header" xml:space="preserve">
+    <value>Your order has been confirmed.</value>
   </data>
-  <data name="BuyerUserName" xml:space="preserve">
-    <value>Bought by</value>
-  </data>
-  <data name="DeleteAuction" xml:space="preserve">
-    <value>Delete the auction</value>
-  </data>
-  <data name="EndingIn" xml:space="preserve">
-    <value>Ending in </value>
-  </data>
-  <data name="SellerUserName" xml:space="preserve">
-    <value>Seller</value>
+  <data name="Message" xml:space="preserve">
+    <value>Check your mailbox for more information.</value>
   </data>
 </root>

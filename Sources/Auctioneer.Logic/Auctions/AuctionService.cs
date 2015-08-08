@@ -125,6 +125,7 @@ namespace Auctioneer.Logic.Auctions
 		public async Task<Auction> GetById(int id)
 		{
 			var auction = await mContext.Auctions.Include(x => x.Seller)
+			                                     .Include(x => x.Buyer)
 			                                     .SingleOrDefaultAsync(x => x.Id == id)
 			                                     .ConfigureAwait(false);
 			if(auction == null)
@@ -219,6 +220,24 @@ namespace Auctioneer.Logic.Auctions
 		
 			File.Delete(thumbnailPath);
 			Directory.Delete(currentAuctionPhotosDirectory, recursive: true);
+		}
+
+		public bool CanBeBought(Auction auction, string buyerId)
+		{
+			return auction.IsActive && (auction.SellerId != buyerId);
+		}
+
+		public async Task Buy(int auctionId, string buyerId)
+		{
+			var auction = await GetById(auctionId);
+
+			// TODO be more specific why it cannot be bought or it's not necessary??
+			if(!CanBeBought(auction, buyerId))
+				throw new LogicException("The auction cannot be bought.");
+
+			auction.BuyerId = buyerId;
+
+			await mContext.SaveChangesAsync();
 		}
 	}
 }

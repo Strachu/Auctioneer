@@ -24,22 +24,46 @@
 		<h1>@Html.DisplayFor(x => x.Title)</h1>
 		<div class="end-time">@Lang.EndingIn @Html.DisplayFor(x => x.TimeTillEnd) (@Html.DisplayFor(x => x.EndDate))</div>
 		
-		<div class="dl-horizontal">
-			<dt>
-				@Html.DisplayNameFor(model => model.Price)
-			</dt>
-			<dd>
-				@Html.DisplayFor(model => model.Price)
-			</dd>
-		</div>
+		<div class="basic-info">
+			
+			<div class="column">
+				<div class="dl-horizontal">
+					<dt>
+						@Html.DisplayNameFor(model => model.SellerUserName)
+					</dt>
+					<dd>
+						@Html.DisplayFor(model => model.SellerUserName)
+					</dd>
+				</div>
+				
+				@if(!String.IsNullOrWhiteSpace(Model.BuyerUserName))
+				{
+					<div class="dl-horizontal">
+						<dt>
+							@Html.DisplayNameFor(model => model.BuyerUserName)
+						</dt>
+						<dd>
+							@Html.DisplayFor(model => model.BuyerUserName)
+						</dd>
+					</div>
+				}
+			</div>
 
-		<div class="dl-horizontal">
-			<dt>
-				@Html.DisplayNameFor(model => model.SellerUserName)
-			</dt>
-			<dd>
-				@Html.DisplayFor(model => model.SellerUserName)
-			</dd>
+			<div class="column">
+				<span class="price">@Html.DisplayFor(x => x.Price)</span>
+				
+				@if(Model.CanBeBought)
+				{
+					@Html.ActionLink(Lang.Buy, actionName: "Buy", cssClass: "btn btn-primary buy-button", routeValues: new
+					{
+						id = Model.Id
+					})
+				}
+				else
+				{
+					<button type="button" class="btn btn-primary buy-button" disabled="true">@Lang.Buy</button>
+				}
+			</div>
 		</div>
 				
 		<div class="photos">

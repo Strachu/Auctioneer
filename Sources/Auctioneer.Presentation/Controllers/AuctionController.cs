@@ -49,6 +49,7 @@ namespace Auctioneer.Presentation.Controllers
 
 			var viewModel = AuctionShowViewModelMapper.FromAuction(auction, photoUrls);
 
+			viewModel.CanBeBought  = mAuctionService.CanBeBought(auction, User.Identity.GetUserId());
 			viewModel.CanBeRemoved = auction.IsActive && auction.SellerId == User.Identity.GetUserId(); // TODO move it to a service?
 
 			return View(viewModel);
@@ -106,6 +107,7 @@ namespace Auctioneer.Presentation.Controllers
 			});
 		}
 
+		[Authorize]
 		public async Task<ActionResult> Delete(int id)
 		{
 			var auction   = await mAuctionService.GetById(id);
@@ -115,6 +117,7 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		[ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> DeletePost(int id)
@@ -123,6 +126,33 @@ namespace Auctioneer.Presentation.Controllers
 
 			// TODO This should display some confirmation that the auction was deleted and redirect to previous page
 			return RedirectToAction(controllerName: "Home", actionName: "Index");
+		}
+
+		[Authorize]
+		public async Task<ActionResult> Buy(int id)
+		{
+			var auction   = await mAuctionService.GetById(id);
+			var viewModel = new AuctionBuyViewModel { Id = id, Title = auction.Title, Price = auction.Price };
+
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		[Authorize]
+		[ActionName("Buy")]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> BuyPost(int id)
+		{
+			await mAuctionService.Buy(id, buyerId: User.Identity.GetUserId());
+
+			// TODO send e-mail to seller and buyer
+
+			return RedirectToAction("OrderConfirmed");
+		}
+
+		public ActionResult OrderConfirmed()
+		{
+			return View();
 		}
 	}
 }

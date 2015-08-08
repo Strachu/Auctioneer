@@ -113,7 +113,7 @@
 	position : relative;
 }
 
-.auction-info h1
+.auction-list .auction-info h1
 {
 	font-size  : 175%;
 	margin-left: 10px;
@@ -125,7 +125,7 @@
 	transform  : translateY(-50%);
 }
 
-.auction-info .price
+.auction-list .auction-info .price
 {
 	font-size  : 120%;
 	color      : red;
@@ -138,7 +138,7 @@
 	transform  : translateY(-50%);
 }
 
-.auction-info .time-till-end
+.auction-list .auction-info .time-till-end
 {
 	color      : black;
 	display    : inline-block;

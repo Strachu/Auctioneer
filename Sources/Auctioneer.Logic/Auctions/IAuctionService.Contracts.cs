@@ -63,5 +63,20 @@ namespace Auctioneer.Logic.Auctions
 
 			throw new NotImplementedException();
 		}
+
+		public bool CanBeBought(Auction auction, string buyerId)
+		{
+			Contract.Requires(auction != null);
+
+			throw new NotImplementedException();
+		}
+
+		public Task Buy(int auctionId, string buyerId)
+		{
+			Contract.Requires(auctionId > 0);
+			Contract.Requires(buyerId != null);
+
+			throw new NotImplementedException();
+		}
 	}
 }

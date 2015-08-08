@@ -1,7 +1,6 @@
 ﻿<#@ template language="C#" HostSpecific="True" #>
 <#@ output extension=".cshtml" #>
 <#@ include file="Imports.include.t4" #>
-@model <#= ViewDataTypeName #>
 @using Lang = Auctioneer.Resources.Controller.<#= ViewName#>;
 
 @{

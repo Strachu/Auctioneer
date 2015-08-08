@@ -23,6 +23,7 @@ namespace Auctioneer.Presentation.Mappers
 				EndDate        = auction.EndDate,
 				Price          = auction.Price,
 				SellerUserName = auction.Seller.UserName,
+				BuyerUserName  = (auction.Buyer != null) ? auction.Buyer.UserName : null,
 				Photos         = photoUrls.Select(x => new AuctionShowViewModel.Photo { Url = x })
 			};
 		}
