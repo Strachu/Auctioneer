@@ -1,4 +1,5 @@
 @model Auctioneer.Presentation.Models.Account.AccountMyAuctionsViewModel
+@using Auctioneer.Logic.Auctions
 @using Lang = Auctioneer.Resources.Account.MyAuctions;
 
 @{
@@ -61,13 +62,13 @@
 							                         })
 						</td>
 						<td class="time">
-							@if(!auction.Expired)
+							@if(auction.Status == AuctionStatus.Active)
 							{
 								@Html.DisplayFor(x => auction.TimeTillEnd)
 							}
 							else
 							{
-								@Html.Raw(Lang.Expired)
+								@Html.DisplayFor(x => auction.Status)
 							}
 						</td>
 						<td class="price">

@@ -9,18 +9,15 @@ using Lang = Auctioneer.Resources.Auction.Other;
 
 namespace Auctioneer.Logic.Auctions
 {
-	[Flags]
-	public enum AuctionStatusFilter
+	public enum AuctionStatus
 	{
 		[Display(Name = "Status_Active", ResourceType = typeof(Lang))]
-		Active  = 1 << 0,
+		Active,
 
 		[Display(Name = "Status_Expired", ResourceType = typeof(Lang))]
-		Expired = 1 << 1,
+		Expired,
 
 		[Display(Name = "Status_Sold", ResourceType = typeof(Lang))]
-		Sold = 1 << 2,
-		
-		All = Active | Expired | Sold
+		Sold,
 	}
 }

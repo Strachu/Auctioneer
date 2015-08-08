@@ -50,7 +50,7 @@ namespace Auctioneer.Logic.Auctions
 
 			               join category in mContext.Categories
 			               on auction.CategoryId equals category.Id
-			               where auction.EndDate > DateTime.Now
+			               where auction.EndDate > DateTime.Now && auction.BuyerId == null
 
 			               where category.Left >= rootCategory.Left && category.Right <= rootCategory.Right
 			               select auction;
@@ -97,12 +97,17 @@ namespace Auctioneer.Logic.Auctions
 
 			if(statusFilter.HasFlag(AuctionStatusFilter.Active) == false)
 			{
-				auctions = auctions.Where(x => x.EndDate <= DateTime.Now);
+				auctions = auctions.Where(x => x.EndDate <= DateTime.Now || x.BuyerId != null);
 			}
 
 			if(statusFilter.HasFlag(AuctionStatusFilter.Expired) == false)
 			{
-				auctions = auctions.Where(x => x.EndDate > DateTime.Now);
+				auctions = auctions.Where(x => x.EndDate > DateTime.Now || x.BuyerId != null);
+			}
+
+			if(statusFilter.HasFlag(AuctionStatusFilter.Sold) == false)
+			{
+				auctions = auctions.Where(x => x.BuyerId == null);
 			}
 
 			if(!String.IsNullOrWhiteSpace(titleFilter))
@@ -224,7 +229,7 @@ namespace Auctioneer.Logic.Auctions
 
 		public bool CanBeBought(Auction auction, string buyerId)
 		{
-			return auction.IsActive && (auction.SellerId != buyerId);
+			return auction.Status == AuctionStatus.Active && (auction.SellerId != buyerId);
 		}
 
 		public async Task Buy(int auctionId, string buyerId)

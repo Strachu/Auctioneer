@@ -32,9 +32,18 @@ namespace Auctioneer.Logic.Auctions
 		public string BuyerId { get; set; }
 		public virtual User Buyer { get; set; }
 
-		public bool IsActive
+		public AuctionStatus Status
 		{
-			get { return EndDate >= DateTime.Now; }
+			get
+			{
+				if(BuyerId != null)
+					return AuctionStatus.Sold;
+
+				if(EndDate < DateTime.Now)
+					return AuctionStatus.Expired;
+
+				return AuctionStatus.Active;
+			}
 		}
 	}
 }

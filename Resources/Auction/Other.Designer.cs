@@ -77,5 +77,14 @@ namespace Auctioneer.Resources.Auction {
                 return ResourceManager.GetString("Status_Expired", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sold.
+        /// </summary>
+        public static string Status_Sold {
+            get {
+                return ResourceManager.GetString("Status_Sold", resourceCulture);
+            }
+        }
     }
 }

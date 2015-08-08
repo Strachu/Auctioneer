@@ -53,6 +53,10 @@ namespace Auctioneer.Logic.Tests.Auctions
 			context.Users.Add(new TestUser { Id = "1" });
 			context.Users.Add(new TestUser { Id = "2" });
 
+			// TODO the tests are hard to update due to dependencies between test data, how to solve this?
+			// The best would be independent data tailored just for single test, but there is a lot of data to setup
+			// which will make the class with tests very long.
+
 			context.Auctions.Add(new TestAuction { Id = 1,  Title = "1",  CategoryId = 2, CreationDate = new DateTime(2015, 3, 12),
 			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(2)), SellerId = "1" });
 
@@ -63,7 +67,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)), SellerId = "2" });
 
 			context.Auctions.Add(new TestAuction { Id = 4,  Title = "4",  CategoryId = 2, CreationDate = new DateTime(2014, 9, 16),
-			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)), SellerId = "1" });
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)), SellerId = "1", BuyerId = "2" });
 
 			context.Auctions.Add(new TestAuction { Id = 5,  Title = "5",  CategoryId = 2, CreationDate = new DateTime(2013, 9, 5),
 			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)), SellerId = "1" });
@@ -85,6 +89,10 @@ namespace Auctioneer.Logic.Tests.Auctions
 
 			context.Auctions.Add(new TestAuction { Id = 11, Title = "11",  CategoryId = 3, CreationDate = new DateTime(2013, 2, 1),
 			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(1)), SellerId = "2" });
+
+			context.Auctions.Add(new TestAuction { Id = 12, Title = "12",  CategoryId = 3, CreationDate = new DateTime(2013, 2, 1),
+			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(1)), SellerId = "1",
+			                                       BuyerId = "2" });
 			context.SaveChanges();
 		}
 
@@ -111,13 +119,13 @@ namespace Auctioneer.Logic.Tests.Auctions
 			                                                                auctionsPerPage: 2);
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
-			var expectedAuctionTitles = new string[] { "5", "7" };
+			var expectedAuctionTitles = new string[] { "7", "8" };
 
 			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
 		}
 		
 		[Test]
-		public async Task GetActiveAuctionsInCategory_ReturnsOnlyAuctionsWhoseEndDateIsGreateThanCurrentDate()
+		public async Task GetActiveAuctionsInCategory_DoesNotReturnExpiredNorAlreadyBoughtAuctions()
 		{
 			var auctions = await mTestedService.GetActiveAuctionsInCategory(categoryId: 2,
 			                                                                sortBy: AuctionSortOrder.TitleAscending,
@@ -125,7 +133,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 			                                                                auctionsPerPage: 100);
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
-			var expectedAuctionTitles = new string[] { "4", "5", "7", "8" };
+			var expectedAuctionTitles = new string[] { "5", "7", "8" };
 
 			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
 		}
@@ -139,7 +147,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 			                                                                auctionsPerPage: 100);
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
-			var expectedAuctionTitles = new string[] { "4", "5", "7", "8", "9", "10" };
+			var expectedAuctionTitles = new string[] { "5", "7", "8", "9", "10" };
 
 			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
 		}
@@ -167,7 +175,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 		}
 		
 		[Test]
-		public async Task WhenOnlyExpiredStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnActiveAuctions()
+		public async Task WhenOnlyExpiredStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnActiveNorSoldAuctions()
 		{
 			var auctions = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: AuctionStatusFilter.Expired,
 			                                                      createdIn: TimeSpan.FromDays(9999));
@@ -179,13 +187,38 @@ namespace Auctioneer.Logic.Tests.Auctions
 		}
 		
 		[Test]
-		public async Task WhenOnlyActiveStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnInactiveAuctions()
+		public async Task WhenOnlyActiveStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnInactiveNorSoldAuctions()
 		{
 			var auctions = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: AuctionStatusFilter.Active,
 			                                                      createdIn: TimeSpan.FromDays(9999));
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
-			var expectedAuctionTitles = new string[] { "2", "4", "5", "7", "8", "10" };
+			var expectedAuctionTitles = new string[] { "2", "5", "7", "8", "10" };
+
+			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
+		}
+		
+		[Test]
+		public async Task WhenOnlySoldStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnNotSoldAuctions()
+		{
+			var auctions = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: AuctionStatusFilter.Sold,
+			                                                      createdIn: TimeSpan.FromDays(9999));
+
+			var returnedAuctionTitles = auctions.Select(x => x.Title);
+			var expectedAuctionTitles = new string[] { "4", "12" };
+
+			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
+		}
+		
+		[Test]
+		public async Task WhenBothExpiredAndSoldStatusFlagsBeenSpecified_GetAuctionsByUser_ReturnsOnlyInactiveAuctions()
+		{
+			var statusFilters = AuctionStatusFilter.Expired | AuctionStatusFilter.Sold;
+			var auctions      = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: statusFilters,
+			                                                           createdIn: TimeSpan.FromDays(9999));
+
+			var returnedAuctionTitles = auctions.Select(x => x.Title);
+			var expectedAuctionTitles = new string[] { "1", "4", "6", "12" };
 
 			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
 		}
@@ -226,7 +259,14 @@ namespace Auctioneer.Logic.Tests.Auctions
 			Assert.That(result, Is.False);
 		}
 
-		// TODO cannot be bought if its already sold...
+		[Test]
+		public async Task WhenAuctionIsAlreadySold_ItCannotBeBoughtAgain()
+		{
+			var auction = await mTestedService.GetById(4);
+			var result  = mTestedService.CanBeBought(auction, buyerId: "2");
+
+			Assert.That(result, Is.False);
+		}
 
 		[Test]
 		public async Task BuyingAuctionSetsTheBuyerId()

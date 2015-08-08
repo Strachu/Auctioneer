@@ -123,9 +123,6 @@
   <data name="CreatedInFilter" xml:space="preserve">
     <value>Auctions created in last {0} days</value>
   </data>
-  <data name="Expired" xml:space="preserve">
-    <value>Expired</value>
-  </data>
   <data name="FilteringOptionsHeader" xml:space="preserve">
     <value>Filtering options:</value>
   </data>

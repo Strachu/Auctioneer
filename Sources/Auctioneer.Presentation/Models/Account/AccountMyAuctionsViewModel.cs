@@ -39,14 +39,11 @@ namespace Auctioneer.Presentation.Models.Account
 			public int Id { get; set; }
 			public int CategoryId { get; set; }
 
-			public bool Expired
-			{
-				get { return TimeTillEnd.TotalSeconds <= 0; }
-			}
+			public AuctionStatus Status { get; set; }
 
 			public bool CanBeRemoved
 			{
-				get { return !Expired; }
+				get { return Status == AuctionStatus.Active; }
 			}
 		}
 	}

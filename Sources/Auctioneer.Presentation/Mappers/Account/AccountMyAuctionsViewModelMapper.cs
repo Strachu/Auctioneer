@@ -26,6 +26,7 @@ namespace Auctioneer.Presentation.Mappers.Account
 				Title        = x.Title,
 				CategoryName = x.Category.Name,
 				CategoryId   = x.Category.Id,
+				Status       = x.Status,
 				TimeTillEnd  = x.EndDate - DateTime.Now,
 				Price        = x.Price
 			});

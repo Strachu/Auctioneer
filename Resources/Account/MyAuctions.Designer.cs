@@ -79,15 +79,6 @@ namespace Auctioneer.Resources.Account {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expired.
-        /// </summary>
-        public static string Expired {
-            get {
-                return ResourceManager.GetString("Expired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Filtering options:.
         /// </summary>
         public static string FilteringOptionsHeader {

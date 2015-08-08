@@ -123,4 +123,7 @@
   <data name="Status_Expired" xml:space="preserve">
     <value>Expired</value>
   </data>
+  <data name="Status_Sold" xml:space="preserve">
+    <value>Sold</value>
+  </data>
 </root>
