@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using Auctioneer.Logic.Auctions;
+
 using Lang = Auctioneer.Resources.Auction.Show;
 
 namespace Auctioneer.Presentation.Models
@@ -19,6 +21,8 @@ namespace Auctioneer.Presentation.Models
 
 		[DataType(DataType.DateTime)]
 		public DateTime EndDate { get; set; }
+
+		public AuctionStatus Status { get; set; }
 
 		[DataType(DataType.Time)]
 		public TimeSpan TimeTillEnd

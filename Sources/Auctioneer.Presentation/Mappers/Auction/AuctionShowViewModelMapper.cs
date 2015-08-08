@@ -20,6 +20,7 @@ namespace Auctioneer.Presentation.Mappers
 				Id             = auction.Id,
 				Title          = auction.Title,
 				Description    = auction.Description,
+				Status         = auction.Status,
 				EndDate        = auction.EndDate,
 				Price          = auction.Price,
 				SellerUserName = auction.Seller.UserName,

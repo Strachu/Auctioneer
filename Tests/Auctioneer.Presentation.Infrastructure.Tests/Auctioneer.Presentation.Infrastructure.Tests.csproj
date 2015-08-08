@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formatting\EnumExtensionsTests.cs" />
     <Compile Include="Html\EnumSelectListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Formatting\TimeSpanFormatterTests.cs" />

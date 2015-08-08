@@ -209,7 +209,13 @@ namespace Auctioneer.Logic
 					PhotoCount   = 0
 				};
 
-				if(auctions[i].EndDate > DateTime.Now)
+				bool sold = (rndGenerator.Next(100) + 1) < 75;
+				if(sold)
+				{
+					auctions[i].BuyerId = userIds[rndGenerator.Next(userIds.Count)];
+				}
+
+				if(auctions[i].Status == AuctionStatus.Active)
 				{
 					imageInitializer.CopyRandomThumbnailForAuction(i + 1);
 					imageInitializer.CopyRandomPhotosForAuction(i + 1);

@@ -126,6 +126,9 @@
   <data name="DeleteAuction" xml:space="preserve">
     <value>Delete the auction</value>
   </data>
+  <data name="EndedOn" xml:space="preserve">
+    <value>Ended on</value>
+  </data>
   <data name="EndingIn" xml:space="preserve">
     <value>Ending in </value>
   </data>

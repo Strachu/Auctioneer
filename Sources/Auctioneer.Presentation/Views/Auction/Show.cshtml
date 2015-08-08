@@ -1,4 +1,5 @@
 ﻿@model AuctionShowViewModel
+@using Auctioneer.Logic.Auctions
 @using Lang = Auctioneer.Resources.Auction.Show;
 
 @{
@@ -22,7 +23,29 @@
 		}
 
 		<h1>@Html.DisplayFor(x => x.Title)</h1>
-		<div class="end-time">@Lang.EndingIn @Html.DisplayFor(x => x.TimeTillEnd) (@Html.DisplayFor(x => x.EndDate))</div>
+
+		<div class="end-time">
+			@if(Model.Status == AuctionStatus.Active)
+			{
+				@Html.Raw(String.Format("{0} {1} ({2})",
+											   Lang.EndingIn,
+											   Html.DisplayFor(x => x.TimeTillEnd),
+											   Html.DisplayFor(x => x.EndDate)))
+			}
+			else
+			{
+				<div class="inactive">
+					@if(Model.Status == AuctionStatus.Expired)
+					{
+						@Html.Raw(String.Format("{0} {1}", Lang.EndedOn, Html.DisplayFor(x => x.EndDate)))
+					}
+					else
+					{
+						@Html.DisplayFor(x => x.Status)
+					}
+				</div>
+			}
+		</div>
 		
 		<div class="basic-info">
 			

@@ -479,6 +479,7 @@
     <Content Include="Content\Libraries\respond.js" />
     <Content Include="Content\Libraries\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

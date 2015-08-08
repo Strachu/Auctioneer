@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web.Mvc;
+
+using Auctioneer.Presentation.Infrastructure.Formatting;
 
 namespace Auctioneer.Presentation.Infrastructure.Html
 {
@@ -24,22 +25,10 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 
 			return new EnumSelectList(valuesToShow.Select(x => new SelectListItem
 			{
-				Text     = GetNameOfEnumValue(x),
+				Text     = x.GetDisplayName(),
 				Value    = x.ToString(),
 				Selected = IsFlagsEnum(value.GetType()) ? value.HasFlag(x) : x.Equals(value)
 			}));
-		}
-
-		private static string GetNameOfEnumValue(Enum value)
-		{
-			var enumType          = value.GetType();
-			var enumValueInfo     = enumType.GetMember(value.ToString()).Single();
-			var displayAttributes = enumValueInfo.GetCustomAttributes(typeof(DisplayAttribute), inherit: false);
-			if(!displayAttributes.Any())
-				return Enum.GetName(enumType, value);
-
-			var displayAttribute  = displayAttributes.Single() as DisplayAttribute;
-			return displayAttribute.GetName();
 		}
 
 		private static bool IsFlagsEnum(Type enumType)

@@ -88,6 +88,15 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ended on.
+        /// </summary>
+        public static string EndedOn {
+            get {
+                return ResourceManager.GetString("EndedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ending in .
         /// </summary>
         public static string EndingIn {
