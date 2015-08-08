@@ -158,7 +158,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 			var auctions = await mTestedService.GetRecentAuctions(3);
 
 			var returnedAuctionTitles = auctions.Select(x => x.Title);
-			var expectedAuctionTitles = new string[] { "1", "9", "7" };
+			var expectedAuctionTitles = new string[] { "9", "7", "10" };
 
 			Assert.That(returnedAuctionTitles, Is.EqualTo(expectedAuctionTitles));
 		}

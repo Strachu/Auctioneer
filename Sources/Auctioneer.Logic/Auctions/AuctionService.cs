@@ -122,7 +122,8 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults)
 		{
-			return await mContext.Auctions.OrderByDescending(x => x.CreationDate)
+			return await mContext.Auctions.Where(x => x.EndDate > DateTime.Now && x.BuyerId == null)
+			                              .OrderByDescending(x => x.CreationDate)
 			                              .Take(maxResults)
 			                              .ToListAsync();
 		}
