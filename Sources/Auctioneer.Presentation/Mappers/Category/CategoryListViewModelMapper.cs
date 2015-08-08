@@ -4,7 +4,6 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web;
 
-using Auctioneer.Logic.Auctions;
 using Auctioneer.Presentation.Models;
 
 namespace Auctioneer.Presentation.Mappers.Category

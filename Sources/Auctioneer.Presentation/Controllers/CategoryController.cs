@@ -54,8 +54,9 @@ namespace Auctioneer.Presentation.Controllers
 
 			var categories = await mCategoryService.GetSubcategories(parentCategoryId: id);
 			var auctions   = await mAuctionService.GetActiveAuctionsInCategory(id, sortOrder.Value, page ?? 1, pageSize.Value);
+			var viewModel  = CategoryIndexViewModelMapper.FromCategoriesAndAuctions(categories, auctions, sortOrder.Value);
 
-			return View(CategoryIndexViewModelMapper.FromCategoriesAndAuctions(categories, auctions, sortOrder.Value));
+			return View(viewModel);
 		}
 
 		[ChildActionOnly]
@@ -63,8 +64,9 @@ namespace Auctioneer.Presentation.Controllers
 		public PartialViewResult TopCategories()
 		{
 			var categories = mCategoryService.GetTopLevelCategories().Result;
+			var viewModel  = CategoryListViewModelMapper.FromCategories(categories);
 
-			return PartialView("_List", CategoryListViewModelMapper.FromCategories(categories));
+			return PartialView("_List", viewModel);
 		}
 
 		[ChildActionOnly]
