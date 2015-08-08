@@ -58,7 +58,7 @@ namespace Auctioneer.Logic.Categories
 
 			            join auction in mContext.Auctions
 			            on subCategory.Id equals auction.CategoryId into outerJoin
-			            from auction in outerJoin.Where(x => x.EndDate > DateTime.Now).DefaultIfEmpty()
+			            from auction in outerJoin.Where(x => x.EndDate > DateTime.Now && x.BuyerId == null).DefaultIfEmpty()
 
 			            group auction by rootCategory into auctionByRootCategory
 			            orderby auctionByRootCategory.Key.Name ascending

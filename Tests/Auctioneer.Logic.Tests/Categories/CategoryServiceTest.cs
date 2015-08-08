@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues;
 
@@ -66,27 +67,40 @@ namespace Auctioneer.Logic.Tests.Categories
 
 			context.SaveChanges();
 
+			context.Users.Add(new TestUser { Id = "1" });
+
 			AddAuctionsToCategory(context, 1,  5);
-			AddAuctionsToCategory(context, 2,  3, active: false);
+			AddAuctionsToCategory(context, 2,  3, AuctionStatus.Expired);
 			AddAuctionsToCategory(context, 3,  2);
 			AddAuctionsToCategory(context, 7,  3);
 			AddAuctionsToCategory(context, 8,  7);
 			AddAuctionsToCategory(context, 12, 3);
-			AddAuctionsToCategory(context, 14, 2);
+			AddAuctionsToCategory(context, 14, 2, AuctionStatus.Sold);
 			AddAuctionsToCategory(context, 11, 10);
 
 			context.SaveChanges();
 		}
 
-		private void AddAuctionsToCategory(AuctioneerDbContext context, int categoryId, int auctionCount, bool active = true)
+		private void AddAuctionsToCategory(AuctioneerDbContext context,
+		                                   int categoryId,
+		                                   int auctionCount,
+		                                   AuctionStatus status = AuctionStatus.Active)
 		{
 			for(int i = 0; i < auctionCount; ++i)
 			{
-				context.Auctions.Add(new TestAuction
+				var auction = new TestAuction
 				{
 					CategoryId = categoryId,
-					EndDate    = active ? DateTime.Now.Add(TimeSpan.FromDays(1)) : DateTime.Now.Subtract(TimeSpan.FromDays(1))
-				});
+					EndDate    = (status != AuctionStatus.Expired) ? DateTime.Now.Add(TimeSpan.FromDays(1))
+					                                               : DateTime.Now.Subtract(TimeSpan.FromDays(1))
+				};
+
+				if(status == AuctionStatus.Sold)
+				{
+					auction.BuyerId = "1";
+				}
+
+				context.Auctions.Add(auction);
 			}
 		}
 
@@ -146,7 +160,7 @@ namespace Auctioneer.Logic.Tests.Categories
 			var categories = (await mTestedService.GetTopLevelCategories()).ToDictionary(x => x.Name);
 
 			Assert.That(categories["Computers"].AuctionCount, Is.EqualTo(17));
-			Assert.That(categories["Software"].AuctionCount,  Is.EqualTo(15));
+			Assert.That(categories["Software"].AuctionCount,  Is.EqualTo(13));
 		}
 
 		[Test]
@@ -180,7 +194,7 @@ namespace Auctioneer.Logic.Tests.Categories
 			var categories = (await mTestedService.GetSubcategories(12)).ToDictionary(x => x.Name);
 
 			Assert.That(categories["Operating systems"].AuctionCount, Is.EqualTo(0));
-			Assert.That(categories["Office"].AuctionCount,            Is.EqualTo(2));
+			Assert.That(categories["Office"].AuctionCount,            Is.EqualTo(0));
 			Assert.That(categories["Security"].AuctionCount,          Is.EqualTo(0));
 			Assert.That(categories["Games"].AuctionCount,             Is.EqualTo(10));
 		}
