@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 using Ganss.XSS;
 
@@ -132,7 +133,18 @@ namespace Auctioneer.Logic.Auctions
 			return auction;
 		}
 
-		public async Task AddAuction(Auction newAuction)
+		public async Task AddAuction(Auction newAuction, IEnumerable<Stream> photosData)
+		{
+			using(var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+			{
+				await AddAuctionToDatabase(newAuction);
+				await SaveAuctionPhotosToFileSystem(newAuction.Id, photosData);
+
+				transaction.Complete();
+			}
+		}
+
+		private async Task AddAuctionToDatabase(Auction newAuction)
 		{
 			var sanitizer = new HtmlSanitizer();
 			
@@ -142,7 +154,7 @@ namespace Auctioneer.Logic.Auctions
 			await mContext.SaveChangesAsync();
 		}
 
-		public async Task StoreAuctionPhotos(int auctionId, IEnumerable<Stream> dataStreams)
+		private async Task SaveAuctionPhotosToFileSystem(int auctionId, IEnumerable<Stream> dataStreams)
 		{
 			var currentAuctionPhotosDirectory = Path.Combine(mAuctionPhotoDirectoryPath, auctionId.ToString());
 			

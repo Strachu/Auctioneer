@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
@@ -90,15 +87,9 @@ namespace Auctioneer.Presentation.Controllers
 				return View(input);
 			}
 
-			var newAuction = AuctionAddViewModelMapper.ToAuction(input, User.Identity.GetUserId());
+			var newAuction = AuctionAddViewModelMapper.ToAuction(input, sellerId: User.Identity.GetUserId());
 
-			using(var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-			{
-				await mAuctionService.AddAuction(newAuction);
-				await mAuctionService.StoreAuctionPhotos(newAuction.Id, input.Photos.Select(x => x.InputStream));
-
-				transaction.Complete();
-			}
+			await mAuctionService.AddAuction(newAuction, input.Photos.Select(x => x.InputStream));
 
 			return RedirectToAction("Show", new { id = newAuction.Id });
 		}
