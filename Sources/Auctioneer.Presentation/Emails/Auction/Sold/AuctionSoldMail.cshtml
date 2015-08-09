@@ -1,0 +1,30 @@
+@model AuctionSoldMail
+
+@{
+	Layout = null;
+
+	var auctionLink = Html.ActionLinkWithSlug(Model.AuctionTitle, controllerName: "Auction", actionName: "Show",
+	                                          protocol: Request.Url.Scheme, routeValues: new
+	                                          {
+		                                          id = Model.AuctionId
+	                                          });
+}
+
+To: @Model.UserMail
+Subject: @Model.AuctionTitle has been sold
+Reply-To: @Model.BuyerFullName <@Model.BuyerEmail>
+Content-Type: text/html; charset=utf-8
+
+<html>
+	<body>
+		<p>Hello @Model.UserFirstName,</p>
+		<p>A buyer has been found for your "@auctionLink" auction at Auctioneer for a price of @Html.DisplayFor(x => x.AuctionPrice).</p>
+		<p>A buy offer has been submitted by @Model.BuyerUserName.</p>
+		<p>You can contact him by e-mail by replying to this e-mail or sending an e-mail to @Html.DisplayFor(x => x.BuyerEmail).</p>
+		<p>Shipping info:</p>
+		<p>
+			@Html.DisplayFor(x => x.BuyerFullName) <br />
+			@Html.DisplayFor(x => x.BuyerShippingAddress)
+		</p>
+	</body>
+</html>

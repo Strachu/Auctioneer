@@ -205,6 +205,8 @@
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Emails\Auction\Won\AuctionWonMail.cs" />
+    <Compile Include="Emails\Auction\Sold\AuctionSoldMail.cs" />
     <Compile Include="Emails\User\ForgotPassword\ForgotPasswordMail.cs" />
     <Compile Include="Emails\User\ConfirmationMail\ConfirmationMail.cs" />
     <Compile Include="Global.asax.cs">
@@ -479,6 +481,8 @@
     <Content Include="Content\Libraries\respond.js" />
     <Content Include="Content\Libraries\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Emails\Auction\Sold\AuctionSoldMail.cshtml" />
+    <Content Include="Emails\Auction\Won\AuctionWonMail.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -533,6 +537,7 @@
     <Content Include="Views\Account\MyAuctions.FilteringOptions.cshtml" />
     <Content Include="Views\Auction\Buy.cshtml" />
     <Content Include="Views\Auction\OrderConfirmed.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MultilineText.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

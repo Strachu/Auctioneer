@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
+using Auctioneer.Presentation.Emails;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models;
@@ -15,6 +16,8 @@ using Microsoft.AspNet.Identity;
 
 using DevTrends.MvcDonutCaching;
 
+using Postal;
+
 namespace Auctioneer.Presentation.Controllers
 {
 	public class AuctionController : Controller
@@ -22,18 +25,22 @@ namespace Auctioneer.Presentation.Controllers
 		private readonly IAuctionService    mAuctionService;
 		private readonly ICategoryService   mCategoryService;
 		private readonly IBreadcrumbBuilder mBreadcrumbBuilder;
+		private readonly IEmailService      mMailService;
 
 		public AuctionController(IAuctionService auctionService,
 		                         ICategoryService categoryService,
-		                         IBreadcrumbBuilder breadcrumbBuilder)
+		                         IBreadcrumbBuilder breadcrumbBuilder,
+		                         IEmailService mailService)
 		{
 			Contract.Requires(auctionService != null);
 			Contract.Requires(categoryService != null);
 			Contract.Requires(breadcrumbBuilder != null);
+			Contract.Requires(mailService != null);
 
 			mAuctionService    = auctionService;
 			mCategoryService   = categoryService;
 			mBreadcrumbBuilder = breadcrumbBuilder;
+			mMailService       = mailService;
 		}
 
 		[Route("Auction/{id:int}/{slug?}")]
@@ -145,7 +152,32 @@ namespace Auctioneer.Presentation.Controllers
 		{
 			await mAuctionService.Buy(id, buyerId: User.Identity.GetUserId());
 
-			// TODO send e-mail to seller and buyer
+			var auction = await mAuctionService.GetById(id);
+
+			await mMailService.SendAsync(new AuctionSoldMail
+			{
+				UserMail             = auction.Seller.Email,
+				UserFirstName        = auction.Seller.FirstName,
+				AuctionId            = auction.Id,
+				AuctionPrice         = auction.Price,
+				AuctionTitle         = auction.Title,
+				BuyerEmail           = auction.Buyer.Email,
+				BuyerFullName        = auction.Buyer.FirstName + " " + auction.Buyer.LastName,
+				BuyerShippingAddress = auction.Buyer.Address,
+				BuyerUserName        = auction.Buyer.UserName,
+			});
+
+			await mMailService.SendAsync(new AuctionWonMail
+			{
+				UserMail             = auction.Buyer.Email,
+				UserFirstName        = auction.Buyer.FirstName,
+				AuctionId            = auction.Id,
+				AuctionPrice         = auction.Price,
+				AuctionTitle         = auction.Title,
+				SellerEmail          = auction.Seller.Email,
+				SellerFullName       = auction.Seller.FirstName + " " + auction.Seller.LastName,
+				SellerUserName       = auction.Seller.UserName,
+			});
 
 			return RedirectToAction("OrderConfirmed");
 		}

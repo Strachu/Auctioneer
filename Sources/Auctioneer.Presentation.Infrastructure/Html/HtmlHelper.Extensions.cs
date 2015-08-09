@@ -19,15 +19,21 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 		                                             string linkText,
 		                                             string actionName,
 		                                             string controllerName = null,
+		                                             string protocol = null,
+		                                             string hostName = null,
+		                                             string fragment = null,
+		                                             string cssClass = "",
 		                                             object routeValues = null,
 		                                             object htmlAttributes = null)
 		{
-			var routeDictionary         = new RouteValueDictionary(routeValues);
-			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+			var routeDictionary          = new RouteValueDictionary(routeValues);
+			var htmlAttributesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
 
 			routeDictionary["slug"] = SlugGenerator.SlugFromTitle(linkText);
 
-			return helper.ActionLink(linkText, actionName, controllerName, routeDictionary, htmlAttibutesDictionary);
+			return helper.ActionLink(linkText: linkText, actionName: actionName, controllerName: controllerName,
+			                         protocol: protocol, hostName: hostName, fragment: fragment, cssClass: cssClass,
+			                         routeValues: routeDictionary, htmlAttributes: htmlAttributesDictionary);
 		}
 
 		public static IHtmlString ActionLinkWithCurrentParameters(this HtmlHelper helper,

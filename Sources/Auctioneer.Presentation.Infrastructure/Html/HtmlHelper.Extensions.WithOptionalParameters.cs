@@ -25,6 +25,25 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 			var routeDictionary         = new RouteValueDictionary(routeValues);
 			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
 
+			return ActionLink(html, linkText: linkText, actionName: actionName, controllerName: controllerName,
+			                  protocol: protocol, hostName: hostName, fragment: fragment, cssClass: cssClass,
+			                  routeValues: routeDictionary, htmlAttributes: htmlAttibutesDictionary);
+		}
+
+		public static MvcHtmlString ActionLink(this HtmlHelper html,
+		                                       string linkText,
+		                                       RouteValueDictionary routeValues,
+		                                       string actionName = null,
+		                                       string controllerName = null,
+		                                       string protocol = null,
+		                                       string hostName = null,
+		                                       string fragment = null,
+		                                       string cssClass = "",
+		                                       IDictionary<string, object> htmlAttributes = null)
+		{
+			var routeDictionary         = routeValues    ?? new RouteValueDictionary();
+			var htmlAttibutesDictionary = htmlAttributes ?? new Dictionary<string, object>();
+
 			if(!String.IsNullOrWhiteSpace(cssClass))
 			{
 				htmlAttibutesDictionary["class"] = cssClass;
