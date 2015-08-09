@@ -119,6 +119,7 @@
       <DependentUpon>IAuctionService.cs</DependentUpon>
     </Compile>
     <Compile Include="Auctions\IAuctionService.cs" />
+    <Compile Include="Auctions\IQueryable`Auction.Extensions.cs" />
     <Compile Include="Categories\Category.cs" />
     <Compile Include="Categories\CategoryHierarchyLevelPair.cs" />
     <Compile Include="Categories\CategoryMapping.cs" />

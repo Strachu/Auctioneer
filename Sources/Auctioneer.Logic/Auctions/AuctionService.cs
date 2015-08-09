@@ -44,15 +44,14 @@ namespace Auctioneer.Logic.Auctions
 		                                                             int pageIndex,
 		                                                             int auctionsPerPage)
 		{
-			var auctions = from auction      in mContext.Auctions
-			               from rootCategory in mContext.Categories
-			               where rootCategory.Id == categoryId
+			var auctions = from auction      in mContext.Auctions.Where(AuctionStatusFilter.Active)
+			               from rootCategory in mContext.Categories.Where(x => x.Id == categoryId)
 
-			               join category in mContext.Categories
-			               on auction.CategoryId equals category.Id
-			               where auction.EndDate > DateTime.Now && auction.BuyerId == null
+			               from subCategory  in mContext.Categories
+			               where subCategory.Left  >= rootCategory.Left &&
+			                     subCategory.Right <= rootCategory.Right
 
-			               where category.Left >= rootCategory.Left && category.Right <= rootCategory.Right
+			               where auction.CategoryId == subCategory.Id
 			               select auction;
 
 			switch(sortBy)
@@ -93,22 +92,8 @@ namespace Auctioneer.Logic.Auctions
 
 			var auctions = mContext.Auctions.Include(x => x.Category)
 			                                .Where(x => x.SellerId == userId)
-			                                .Where(x => x.CreationDate >= createdAfter);
-
-			if(statusFilter.HasFlag(AuctionStatusFilter.Active) == false)
-			{
-				auctions = auctions.Where(x => x.EndDate <= DateTime.Now || x.BuyerId != null);
-			}
-
-			if(statusFilter.HasFlag(AuctionStatusFilter.Expired) == false)
-			{
-				auctions = auctions.Where(x => x.EndDate > DateTime.Now || x.BuyerId != null);
-			}
-
-			if(statusFilter.HasFlag(AuctionStatusFilter.Sold) == false)
-			{
-				auctions = auctions.Where(x => x.BuyerId == null);
-			}
+			                                .Where(x => x.CreationDate >= createdAfter)
+			                                .Where(allowedStatuses: statusFilter);
 
 			if(!String.IsNullOrWhiteSpace(titleFilter))
 			{
@@ -122,7 +107,7 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults)
 		{
-			return await mContext.Auctions.Where(x => x.EndDate > DateTime.Now && x.BuyerId == null)
+			return await mContext.Auctions.Where(AuctionStatusFilter.Active)
 			                              .OrderByDescending(x => x.CreationDate)
 			                              .Take(maxResults)
 			                              .ToListAsync();
@@ -206,7 +191,7 @@ namespace Auctioneer.Logic.Auctions
 			if(auctions.Any(x => x.SellerId != removingUserId))
 				throw new LogicException("Cannot remove auctions of another user.");
 
-			if(auctions.Any(x => x.EndDate <= DateTime.Now))
+			if(auctions.Any(x => x.Status != AuctionStatus.Active))
 				throw new LogicException("Inactive auctions cannot be removed.");
 
 			// Cannot use an array with ExecuteSqlCommandAsync(), concatenating int elements should be safe.

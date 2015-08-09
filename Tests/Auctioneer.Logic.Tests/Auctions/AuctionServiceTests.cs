@@ -233,11 +233,20 @@ namespace Auctioneer.Logic.Tests.Auctions
 		}
 		
 		[Test]
-		public void DoNotAllowRemovalOfInactiveAuctions()
+		public void DoNotAllowRemovalOfExpiredAuctions()
 		{
 			Assert.Throws<LogicException>(async () =>
 			{
 				await mTestedService.RemoveAuctions(removingUserId: "1", ids: new int[] { 7, 8, 6 });
+			});
+		}
+		
+		[Test]
+		public void DoNotAllowRemovalOfSoldAuctions()
+		{
+			Assert.Throws<LogicException>(async () =>
+			{
+				await mTestedService.RemoveAuctions(removingUserId: "1", ids: new int[] { 7, 4, 8 });
 			});
 		}
 

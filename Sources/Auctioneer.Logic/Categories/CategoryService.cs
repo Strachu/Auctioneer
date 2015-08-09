@@ -6,6 +6,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
+using Auctioneer.Logic.Auctions;
+
 namespace Auctioneer.Logic.Categories
 {
 	public class CategoryService : ICategoryService
@@ -49,16 +51,14 @@ namespace Auctioneer.Logic.Categories
 		private async Task<IEnumerable<Category>> GetCategoriesAlongWithAuctionCount(
 			Expression<Func<Category, bool>> categoryFilter)
 		{
-			var categories = mContext.Categories.Where(categoryFilter);
-
-			var query = from rootCategory in categories
+			var query = from rootCategory in mContext.Categories.Where(categoryFilter)
 			            from subCategory  in mContext.Categories
 			            where subCategory.Left  >= rootCategory.Left &&
 			                  subCategory.Right <= rootCategory.Right
 
-			            join auction in mContext.Auctions
+			            join auction in mContext.Auctions.Where(AuctionStatusFilter.Active)
 			            on subCategory.Id equals auction.CategoryId into outerJoin
-			            from auction in outerJoin.Where(x => x.EndDate > DateTime.Now && x.BuyerId == null).DefaultIfEmpty()
+			            from auction in outerJoin.DefaultIfEmpty()
 
 			            group auction by rootCategory into auctionByRootCategory
 			            orderby auctionByRootCategory.Key.Name ascending
