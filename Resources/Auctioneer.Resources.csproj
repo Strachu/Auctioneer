@@ -151,8 +151,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="User\ResentMailConfirmation.Designer.cs">
-      <DependentUpon>ResentMailConfirmation.resx</DependentUpon>
+    <Compile Include="User\ResendMailConfirmation.Designer.cs">
+      <DependentUpon>ResendMailConfirmation.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -267,9 +267,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Login.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="User\ResentMailConfirmation.resx">
+    <EmbeddedResource Include="User\ResendMailConfirmation.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResentMailConfirmation.Designer.cs</LastGenOutput>
+      <LastGenOutput>ResendMailConfirmation.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="User\ResetPassword.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

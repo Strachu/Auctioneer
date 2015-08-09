@@ -29,7 +29,7 @@ namespace Auctioneer.Logic
 		private void AddUsers(AuctioneerDbContext context)
 		{
 			var rndGenerator = new Random(Seed: 2934228);
-			var userService  = new UserService(context);
+			var userService  = new UserService(context, new NullUserNotifier());
 			var firstNames   = new string[] { "Alexa", "Amanda", "Olivia", "Jacob", "William", "Michael", "John" };
 			var lastNames    = new string[] { "Smith", "Johnson", "Williams", "Brown", "Miller", "King", "Kelly", "Foster" };
 			
@@ -322,6 +322,29 @@ namespace Auctioneer.Logic
 		{
 			public void AddError(string errorMessage)
 			{
+			}
+		}
+
+		private class NullUserNotifier : IUserNotifier
+		{
+			public Task SendActivationToken(User user, string token)
+			{
+				return Task.FromResult(0);
+			}
+
+			public Task SendPasswordResetToken(User user, string token)
+			{
+				return Task.FromResult(0);
+			}
+
+			public Task NotifyAuctionSold(User user, Auction auction)
+			{
+				return Task.FromResult(0);
+			}
+
+			public Task NotifyAuctionWon(User user, Auction auction)
+			{
+				return Task.FromResult(0);
 			}
 		}
 	}

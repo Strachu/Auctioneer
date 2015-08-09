@@ -25,17 +25,14 @@ namespace Auctioneer.Presentation.Controllers
 	public class UserController : Controller
 	{
 		private readonly IUserService           mUserService;
-		private readonly IEmailService          mMailService;
 		private readonly IAuthenticationManager mAuthManager;
 
-		public UserController(IUserService userService, IEmailService mailService, IAuthenticationManager authManager)
+		public UserController(IUserService userService, IAuthenticationManager authManager)
 		{
 			Contract.Requires(userService != null);
-			Contract.Requires(mailService != null);
 			Contract.Requires(authManager != null);
 
 			mUserService = userService;
-			mMailService = mailService;
 			mAuthManager = authManager;
 		}
 
@@ -54,26 +51,10 @@ namespace Auctioneer.Presentation.Controllers
 			var newUser = UserCreateViewModelMapper.ToUser(input);
 
 			await mUserService.AddUser(newUser, input.Password, new ValidationErrorNotifierAdapter(ModelState));
-
 			if(!ModelState.IsValid)
 				return View(input);
 
-			await SendConfirmationMail(newUser);
-
 			return RedirectToAction("AccountCreated");
-		}
-
-		private async Task SendConfirmationMail(User userToSentTo)
-		{
-			var mailConfirmationToken = await mUserService.GenerateEmailConfirmationToken(userToSentTo);
-
-			await mMailService.SendAsync(new ConfirmationMail
-			{
-				UserMail      = userToSentTo.Email,
-				UserFirstName = userToSentTo.FirstName,
-				UserId        = userToSentTo.Id,
-				ConfirmToken  = mailConfirmationToken
-			});
 		}
 
 		public ActionResult AccountCreated()
@@ -132,14 +113,12 @@ namespace Auctioneer.Presentation.Controllers
 			return RedirectToAction(controllerName: "Home", actionName: "Index");
 		}
 
-		public async Task<ActionResult> ResentMailConfirmation(string userId)
+		public async Task<ActionResult> ResendMailConfirmation(string userId)
 		{
 			if(String.IsNullOrWhiteSpace(userId))
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-			var user = await mUserService.GetUserById(userId);
-
-			await SendConfirmationMail(user);
+			await mUserService.SendActivationToken(userId);
 
 			return View();
 		}
@@ -156,15 +135,9 @@ namespace Auctioneer.Presentation.Controllers
 			if(!ModelState.IsValid)
 				return View(input);
 
-			var user               = await mUserService.GetUserByEmail(input.Email);
-			var passwordResetToken = await mUserService.GeneratePasswordResetToken(user);
+			var user = await mUserService.GetUserByEmail(input.Email);
 
-			await mMailService.SendAsync(new ForgotPasswordMail
-			{
-				UserMail           = user.Email,
-				UserFirstName      = user.FirstName,
-				PasswordResetToken = passwordResetToken
-			});
+			await mUserService.SendPasswordResetToken(user);
 
 			return RedirectToAction("ResetPasswordMailSent");
 		}

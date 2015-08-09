@@ -207,6 +207,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Emails\Auction\Won\AuctionWonMail.cs" />
     <Compile Include="Emails\Auction\Sold\AuctionSoldMail.cs" />
+    <Compile Include="Emails\EmailUserNotifier.cs" />
     <Compile Include="Emails\User\ForgotPassword\ForgotPasswordMail.cs" />
     <Compile Include="Emails\User\ConfirmationMail\ConfirmationMail.cs" />
     <Compile Include="Global.asax.cs">
@@ -515,7 +516,7 @@
     <Content Include="Views\User\AccountCreated.cshtml" />
     <Content Include="Views\User\ConfirmMail.cshtml" />
     <Content Include="Views\User\EmailNotConfirmed.cshtml" />
-    <Content Include="Views\User\ResentMailConfirmation.cshtml" />
+    <Content Include="Views\User\ResendMailConfirmation.cshtml" />
     <Content Include="Emails\User\ConfirmationMail\ConfirmationMail.cshtml" />
     <Content Include="Views\User\LockedOut.cshtml" />
     <Content Include="Views\User\ForgotPassword.cshtml" />

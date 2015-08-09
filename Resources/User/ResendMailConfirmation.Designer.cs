@@ -22,14 +22,14 @@ namespace Auctioneer.Resources.User {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ResentMailConfirmation {
+    public class ResendMailConfirmation {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ResentMailConfirmation() {
+        internal ResendMailConfirmation() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Auctioneer.Resources.User {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.User.ResentMailConfirmation", typeof(ResentMailConfirmation).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.User.ResendMailConfirmation", typeof(ResendMailConfirmation).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -27,17 +27,15 @@ namespace Auctioneer.Presentation.Tests.Controllers
 	{
 		private UserController            mTestedController;
 		private IUserService              mUserServiceMock;
-		private IEmailService             mMailServiceMock;
 		private AuthenticationManagerMock mAuthManagerMock;
 
 		[SetUp]
 		public void SetUp()
 		{
 			mUserServiceMock = A.Fake<IUserService>();
-			mMailServiceMock = A.Fake<IEmailService>();
 			mAuthManagerMock = new AuthenticationManagerMock();
 
-			mTestedController = new UserController(mUserServiceMock, mMailServiceMock, mAuthManagerMock);
+			mTestedController = new UserController(mUserServiceMock, mAuthManagerMock);
 		}
 
 		[Test]
@@ -46,28 +44,6 @@ namespace Auctioneer.Presentation.Tests.Controllers
 			await mTestedController.Create(CreateDummyViewModel());
 
 			A.CallTo(() => mUserServiceMock.AddUser(null, null, null)).WithAnyArguments().MustHaveHappened();
-		}
-
-		[Test]
-		public async Task CreateActionSendsConfirmationMail()
-		{
-			await mTestedController.Create(CreateDummyViewModel());
-
-			A.CallTo(() => mMailServiceMock.SendAsync(A<Email>.That.IsInstanceOf(typeof(ConfirmationMail)))).MustHaveHappened();
-		}
-		
-		[Test]
-		public async Task ConfirmationMailIsNotSendWhenAddingUserFails()
-		{
-			A.CallTo(() => mUserServiceMock.AddUser(null, null, null)).WithAnyArguments().Invokes(x =>
-			{
-				var validationErrorNotifier = (IValidationErrorNotifier) x.Arguments[2];
-				validationErrorNotifier.AddError("Error");
-			}).Returns(Task.FromResult(0));
-
-			await mTestedController.Create(CreateDummyViewModel());
-
-			A.CallTo(() => mMailServiceMock.SendAsync(A<Email>.Ignored)).MustNotHaveHappened();
 		}
 		
 		[Test]

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues;
+using Auctioneer.Logic.Users;
+
+using FakeItEasy;
 
 using NUnit.Framework;
 
@@ -14,6 +17,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 	internal class AuctionServiceTests
 	{
 		private IAuctionService mTestedService;
+		private IUserNotifier   mUserNotifierMock;
 
 		[SetUp]
 		public void SetUp()
@@ -22,7 +26,8 @@ namespace Auctioneer.Logic.Tests.Auctions
 
 			AddTestData(context);
 
-			mTestedService = new AuctionService(context, "Ignored", "Ignored");
+			mUserNotifierMock = A.Fake<IUserNotifier>();
+			mTestedService    = new AuctionService(context, mUserNotifierMock, "Ignored", "Ignored");
 		}
 
 		private void AddTestData(AuctioneerDbContext context)
@@ -285,6 +290,24 @@ namespace Auctioneer.Logic.Tests.Auctions
 			var boughtAction = await mTestedService.GetById(3);
 
 			Assert.That(boughtAction.BuyerId, Is.EqualTo("1"));
+		}
+
+		[Test]
+		public async Task SellerIsNotifiedAfterHisAuctionHasBeenSold()
+		{
+			await mTestedService.Buy(3, buyerId: "1");
+
+			A.CallTo(() => mUserNotifierMock.NotifyAuctionSold(A<User>.That.Matches(x => x.Id == "2"), A<Auction>._))
+			 .MustHaveHappened();
+		}
+
+		[Test]
+		public async Task BuyerIsNotifiedWhenHeBuysAnAuction()
+		{
+			await mTestedService.Buy(3, buyerId: "1");
+
+			A.CallTo(() => mUserNotifierMock.NotifyAuctionWon(A<User>.That.Matches(x => x.Id == "1"), A<Auction>._))
+			 .MustHaveHappened();
 		}
 	}
 }

@@ -16,9 +16,14 @@ namespace Auctioneer.Logic.Users
 {
 	public class UserService : UserManager<User>, IUserService
 	{
-		public UserService(AuctioneerDbContext context) : base(new UserStore<User>(context))
+		private readonly IUserNotifier mUserNotifier;
+
+		public UserService(AuctioneerDbContext context, IUserNotifier userNotifier) : base(new UserStore<User>(context))
 		{
 			Contract.Requires(context != null);
+			Contract.Requires(userNotifier != null);
+
+			mUserNotifier = userNotifier;
 
 			base.PasswordValidator = new PasswordValidator
 			{
@@ -46,9 +51,14 @@ namespace Auctioneer.Logic.Users
 
 		public async Task AddUser(User user, string password, IValidationErrorNotifier errors)
 		{
-			var result = await base.CreateAsync(user, password).ConfigureAwait(false);
+			var result = await base.CreateAsync(user, password);
+			if(!result.Succeeded)
+			{
+				errors.AddIdentityResult(result);
+				return;
+			}
 
-			errors.AddIdentityResult(result);
+			await SendActivationToken(user.Id);
 		}
 
 		public async Task<User> GetUserById(string id)
@@ -113,9 +123,12 @@ namespace Auctioneer.Logic.Users
 			errors.AddIdentityResult(result);
 		}
 
-		public Task<string> GenerateEmailConfirmationToken(User user)
+		public async Task SendActivationToken(string userId)
 		{
-			return base.GenerateEmailConfirmationTokenAsync(user.Id);
+			var user            = await this.GetUserById(userId);
+			var activationToken = await base.GenerateEmailConfirmationTokenAsync(userId);
+
+			await mUserNotifier.SendActivationToken(user, activationToken);
 		}
 
 		public async Task ConfirmUserEmail(string userId, string confirmationToken, IValidationErrorNotifier errors)
@@ -125,9 +138,11 @@ namespace Auctioneer.Logic.Users
 			errors.AddIdentityResult(result);
 		}
 
-		public Task<string> GeneratePasswordResetToken(User user)
+		public async Task SendPasswordResetToken(User user)
 		{
-			return base.GeneratePasswordResetTokenAsync(user.Id);
+			var token = await base.GeneratePasswordResetTokenAsync(user.Id);
+
+			await mUserNotifier.SendPasswordResetToken(user, token);
 		}
 
 		public async Task ResetUserPassword(string userName, string newPassword, string resetToken, IValidationErrorNotifier errors)

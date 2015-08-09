@@ -73,9 +73,9 @@ namespace Auctioneer.Logic.Users
 			throw new NotImplementedException();
 		}
 
-		Task<string> IUserService.GenerateEmailConfirmationToken(User user)
+		Task IUserService.SendActivationToken(string userId)
 		{
-			Contract.Requires(user != null);
+			Contract.Requires(!String.IsNullOrWhiteSpace(userId));
 
 			throw new NotImplementedException();
 		}
@@ -89,7 +89,7 @@ namespace Auctioneer.Logic.Users
 			throw new NotImplementedException();
 		}
 
-		Task<string> IUserService.GeneratePasswordResetToken(User user)
+		Task IUserService.SendPasswordResetToken(User user)
 		{
 			Contract.Requires(user != null);
 

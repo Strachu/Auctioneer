@@ -16,7 +16,7 @@ namespace Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues
 		{
 			base.Id        = nextId.ToString();
 			base.UserName  = nextId.ToString();
-			base.Email     = String.Format("{0}@.com", nextId);
+			base.Email     = String.Format("{0}@mail.com", nextId);
 			base.Address   = "Address";
 			base.FirstName = "FirstName";
 			base.LastName  = "LastName";

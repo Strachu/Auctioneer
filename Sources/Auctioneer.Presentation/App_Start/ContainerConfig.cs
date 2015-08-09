@@ -8,6 +8,8 @@ using System.Web.Mvc;
 
 using Auctioneer.Logic;
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Logic.Users;
+using Auctioneer.Presentation.Emails;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Infrastructure.Security;
 
@@ -42,6 +44,7 @@ namespace Auctioneer.Presentation
 
 			builder.RegisterType<BreadcrumbBuilder>().As<IBreadcrumbBuilder>().InstancePerDependency();
 			builder.RegisterType<AuthenticationManager>().As<IAuthenticationManager>().InstancePerRequest();
+			builder.RegisterType<EmailUserNotifier>().As<IUserNotifier>().InstancePerLifetimeScope();
 			builder.RegisterType<AuctionService>().As<IAuctionService>().InstancePerRequest().WithParameters(new Parameter[]
 			{
 				new NamedParameter("photoDirectoryPath",     HostingEnvironment.MapPath("~/Content/UserContent/Auctions/Photos")),

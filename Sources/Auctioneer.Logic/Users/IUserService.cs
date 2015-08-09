@@ -20,10 +20,10 @@ namespace Auctioneer.Logic.Users
 		Task UpdateUserEmail(string userId, string currentPassword, string newEmail, IValidationErrorNotifier errors);
 		Task UpdateUserPassword(string userId, string currentPassword, string newPassword, IValidationErrorNotifier errors);
 
-		Task<string> GenerateEmailConfirmationToken(User user);
+		Task SendActivationToken(string userId);
 		Task ConfirmUserEmail(string userId, string confirmationToken, IValidationErrorNotifier errors);
 
-		Task<string> GeneratePasswordResetToken(User user);
+		Task SendPasswordResetToken(User user);
 		Task ResetUserPassword(string userName, string newPassword, string resetToken, IValidationErrorNotifier errors);
 	}
 }

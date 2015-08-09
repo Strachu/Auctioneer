@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
+using Auctioneer.Logic.Users;
+
 using Ganss.XSS;
 
 using PagedList;
@@ -23,18 +25,22 @@ namespace Auctioneer.Logic.Auctions
 		private static readonly Size THUMBNAIL_SIZE = new Size(100, 100);
 
 		private readonly AuctioneerDbContext mContext;
+		private readonly IUserNotifier       mUserNotifier;
 		private readonly string              mAuctionPhotoDirectoryPath;
 		private readonly string              mAuctionThumbnailDirectoryPath;
 
 		public AuctionService(AuctioneerDbContext context,
+		                      IUserNotifier userNotifier,
 		                      string photoDirectoryPath,
 		                      string thumbnailDirectoryPath)
 		{
 			Contract.Requires(context != null);
+			Contract.Requires(userNotifier != null);
 			Contract.Requires(!String.IsNullOrWhiteSpace(photoDirectoryPath));
 			Contract.Requires(!String.IsNullOrWhiteSpace(thumbnailDirectoryPath));
 
 			mContext                       = context;
+			mUserNotifier                  = userNotifier;
 			mAuctionPhotoDirectoryPath     = photoDirectoryPath;
 			mAuctionThumbnailDirectoryPath = thumbnailDirectoryPath;
 		}
@@ -229,6 +235,9 @@ namespace Auctioneer.Logic.Auctions
 			auction.BuyerId = buyerId;
 
 			await mContext.SaveChangesAsync();
+
+			await mUserNotifier.NotifyAuctionSold(auction.Seller, auction);
+			await mUserNotifier.NotifyAuctionWon(auction.Buyer,   auction);
 		}
 	}
 }
