@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Auctioneer.Logic.Utils
+namespace Auctioneer.Logic.Validation
 {
-	internal class ErrorCollection : Collection<string>, IValidationErrorNotifier
+	public class ErrorCollection : Collection<string>, IValidationErrorNotifier
 	{
 		public void AddError(string errorMessage)
 		{

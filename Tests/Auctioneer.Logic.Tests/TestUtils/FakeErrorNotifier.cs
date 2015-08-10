@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Auctioneer.Logic.Validation;
+
 namespace Auctioneer.Logic.Tests.TestUtils
 {
 	internal class FakeErrorNotifier : IValidationErrorNotifier

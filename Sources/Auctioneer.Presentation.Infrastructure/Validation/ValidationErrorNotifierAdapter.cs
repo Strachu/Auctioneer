@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using Auctioneer.Logic;
+using Auctioneer.Logic.Validation;
 
 namespace Auctioneer.Presentation.Infrastructure.Validation
 {

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.IO;
 
 using Auctioneer.Logic.Users;
+using Auctioneer.Logic.Validation;
 
 using EntityFramework.BulkInsert.Extensions;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace Auctioneer.Logic
 				user.EmailConfirmed = true;
 				user.UserName       = String.Format("{0}_{1}", user.FirstName, user.LastName).ToLower();
 
-				userService.AddUser(user, "Password", new NullValidationErrorNotifier()).Wait();
+				userService.AddUser(user, "Password", new ErrorCollection()).Wait();
 			}
 		}
 
@@ -315,13 +316,6 @@ namespace Auctioneer.Logic
 					return 0;
 
 				return Directory.EnumerateFiles(photosDirectory, "*.jpg").Count();
-			}
-		}
-
-		private class NullValidationErrorNotifier : IValidationErrorNotifier
-		{
-			public void AddError(string errorMessage)
-			{
 			}
 		}
 

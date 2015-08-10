@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Auctioneer.Logic.Validation;
+
 using PagedList;
 
 namespace Auctioneer.Logic.Auctions

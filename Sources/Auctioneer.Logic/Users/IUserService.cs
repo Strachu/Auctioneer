@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Auctioneer.Logic.Validation;
+
 namespace Auctioneer.Logic.Users
 {
 	[ContractClass(typeof(IUserServiceContractClass))]

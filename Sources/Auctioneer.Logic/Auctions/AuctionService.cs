@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 
 using Auctioneer.Logic.Users;
+using Auctioneer.Logic.Validation;
 
 using Ganss.XSS;
 

@@ -125,11 +125,11 @@
     <Compile Include="Categories\CategoryMapping.cs" />
     <Compile Include="Categories\CategoryService.cs" />
     <Compile Include="Categories\ICategoryService.cs" />
-    <Compile Include="IValidationErrorNotifier.Contracts.cs">
+    <Compile Include="Validation\IValidationErrorNotifier.Contracts.cs">
       <DependentUpon>IValidationErrorNotifier.cs</DependentUpon>
     </Compile>
-    <Compile Include="IValidationErrorNotifier.cs" />
-    <Compile Include="IValidationErrorNotifier.Extensions.cs" />
+    <Compile Include="Validation\IValidationErrorNotifier.cs" />
+    <Compile Include="Validation\IValidationErrorNotifier.Extensions.cs" />
     <Compile Include="Exceptions\LogicException.cs" />
     <Compile Include="Exceptions\ObjectNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,7 +142,7 @@
     <Compile Include="Users\User.cs" />
     <Compile Include="Users\UserService.cs" />
     <Compile Include="Utils\EntityFrameworkFluentApiExtensions.cs" />
-    <Compile Include="Utils\ErrorCollection.cs" />
+    <Compile Include="Validation\ErrorCollection.cs" />
     <Compile Include="Utils\Image.Extensions.cs" />
     <Compile Include="Utils\PropertyName.cs" />
   </ItemGroup>

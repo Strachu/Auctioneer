@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Auctioneer.Logic
+namespace Auctioneer.Logic.Validation
 {
 	[ContractClass(typeof(IValidationErrorNotifierContractClass))]
 	public interface IValidationErrorNotifier

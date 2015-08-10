@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity;
 
-namespace Auctioneer.Logic
+namespace Auctioneer.Logic.Validation
 {
 	internal static class IValidationErrorNotifierExtensions
 	{
