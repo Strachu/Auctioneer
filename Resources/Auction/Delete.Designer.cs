@@ -77,5 +77,23 @@ namespace Auctioneer.Resources.Auction {
                 return ResourceManager.GetString("SubmitText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inactive auctions cannot be removed..
+        /// </summary>
+        public static string AuctionIsInactive {
+            get {
+                return ResourceManager.GetString("AuctionIsInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot remove auctions of another user..
+        /// </summary>
+        public static string WrongUser {
+            get {
+                return ResourceManager.GetString("WrongUser", resourceCulture);
+            }
+        }
     }
 }

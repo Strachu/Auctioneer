@@ -122,6 +122,11 @@ namespace Auctioneer.Presentation.Controllers
 			                                                        title, status, page, auctionsPerPage: 50);
 			var viewModel = AccountMyAuctionsViewModelMapper.FromAuctions(auctions, title, createdInDays, status);
 
+			foreach(var x in viewModel.Auctions.Zip(auctions, (x1, x2) => new { ViewModel = x1, Auction = x2 }))
+			{
+				x.ViewModel.CanBeRemoved = mAuctionService.CanBeRemoved(x.Auction, User.Identity.GetUserId());
+			}
+
 			return View(viewModel);
 		}
 
@@ -129,7 +134,10 @@ namespace Auctioneer.Presentation.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> DeleteAuctions(IEnumerable<int> ids, string queryString)
 		{
-			await mAuctionService.RemoveAuctions(User.Identity.GetUserId(), ids.ToArray());
+			await mAuctionService.RemoveAuctions(ids.ToList(), User.Identity.GetUserId(), new ValidationErrorNotifierAdapter(ModelState));
+			
+			if(!ModelState.IsValid)
+				return View("Error");
 
 			return RedirectToAction("MyAuctions", HttpUtility.ParseQueryString(queryString).ToRouteDictionary());
 		}

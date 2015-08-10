@@ -70,6 +70,24 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only active auctions can be bought..
+        /// </summary>
+        public static string AuctionIsInactive {
+            get {
+                return ResourceManager.GetString("AuctionIsInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The auction cannot be bought by its seller..
+        /// </summary>
+        public static string CannotBuyOwnAuctions {
+            get {
+                return ResourceManager.GetString("CannotBuyOwnAuctions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Buy.
         /// </summary>
         public static string SubmitText {

@@ -9,6 +9,7 @@ using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Presentation.Emails;
 using Auctioneer.Presentation.Helpers;
+using Auctioneer.Presentation.Infrastructure.Validation;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models;
 
@@ -125,7 +126,11 @@ namespace Auctioneer.Presentation.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> DeletePost(int id)
 		{
-			await mAuctionService.RemoveAuctions(User.Identity.GetUserId(), id);
+			await mAuctionService.RemoveAuctions(new int[] { id }, User.Identity.GetUserId(),
+			                                     new ValidationErrorNotifierAdapter(ModelState));
+
+			if(!ModelState.IsValid)
+				return View("Error");
 
 			// TODO This should display some confirmation that the auction was deleted and redirect to previous page
 			return RedirectToAction(controllerName: "Home", actionName: "Index");
@@ -146,7 +151,10 @@ namespace Auctioneer.Presentation.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> BuyPost(int id)
 		{
-			await mAuctionService.Buy(id, buyerId: User.Identity.GetUserId());
+			await mAuctionService.Buy(id, User.Identity.GetUserId(), new ValidationErrorNotifierAdapter(ModelState));
+
+			if(!ModelState.IsValid)
+				return View("Error");
 
 			return RedirectToAction("OrderConfirmed");
 		}

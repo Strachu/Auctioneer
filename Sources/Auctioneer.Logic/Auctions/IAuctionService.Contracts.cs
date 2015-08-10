@@ -56,10 +56,19 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 
-		public Task RemoveAuctions(string removingUserId, params int[] ids)
+		public bool CanBeRemoved(Auction auction, string userId)
+		{
+			Contract.Requires(auction != null);
+			Contract.Requires(userId != null);
+
+			throw new NotImplementedException();
+		}
+	
+		public Task RemoveAuctions(IReadOnlyCollection<int> ids, string removingUserId, IValidationErrorNotifier errors)
 		{
 			Contract.Requires(removingUserId != null);
 			Contract.Requires(ids != null);
+			Contract.Requires(errors != null);
 
 			throw new NotImplementedException();
 		}
@@ -71,10 +80,11 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 
-		public Task Buy(int auctionId, string buyerId)
+		public Task Buy(int auctionId, string buyerId, IValidationErrorNotifier errors)
 		{
 			Contract.Requires(auctionId > 0);
 			Contract.Requires(buyerId != null);
+			Contract.Requires(errors != null);
 
 			throw new NotImplementedException();
 		}

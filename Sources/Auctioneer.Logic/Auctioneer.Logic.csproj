@@ -142,6 +142,7 @@
     <Compile Include="Users\User.cs" />
     <Compile Include="Users\UserService.cs" />
     <Compile Include="Utils\EntityFrameworkFluentApiExtensions.cs" />
+    <Compile Include="Utils\ErrorCollection.cs" />
     <Compile Include="Utils\Image.Extensions.cs" />
     <Compile Include="Utils\PropertyName.cs" />
   </ItemGroup>

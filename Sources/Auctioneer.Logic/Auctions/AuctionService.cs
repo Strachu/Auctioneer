@@ -18,6 +18,8 @@ using PagedList;
 
 using Auctioneer.Logic.Utils;
 
+using Lang = Auctioneer.Resources.Auction;
+
 namespace Auctioneer.Logic.Auctions
 {
 	public class AuctionService : IAuctionService
@@ -191,14 +193,33 @@ namespace Auctioneer.Logic.Auctions
 			thumbnail.Save(thumbnailPath, ImageFormat.Jpeg);			
 		}
 
-		public async Task RemoveAuctions(string removingUserId, params int[] ids)
+		public bool CanBeRemoved(Auction auction, string userId)
+		{
+			return CanBeRemoved(auction, userId, new ErrorCollection());
+		}
+
+		private bool CanBeRemoved(Auction auction, string userId, IValidationErrorNotifier errors)
+		{
+			if(auction.SellerId != userId)
+			{
+				errors.AddError(Lang.Delete.WrongUser);
+				return false;
+			}
+
+			if(auction.Status != AuctionStatus.Active)
+			{
+				errors.AddError(Lang.Delete.AuctionIsInactive);
+				return false;
+			}
+
+			return true;
+		}
+
+		public async Task RemoveAuctions(IReadOnlyCollection<int> ids, string removingUserId, IValidationErrorNotifier errors)
 		{
 			var auctions = await mContext.Auctions.Where(x => ids.Contains(x.Id)).ToListAsync();
-			if(auctions.Any(x => x.SellerId != removingUserId))
-				throw new LogicException("Cannot remove auctions of another user.");
-
-			if(auctions.Any(x => x.Status != AuctionStatus.Active))
-				throw new LogicException("Inactive auctions cannot be removed.");
+			if(auctions.Any(x => !CanBeRemoved(x, removingUserId, errors)))
+				return;
 
 			// Cannot use an array with ExecuteSqlCommandAsync(), concatenating int elements should be safe.
 			var sql = String.Format("DELETE FROM Auctions WHERE id IN ({0})", String.Join(",", ids));
@@ -221,16 +242,31 @@ namespace Auctioneer.Logic.Auctions
 
 		public bool CanBeBought(Auction auction, string buyerId)
 		{
-			return auction.Status == AuctionStatus.Active && (auction.SellerId != buyerId);
+			return CanBeBought(auction, buyerId, new ErrorCollection());
 		}
 
-		public async Task Buy(int auctionId, string buyerId)
+		private bool CanBeBought(Auction auction, string buyerId, IValidationErrorNotifier errors)
+		{
+			if(auction.Status != AuctionStatus.Active)
+			{
+				errors.AddError(Lang.Buy.AuctionIsInactive);
+				return false;
+			}
+
+			if(auction.SellerId == buyerId)
+			{
+				errors.AddError(Lang.Buy.CannotBuyOwnAuctions);
+				return false;
+			}
+
+			return true;
+		}
+
+		public async Task Buy(int auctionId, string buyerId, IValidationErrorNotifier errors)
 		{
 			var auction = await GetById(auctionId);
-
-			// TODO be more specific why it cannot be bought or it's not necessary??
-			if(!CanBeBought(auction, buyerId))
-				throw new LogicException("The auction cannot be bought.");
+			if(!CanBeBought(auction, buyerId, errors))
+				return;
 
 			auction.BuyerId = buyerId;
 

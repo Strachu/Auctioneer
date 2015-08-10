@@ -38,13 +38,9 @@ namespace Auctioneer.Presentation.Models.Account
 
 			public int Id { get; set; }
 			public int CategoryId { get; set; }
+			public bool CanBeRemoved { get; set; }
 
 			public AuctionStatus Status { get; set; }
-
-			public bool CanBeRemoved
-			{
-				get { return Status == AuctionStatus.Active; }
-			}
 		}
 	}
 }

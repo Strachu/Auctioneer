@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Logic.Tests.TestUtils;
 using Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues;
 using Auctioneer.Logic.Users;
 
@@ -229,30 +230,30 @@ namespace Auctioneer.Logic.Tests.Auctions
 		}
 		
 		[Test]
-		public void WhenUserTriesToRemoveAuctionOfAnotherUser_AnExceptionIsThrown()
+		public async Task WhenUserIsNotTheCreaterOfTheAuction_CanBeRemovedByUser_ReturnsFalse()
 		{
-			Assert.Throws<LogicException>(async () =>
-			{
-				await mTestedService.RemoveAuctions(removingUserId: "2", ids: new int[] { 4, 5 });
-			});
+			var auction = await mTestedService.GetById(4);
+			var result  = mTestedService.CanBeRemoved(auction, userId: "2");
+
+			Assert.That(result, Is.False);
 		}
 		
 		[Test]
-		public void DoNotAllowRemovalOfExpiredAuctions()
+		public async Task RemovalOfExpiredAuctionsIsNotAllowed()
 		{
-			Assert.Throws<LogicException>(async () =>
-			{
-				await mTestedService.RemoveAuctions(removingUserId: "1", ids: new int[] { 7, 8, 6 });
-			});
+			var auction = await mTestedService.GetById(6);
+			var result  = mTestedService.CanBeRemoved(auction, userId: "1");
+
+			Assert.That(result, Is.False);
 		}
 		
 		[Test]
-		public void DoNotAllowRemovalOfSoldAuctions()
+		public async Task RemovalOfSoldAuctionsIsNotAllowed()
 		{
-			Assert.Throws<LogicException>(async () =>
-			{
-				await mTestedService.RemoveAuctions(removingUserId: "1", ids: new int[] { 7, 4, 8 });
-			});
+			var auction = await mTestedService.GetById(4);
+			var result  = mTestedService.CanBeRemoved(auction, userId: "1");
+
+			Assert.That(result, Is.False);
 		}
 
 		[Test]
@@ -285,7 +286,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[Test]
 		public async Task BuyingAuctionSetsTheBuyerId()
 		{
-			await mTestedService.Buy(3, buyerId: "1");
+			await mTestedService.Buy(3, buyerId: "1", errors: new FakeErrorNotifier());
 
 			var boughtAction = await mTestedService.GetById(3);
 
@@ -295,7 +296,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[Test]
 		public async Task SellerIsNotifiedAfterHisAuctionHasBeenSold()
 		{
-			await mTestedService.Buy(3, buyerId: "1");
+			await mTestedService.Buy(3, buyerId: "1", errors: new FakeErrorNotifier());
 
 			A.CallTo(() => mUserNotifierMock.NotifyAuctionSold(A<User>.That.Matches(x => x.Id == "2"), A<Auction>._))
 			 .MustHaveHappened();
@@ -304,7 +305,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[Test]
 		public async Task BuyerIsNotifiedWhenHeBuysAnAuction()
 		{
-			await mTestedService.Buy(3, buyerId: "1");
+			await mTestedService.Buy(3, buyerId: "1", errors: new FakeErrorNotifier());
 
 			A.CallTo(() => mUserNotifierMock.NotifyAuctionWon(A<User>.That.Matches(x => x.Id == "1"), A<Auction>._))
 			 .MustHaveHappened();

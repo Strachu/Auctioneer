@@ -31,9 +31,10 @@ namespace Auctioneer.Logic.Auctions
 
 		Task AddAuction(Auction newAuction, IEnumerable<Stream> photosData);
 
-		Task RemoveAuctions(string removingUserId, params int[] ids);
+		bool CanBeRemoved(Auction auction, string userId);
+		Task RemoveAuctions(IReadOnlyCollection<int> ids, string removingUserId, IValidationErrorNotifier errors);
 
 		bool CanBeBought(Auction auction, string buyerId);
-		Task Buy(int auctionId, string buyerId);
+		Task Buy(int auctionId, string buyerId, IValidationErrorNotifier errors);
 	}
 }

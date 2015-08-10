@@ -123,4 +123,10 @@
   <data name="SubmitText" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="AuctionIsInactive" xml:space="preserve">
+    <value>Inactive auctions cannot be removed.</value>
+  </data>
+  <data name="WrongUser" xml:space="preserve">
+    <value>Cannot remove auctions of another user.</value>
+  </data>
 </root>

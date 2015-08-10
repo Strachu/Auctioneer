@@ -120,6 +120,12 @@
   <data name="AreYouSure" xml:space="preserve">
     <value>Are you sure you want to buy an item from this auction?</value>
   </data>
+  <data name="AuctionIsInactive" xml:space="preserve">
+    <value>Only active auctions can be bought.</value>
+  </data>
+  <data name="CannotBuyOwnAuctions" xml:space="preserve">
+    <value>The auction cannot be bought by its seller.</value>
+  </data>
   <data name="SubmitText" xml:space="preserve">
     <value>Buy</value>
   </data>
