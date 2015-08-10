@@ -40,7 +40,8 @@ namespace Auctioneer.Presentation.Controllers
 			mBreadcrumbBuilder = breadcrumbBuilder;
 		}
 
-		[Route("Auction/{id:int}/{slug?}")]
+		[Route("{lang:language}/Auction/{id:int}/{slug?}", Order = 1)]
+		[Route("Auction/{id:int}/{slug?}", Order = 2)]
 		public async Task<ActionResult> Show(int id)
 		{
 			var auction = await mAuctionService.GetById(id);

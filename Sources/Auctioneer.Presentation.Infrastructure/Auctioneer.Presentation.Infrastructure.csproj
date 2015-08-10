@@ -117,6 +117,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Internationalization\ILanguageService.Contracts.cs">
+      <DependentUpon>ILanguageService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Internationalization\ILanguageService.cs" />
+    <Compile Include="Internationalization\LanguageConstraint.cs" />
+    <Compile Include="Internationalization\LanguageFilterAttribute.cs" />
     <Compile Include="Filters\ObjectNotFoundExceptionHandlerAttribute.cs" />
     <Compile Include="Formatting\Enum.Extensions.cs" />
     <Compile Include="Html\EnumSelectList.cs" />
@@ -124,6 +130,7 @@
     <Compile Include="Html\HtmlHelper.Extensions.cs" />
     <Compile Include="Http\HttpRequestBase.Extensions.cs" />
     <Compile Include="Http\HttpResponseBase.Extensions.cs" />
+    <Compile Include="Internationalization\LanguageService.cs" />
     <Compile Include="ModelBinders\FlagsEnumModelBinder.cs" />
     <Compile Include="ModelBinders\ModelBinderConfig.cs" />
     <Compile Include="Http\NameValueCollection.Extensions.cs" />

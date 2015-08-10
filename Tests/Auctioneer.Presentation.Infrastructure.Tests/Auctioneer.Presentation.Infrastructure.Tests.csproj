@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="Formatting\EnumExtensionsTests.cs" />
     <Compile Include="Html\EnumSelectListTests.cs" />
+    <Compile Include="Internationalization\LanguageServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Formatting\TimeSpanFormatterTests.cs" />
     <Compile Include="Validation\ContentTypeAttributesTests.cs" />
