@@ -11,34 +11,38 @@ namespace Auctioneer.Presentation.Infrastructure.Internationalization
 {
 	public class LanguageService : ILanguageService
 	{
-		private readonly List<string> mSupportedLanguages = new List<string>();
+		private readonly List<Language> mCachedLanguageList = new List<Language>();
 
-		public LanguageService()
+		public IEnumerable<Language> GetAllLanguages()
 		{
-			RetrieveSupportedLanguages();
-		}
-
-		private void RetrieveSupportedLanguages()
-		{
-			// Based on http://stackoverflow.com/a/11047894/2579010
-			var allCultures     = CultureInfo.GetCultures(CultureTypes.AllCultures);
-			var resourceManager = new ResourceManager(typeof(Auctioneer.Resources.Shared.Layout));
-
-			foreach(var culture in allCultures)
+			if(!mCachedLanguageList.Any())
 			{
-				var resourcesForThisCulture = resourceManager.GetResourceSet(culture, createIfNotExists: true, tryParents: false);
-				if(resourcesForThisCulture != null)
-				{
-					var code = !culture.Equals(CultureInfo.InvariantCulture) ? culture.TwoLetterISOLanguageName : "en";
+				// Based on http://stackoverflow.com/a/11047894/2579010
+				var allCultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
+				var resourceManager = new ResourceManager(typeof(Auctioneer.Resources.Shared.Layout));
 
-					mSupportedLanguages.Add(code);
+				foreach(var culture in allCultures)
+				{
+					var resourcesForThisCulture = resourceManager.GetResourceSet(culture, createIfNotExists: true, tryParents: false);
+					if(resourcesForThisCulture != null)
+					{
+						var language = new Language
+						{
+							LangCode    = !culture.Equals(CultureInfo.InvariantCulture) ? culture.TwoLetterISOLanguageName : "en",
+							DisplayName = !culture.Equals(CultureInfo.InvariantCulture) ? culture.DisplayName              : "English"
+						};
+
+						mCachedLanguageList.Add(language);
+					}
 				}
 			}
+
+			return mCachedLanguageList;
 		}
 
 		public bool IsSupportedLanguage(string languageCode)
 		{
-			return mSupportedLanguages.Contains(languageCode);
+			return GetAllLanguages().Select(x => x.LangCode).Contains(languageCode);
 		}
 
 		public string FallbackLanguageCode

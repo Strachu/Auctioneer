@@ -121,6 +121,7 @@
       <DependentUpon>ILanguageService.cs</DependentUpon>
     </Compile>
     <Compile Include="Internationalization\ILanguageService.cs" />
+    <Compile Include="Internationalization\Language.cs" />
     <Compile Include="Internationalization\LanguageConstraint.cs" />
     <Compile Include="Internationalization\LanguageFilterAttribute.cs" />
     <Compile Include="Filters\ObjectNotFoundExceptionHandlerAttribute.cs" />

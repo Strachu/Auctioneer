@@ -1,6 +1,13 @@
 ﻿@using Lang = Auctioneer.Resources.Shared.Layout;
 
 <div class="navbar-collapse collapse">
+	
+	<div class="nav navbar-nav navbar-left">
+
+		@{ Html.RenderAction(controllerName: "Layout", actionName: "ChooseLanguage"); }
+
+	</div>
+
 	<ul class="nav navbar-nav navbar-right">
 		
 		@{ Html.RenderAction(controllerName: "User", actionName: "Greetings", excludeFromParentCache: true); }

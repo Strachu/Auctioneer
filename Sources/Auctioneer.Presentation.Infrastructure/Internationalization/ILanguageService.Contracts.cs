@@ -10,6 +10,11 @@ namespace Auctioneer.Presentation.Infrastructure.Internationalization
 	[ContractClassFor(typeof(ILanguageService))]
 	internal abstract class ILanguageServiceContractClass : ILanguageService
 	{
+		IEnumerable<Language> ILanguageService.GetAllLanguages()
+		{
+			throw new NotImplementedException();
+		}
+
 		bool ILanguageService.IsSupportedLanguage(string languageCode)
 		{
 			Contract.Requires(!String.IsNullOrWhiteSpace(languageCode));

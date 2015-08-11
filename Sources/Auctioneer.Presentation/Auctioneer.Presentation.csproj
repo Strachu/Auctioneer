@@ -236,6 +236,7 @@
     <Compile Include="Models\Category\AuctionViewModel.cs" />
     <Compile Include="Models\Category\CategoryIndexViewModel.cs" />
     <Compile Include="Models\Category\CategoryListViewModel.cs" />
+    <Compile Include="Models\Shared\ChooseLanguageViewModel.cs" />
     <Compile Include="Models\Shared\BreadcrumbViewModel.cs" />
     <Compile Include="Models\User\UserResetPasswordViewModel.cs" />
     <Compile Include="Models\User\UserForgotPasswordViewModel.cs" />
@@ -484,6 +485,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Emails\Auction\Sold\AuctionSoldMail.cshtml" />
     <Content Include="Emails\Auction\Won\AuctionWonMail.cshtml" />
+    <Content Include="Views\Shared\_ChooseLanguage.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

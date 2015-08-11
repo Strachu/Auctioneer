@@ -10,6 +10,8 @@ namespace Auctioneer.Presentation.Infrastructure.Internationalization
 	[ContractClass(typeof(ILanguageServiceContractClass))]
 	public interface ILanguageService
 	{
+		IEnumerable<Language> GetAllLanguages();
+
 		bool IsSupportedLanguage(string languageCode);
 
 		string FallbackLanguageCode
