@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using Auctioneer.Logic.Validation;
 
+using PagedList;
+
 namespace Auctioneer.Logic.Users
 {
 	[ContractClass(typeof(IUserServiceContractClass))]
@@ -14,7 +16,7 @@ namespace Auctioneer.Logic.Users
 	{
 		Task AddUser(User user, string password, IValidationErrorNotifier errors);
 
-		Task<IEnumerable<User>> GetAllUsers();
+		Task<IPagedList<User>> GetAllUsers(int page, int usersPerPage);
 
 		Task<User> GetUserById(string id);
 		Task<User> GetUserByUsername(string username);

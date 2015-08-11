@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using Auctioneer.Logic.Validation;
 
+using PagedList;
+
 namespace Auctioneer.Logic.Users
 {
 	[ContractClassFor(typeof(IUserService))]
@@ -21,7 +23,7 @@ namespace Auctioneer.Logic.Users
 			throw new NotImplementedException();
 		}
 
-		Task<IEnumerable<User>> IUserService.GetAllUsers()
+		Task<IPagedList<User>> IUserService.GetAllUsers(int page, int usersPerPage)
 		{
 			throw new NotImplementedException();
 		}

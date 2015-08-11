@@ -4,13 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using PagedList;
+
 using Lang = Auctioneer.Resources.Admin.Users.Index;
 
 namespace Auctioneer.Presentation.Areas.Admin.Models
 {
 	public class UsersIndexViewModel
 	{
-		public IEnumerable<Item> Users { get; set; }
+		public IPagedList<Item> Users { get; set; }
 
 		public class Item
 		{

@@ -23,9 +23,9 @@ namespace Auctioneer.Presentation.Areas.Admin.Controllers
 			mUserService = userService;
 		}
 
-		public async Task<ActionResult> Index()
+		public async Task<ActionResult> Index(int page = 1)
 		{
-			var users     = await mUserService.GetAllUsers();
+			var users     = await mUserService.GetAllUsers(page, usersPerPage: 50);
 			var viewModel = UsersIndexViewModelMapper.FromUsers(users);
 
 			return View(viewModel);

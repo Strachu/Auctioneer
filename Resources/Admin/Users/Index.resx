@@ -129,6 +129,9 @@
   <data name="NotBanned" xml:space="preserve">
     <value>Not banned</value>
   </data>
+  <data name="PageNumber" xml:space="preserve">
+    <value>Page:</value>
+  </data>
   <data name="RealName" xml:space="preserve">
     <value>Real name</value>
   </data>

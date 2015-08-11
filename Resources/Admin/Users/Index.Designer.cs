@@ -97,6 +97,15 @@ namespace Auctioneer.Resources.Admin.Users {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page:.
+        /// </summary>
+        public static string PageNumber {
+            get {
+                return ResourceManager.GetString("PageNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Real name.
         /// </summary>
         public static string RealName {

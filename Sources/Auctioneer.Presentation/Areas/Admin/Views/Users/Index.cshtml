@@ -1,4 +1,5 @@
 ﻿@model Auctioneer.Presentation.Areas.Admin.Models.UsersIndexViewModel
+@using PagedList.Mvc
 @using Lang = Auctioneer.Resources.Admin.Users.Index;
 
 @{
@@ -57,4 +58,14 @@
 			</tr>
 		}
 	</table>
+
+	<div class="pagination-box">
+		<span class="page-text">@Lang.PageNumber</span>
+
+		@Html.PagedListPager(Model.Users, page => Url.ActionWithCurrentParameters(routeValues: new { page }),
+		                     new PagedListRenderOptions
+		                     {
+		                        MaximumPageNumbersToDisplay = 10
+		                     })
+	</div>
 </main>

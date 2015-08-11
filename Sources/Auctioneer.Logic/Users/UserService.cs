@@ -13,6 +13,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
 
+using PagedList;
+
 using Lang = Auctioneer.Resources.Account;
 
 namespace Auctioneer.Logic.Users
@@ -64,9 +66,11 @@ namespace Auctioneer.Logic.Users
 			await SendActivationToken(user.Id);
 		}
 
-		public async Task<IEnumerable<User>> GetAllUsers()
+		public Task<IPagedList<User>> GetAllUsers(int page, int usersPerPage)
 		{
-			return await base.Users.ToListAsync();
+			var users = base.Users.OrderBy(x => x.UserName);
+
+			return Task.FromResult(users.ToPagedList(page, usersPerPage));
 		}
 
 		public async Task<User> GetUserById(string id)
