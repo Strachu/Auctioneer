@@ -118,24 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Header" xml:space="preserve">
-    <value>Categories:</value>
+    <value>Twój adres e-mail nie został jeszcze potwierdzony</value>
   </data>
-  <data name="PageNumber" xml:space="preserve">
-    <value>Page:</value>
+  <data name="Message" xml:space="preserve">
+    <value>Zanim będziesz mógł się zalogować, musisz potwierdzić swój adres e-mail przez kliknięcie wysłanego do Ciebie linku aktywacyjnego.</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="ResultsPerPage" xml:space="preserve">
-    <value>Results per page:</value>
-  </data>
-  <data name="SortBy" xml:space="preserve">
-    <value>Sort by:</value>
-  </data>
-  <data name="TimeToEnd" xml:space="preserve">
-    <value>Time to end</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
+  <data name="ResentLinkText" xml:space="preserve">
+    <value>Kliknij tutaj jeżeli e-mail z linkiem nie dotarł, aby wysłać go ponownie.</value>
   </data>
 </root>

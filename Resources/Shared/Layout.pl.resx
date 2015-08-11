@@ -132,4 +132,7 @@
   <data name="MyAccount" xml:space="preserve">
     <value>Moje konto</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Język</value>
+  </data>
 </root>

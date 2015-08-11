@@ -117,25 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Header" xml:space="preserve">
-    <value>Categories:</value>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Czy na pewno chcesz kupić przedmiot wystawiony na tej aukcji?</value>
   </data>
-  <data name="PageNumber" xml:space="preserve">
-    <value>Page:</value>
+  <data name="AuctionIsInactive" xml:space="preserve">
+    <value>Tylko przedmioty na aktywnych aukcjach można kupić.</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
+  <data name="CannotBuyOwnAuctions" xml:space="preserve">
+    <value>Aukcja nie może zostać wykupiona przez jej sprzedającego.</value>
   </data>
-  <data name="ResultsPerPage" xml:space="preserve">
-    <value>Results per page:</value>
+  <data name="SubmitText" xml:space="preserve">
+    <value>Kup</value>
   </data>
-  <data name="SortBy" xml:space="preserve">
-    <value>Sort by:</value>
-  </data>
-  <data name="TimeToEnd" xml:space="preserve">
-    <value>Time to end</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
+  <data name="ThumbnailAltText" xml:space="preserve">
+    <value>Miniatura</value>
   </data>
 </root>

@@ -118,24 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Header" xml:space="preserve">
-    <value>Categories:</value>
+    <value>Twój zakup został potwierdzony.</value>
   </data>
-  <data name="PageNumber" xml:space="preserve">
-    <value>Page:</value>
-  </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="ResultsPerPage" xml:space="preserve">
-    <value>Results per page:</value>
-  </data>
-  <data name="SortBy" xml:space="preserve">
-    <value>Sort by:</value>
-  </data>
-  <data name="TimeToEnd" xml:space="preserve">
-    <value>Time to end</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
+  <data name="Message" xml:space="preserve">
+    <value>Aby uzyskać więcej szczegółów sprawdź swoją skrzynkę pocztową.</value>
   </data>
 </root>

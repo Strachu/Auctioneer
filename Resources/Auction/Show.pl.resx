@@ -117,25 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Header" xml:space="preserve">
-    <value>Categories:</value>
+  <data name="Buy" xml:space="preserve">
+    <value>Kup</value>
   </data>
-  <data name="PageNumber" xml:space="preserve">
-    <value>Page:</value>
+  <data name="BuyerUserName" xml:space="preserve">
+    <value>Kupiona przez</value>
   </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
+  <data name="DeleteAuction" xml:space="preserve">
+    <value>Usuń aukcję</value>
   </data>
-  <data name="ResultsPerPage" xml:space="preserve">
-    <value>Results per page:</value>
+  <data name="EndedOn" xml:space="preserve">
+    <value>Zakończona</value>
   </data>
-  <data name="SortBy" xml:space="preserve">
-    <value>Sort by:</value>
+  <data name="EndingIn" xml:space="preserve">
+    <value>Zakończy się w ciągu</value>
   </data>
-  <data name="TimeToEnd" xml:space="preserve">
-    <value>Time to end</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
+  <data name="SellerUserName" xml:space="preserve">
+    <value>Sprzedający</value>
   </data>
 </root>

@@ -136,7 +136,7 @@
     <value>No auctions matching specified criteria have been found.</value>
   </data>
   <data name="PageNumber" xml:space="preserve">
-    <value>Page: </value>
+    <value>Page:</value>
   </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
