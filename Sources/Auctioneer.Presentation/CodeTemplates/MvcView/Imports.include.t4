@@ -2,6 +2,7 @@
 <#@ assembly name="System.Data.Entity" #>
 <#@ assembly name="System.Data.Linq" #>
 <#@ assembly name="System.Web.Mvc" #>
+<#@ assembly name="C:\Users\Janusz\Documents\Visual Studio 2013\Projects\Auctioneer\Sources\Auctioneer.Presentation\bin\Auctioneer.Presentation.dll" #>
 <#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Collections.Generic" #>

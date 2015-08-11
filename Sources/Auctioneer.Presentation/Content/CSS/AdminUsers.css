@@ -1,0 +1,15 @@
+﻿.admin-users-list table
+{
+	margin-bottom : 0;
+}
+
+.admin-users-list th, td
+{
+	text-align : center;
+}
+
+.admin-users-list .ban-control-panel
+{
+	display         : flex;
+	justify-content : space-around;
+}

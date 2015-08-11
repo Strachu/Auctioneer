@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace Auctioneer.Logic
 {
 	internal class AuctioneerDbContextInitializer : DropCreateDatabaseIfModelChanges<AuctioneerDbContext>
@@ -45,8 +48,24 @@ namespace Auctioneer.Logic
 				user.EmailConfirmed = true;
 				user.UserName       = String.Format("{0}_{1}", user.FirstName, user.LastName).ToLower();
 
-				userService.AddUser(user, "Password", new ErrorCollection()).Wait();
+				userService.Create(user, "Password");
 			}
+
+			var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+			roleManager.Create(new IdentityRole { Name = "Admin" });
+
+			var admin = new User
+			{
+				UserName       = "Admin",
+				FirstName      = "Mr. Admin",
+				LastName       = "Admin",
+				Address        = "Administrator Panel",
+				Email          = "admin@admins.com",
+				EmailConfirmed = true,
+			};
+
+			userService.Create(admin, "Admin");
+			userService.AddToRole(admin.Id, "Admin");
 		}
 
 		private void AddCategories(AuctioneerDbContext context)

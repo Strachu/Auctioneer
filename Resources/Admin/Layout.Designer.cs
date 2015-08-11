@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Auctioneer.Resources.Shared {
+namespace Auctioneer.Resources.Admin {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Auctioneer.Resources.Shared {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.Shared.Layout", typeof(Layout).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.Admin.Layout", typeof(Layout).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,20 @@ namespace Auctioneer.Resources.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add an auction.
+        ///   Looks up a localized string similar to Menu:.
         /// </summary>
-        public static string AddAuctionLink {
+        public static string MenuHeader {
             get {
-                return ResourceManager.GetString("AddAuctionLink", resourceCulture);
+                return ResourceManager.GetString("MenuHeader", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Administration panel.
+        ///   Looks up a localized string similar to Users.
         /// </summary>
-        public static string AdminPanel {
+        public static string UsersLink {
             get {
-                return ResourceManager.GetString("AdminPanel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create an account.
-        /// </summary>
-        public static string CreateAccount {
-            get {
-                return ResourceManager.GetString("CreateAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in.
-        /// </summary>
-        public static string LogIn {
-            get {
-                return ResourceManager.GetString("LogIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log out.
-        /// </summary>
-        public static string LogOut {
-            get {
-                return ResourceManager.GetString("LogOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My account.
-        /// </summary>
-        public static string MyAccount {
-            get {
-                return ResourceManager.GetString("MyAccount", resourceCulture);
+                return ResourceManager.GetString("UsersLink", resourceCulture);
             }
         }
     }

@@ -20,7 +20,8 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				@Html.ActionLink("Auctioneer", controllerName: "Home", actionName: "Index", cssClass: "navbar-brand")
+				@Html.ActionLink("Auctioneer", areaName: String.Empty, controllerName: "Home", actionName: "Index",
+				                 cssClass: "navbar-brand")
 			</div>
 			
 			@{ Html.RenderPartial("_TopMenu"); }

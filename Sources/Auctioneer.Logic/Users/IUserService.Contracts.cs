@@ -21,6 +21,11 @@ namespace Auctioneer.Logic.Users
 			throw new NotImplementedException();
 		}
 
+		Task<IEnumerable<User>> IUserService.GetAllUsers()
+		{
+			throw new NotImplementedException();
+		}
+
 		Task<User> IUserService.GetUserById(string id)
 		{
 			Contract.Requires(!String.IsNullOrWhiteSpace(id));

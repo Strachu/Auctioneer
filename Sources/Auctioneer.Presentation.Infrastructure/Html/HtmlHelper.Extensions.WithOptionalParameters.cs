@@ -13,6 +13,7 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 	{
 		public static MvcHtmlString ActionLink(this HtmlHelper html,
 		                                       string linkText,
+		                                       string areaName = null,
 		                                       string actionName = null,
 		                                       string controllerName = null,
 		                                       string protocol = null,
@@ -25,7 +26,7 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 			var routeDictionary         = new RouteValueDictionary(routeValues);
 			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
 
-			return ActionLink(html, linkText: linkText, actionName: actionName, controllerName: controllerName,
+			return ActionLink(html, linkText: linkText, areaName: areaName, actionName: actionName, controllerName: controllerName,
 			                  protocol: protocol, hostName: hostName, fragment: fragment, cssClass: cssClass,
 			                  routeValues: routeDictionary, htmlAttributes: htmlAttibutesDictionary);
 		}
@@ -33,6 +34,7 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 		public static MvcHtmlString ActionLink(this HtmlHelper html,
 		                                       string linkText,
 		                                       RouteValueDictionary routeValues,
+		                                       string areaName = null,
 		                                       string actionName = null,
 		                                       string controllerName = null,
 		                                       string protocol = null,
@@ -47,6 +49,11 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 			if(!String.IsNullOrWhiteSpace(cssClass))
 			{
 				htmlAttibutesDictionary["class"] = cssClass;
+			}
+
+			if(areaName != null)
+			{
+				routeDictionary["area"] = areaName;
 			}
 
 			return LinkExtensions.ActionLink(html, linkText: linkText, actionName: actionName, controllerName: controllerName,
@@ -83,6 +90,26 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 		{
 			return ValidationExtensions.ValidationSummary(html, excludePropertyErrors: excludePropertyErrors, message: message,
 			                                              htmlAttributes: htmlAttributes, headingTag: headingTag);
+		}
+
+		public static void RenderAction(this HtmlHelper html,
+		                                string areaName = null,
+		                                string actionName = null,
+		                                string controllerName = null,
+		                                object routeValues = null,
+		                                bool excludeFromParentCache = false)
+		{
+			var routeDictionary = new RouteValueDictionary(routeValues);
+
+			if(areaName != null)
+			{
+				routeDictionary["area"] = areaName;
+			}
+
+			DevTrends.MvcDonutCaching.HtmlHelperExtensions.RenderAction(html, actionName: actionName, 
+			                                                            controllerName: controllerName,
+			                                                            routeValues: routeDictionary,
+			                                                            excludeFromParentCache: excludeFromParentCache);
 		}
 	}
 }

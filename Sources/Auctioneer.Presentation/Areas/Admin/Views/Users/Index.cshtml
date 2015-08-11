@@ -1,0 +1,60 @@
+﻿@model Auctioneer.Presentation.Areas.Admin.Models.UsersIndexViewModel
+@using Lang = Auctioneer.Resources.Admin.Users.Index;
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<h1>@Lang.Header</h1>
+
+<main class="admin-users-list">
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(x => x.Users.First().UserName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(x => x.Users.First().RealName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(x => x.Users.First().BanExpiryTime)
+			</th>
+			<th>
+			</th>
+		</tr>
+
+		@foreach(var item in Model.Users)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(x => item.UserName)
+				</td>
+				<td>
+					@Html.DisplayFor(x => item.RealName)
+				</td>
+				<td>
+					@if(item.IsBanned)
+					{
+						@Html.DisplayFor(x => item.BanExpiryTime)
+					}
+					else
+					{
+						<p>@Lang.NotBanned</p>
+					}
+				</td>
+				<td class="ban-control-panel">
+					@if(item.IsBanned)
+					{
+						<p class="btn btn-danger disabled">@Lang.Ban</p>
+						@Html.ActionLink(Lang.Unban, actionName: "Unban", cssClass: "btn btn-default", routeValues: new { id = item.Id })
+					}
+					else
+					{
+						@Html.ActionLink(Lang.Ban, actionName: "Ban", cssClass: "btn btn-danger", routeValues: new { id = item.Id })
+						<p class="btn btn-default disabled">@Lang.Unban</p>
+					}
+				</td>
+			</tr>
+		}
+	</table>
+</main>

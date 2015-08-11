@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+using Auctioneer.Presentation.Controllers;
+
 namespace Auctioneer.Presentation
 {
 	public class RouteConfig
@@ -15,11 +17,16 @@ namespace Auctioneer.Presentation
 
 			routes.MapMvcAttributeRoutes();
 
-			routes.MapRoute(
-				 name: "Default",
-				 url: "{controller}/{action}/{id}",
-				 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-			);
+			routes.MapRoute(name: "Default", url: "{controller}/{action}/{id}", defaults: new
+			{
+				controller = "Home",
+				action     = "Index",
+				id         = UrlParameter.Optional
+			},
+			namespaces: new string[]
+			{
+				typeof(HomeController).Namespace
+			});
 		}
 	}
 }

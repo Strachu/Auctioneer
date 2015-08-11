@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Auctioneer.Resources.Shared {
+namespace Auctioneer.Resources.Admin.Users {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Auctioneer.Resources.Shared {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Layout {
+    public class Index {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Layout() {
+        internal Index() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Auctioneer.Resources.Shared {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.Shared.Layout", typeof(Layout).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.Admin.Users.Index", typeof(Index).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,65 @@ namespace Auctioneer.Resources.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add an auction.
+        ///   Looks up a localized string similar to Ban.
         /// </summary>
-        public static string AddAuctionLink {
+        public static string Ban {
             get {
-                return ResourceManager.GetString("AddAuctionLink", resourceCulture);
+                return ResourceManager.GetString("Ban", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Administration panel.
+        ///   Looks up a localized string similar to Expiration date of ban.
         /// </summary>
-        public static string AdminPanel {
+        public static string BanExpiryTime {
             get {
-                return ResourceManager.GetString("AdminPanel", resourceCulture);
+                return ResourceManager.GetString("BanExpiryTime", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create an account.
+        ///   Looks up a localized string similar to Registered users.
         /// </summary>
-        public static string CreateAccount {
+        public static string Header {
             get {
-                return ResourceManager.GetString("CreateAccount", resourceCulture);
+                return ResourceManager.GetString("Header", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log in.
+        ///   Looks up a localized string similar to Not banned.
         /// </summary>
-        public static string LogIn {
+        public static string NotBanned {
             get {
-                return ResourceManager.GetString("LogIn", resourceCulture);
+                return ResourceManager.GetString("NotBanned", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log out.
+        ///   Looks up a localized string similar to Real name.
         /// </summary>
-        public static string LogOut {
+        public static string RealName {
             get {
-                return ResourceManager.GetString("LogOut", resourceCulture);
+                return ResourceManager.GetString("RealName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My account.
+        ///   Looks up a localized string similar to Unban.
         /// </summary>
-        public static string MyAccount {
+        public static string Unban {
             get {
-                return ResourceManager.GetString("MyAccount", resourceCulture);
+                return ResourceManager.GetString("Unban", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
     }

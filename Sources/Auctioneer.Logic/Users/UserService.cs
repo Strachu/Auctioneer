@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
@@ -61,6 +62,11 @@ namespace Auctioneer.Logic.Users
 			}
 
 			await SendActivationToken(user.Id);
+		}
+
+		public async Task<IEnumerable<User>> GetAllUsers()
+		{
+			return await base.Users.ToListAsync();
 		}
 
 		public async Task<User> GetUserById(string id)

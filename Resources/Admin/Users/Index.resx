@@ -117,22 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddAuctionLink" xml:space="preserve">
-    <value>Add an auction</value>
+  <data name="Ban" xml:space="preserve">
+    <value>Ban</value>
   </data>
-  <data name="AdminPanel" xml:space="preserve">
-    <value>Administration panel</value>
+  <data name="BanExpiryTime" xml:space="preserve">
+    <value>Expiration date of ban</value>
   </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>Create an account</value>
+  <data name="Header" xml:space="preserve">
+    <value>Registered users</value>
   </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Log in</value>
+  <data name="NotBanned" xml:space="preserve">
+    <value>Not banned</value>
   </data>
-  <data name="LogOut" xml:space="preserve">
-    <value>Log out</value>
+  <data name="RealName" xml:space="preserve">
+    <value>Real name</value>
   </data>
-  <data name="MyAccount" xml:space="preserve">
-    <value>My account</value>
+  <data name="Unban" xml:space="preserve">
+    <value>Unban</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

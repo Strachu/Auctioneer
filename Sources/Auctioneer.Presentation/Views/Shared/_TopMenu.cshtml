@@ -3,11 +3,13 @@
 <div class="navbar-collapse collapse">
 	<ul class="nav navbar-nav navbar-right">
 		
-		@{ Html.RenderAction(controllerName: "User", actionName: "Greetings", excludeFromParentCache: true); }
+		@{ Html.RenderAction(areaName: String.Empty, controllerName: "User", actionName: "Greetings",
+		                     excludeFromParentCache: true); }
 
-		<li>@Html.ActionLink(Lang.AddAuctionLink, controllerName: "Auction", actionName: "Add")</li>
+		<li>@Html.ActionLink(Lang.AddAuctionLink, areaName: String.Empty, controllerName: "Auction", actionName: "Add")</li>
 		
-		@{ Html.RenderAction(controllerName: "Layout", actionName: "LoginLinks", excludeFromParentCache: true); }
+		@{ Html.RenderAction(areaName: String.Empty, controllerName: "Layout", actionName: "LoginLinks",
+		                     excludeFromParentCache: true); }
 
 	</ul>
 </div>

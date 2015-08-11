@@ -14,6 +14,8 @@ namespace Auctioneer.Logic.Users
 	{
 		Task AddUser(User user, string password, IValidationErrorNotifier errors);
 
+		Task<IEnumerable<User>> GetAllUsers();
+
 		Task<User> GetUserById(string id);
 		Task<User> GetUserByUsername(string username);
 		Task<User> GetUserByEmail(string email);

@@ -198,6 +198,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Admin\Mappers\UsersIndexViewModelMapper.cs" />
+    <Compile Include="Areas\Admin\Models\UsersIndexViewModel.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuctionController.cs" />
@@ -244,6 +249,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CSS\AdminUsers.css" />
     <Content Include="Content\CSS\AuctionBuyConfirmation.css" />
     <Content Include="Content\Libraries\Bootstrap\bootstrap.css" />
     <Content Include="Content\Libraries\Bootstrap\bootstrap.min.css" />
@@ -469,6 +475,8 @@
     <Content Include="Content\Libraries\Chosen\bower.json" />
     <Content Include="CodeTemplates\MvcView\Delete.cs.t4" />
     <Content Include="CodeTemplates\MvcViewWithoutModel\ConfirmationPage.cs.t4" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <None Include="Content\Libraries\JQuery\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\Libraries\JQuery\jquery-1.10.2.js" />
     <Content Include="Content\Libraries\JQuery\jquery-1.10.2.min.js" />
@@ -484,6 +492,8 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Emails\Auction\Sold\AuctionSoldMail.cshtml" />
     <Content Include="Emails\Auction\Won\AuctionWonMail.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -561,6 +571,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Home\" />
     <Folder Include="Content\UserContent\Auctions\Photos\" />
     <Folder Include="Content\UserContent\Auctions\Thumbnails\" />
   </ItemGroup>
