@@ -1,4 +1,5 @@
 ﻿@model Auctioneer.Presentation.Areas.Admin.Models.UsersIndexViewModel
+@using Auctioneer.Logic.Users
 @using PagedList.Mvc
 @using Lang = Auctioneer.Resources.Admin.Users.Index;
 
@@ -12,13 +13,26 @@
 	<table class="table">
 		<tr>
 			<th>
-				@Html.DisplayNameFor(x => x.Users.First().UserName)
+				@{
+					var name = Html.DisplayNameFor(x => x.Users.First().UserName).ToString();
+					
+					@Html.SortOrderLink(name, Model.CurrentSortOrder, UserSortOrder.UserNameAscending, UserSortOrder.UserNameDescending)
+				}
 			</th>
 			<th>
-				@Html.DisplayNameFor(x => x.Users.First().RealName)
+				@{
+					name = Html.DisplayNameFor(x => x.Users.First().RealName).ToString();
+
+					@Html.SortOrderLink(name, Model.CurrentSortOrder, UserSortOrder.RealNameAscending, UserSortOrder.RealNameDescending)
+				}
 			</th>
 			<th>
-				@Html.DisplayNameFor(x => x.Users.First().BanExpiryTime)
+				@{
+					name = Html.DisplayNameFor(x => x.Users.First().BanExpiryTime).ToString();
+
+					@Html.SortOrderLink(name, Model.CurrentSortOrder, UserSortOrder.BanExpiryDateAscending,
+					                                                  UserSortOrder.BanExpiryDateDescending)
+				}
 			</th>
 			<th>
 			</th>

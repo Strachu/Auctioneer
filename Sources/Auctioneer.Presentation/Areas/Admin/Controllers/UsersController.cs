@@ -23,10 +23,11 @@ namespace Auctioneer.Presentation.Areas.Admin.Controllers
 			mUserService = userService;
 		}
 
-		public async Task<ActionResult> Index(int page = 1)
+		public async Task<ActionResult> Index(UserSortOrder sortOrder = UserSortOrder.UserNameAscending,
+		                                      int page = 1)
 		{
-			var users     = await mUserService.GetAllUsers(page, usersPerPage: 50);
-			var viewModel = UsersIndexViewModelMapper.FromUsers(users);
+			var users     = await mUserService.GetAllUsers(sortOrder, page, usersPerPage: 50);
+			var viewModel = UsersIndexViewModelMapper.FromUsers(users, sortOrder);
 
 			return View(viewModel);
 		}

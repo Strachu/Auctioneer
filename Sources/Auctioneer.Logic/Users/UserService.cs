@@ -66,9 +66,33 @@ namespace Auctioneer.Logic.Users
 			await SendActivationToken(user.Id);
 		}
 
-		public Task<IPagedList<User>> GetAllUsers(int page, int usersPerPage)
+		public Task<IPagedList<User>> GetAllUsers(UserSortOrder sortOrder, int page, int usersPerPage)
 		{
-			var users = base.Users.OrderBy(x => x.UserName);
+			var users = base.Users;
+
+			switch(sortOrder)
+			{
+				default: //UserSortOrder.UserNameAscending:
+					users = users.OrderBy(x => x.UserName);
+					break;
+				case UserSortOrder.UserNameDescending:
+					users = users.OrderByDescending(x => x.UserName);
+					break;
+
+				case UserSortOrder.RealNameAscending:
+					users = users.OrderBy(x => x.LastName).ThenBy(x => x.FirstName);
+					break;
+				case UserSortOrder.RealNameDescending:
+					users = users.OrderByDescending(x => x.LastName).ThenBy(x => x.FirstName);
+					break;
+
+				case UserSortOrder.BanExpiryDateAscending:
+					users = users.OrderBy(x => x.LockoutEndDateUtc);
+					break;
+				case UserSortOrder.BanExpiryDateDescending:
+					users = users.OrderByDescending(x => x.LockoutEndDateUtc);
+					break;
+			}
 
 			return Task.FromResult(users.ToPagedList(page, usersPerPage));
 		}

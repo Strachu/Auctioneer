@@ -13,7 +13,7 @@ namespace Auctioneer.Presentation.Areas.Admin.Mappers
 {
 	public class UsersIndexViewModelMapper
 	{
-		public static UsersIndexViewModel FromUsers(IPagedList<User> users)
+		public static UsersIndexViewModel FromUsers(IPagedList<User> users, UserSortOrder currentSortOrder)
 		{
 			Contract.Requires(users != null);
 
@@ -27,7 +27,8 @@ namespace Auctioneer.Presentation.Areas.Admin.Mappers
 
 			return new UsersIndexViewModel
 			{
-				Users = new StaticPagedList<UsersIndexViewModel.Item>(items, users),
+				Users            = new StaticPagedList<UsersIndexViewModel.Item>(items, users),
+				CurrentSortOrder = currentSortOrder
 			};
 		}
 	}

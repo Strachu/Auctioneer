@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+using Auctioneer.Presentation.Infrastructure.Http;
+
 namespace Auctioneer.Presentation.Infrastructure.Html
 {
 	public static class UrlHelperExtensions
@@ -15,14 +17,18 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 		                                                 string controllerName = null,
 		                                                 object routeValues = null)
 		{
-			var currentParameters = HttpContext.Current.Request.QueryString;
-			var routeDictionary   = new RouteValueDictionary();
-			var routeOverrides    = new RouteValueDictionary(routeValues);
+			var routeDictionary = new RouteValueDictionary(routeValues);
 
-			foreach(var parameter in currentParameters.AllKeys)
-			{
-				routeDictionary[parameter] = currentParameters[parameter];
-			}
+			return helper.ActionWithCurrentParameters(controllerName: controllerName, actionName: actionName,
+			                                          routeOverrides: routeDictionary);
+		}
+
+		public static string ActionWithCurrentParameters(this UrlHelper helper,
+		                                                 RouteValueDictionary routeOverrides,
+		                                                 string actionName = null,
+		                                                 string controllerName = null)
+		{
+			var routeDictionary = HttpContext.Current.Request.QueryString.ToRouteDictionary();
 
 			foreach(var routeOverride in routeOverrides)
 			{

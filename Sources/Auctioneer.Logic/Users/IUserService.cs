@@ -16,7 +16,7 @@ namespace Auctioneer.Logic.Users
 	{
 		Task AddUser(User user, string password, IValidationErrorNotifier errors);
 
-		Task<IPagedList<User>> GetAllUsers(int page, int usersPerPage);
+		Task<IPagedList<User>> GetAllUsers(UserSortOrder sortOrder, int page, int usersPerPage);
 
 		Task<User> GetUserById(string id);
 		Task<User> GetUserByUsername(string username);

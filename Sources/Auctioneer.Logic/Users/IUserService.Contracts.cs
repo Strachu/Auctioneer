@@ -23,7 +23,7 @@ namespace Auctioneer.Logic.Users
 			throw new NotImplementedException();
 		}
 
-		Task<IPagedList<User>> IUserService.GetAllUsers(int page, int usersPerPage)
+		Task<IPagedList<User>> IUserService.GetAllUsers(UserSortOrder sortOrder, int page, int usersPerPage)
 		{
 			throw new NotImplementedException();
 		}

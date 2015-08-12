@@ -3,54 +3,18 @@
 
 @using Auctioneer.Logic.Auctions
 
-@helper ActiveLink(string title, AuctionSortOrder oppositeSortOrder, bool isAscending)
-{
-	var url = Url.ActionWithCurrentParameters("Index", routeValues: new
-	{
-		page      = 1,
-		sortOrder = oppositeSortOrder
-	});
-	
-	var glyphclass = isAscending ? "glyphicon-chevron-up" : "glyphicon-chevron-down";
-	
-	<li class="active">
-		<a href="@url">
-			@title <span class="glyphicon @glyphclass"></span>
-		</a>
-	</li>
-}
-
 <ul class="sorting-property-selector">
 	@Lang.SortBy
-	@{
-		var options = new Dictionary<string, AuctionSortOrder[]>
-		{
-			{ Lang.Title,     new [] { AuctionSortOrder.TitleAscending,   AuctionSortOrder.TitleDescending }},
-			{ Lang.TimeToEnd, new [] { AuctionSortOrder.EndDateAscending, AuctionSortOrder.EndDateDescending }},
-			{ Lang.Price,     new [] { AuctionSortOrder.PriceAscending,   AuctionSortOrder.PriceDescending }}
-		};
-
-		foreach(var sortOption in options)
-		{
-			if(Model == sortOption.Value[0])
-			{
-				@ActiveLink(sortOption.Key, sortOption.Value[1], isAscending: true)
-			}
-			else if(Model == sortOption.Value[1])
-			{
-				@ActiveLink(sortOption.Key, sortOption.Value[0], isAscending: false)
-			}
-			else
-			{
-				<li>
-					@Html.ActionLinkWithCurrentParameters(sortOption.Key, "Index", routeValues: new
-					{
-						page      = 1,
-						sortOrder = sortOption.Value[0]
-					})
-				</li>
-			}
-		}
-	}
+	<li>
+		@Html.SortOrderLink(Lang.Title, Model, AuctionSortOrder.TitleAscending, AuctionSortOrder.TitleDescending,
+		                    routeValues: new { page = 1 })
+	</li>
+	<li>
+		@Html.SortOrderLink(Lang.TimeToEnd, Model, AuctionSortOrder.EndDateAscending, AuctionSortOrder.EndDateDescending,
+								  routeValues: new { page = 1 })
+	</li>
+	<li>
+		@Html.SortOrderLink(Lang.Price, Model, AuctionSortOrder.PriceAscending, AuctionSortOrder.PriceDescending,
+		                    routeValues: new { page = 1 })
+	</li>
 </ul>
-

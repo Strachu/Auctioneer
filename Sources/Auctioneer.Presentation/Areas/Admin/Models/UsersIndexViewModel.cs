@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using Auctioneer.Logic.Users;
+
 using PagedList;
 
 using Lang = Auctioneer.Resources.Admin.Users.Index;
@@ -13,6 +15,8 @@ namespace Auctioneer.Presentation.Areas.Admin.Models
 	public class UsersIndexViewModel
 	{
 		public IPagedList<Item> Users { get; set; }
+
+		public UserSortOrder CurrentSortOrder { get; set; }
 
 		public class Item
 		{
