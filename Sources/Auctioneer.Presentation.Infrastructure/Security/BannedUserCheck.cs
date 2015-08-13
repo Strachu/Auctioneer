@@ -19,8 +19,8 @@ namespace Auctioneer.Presentation.Infrastructure.Security
 
 		public BannedUserCheckAttribute(string bannedUserRedirectControllerName, string bannedUserRedirectActionName)
 		{
-			Contract.Requires(!String.IsNullOrWhiteSpace(mControllerToRedirectToWhenBanned));
-			Contract.Requires(!String.IsNullOrWhiteSpace(mActionToRedirectToWhenBanned));
+			Contract.Requires(!String.IsNullOrWhiteSpace(bannedUserRedirectControllerName));
+			Contract.Requires(!String.IsNullOrWhiteSpace(bannedUserRedirectActionName));
 
 			mControllerToRedirectToWhenBanned = bannedUserRedirectControllerName;
 			mActionToRedirectToWhenBanned     = bannedUserRedirectActionName;
