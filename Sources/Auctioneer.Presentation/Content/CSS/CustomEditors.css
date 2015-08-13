@@ -1,0 +1,20 @@
+.duration-editor
+{
+	display: flex;
+}
+
+.duration-editor > *
+{
+	border : 0;
+}
+
+.duration-editor .value
+{
+	flex: 1 1 auto;
+}
+
+.duration-editor .unit
+{
+	flex        : 0 1 auto;
+	margin-left : 10px;
+}

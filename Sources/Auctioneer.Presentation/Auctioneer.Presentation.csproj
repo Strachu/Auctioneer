@@ -256,6 +256,7 @@
   <ItemGroup>
     <Content Include="Content\CSS\AdminUsers.css" />
     <Content Include="Content\CSS\AuctionBuyConfirmation.css" />
+    <Content Include="Content\CSS\CustomEditors.css" />
     <Content Include="Content\Libraries\Bootstrap\bootstrap.css" />
     <Content Include="Content\Libraries\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\Libraries\Chosen\chosen-sprite%402x.png" />
@@ -556,6 +557,7 @@
     <Content Include="Views\Auction\Buy.cshtml" />
     <Content Include="Views\Auction\OrderConfirmed.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Duration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

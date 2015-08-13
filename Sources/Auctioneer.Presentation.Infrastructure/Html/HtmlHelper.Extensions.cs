@@ -138,24 +138,37 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 		{
 			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
 
-			htmlAttibutesDictionary["type"] = "number";
+			return html.NumberInput(name, value: value, cssClass: cssClass, min: min, max: max, htmlAttibutes: htmlAttibutesDictionary);
+		}
+
+		public static IHtmlString NumberInput<T>(this HtmlHelper html,
+		                                         string name,
+		                                         T value,
+		                                         IDictionary<string, object> htmlAttibutes,
+		                                         string cssClass = "",
+		                                         int? min = null,
+		                                         int? max = null)
+		{
+			htmlAttibutes = htmlAttibutes ?? new Dictionary<string, object>();
+
+			htmlAttibutes["type"] = "number";
 
 			if(!String.IsNullOrWhiteSpace(cssClass))
 			{
-				htmlAttibutesDictionary["class"] = cssClass;
+				htmlAttibutes["class"] = cssClass;
 			}
 
 			if(min.HasValue)
 			{
-				htmlAttibutesDictionary["min"] = min;
+				htmlAttibutes["min"] = min;
 			}
 
 			if(max.HasValue)
 			{
-				htmlAttibutesDictionary["max"] = max;
+				htmlAttibutes["max"] = max;
 			}
 
-			return html.TextBox(name, value: value, htmlAttributes: htmlAttibutesDictionary);
+			return html.TextBox(name, value: value, htmlAttributes: htmlAttibutes);
 		}
 
 		public static IHtmlString SearchBox(this HtmlHelper html,

@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Auctioneer.Presentation.Infrastructure.ModelBinders
@@ -8,6 +9,7 @@ namespace Auctioneer.Presentation.Infrastructure.ModelBinders
 		public static void RegisterModelBinders()
 		{
 			ModelBinderProviders.BinderProviders.Add(new FlagsEnumModelBinderProvider());
+			System.Web.Mvc.ModelBinders.Binders.Add(typeof(TimeSpan), new DurationModelBinder());
 		}
 	}
 }
