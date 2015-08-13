@@ -7,7 +7,6 @@ using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
-using Auctioneer.Presentation.Emails;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Infrastructure.Validation;
 using Auctioneer.Presentation.Mappers;
@@ -17,7 +16,7 @@ using Microsoft.AspNet.Identity;
 
 using DevTrends.MvcDonutCaching;
 
-using Postal;
+using Lang = Auctioneer.Resources.Auction;
 
 namespace Auctioneer.Presentation.Controllers
 {
@@ -53,9 +52,16 @@ namespace Auctioneer.Presentation.Controllers
 
 			var viewModel = AuctionShowViewModelMapper.FromAuction(auction, photoUrls);
 
-			viewModel.CanBeBought  = mAuctionService.CanBeBought(auction, User.Identity.GetUserId());
-			viewModel.CanBeRemoved = await mAuctionService.CanBeRemoved(auction, User.Identity.GetUserId());
+			viewModel.CanBeBought                   = mAuctionService.CanBeBought(auction, User.Identity.GetUserId());
+			viewModel.CanBeRemoved                  = await mAuctionService.CanBeRemoved(auction, User.Identity.GetUserId());
+			viewModel.CanBeMovedToDifferentCategory = await mAuctionService.CanBeMoved(auction, User.Identity.GetUserId());
 
+			if(viewModel.CanBeMovedToDifferentCategory)
+			{
+				viewModel.AvailableCategories = await GetAvailableCategoryList(currentCategoryId: auction.CategoryId);
+			}
+
+			ViewBag.Message = TempData["ConfirmationMessage"];
 			return View(viewModel);
 		}
 
@@ -75,9 +81,11 @@ namespace Auctioneer.Presentation.Controllers
 		[DonutOutputCache(Duration = 7200)]
 		public async Task<ActionResult> Add()
 		{
-			var viewModel = new AuctionAddViewModel();
+			var viewModel = new AuctionAddViewModel
+			{
+				AvailableCategories = await GetAvailableCategoryList()
+			};
 
-			await PopulateAvailableCategoryList(viewModel);
 			return View(viewModel);
 		}
 
@@ -88,7 +96,7 @@ namespace Auctioneer.Presentation.Controllers
 		{
 			if(!ModelState.IsValid)
 			{
-				await PopulateAvailableCategoryList(input);
+				input.AvailableCategories = await GetAvailableCategoryList();
 				return View(input);
 			}
 
@@ -99,15 +107,16 @@ namespace Auctioneer.Presentation.Controllers
 			return RedirectToAction("Show", new { id = newAuction.Id });
 		}
 
-		private async Task PopulateAvailableCategoryList(AuctionAddViewModel viewModel)
+		private async Task<IEnumerable<SelectListItem>> GetAvailableCategoryList(int? currentCategoryId = null)
 		{
 			var nbsp       = '\xA0';
 			var categories = await mCategoryService.GetAllCategoriesWithHierarchyLevel();
 
-			viewModel.AvailableCategories = categories.Select(x => new SelectListItem
+			return categories.Select(x => new SelectListItem
 			{
-				Text  = new string(nbsp, count: x.HierarchyDepth * 3) + x.Category.Name,
-				Value = x.Category.Id.ToString()
+				Text     = new string(nbsp, count: x.HierarchyDepth * 3) + x.Category.Name,
+				Value    = x.Category.Id.ToString(),
+				Selected = (currentCategoryId.HasValue && x.Category.Id == currentCategoryId)
 			});
 		}
 
@@ -134,6 +143,21 @@ namespace Auctioneer.Presentation.Controllers
 
 			// TODO This should display some confirmation that the auction was deleted and redirect to previous page
 			return RedirectToAction(controllerName: "Home", actionName: "Index");
+		}
+
+		[HttpPost]
+		[Authorize]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> Move(int id, int categoryId)
+		{
+			await mAuctionService.MoveAuction(id, categoryId, User.Identity.GetUserId(),
+			                                  new ValidationErrorNotifierAdapter(ModelState));
+
+			if(!ModelState.IsValid)
+				return View("Error");
+
+			TempData["ConfirmationMessage"] = Lang.Show.AuctionMoved;
+			return RedirectToAction("Show", routeValues: new { id });
 		}
 
 		[Authorize]

@@ -16,6 +16,12 @@
 	margin-bottom : 0;
 }
 
+.auction-details .control-panel > *, .auction-details .control-panel form > *
+{
+	display     : inline-block;
+	margin-left : 10px;
+}
+
 .auction-details header > h1
 {
 	text-align   : center;

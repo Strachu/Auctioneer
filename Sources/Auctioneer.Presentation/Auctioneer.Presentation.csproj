@@ -502,6 +502,7 @@
     <Content Include="Emails\Auction\Won\AuctionWonMail.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Views\Auction\Show.ControlPanel.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

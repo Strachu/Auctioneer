@@ -21,5 +21,8 @@
 
 .inline
 {
-	font-weight : bold;
+	font-weight    : bold;
+
+	padding-top    : 0;
+	padding-bottom : 0;
 }

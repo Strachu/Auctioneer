@@ -61,6 +61,15 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auction has been moved to a new category..
+        /// </summary>
+        public static string AuctionMoved {
+            get {
+                return ResourceManager.GetString("AuctionMoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Buy.
         /// </summary>
         public static string Buy {
@@ -75,6 +84,24 @@ namespace Auctioneer.Resources.Auction {
         public static string BuyerUserName {
             get {
                 return ResourceManager.GetString("BuyerUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not allowed to move the auction to different category..
+        /// </summary>
+        public static string CannotMove {
+            get {
+                return ResourceManager.GetString("CannotMove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
             }
         }
         

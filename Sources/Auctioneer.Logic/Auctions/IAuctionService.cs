@@ -38,5 +38,8 @@ namespace Auctioneer.Logic.Auctions
 
 		bool CanBeBought(Auction auction, string buyerId);
 		Task Buy(int auctionId, string buyerId, IValidationErrorNotifier errors);
+
+		Task<bool> CanBeMoved(Auction auction, string userId);
+		Task MoveAuction(int auctionId, int newCategoryId, string movingUserId, IValidationErrorNotifier errors);
 	}
 }

@@ -280,5 +280,24 @@ namespace Auctioneer.Logic.Auctions
 			await mUserNotifier.NotifyAuctionSold(auction.Seller, auction);
 			await mUserNotifier.NotifyAuctionWon(auction.Buyer,   auction);
 		}
+
+		public Task<bool> CanBeMoved(Auction auction, string userId)
+		{
+			return mUserService.IsUserInRole(userId, "Admin");
+		}
+
+		public async Task MoveAuction(int auctionId, int newCategoryId, string movingUserId, IValidationErrorNotifier errors)
+		{
+			var auction = await this.GetById(auctionId);
+			if(!await CanBeMoved(auction, movingUserId))
+			{
+				errors.AddError(Lang.Show.CannotMove);
+				return;
+			}
+
+			auction.CategoryId = newCategoryId;
+
+			await mContext.SaveChangesAsync();
+		}
 	}
 }

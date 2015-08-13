@@ -1,0 +1,31 @@
+﻿@model AuctionShowViewModel
+@using Lang = Auctioneer.Resources.Auction.Show;
+
+<div class="message inline">
+	@ViewBag.Message
+</div>
+
+@if(Model.CanBeRemoved || Model.CanBeMovedToDifferentCategory)
+{
+	<div class="control-panel">
+		@if(Model.CanBeRemoved)
+		{
+			@Html.ActionLink(Lang.DeleteAuction, "Delete", cssClass: "btn btn-danger", routeValues: new { id = Model.Id })
+		}
+		
+		@if(Model.CanBeMovedToDifferentCategory)
+		{
+			using(Html.BeginForm(actionName: "Move", method: FormMethod.Post))
+			{
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(x => x.Id)
+
+				@Html.Label("categoryId", Lang.Category)
+				@Html.DropDownList("categoryId", Model.AvailableCategories, htmlAttributes: new
+				{
+					onChange = "this.form.submit()"
+				})
+			}
+		}
+	</div>
+}

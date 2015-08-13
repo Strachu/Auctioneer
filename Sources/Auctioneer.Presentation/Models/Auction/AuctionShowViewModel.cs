@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
 
@@ -49,5 +50,8 @@ namespace Auctioneer.Presentation.Models
 
 		public bool CanBeBought { get; set; }
 		public bool CanBeRemoved { get; set; }
+
+		public bool CanBeMovedToDifferentCategory { get; set; }
+		public IEnumerable<SelectListItem> AvailableCategories { get; set; }
 	}
 }

@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuctionMoved" xml:space="preserve">
+    <value>Auction has been moved to a new category.</value>
+  </data>
   <data name="Buy" xml:space="preserve">
     <value>Buy</value>
   </data>
   <data name="BuyerUserName" xml:space="preserve">
     <value>Bought by</value>
+  </data>
+  <data name="CannotMove" xml:space="preserve">
+    <value>You are not allowed to move the auction to different category.</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
   </data>
   <data name="DeleteAuction" xml:space="preserve">
     <value>Delete the auction</value>

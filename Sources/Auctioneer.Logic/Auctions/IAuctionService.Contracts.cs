@@ -25,12 +25,12 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 
-		public Task<IPagedList<Auction>> GetAuctionsByUser(string userId,
-		                                                   TimeSpan createdIn,
-		                                                   string titleFilter,
-		                                                   AuctionStatusFilter statusFilter,
-		                                                   int pageIndex,
-		                                                   int auctionsPerPage)
+		Task<IPagedList<Auction>> IAuctionService.GetAuctionsByUser(string userId,
+		                                                            TimeSpan createdIn,
+		                                                            string titleFilter,
+		                                                            AuctionStatusFilter statusFilter,
+		                                                            int pageIndex,
+		                                                            int auctionsPerPage)
 		{
 			Contract.Requires(pageIndex >= 1);
 			Contract.Requires(auctionsPerPage >= 1);
@@ -58,7 +58,7 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 
-		public Task<bool> CanBeRemoved(Auction auction, string userId)
+		Task<bool> IAuctionService.CanBeRemoved(Auction auction, string userId)
 		{
 			Contract.Requires(auction != null);
 			Contract.Requires(userId != null);
@@ -66,7 +66,7 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 	
-		public Task RemoveAuctions(IReadOnlyCollection<int> ids, string removingUserId, IValidationErrorNotifier errors)
+		Task IAuctionService.RemoveAuctions(IReadOnlyCollection<int> ids, string removingUserId, IValidationErrorNotifier errors)
 		{
 			Contract.Requires(removingUserId != null);
 			Contract.Requires(ids != null);
@@ -75,17 +75,35 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 
-		public bool CanBeBought(Auction auction, string buyerId)
+		bool IAuctionService.CanBeBought(Auction auction, string buyerId)
 		{
 			Contract.Requires(auction != null);
 
 			throw new NotImplementedException();
 		}
 
-		public Task Buy(int auctionId, string buyerId, IValidationErrorNotifier errors)
+		Task IAuctionService.Buy(int auctionId, string buyerId, IValidationErrorNotifier errors)
 		{
 			Contract.Requires(auctionId > 0);
 			Contract.Requires(buyerId != null);
+			Contract.Requires(errors != null);
+
+			throw new NotImplementedException();
+		}
+
+		Task<bool> IAuctionService.CanBeMoved(Auction auction, string userId)
+		{
+			Contract.Requires(auction != null);
+			Contract.Requires(userId != null);
+
+			throw new NotImplementedException();
+		}
+
+		Task IAuctionService.MoveAuction(int auctionId, int newCategoryId, string movingUserId, IValidationErrorNotifier errors)
+		{
+			Contract.Requires(auctionId > 0);
+			Contract.Requires(newCategoryId > 0);
+			Contract.Requires(movingUserId != null);
 			Contract.Requires(errors != null);
 
 			throw new NotImplementedException();

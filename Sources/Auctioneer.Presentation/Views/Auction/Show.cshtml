@@ -15,12 +15,7 @@
 <main class="auction-details">
 	
 	<header>
-		@if(Model.CanBeRemoved)
-		{
-			<div class="control-panel">
-				@Html.ActionLink(Lang.DeleteAuction, "Delete", cssClass: "btn btn-danger", routeValues: new { id = Model.Id })
-			</div>
-		}
+		@{ Html.RenderPartial("Show.ControlPanel"); }
 
 		<h1>@Html.DisplayFor(x => x.Title)</h1>
 
@@ -28,9 +23,9 @@
 			@if(Model.Status == AuctionStatus.Active)
 			{
 				@Html.Raw(String.Format("{0} {1} ({2})",
-											   Lang.EndingIn,
-											   Html.DisplayFor(x => x.TimeTillEnd),
-											   Html.DisplayFor(x => x.EndDate)))
+				                        Lang.EndingIn,
+				                        Html.DisplayFor(x => x.TimeTillEnd),
+				                        Html.DisplayFor(x => x.EndDate)))
 			}
 			else
 			{
