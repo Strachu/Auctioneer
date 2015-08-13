@@ -58,7 +58,7 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 
-		public bool CanBeRemoved(Auction auction, string userId)
+		public Task<bool> CanBeRemoved(Auction auction, string userId)
 		{
 			Contract.Requires(auction != null);
 			Contract.Requires(userId != null);

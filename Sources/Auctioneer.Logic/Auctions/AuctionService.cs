@@ -29,21 +29,25 @@ namespace Auctioneer.Logic.Auctions
 
 		private readonly AuctioneerDbContext mContext;
 		private readonly IUserNotifier       mUserNotifier;
+		private readonly IUserService        mUserService;
 		private readonly string              mAuctionPhotoDirectoryPath;
 		private readonly string              mAuctionThumbnailDirectoryPath;
 
 		public AuctionService(AuctioneerDbContext context,
 		                      IUserNotifier userNotifier,
+		                      IUserService userService,
 		                      string photoDirectoryPath,
 		                      string thumbnailDirectoryPath)
 		{
 			Contract.Requires(context != null);
 			Contract.Requires(userNotifier != null);
+			Contract.Requires(userService != null);
 			Contract.Requires(!String.IsNullOrWhiteSpace(photoDirectoryPath));
 			Contract.Requires(!String.IsNullOrWhiteSpace(thumbnailDirectoryPath));
 
 			mContext                       = context;
 			mUserNotifier                  = userNotifier;
+			mUserService                   = userService;
 			mAuctionPhotoDirectoryPath     = photoDirectoryPath;
 			mAuctionThumbnailDirectoryPath = thumbnailDirectoryPath;
 		}
@@ -194,14 +198,14 @@ namespace Auctioneer.Logic.Auctions
 			thumbnail.Save(thumbnailPath, ImageFormat.Jpeg);			
 		}
 
-		public bool CanBeRemoved(Auction auction, string userId)
+		public Task<bool> CanBeRemoved(Auction auction, string userId)
 		{
 			return CanBeRemoved(auction, userId, new ErrorCollection());
 		}
 
-		private bool CanBeRemoved(Auction auction, string userId, IValidationErrorNotifier errors)
+		private async Task<bool> CanBeRemoved(Auction auction, string userId, IValidationErrorNotifier errors)
 		{
-			if(auction.SellerId != userId)
+			if(auction.SellerId != userId && !await mUserService.IsUserInRole(userId, "Admin"))
 			{
 				errors.AddError(Lang.Delete.WrongUser);
 				return false;
@@ -219,7 +223,7 @@ namespace Auctioneer.Logic.Auctions
 		public async Task RemoveAuctions(IReadOnlyCollection<int> ids, string removingUserId, IValidationErrorNotifier errors)
 		{
 			var auctions = await mContext.Auctions.Where(x => ids.Contains(x.Id)).ToListAsync();
-			if(auctions.Any(x => !CanBeRemoved(x, removingUserId, errors)))
+			if(!await auctions.All(async x => await CanBeRemoved(x, removingUserId, errors)))
 				return;
 
 			// Cannot use an array with ExecuteSqlCommandAsync(), concatenating int elements should be safe.

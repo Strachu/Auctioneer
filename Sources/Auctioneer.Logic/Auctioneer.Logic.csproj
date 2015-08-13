@@ -126,6 +126,7 @@
     <Compile Include="Categories\CategoryService.cs" />
     <Compile Include="Categories\ICategoryService.cs" />
     <Compile Include="Users\UserSortOrder.cs" />
+    <Compile Include="Utils\IEnumerable.AsyncExtensions.cs" />
     <Compile Include="Validation\IValidationErrorNotifier.Contracts.cs">
       <DependentUpon>IValidationErrorNotifier.cs</DependentUpon>
     </Compile>

@@ -124,7 +124,7 @@ namespace Auctioneer.Presentation.Controllers
 
 			foreach(var x in viewModel.Auctions.Zip(auctions, (x1, x2) => new { ViewModel = x1, Auction = x2 }))
 			{
-				x.ViewModel.CanBeRemoved = mAuctionService.CanBeRemoved(x.Auction, User.Identity.GetUserId());
+				x.ViewModel.CanBeRemoved = await mAuctionService.CanBeRemoved(x.Auction, User.Identity.GetUserId());
 			}
 
 			return View(viewModel);

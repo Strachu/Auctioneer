@@ -34,5 +34,7 @@ namespace Auctioneer.Logic.Users
 
 		Task BanUser(string userId, TimeSpan banDuration, string reason);
 		Task UnbanUser(string userId);
+
+		Task<bool> IsUserInRole(string userId, string role);
 	}
 }

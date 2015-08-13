@@ -11,6 +11,8 @@ using Auctioneer.Logic.Users;
 
 using FakeItEasy;
 
+using Microsoft.AspNet.Identity.EntityFramework;
+
 using NUnit.Framework;
 
 namespace Auctioneer.Logic.Tests.Auctions
@@ -28,7 +30,8 @@ namespace Auctioneer.Logic.Tests.Auctions
 			AddTestData(context);
 
 			mUserNotifierMock = A.Fake<IUserNotifier>();
-			mTestedService    = new AuctionService(context, mUserNotifierMock, "Ignored", "Ignored");
+			var userService   = new UserService(context, mUserNotifierMock);
+			mTestedService    = new AuctionService(context, mUserNotifierMock, userService, "Ignored", "Ignored");
 		}
 
 		private void AddTestData(AuctioneerDbContext context)
@@ -58,6 +61,12 @@ namespace Auctioneer.Logic.Tests.Auctions
 
 			context.Users.Add(new TestUser { Id = "1" });
 			context.Users.Add(new TestUser { Id = "2" });
+			context.Users.Add(new TestUser { Id = "3" });
+			context.Roles.Add(new IdentityRole { Name = "Admin" });
+
+			context.SaveChanges();
+
+			context.Users.Find("3").Roles.Add(new IdentityUserRole { RoleId = context.Roles.Single().Id, UserId = "3" });
 
 			// TODO the tests are hard to update due to dependencies between test data, how to solve this?
 			// The best would be independent data tailored just for single test, but there is a lot of data to setup
@@ -232,17 +241,26 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[Test]
 		public async Task WhenUserIsNotTheCreaterOfTheAuction_CanBeRemovedByUser_ReturnsFalse()
 		{
-			var auction = await mTestedService.GetById(4);
-			var result  = mTestedService.CanBeRemoved(auction, userId: "2");
+			var auction = await mTestedService.GetById(5);
+			var result  = await mTestedService.CanBeRemoved(auction, userId: "2");
 
 			Assert.That(result, Is.False);
+		}
+		
+		[Test]
+		public async Task AdminCanRemoveAuctionsCreatedByOtherUsers()
+		{
+			var auction = await mTestedService.GetById(5);
+			var result  = await mTestedService.CanBeRemoved(auction, userId: "3");
+
+			Assert.That(result, Is.True);
 		}
 		
 		[Test]
 		public async Task RemovalOfExpiredAuctionsIsNotAllowed()
 		{
 			var auction = await mTestedService.GetById(6);
-			var result  = mTestedService.CanBeRemoved(auction, userId: "1");
+			var result  = await mTestedService.CanBeRemoved(auction, userId: "1");
 
 			Assert.That(result, Is.False);
 		}
@@ -251,7 +269,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 		public async Task RemovalOfSoldAuctionsIsNotAllowed()
 		{
 			var auction = await mTestedService.GetById(4);
-			var result  = mTestedService.CanBeRemoved(auction, userId: "1");
+			var result  = await mTestedService.CanBeRemoved(auction, userId: "1");
 
 			Assert.That(result, Is.False);
 		}

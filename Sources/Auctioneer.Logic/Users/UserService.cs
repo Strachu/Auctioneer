@@ -208,5 +208,10 @@ namespace Auctioneer.Logic.Users
 
 			await base.UpdateAsync(user);
 		}
+
+		public Task<bool> IsUserInRole(string userId, string role)
+		{
+			return base.IsInRoleAsync(userId, role);
+		}
 	}
 }

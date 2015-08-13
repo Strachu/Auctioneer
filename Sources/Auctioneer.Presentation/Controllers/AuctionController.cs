@@ -54,7 +54,7 @@ namespace Auctioneer.Presentation.Controllers
 			var viewModel = AuctionShowViewModelMapper.FromAuction(auction, photoUrls);
 
 			viewModel.CanBeBought  = mAuctionService.CanBeBought(auction, User.Identity.GetUserId());
-			viewModel.CanBeRemoved = auction.Status == AuctionStatus.Active && auction.SellerId == User.Identity.GetUserId(); // TODO move it to a service?
+			viewModel.CanBeRemoved = await mAuctionService.CanBeRemoved(auction, User.Identity.GetUserId());
 
 			return View(viewModel);
 		}

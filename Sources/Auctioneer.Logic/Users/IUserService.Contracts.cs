@@ -131,5 +131,13 @@ namespace Auctioneer.Logic.Users
 
 			throw new NotImplementedException();
 		}
+
+		public Task<bool> IsUserInRole(string userId, string role)
+		{
+			Contract.Requires(!String.IsNullOrWhiteSpace(userId));
+			Contract.Requires(!String.IsNullOrWhiteSpace(role));
+
+			throw new NotImplementedException();
+		}
 	}
 }
