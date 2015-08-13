@@ -7,7 +7,7 @@
 	ViewBag.Title = "<#= ViewName#>";
 }
 
-<main class="message">
+<main class="message success">
 	<h1>@Lang.Header</h1>
 	<p>@Lang.Message</p>
 </main>

@@ -201,8 +201,11 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="Areas\Admin\Mappers\UsersIndexViewModelMapper.cs" />
-    <Compile Include="Areas\Admin\Models\UsersIndexViewModel.cs" />
+    <Compile Include="Areas\Admin\Mappers\Users\UsersUnbanViewModelMapper.cs" />
+    <Compile Include="Areas\Admin\Mappers\Users\UsersIndexViewModelMapper.cs" />
+    <Compile Include="Areas\Admin\Models\Users\UsersBanViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Users\UsersUnbanViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Users\UsersIndexViewModel.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuctionController.cs" />
@@ -227,6 +230,7 @@
     <Compile Include="Mappers\Account\AccountEditViewModelMapper.cs" />
     <Compile Include="Mappers\Account\AccountMyAuctionsViewModelMapper.cs" />
     <Compile Include="Mappers\Auction\AuctionAddViewModelMapper.cs" />
+    <Compile Include="Mappers\User\UserLockoutViewModelMapper.cs" />
     <Compile Include="Mappers\User\UserCreateViewModelMapper.cs" />
     <Compile Include="Models\Account\AccountEditViewModel.cs" />
     <Compile Include="Models\Account\AccountMyAuctionsViewModel.cs" />
@@ -242,6 +246,7 @@
     <Compile Include="Models\Category\CategoryIndexViewModel.cs" />
     <Compile Include="Models\Category\CategoryListViewModel.cs" />
     <Compile Include="Models\Shared\BreadcrumbViewModel.cs" />
+    <Compile Include="Models\User\UserLockoutViewModel.cs" />
     <Compile Include="Models\User\UserResetPasswordViewModel.cs" />
     <Compile Include="Models\User\UserForgotPasswordViewModel.cs" />
     <Compile Include="Models\User\UserLoginViewModel.cs" />
@@ -477,6 +482,8 @@
     <Content Include="CodeTemplates\MvcViewWithoutModel\ConfirmationPage.cs.t4" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Ban.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Unban.cshtml" />
     <None Include="Content\Libraries\JQuery\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\Libraries\JQuery\jquery-1.10.2.js" />
     <Content Include="Content\Libraries\JQuery\jquery-1.10.2.min.js" />
@@ -528,7 +535,7 @@
     <Content Include="Views\User\EmailNotConfirmed.cshtml" />
     <Content Include="Views\User\ResendMailConfirmation.cshtml" />
     <Content Include="Emails\User\ConfirmationMail\ConfirmationMail.cshtml" />
-    <Content Include="Views\User\LockedOut.cshtml" />
+    <Content Include="Views\User\Lockout.cshtml" />
     <Content Include="Views\User\ForgotPassword.cshtml" />
     <Content Include="Views\User\ResetPasswordMailSent.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />

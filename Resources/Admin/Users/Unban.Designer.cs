@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Auctioneer.Resources.User {
+namespace Auctioneer.Resources.Admin.Users {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Auctioneer.Resources.User {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class LockedOut {
+    public class Unban {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal LockedOut() {
+        internal Unban() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Auctioneer.Resources.User {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.User.LockedOut", typeof(LockedOut).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Auctioneer.Resources.Admin.Users.Unban", typeof(Unban).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,38 @@ namespace Auctioneer.Resources.User {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your account has been temporarily suspended due to too many invalid login attempts..
+        ///   Looks up a localized string similar to Are you sure you want to unban {0} ({1})?.
         /// </summary>
-        public static string Header {
+        public static string AreYouSure {
             get {
-                return ResourceManager.GetString("Header", resourceCulture);
+                return ResourceManager.GetString("AreYouSure", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Try again later..
+        ///   Looks up a localized string similar to User {0} has been unbanned..
         /// </summary>
-        public static string Message {
+        public static string ConfirmationMessage {
             get {
-                return ResourceManager.GetString("Message", resourceCulture);
+                return ResourceManager.GetString("ConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to His ban expires in {0} and has been applied due to &quot;{1}&quot;..
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgive.
+        /// </summary>
+        public static string SubmitText {
+            get {
+                return ResourceManager.GetString("SubmitText", resourceCulture);
             }
         }
     }

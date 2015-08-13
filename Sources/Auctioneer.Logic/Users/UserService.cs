@@ -188,5 +188,25 @@ namespace Auctioneer.Logic.Users
 
 			errors.AddIdentityResult(result);
 		}
+
+		public async Task BanUser(string userId, TimeSpan banDuration, string reason)
+		{
+			var user = await this.GetUserById(userId);
+
+			user.LockoutEndDateUtc = DateTime.UtcNow.Add(banDuration);
+			user.LockoutReason     = reason;
+
+			await base.UpdateAsync(user);
+		}
+
+		public async Task UnbanUser(string userId)
+		{
+			var user = await this.GetUserById(userId);
+
+			user.LockoutEndDateUtc = null;
+			user.LockoutReason     = null;
+
+			await base.UpdateAsync(user);
+		}
 	}
 }

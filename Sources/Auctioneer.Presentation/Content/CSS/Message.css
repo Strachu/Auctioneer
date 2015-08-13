@@ -9,9 +9,17 @@
 {
 	font-size    : 200%;
 	font-weight  : bold;
-	color        : green;
-	text-align   : center;
 
 	margin-top   : 0;
 	margin-bottom: 0;
+}
+
+.success h1
+{
+	color : green;
+}
+
+.inline
+{
+	font-weight : bold;
 }

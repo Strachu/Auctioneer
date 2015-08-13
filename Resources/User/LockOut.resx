@@ -118,9 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Header" xml:space="preserve">
-    <value>Your account has been temporarily suspended due to too many invalid login attempts.</value>
+    <value>Your account has been temporarily suspended.</value>
   </data>
-  <data name="Message" xml:space="preserve">
-    <value>Try again later.</value>
+  <data name="Reason" xml:space="preserve">
+    <value>Lockout reason:</value>
+  </data>
+  <data name="TimeLeft" xml:space="preserve">
+    <value>The lock will expire on {0} ({1} left).</value>
+  </data>
+  <data name="TooManyInvalidLoginAttempts" xml:space="preserve">
+    <value>Too many invalid login attempts.</value>
   </data>
 </root>

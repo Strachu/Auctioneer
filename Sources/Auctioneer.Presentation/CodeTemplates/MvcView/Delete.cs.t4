@@ -77,7 +77,7 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 			@Html.AntiForgeryToken()
 			@Html.HiddenFor(x => x.Id)
 
-			<input type="submit" value="Delete" class="btn btn-danger horizontally-centered" />
+			<input type="submit" value="@Lang.SubmitText" class="btn btn-danger horizontally-centered" />
 		}
 	</div>
 </main>

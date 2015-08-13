@@ -114,5 +114,22 @@ namespace Auctioneer.Logic.Users
 
 			throw new NotImplementedException();
 		}
+
+
+		Task IUserService.BanUser(string userId, TimeSpan banDuration, string reason)
+		{
+			Contract.Requires(!String.IsNullOrWhiteSpace(userId));
+			Contract.Requires(banDuration.TotalMinutes >= 1.0);
+			Contract.Requires(!String.IsNullOrWhiteSpace(reason));
+
+			throw new NotImplementedException();
+		}
+
+		Task IUserService.UnbanUser(string userId)
+		{
+			Contract.Requires(!String.IsNullOrWhiteSpace(userId));
+
+			throw new NotImplementedException();
+		}
 	}
 }

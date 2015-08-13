@@ -1,0 +1,42 @@
+﻿@model Auctioneer.Presentation.Areas.Admin.Models.UsersBanViewModel
+@using Lang = Auctioneer.Resources.Admin.Users.Ban;
+
+@{
+	ViewBag.Title = "Ban";
+}
+
+<main class="form-container">
+	<h1>@String.Format(Lang.FormHeader, Model.UserName, Model.RealName)</h1>
+
+	@using (Html.BeginForm()) 
+	{
+		@Html.AntiForgeryToken()
+		@Html.HiddenFor(x => x.Id)
+		@Html.HiddenFor(x => x.ListQueryString)
+		@Html.HiddenFor(x => x.UserName)
+
+		<div class="form-horizontal">
+			@Html.ValidationSummary(excludePropertyErrors: true, htmlAttributes: new { @class = "text-danger" })
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.BanDuration, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.BanDuration, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.BanDuration, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+			<div class="submit-button-container">
+				<input type="submit" value="@Lang.SubmitText" class="btn btn-default" />
+			</div>
+		</div>
+	}
+</main>

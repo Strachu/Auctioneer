@@ -13,7 +13,8 @@
 section, nav, main, header
 {
 	background-color: #eeeeee;
-	border-radius   : 10px;		
+	border-radius   : 10px;	
+	padding-bottom  : 5px;	
 }
 
 .user-greetings

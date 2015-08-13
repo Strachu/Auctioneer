@@ -1,0 +1,27 @@
+﻿@model Auctioneer.Presentation.Areas.Admin.Models.UsersUnbanViewModel
+@using Lang = Auctioneer.Resources.Admin.Users.Unban;
+
+@{
+	ViewBag.Title = "Unban";
+}
+
+<main>
+	<div class="message">
+		<h1>@String.Format(Lang.AreYouSure, Model.UserName, Model.RealName)</h1>
+		@{
+			var timeTillBanEnd = "<strong>" + Html.DisplayFor(x => x.TimeTillBanEnd) + "</strong>";
+			var reason         = "<strong>" + Model.Reason + "</strong>";
+			
+			<p>@Html.Raw(String.Format(Lang.Details, timeTillBanEnd, reason))</p>
+		}
+	</div>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+		@Html.HiddenFor(x => x.Id)
+		@Html.HiddenFor(x => x.UserName)
+
+		<input type="submit" value="@Lang.SubmitText" class="btn btn-default horizontally-centered" />
+	}
+</main>

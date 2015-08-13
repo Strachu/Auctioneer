@@ -28,14 +28,11 @@ namespace Auctioneer.Presentation.Areas.Admin.Models
 			[Display(Name = "RealName", ResourceType = typeof(Lang))]
 			public string RealName { get; set; }
 
+			public bool IsBanned { get; set; }
+
 			[DataType(DataType.DateTime)]
 			[Display(Name = "BanExpiryTime", ResourceType = typeof(Lang))]
 			public DateTime? BanExpiryTime { get; set; }
-
-			public bool IsBanned
-			{
-				get { return BanExpiryTime != null; }
-			}
 		}
 	}
 }

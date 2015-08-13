@@ -14,6 +14,8 @@ namespace Auctioneer.Logic.Users
 			base.Property(x => x.Address).IsRequired();
 			base.Property(x => x.FirstName).IsRequired();
 			base.Property(x => x.LastName).IsRequired();
+
+			base.Property(x => x.LockoutReason).IsOptional();
 		}
 	}
 }

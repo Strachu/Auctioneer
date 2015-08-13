@@ -16,8 +16,6 @@ using Auctioneer.Presentation.Models.User;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
-using Postal;
-
 using Lang = Auctioneer.Resources.User;
 
 namespace Auctioneer.Presentation.Controllers
@@ -88,6 +86,10 @@ namespace Auctioneer.Presentation.Controllers
 			if(!ModelState.IsValid)
 				return View(input);
 
+			var user = await mUserService.GetUserByUsername(input.Username);
+
+			bool wasBannedBeforeLoginAttempt = user.IsBanned;
+
 			var result = await mAuthManager.SignIn(input.Username, input.Password, input.RememberMe);
 			if(result == SignInStatus.Failure)
 			{
@@ -96,9 +98,17 @@ namespace Auctioneer.Presentation.Controllers
 			}
 
 			if(result == SignInStatus.LockedOut)
-				return View("LockedOut");
+			{
+				if(!wasBannedBeforeLoginAttempt)
+				{
+					user.LockoutReason = Lang.Lockout.TooManyInvalidLoginAttempts;
 
-			var user = await mUserService.GetUserByUsername(input.Username);
+					await mUserService.UpdateUser(user);
+				}
+
+				return RedirectToAction("Lockout", new { id = user.Id });
+			}
+
 			if(!user.EmailConfirmed)
 			{
 				await mAuthManager.SignOut();
@@ -111,6 +121,17 @@ namespace Auctioneer.Presentation.Controllers
 				return Redirect(input.ReturnUrl);
 
 			return RedirectToAction(controllerName: "Home", actionName: "Index");
+		}
+
+		public async Task<ActionResult> Lockout(string id)
+		{
+			if(String.IsNullOrWhiteSpace(id))
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+			var user      = await mUserService.GetUserById(id);
+			var viewModel = UserLockoutViewModelMapper.FromUser(user);
+
+			return View(viewModel);
 		}
 
 		public async Task<ActionResult> ResendMailConfirmation(string userId)

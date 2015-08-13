@@ -1,0 +1,13 @@
+﻿@model Auctioneer.Presentation.Models.User.UserLockoutViewModel
+@using Lang = Auctioneer.Resources.User.Lockout;
+
+@{
+	ViewBag.Title = "LockedOut";
+}
+
+<main class="error-info">
+	<h1>@Lang.Header</h1>
+	<p>@String.Format(Lang.TimeLeft, Html.DisplayFor(x => x.ExpiryDate), Html.DisplayFor(x => x.TimeLeft))</p>
+	<p>@Lang.Reason @Html.DisplayFor(x => x.Reason)</p>
+</main>
+

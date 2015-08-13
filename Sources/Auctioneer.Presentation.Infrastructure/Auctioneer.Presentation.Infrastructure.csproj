@@ -126,6 +126,7 @@
     <Compile Include="Html\EnumSelectList.cs" />
     <Compile Include="Html\HtmlHelper.Extensions.WithOptionalParameters.cs" />
     <Compile Include="Html\HtmlHelper.Extensions.cs" />
+    <Compile Include="Html\UrlHelper.Extensions.WithOptionalParameters.cs" />
     <Compile Include="Http\HttpRequestBase.Extensions.cs" />
     <Compile Include="Http\HttpResponseBase.Extensions.cs" />
     <Compile Include="ModelBinders\FlagsEnumModelBinder.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Security\IAuthenticationManager.cs" />
     <Compile Include="Formatting\TimeSpanFormatter.cs" />
     <Compile Include="Html\UrlHelper.Extensions.cs" />
+    <Compile Include="Security\BannedUserCheck.cs" />
     <Compile Include="SlugGenerator.cs" />
     <Compile Include="Validation\ContentTypeAttribute.cs" />
     <Compile Include="Validation\ValidationErrorNotifierAdapter.cs" />

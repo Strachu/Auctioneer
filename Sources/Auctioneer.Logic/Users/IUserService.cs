@@ -31,5 +31,8 @@ namespace Auctioneer.Logic.Users
 
 		Task SendPasswordResetToken(User user);
 		Task ResetUserPassword(string userName, string newPassword, string resetToken, IValidationErrorNotifier errors);
+
+		Task BanUser(string userId, TimeSpan banDuration, string reason);
+		Task UnbanUser(string userId);
 	}
 }

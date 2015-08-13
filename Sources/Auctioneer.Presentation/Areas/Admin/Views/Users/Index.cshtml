@@ -10,6 +10,10 @@
 <h1>@Lang.Header</h1>
 
 <main class="admin-users-list">
+	<div class="message inline">
+		@ViewBag.Message
+	</div>
+
 	<table class="table">
 		<tr>
 			<th>
@@ -31,7 +35,7 @@
 					name = Html.DisplayNameFor(x => x.Users.First().BanExpiryTime).ToString();
 
 					@Html.SortOrderLink(name, Model.CurrentSortOrder, UserSortOrder.BanExpiryDateAscending,
-					                                                  UserSortOrder.BanExpiryDateDescending)
+					                    UserSortOrder.BanExpiryDateDescending)
 				}
 			</th>
 			<th>
@@ -65,7 +69,11 @@
 					}
 					else
 					{
-						@Html.ActionLink(Lang.Ban, actionName: "Ban", cssClass: "btn btn-danger", routeValues: new { id = item.Id })
+						@Html.ActionLink(Lang.Ban, actionName: "Ban", cssClass: "btn btn-danger", routeValues: new
+						{
+							id              = item.Id,
+							listQueryString = Request.Url.Query
+						})
 						<p class="btn btn-default disabled">@Lang.Unban</p>
 					}
 				</td>

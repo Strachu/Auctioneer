@@ -65,6 +65,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Admin\Users\Unban.Designer.cs">
+      <DependentUpon>Unban.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Admin\Users\Ban.Designer.cs">
+      <DependentUpon>Ban.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Admin\Users\Index.Designer.cs">
       <DependentUpon>Index.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -151,8 +161,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="User\LockedOut.Designer.cs">
-      <DependentUpon>LockedOut.resx</DependentUpon>
+    <Compile Include="User\Lockout.Designer.cs">
+      <DependentUpon>Lockout.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -207,6 +217,16 @@
     <EmbeddedResource Include="Admin\Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Layout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\Users\Unban.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Unban.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\Users\Ban.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ban.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\Users\Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -278,9 +298,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ForgotPassword.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="User\LockedOut.resx">
+    <EmbeddedResource Include="User\Lockout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>LockedOut.Designer.cs</LastGenOutput>
+      <LastGenOutput>Lockout.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="User\Login.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

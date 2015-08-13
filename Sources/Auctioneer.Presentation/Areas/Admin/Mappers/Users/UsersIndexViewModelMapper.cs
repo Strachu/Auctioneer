@@ -21,8 +21,9 @@ namespace Auctioneer.Presentation.Areas.Admin.Mappers
 			{
 				Id            = x.Id,
 				UserName      = x.UserName,
-				RealName      = x.FirstName + " " + x.LastName,
-				BanExpiryTime = x.LockoutEndDateUtc
+				RealName      = x.FullName,
+				IsBanned      = x.IsBanned,
+				BanExpiryTime = x.LockoutEndDateUtc.HasValue ? x.LockoutEndDateUtc.Value.ToLocalTime() : (DateTime?)null
 			});
 
 			return new UsersIndexViewModel
