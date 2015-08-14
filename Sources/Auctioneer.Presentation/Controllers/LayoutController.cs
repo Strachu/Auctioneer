@@ -34,7 +34,6 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[ChildActionOnly]
-		[DonutOutputCache(Duration = Constants.DAY)]
 		public PartialViewResult ChooseLanguage()
 		{
 			var currentRoute       = ControllerContext.ParentActionViewContext.RouteData.Values;
