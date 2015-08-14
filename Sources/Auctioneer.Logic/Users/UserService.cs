@@ -5,6 +5,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 using Auctioneer.Logic.Validation;
 
@@ -21,13 +22,15 @@ namespace Auctioneer.Logic.Users
 {
 	public class UserService : UserManager<User>, IUserService
 	{
-		private readonly IUserNotifier mUserNotifier;
+		private readonly AuctioneerDbContext mContext;
+		private readonly IUserNotifier       mUserNotifier;
 
 		public UserService(AuctioneerDbContext context, IUserNotifier userNotifier) : base(new UserStore<User>(context))
 		{
 			Contract.Requires(context != null);
 			Contract.Requires(userNotifier != null);
 
+			mContext      = context;
 			mUserNotifier = userNotifier;
 
 			base.PasswordValidator = new PasswordValidator
@@ -193,10 +196,23 @@ namespace Auctioneer.Logic.Users
 		{
 			var user = await this.GetUserById(userId);
 
-			user.LockoutEndDateUtc = DateTime.UtcNow.Add(banDuration);
-			user.LockoutReason     = reason;
+			using(var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+			{
+				user.LockoutEndDateUtc = DateTime.UtcNow.Add(banDuration);
+				user.LockoutReason     = reason;
 
-			await base.UpdateAsync(user);
+				await base.UpdateAsync(user);
+
+				await mContext.Database.ExecuteSqlCommandAsync
+				(
+					"UPDATE Auctions "   + 
+				   "SET EndDate = {0} " +
+					"WHERE SellerId = {1} AND EndDate > {0} AND BuyerId IS NULL",
+					DateTime.Now, userId
+				);
+
+				transaction.Complete();
+			}
 		}
 
 		public async Task UnbanUser(string userId)
