@@ -52,9 +52,16 @@ namespace Auctioneer.Presentation.Controllers
 
 			var viewModel = AuctionShowViewModelMapper.FromAuction(auction, photoUrls);
 
-			viewModel.CanBeBought                   = mAuctionService.CanBeBought(auction, User.Identity.GetUserId());
-			viewModel.CanBeRemoved                  = await mAuctionService.CanBeRemoved(auction, User.Identity.GetUserId());
-			viewModel.CanBeMovedToDifferentCategory = await mAuctionService.CanBeMoved(auction, User.Identity.GetUserId());
+			if(User.Identity.IsAuthenticated)
+			{
+				viewModel.CanBeBought                   = mAuctionService.CanBeBought(auction, User.Identity.GetUserId());
+				viewModel.CanBeRemoved                  = await mAuctionService.CanBeRemoved(auction, User.Identity.GetUserId());
+				viewModel.CanBeMovedToDifferentCategory = await mAuctionService.CanBeMoved(auction, User.Identity.GetUserId());
+			}
+			else
+			{
+				viewModel.CanBeBought = true;
+			}
 
 			if(viewModel.CanBeMovedToDifferentCategory)
 			{
