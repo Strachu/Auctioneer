@@ -101,7 +101,9 @@ namespace Auctioneer.Presentation.Controllers
 				AvailableCategories = await GetAvailableCategoryList()
 			};
 
-			await PopulateAvailableCurrencyList(viewModel.Price);
+			var currentCultureCurrencySymbol    = Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencySymbol;
+			viewModel.Price.AvailableCurrencies = await GetAvailableCurrencyList(currentCultureCurrencySymbol);
+
 			return View(viewModel);
 		}
 
@@ -112,8 +114,9 @@ namespace Auctioneer.Presentation.Controllers
 		{
 			if(!ModelState.IsValid)
 			{
-				input.AvailableCategories = await GetAvailableCategoryList();
-				await PopulateAvailableCurrencyList(input.Price);
+				input.AvailableCategories       = await GetAvailableCategoryList();
+				input.Price.AvailableCurrencies = await GetAvailableCurrencyList(input.Price.Currency.Symbol);
+				input.Price.Currency            = null; // Prevents the ignoring of Selected property in AvailableCurrencies
 				return View(input);
 			}
 
@@ -137,15 +140,15 @@ namespace Auctioneer.Presentation.Controllers
 			});
 		}
 
-		private async Task PopulateAvailableCurrencyList(MoneyEditViewModel viewModel)
+		private async Task<IEnumerable<SelectListItem>> GetAvailableCurrencyList(string currentCurrencySymbol = null)
 		{
 			var currencies = await mCurrencyService.GetAllCurrencies();
 
-			viewModel.AvailableCurrencies = currencies.Select(x => new SelectListItem
+			return currencies.Select(x => new SelectListItem
 			{
 				Text     = x.Symbol,
 				Value    = x.Symbol,
-				Selected = x.Symbol == Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencySymbol
+				Selected = x.Symbol == currentCurrencySymbol
 			});
 		}
 
