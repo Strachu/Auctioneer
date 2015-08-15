@@ -185,11 +185,11 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 		}
 
 		public static IHtmlString SearchBox(this HtmlHelper html,
-		                                         string name,
-		                                         object value,
-		                                         string cssClass = "",
-		                                         string placeholder = "",
-		                                         object htmlAttributes = null)
+		                                    string name,
+		                                    object value,
+		                                    string cssClass = "",
+		                                    string placeholder = "",
+		                                    object htmlAttributes = null)
 		{
 			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
 
@@ -208,52 +208,27 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 			return html.TextBox(name, value: value, htmlAttributes: htmlAttibutesDictionary);
 		}
 
-		public static IHtmlString SortOrderLink<T>(this HtmlHelper html,
-		                                           string linkText,
-		                                           T currentSortOrder,
-		                                           T ascendingSortOrderForThisLink,
-		                                           T descendingSortOrderForThisLink,
-		                                           string sortOrderParam = "sortOrder",
-		                                           string activeCssClass = "active",
-		                                           string actionName = null,
-		                                           string controllerName = null,
-		                                           object routeValues = null,
-		                                           object htmlAttributes = null)
+		public static IHtmlString RenderAttributes(this HtmlHelper html,
+		                                           object htmlAttributes,
+		                                           object htmlAttributesOverrides = null)
 		{
-			var routeDictionary         = new RouteValueDictionary(routeValues);
-			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+			var htmlAttributesDictionary          = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+			var htmlAttributesOverridesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributesOverrides);
 
-			if(!currentSortOrder.Equals(ascendingSortOrderForThisLink) &&
-			   !currentSortOrder.Equals(descendingSortOrderForThisLink))
+			foreach(var attribute in htmlAttributesOverridesDictionary)
 			{
-				routeDictionary[sortOrderParam] = ascendingSortOrderForThisLink;
-
-				return html.ActionLinkWithCurrentParameters(linkText, controllerName: controllerName, actionName: actionName,
-				                                            routeOverrides: routeDictionary, htmlAttributes: htmlAttibutesDictionary);
+				if(attribute.Key == "class")
+				{
+					htmlAttributesDictionary[attribute.Key] += " " + attribute.Value;
+				}
+				else
+				{
+					htmlAttributesDictionary[attribute.Key] = attribute.Value;
+				}
 			}
 
-			var oppositeSortOrder     = descendingSortOrderForThisLink;
-			var currentSortGlyphClass = "glyphicon-chevron-up";
-
-			if(currentSortOrder.Equals(descendingSortOrderForThisLink))
-			{
-				oppositeSortOrder     = ascendingSortOrderForThisLink;
-				currentSortGlyphClass = "glyphicon-chevron-down";				
-			}
-
-			routeDictionary[sortOrderParam] = oppositeSortOrder;
-
-			var urlHelper = new UrlHelper(html.ViewContext.RequestContext);
-			var url       = urlHelper.ActionWithCurrentParameters(controllerName: controllerName, actionName: actionName,
-			                                                      routeOverrides: routeDictionary);
-
-			var linkBuilder = new TagBuilder("a");
-			linkBuilder.Attributes.Add("href", url);
-			linkBuilder.MergeAttributes(htmlAttibutesDictionary);
-			linkBuilder.AddCssClass("active");
-			linkBuilder.InnerHtml = String.Format("{0} <span class=\"glyphicon {1}\"></span>", linkText, currentSortGlyphClass);
-
-			return new HtmlString(linkBuilder.ToString());
+			var attributesWithValues = htmlAttributesDictionary.Select(x => String.Format("{0}=\"{1}\"", x.Key, x.Value));
+			return new HtmlString(String.Join(" ", attributesWithValues));
 		}
 	}
 }

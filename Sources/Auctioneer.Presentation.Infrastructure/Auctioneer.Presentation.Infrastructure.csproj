@@ -208,6 +208,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Html\SortOrderLink.cs" />
     <Compile Include="Internationalization\ILanguageService.Contracts.cs">
       <DependentUpon>ILanguageService.cs</DependentUpon>
     </Compile>

@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Formatting\EnumExtensionsTests.cs" />
+    <Compile Include="Html\HtmlHelperExtensionsTests.cs" />
     <Compile Include="Html\EnumSelectListTests.cs" />
     <Compile Include="Internationalization\LanguageServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,6 +1,8 @@
 ﻿@model Auctioneer.Presentation.Models.Shared.MoneyEditViewModel
 
-<div>
-	@Html.NumberInputFor(x => x.Amount, min: 1)
-	@Html.DropDownListFor(x => x.Currency, Model.AvailableCurrencies)
+<div @Html.RenderAttributes(ViewData["htmlAttributes"], new { @class = "money-editor" })>
+	
+	@Html.NumberInputFor(x => x.Amount, min: 1, cssClass: "amount")
+	@Html.DropDownListFor(x => x.Currency, Model.AvailableCurrencies, new { @class = "currency" })
+
 </div>

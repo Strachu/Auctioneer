@@ -1,19 +1,27 @@
-.duration-editor
+.duration-editor, .money-editor
 {
 	display: flex;
 }
 
-.duration-editor > *
+.money-editor
+{
+	flex             : 1 1 auto;
+
+	background-color : #FFFFFF;
+	border           : 1px solid #CCCCCC;
+}
+
+.duration-editor > *, .money-editor *
 {
 	border : 0;
 }
 
-.duration-editor .value
+.duration-editor .value, .money-editor .amount
 {
 	flex: 1 1 auto;
 }
 
-.duration-editor .unit
+.duration-editor .unit, .money-editor .currency
 {
 	flex        : 0 1 auto;
 	margin-left : 10px;
