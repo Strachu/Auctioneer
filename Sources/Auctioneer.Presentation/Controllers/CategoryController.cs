@@ -41,7 +41,8 @@ namespace Auctioneer.Presentation.Controllers
 			mResponse          = response;
 		}
 
-		[Route("Category/{id}/{slug?}")]
+		[Route("{lang:language}/Category/{id:int}/{slug?}", Order = 1)]
+		[Route("Category/{id:int}/{slug?}", Order = 2)]
 		public async Task<ActionResult> Index(int id, int? page, int? pageSize, AuctionSortOrder? sortOrder)
 		{
 			mResponse.SaveToCookieIfNotNull(COOKIE_PAGE_SIZE_KEY,  pageSize);

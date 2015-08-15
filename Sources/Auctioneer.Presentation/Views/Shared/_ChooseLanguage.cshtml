@@ -1,0 +1,18 @@
+﻿@model ChooseLanguageViewModel
+@using Lang = Auctioneer.Resources.Shared.Layout;
+
+<div class="dropdown language-selector">
+	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+		@Lang.Language
+		<span class="caret"></span>
+	</button>
+
+	<ul class="dropdown-menu">
+		@foreach(var lang in Model.AvailableLanguages)
+		{
+			<li>
+				<a href="@lang.CurrentPageInThisLanguageUrl">@lang.DisplayName</a>
+			</li>
+		}
+	</ul>
+</div>

@@ -115,7 +115,7 @@ namespace Auctioneer.Resources.Account {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Page: .
+        ///   Looks up a localized string similar to Page:.
         /// </summary>
         public static string PageNumber {
             get {

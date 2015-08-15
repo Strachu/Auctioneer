@@ -126,6 +126,9 @@
   <data name="CreateAccount" xml:space="preserve">
     <value>Create an account</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
   </data>

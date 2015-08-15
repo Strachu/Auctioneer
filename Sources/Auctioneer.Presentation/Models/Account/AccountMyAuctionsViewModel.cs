@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Logic.ValueTypes;
 
 using PagedList;
 
@@ -34,7 +35,7 @@ namespace Auctioneer.Presentation.Models.Account
 
 			[DataType(DataType.Currency)]
 			[Display(Name = "Price", ResourceType = typeof(Lang))]
-			public decimal Price { get; set; }
+			public Money Price { get; set; }
 
 			public int Id { get; set; }
 			public int CategoryId { get; set; }

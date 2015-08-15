@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.IO;
-
-using Auctioneer.Logic.Users;
-using Auctioneer.Logic.Validation;
-
-using EntityFramework.BulkInsert.Extensions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
+using Auctioneer.Logic.Currencies;
+using Auctioneer.Logic.Users;
+using Auctioneer.Logic.ValueTypes;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -25,6 +25,7 @@ namespace Auctioneer.Logic
 		{
 			AddUsers(context);
 			AddCategories(context);
+			AddCurrencies(context);
 			AddAuctions(context);
 
 			base.Seed(context);
@@ -194,12 +195,27 @@ namespace Auctioneer.Logic
 			category.Right = counter++;
 		}
 
+		private void AddCurrencies(AuctioneerDbContext context)
+		{
+			var currencies = new Currency[]
+			{
+				new Currency("$",  CurrencySymbolPosition.BeforeAmount),
+				new Currency("€",  CurrencySymbolPosition.AfterAmountWithSpace),
+				new Currency("zł", CurrencySymbolPosition.AfterAmountWithSpace),
+				new Currency("£",  CurrencySymbolPosition.BeforeAmount),
+			};
+
+			context.Currencies.AddRange(currencies);
+			context.SaveChanges();
+		}
+
 		private void AddAuctions(AuctioneerDbContext context)
 		{
 			var rndGenerator     = new Random(Seed: 746293114);
 			var imageInitializer = new AuctionImageInitializer();
 			var categoryCount    = context.Categories.Count();
 			var userIds          = context.Users.Select(x => x.Id).ToList();
+			var currencies       = context.Currencies.ToList();
 
 			var auctions = new Auction[100000];
 			for(int i = 0; i < auctions.Length; ++i)
@@ -225,7 +241,7 @@ namespace Auctioneer.Logic
 					SellerId     = userIds[rndGenerator.Next(userIds.Count)],
 					CreationDate = creationDate,
 					EndDate      = creationDate.AddDays(rndGenerator.NextDouble() * 14),
-					Price        = rndGenerator.Next(1, 1000),
+					Price        = new Money(rndGenerator.Next(1, 1000), currencies[rndGenerator.Next(currencies.Count)]),
 					PhotoCount   = 0
 				};
 
@@ -244,7 +260,81 @@ namespace Auctioneer.Logic
 				}
 			}
 
-			context.BulkInsert(auctions);
+			InsertAuctions(context, auctions);
+		}
+
+		private void InsertAuctions(AuctioneerDbContext context, IList<Auction> auctions)
+		{
+			// It's the fastest way to correctly insert a lot of auctions.
+			// Plain SQL Insert took more than 4 minutes while this method takes only 16 seconds.
+			// EntityFramework.AddRange() was way too slow and BulkInsert requires foreign key property on entity to
+			// relate the entities properly (which I don't want to add because it is not needed).
+
+			InsertMoneys(context, auctions.Select(x => x.Price));
+
+			var table = new DataTable();
+
+			table.Columns.Add("Id",           typeof(int));
+			table.Columns.Add("Title",        typeof(string));
+			table.Columns.Add("Description",  typeof(string));
+			table.Columns.Add("CreationDate", typeof(DateTime));
+			table.Columns.Add("EndDate",      typeof(DateTime));
+			table.Columns.Add("PhotoCount",   typeof(int));
+			table.Columns.Add("CategoryId",   typeof(int));
+			table.Columns.Add("SellerId",     typeof(string));
+			table.Columns.Add("BuyerId",      typeof(string));
+			table.Columns.Add("Price_Id",     typeof(int));
+
+			for(int i = 0; i < auctions.Count ;++i)
+			{
+				var auction = auctions[i];
+				var row     = table.NewRow();
+
+				row[1] = auction.Title;
+				row[2] = auction.Description;
+				row[3] = auction.CreationDate;
+				row[4] = auction.EndDate;
+				row[5] = auction.PhotoCount;
+				row[6] = auction.CategoryId;
+				row[7] = auction.SellerId;
+				row[8] = auction.BuyerId;
+				row[9] = i + 1;
+
+				table.Rows.Add(row);
+			}
+
+			var bulkInsert = new SqlBulkCopy(context.Database.Connection.ConnectionString, SqlBulkCopyOptions.TableLock)
+			{
+				DestinationTableName = "Auctions"
+			};
+
+			bulkInsert.WriteToServer(table);
+		}
+
+		private void InsertMoneys(AuctioneerDbContext context, IEnumerable<Money> moneys)
+		{
+			var table = new DataTable();
+
+			table.Columns.Add("Id",              typeof(int));
+			table.Columns.Add("Amount",          typeof(decimal));
+			table.Columns.Add("Currency_Symbol", typeof(string));
+
+			foreach(var money in moneys)
+			{
+				var row = table.NewRow();
+
+				row[1] = money.Amount;
+				row[2] = money.Currency.Symbol;
+
+				table.Rows.Add(row);
+			}
+
+			var bulkInsert = new SqlBulkCopy(context.Database.Connection.ConnectionString, SqlBulkCopyOptions.TableLock)
+			{
+				DestinationTableName = "Moneys"
+			};
+
+			bulkInsert.WriteToServer(table);
 		}
 
 		private class AuctionImageInitializer

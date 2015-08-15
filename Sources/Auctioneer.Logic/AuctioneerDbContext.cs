@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
+using Auctioneer.Logic.Currencies;
 using Auctioneer.Logic.Users;
 
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -18,6 +19,7 @@ namespace Auctioneer.Logic
 	{
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Auction> Auctions { get; set; }
+		public DbSet<Currency> Currencies { get; set; }
 
 		public AuctioneerDbContext() : base("AuctioneerDbContext")
 		{
@@ -41,7 +43,7 @@ namespace Auctioneer.Logic
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
+			modelBuilder.Configurations.AddFromAssembly(typeof(AuctioneerDbContext).Assembly);
 		}
 	}
 }

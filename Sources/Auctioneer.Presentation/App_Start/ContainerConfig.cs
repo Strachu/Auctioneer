@@ -11,6 +11,7 @@ using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Users;
 using Auctioneer.Presentation.Emails;
 using Auctioneer.Presentation.Helpers;
+using Auctioneer.Presentation.Infrastructure.Internationalization;
 using Auctioneer.Presentation.Infrastructure.Security;
 
 using Autofac;
@@ -36,7 +37,7 @@ namespace Auctioneer.Presentation
 			builder.RegisterFilterProvider();
 
 			builder.Register(x => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
-			builder.RegisterType<EmailService>().As<IEmailService>().InstancePerLifetimeScope();
+			builder.RegisterType<EmailService>().As<IEmailService>().SingleInstance();
 
 			RegisterServices(builder);
 
@@ -44,7 +45,8 @@ namespace Auctioneer.Presentation
 
 			builder.RegisterType<BreadcrumbBuilder>().As<IBreadcrumbBuilder>().InstancePerDependency();
 			builder.RegisterType<AuthenticationManager>().As<IAuthenticationManager>().InstancePerRequest();
-			builder.RegisterType<EmailUserNotifier>().As<IUserNotifier>().InstancePerLifetimeScope();
+			builder.RegisterType<EmailUserNotifier>().As<IUserNotifier>().SingleInstance();
+			builder.RegisterType<LanguageService>().As<ILanguageService>().SingleInstance();
 			builder.RegisterType<AuctionService>().As<IAuctionService>().InstancePerRequest().WithParameters(new Parameter[]
 			{
 				new NamedParameter("photoDirectoryPath",     HostingEnvironment.MapPath("~/Content/UserContent/Auctions/Photos")),

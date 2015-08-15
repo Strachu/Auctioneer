@@ -6,11 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 
 using Auctioneer.Presentation.Infrastructure.Validation;
+using Auctioneer.Presentation.Models.Shared;
 
 using DataAnnotationsExtensions;
 
-using FileExtensions = System.ComponentModel.DataAnnotations.FileExtensionsAttribute;
-using Lang           = Auctioneer.Resources.Auction.Add;
+using Lang = Auctioneer.Resources.Auction.Add;
 
 namespace Auctioneer.Presentation.Models
 {
@@ -20,6 +20,7 @@ namespace Auctioneer.Presentation.Models
 		{
 			DaysToEnd          = 7;
 			AvailableDaysToEnd = new SelectList(Enumerable.Range(1, 14));
+			Price              = new MoneyEditViewModel();
 		}
 
 		[Required]
@@ -35,10 +36,10 @@ namespace Auctioneer.Presentation.Models
 		public SelectList AvailableDaysToEnd { get; set; }
 
 		[Required]
-		[Min(1.0)]
+	//	[Min(1.0)] TODO add validation support to MoneyEditViewModel
 		[DataType(DataType.Currency)]
 		[Display(Name = "Price", ResourceType = typeof(Lang))]
-		public decimal? Price { get; set; }
+		public MoneyEditViewModel Price { get; set; }
 
 		[Required]
 		[Display(Name = "Category", ResourceType = typeof(Lang))]

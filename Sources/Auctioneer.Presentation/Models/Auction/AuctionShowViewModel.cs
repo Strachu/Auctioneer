@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Logic.ValueTypes;
 
 using Lang = Auctioneer.Resources.Auction.Show;
 
@@ -32,7 +33,7 @@ namespace Auctioneer.Presentation.Models
 		}
 
 		[DataType(DataType.Currency)]
-		public decimal Price { get; set; }
+		public Money Price { get; set; }
 
 		[Display(Name = "SellerUserName", ResourceType = typeof(Lang))]
 		public string SellerUserName { get; set; }

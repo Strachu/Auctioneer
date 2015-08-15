@@ -17,6 +17,15 @@ section, nav, main, header
 	padding-bottom  : 5px;	
 }
 
+.language-selector
+{
+	margin-left : 20px;
+
+	position    : absolute;
+	top         : 50%;
+	transform   : translateY(-50%);
+}
+
 .user-greetings
 {
 	font-size     : 120%;

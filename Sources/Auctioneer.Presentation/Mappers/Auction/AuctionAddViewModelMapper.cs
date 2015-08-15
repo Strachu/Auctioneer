@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Logic.ValueTypes;
 using Auctioneer.Presentation.Models;
 
 namespace Auctioneer.Presentation.Mappers
@@ -22,7 +23,7 @@ namespace Auctioneer.Presentation.Mappers
 				CreationDate = DateTime.Now,
 				EndDate      = DateTime.Now.AddDays(viewModel.DaysToEnd),
 				CategoryId   = viewModel.CategoryId,
-				Price        = viewModel.Price.Value,
+				Price        = new Money(viewModel.Price.Amount, viewModel.Price.Currency),
 				PhotoCount   = viewModel.Photos.Count(),
 				SellerId     = sellerId
 			};

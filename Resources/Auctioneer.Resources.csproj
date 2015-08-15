@@ -242,18 +242,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Account\AccountDetailsUpdated.pl.resx" />
     <EmbeddedResource Include="Account\AccountDetailsUpdated.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AccountDetailsUpdated.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Account\Edit.pl.resx" />
     <EmbeddedResource Include="Account\Edit.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Edit.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Account\Layout.pl.resx" />
     <EmbeddedResource Include="Account\Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Layout.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Account\MyAuctions.pl.resx" />
     <EmbeddedResource Include="Account\MyAuctions.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MyAuctions.Designer.cs</LastGenOutput>
@@ -277,11 +281,15 @@
       <LastGenOutput>Index.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Auction\Add.pl.resx" />
     <EmbeddedResource Include="Auction\Add.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Add.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Auction\Buy.pl.resx" />
+    <EmbeddedResource Include="Auction\Delete.pl.resx" />
+    <EmbeddedResource Include="Auction\OrderConfirmed.pl.resx" />
     <EmbeddedResource Include="Auction\OrderConfirmed.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>OrderConfirmed.Designer.cs</LastGenOutput>
@@ -290,6 +298,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Delete.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Auction\Other.pl.resx" />
     <EmbeddedResource Include="Auction\Other.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Other.Designer.cs</LastGenOutput>
@@ -298,74 +307,92 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Buy.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Auction\Show.pl.resx" />
     <EmbeddedResource Include="Auction\Show.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Show.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Category\Index.pl.resx" />
     <EmbeddedResource Include="Category\Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Index.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Home\Index.pl.resx" />
     <EmbeddedResource Include="Home\Index.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Index.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Other.pl.resx" />
     <EmbeddedResource Include="Other.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Other.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Error.pl.resx" />
     <EmbeddedResource Include="Shared\Error.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Error.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Layout.pl.resx" />
     <EmbeddedResource Include="Shared\Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Layout.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\AccountCreated.pl.resx" />
     <EmbeddedResource Include="User\AccountCreated.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AccountCreated.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\ConfirmMail.pl.resx" />
     <EmbeddedResource Include="User\ConfirmMail.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ConfirmMail.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\Create.pl.resx" />
     <EmbeddedResource Include="User\Create.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Create.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\EmailNotConfirmed.pl.resx" />
     <EmbeddedResource Include="User\EmailNotConfirmed.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EmailNotConfirmed.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\ForgotPassword.pl.resx" />
     <EmbeddedResource Include="User\ForgotPassword.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ForgotPassword.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\Lockout.pl.resx" />
     <EmbeddedResource Include="User\Lockout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Lockout.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\Login.pl.resx" />
     <EmbeddedResource Include="User\Login.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Login.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\ResendMailConfirmation.pl.resx" />
     <EmbeddedResource Include="User\ResendMailConfirmation.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResendMailConfirmation.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\ResetPassword.pl.resx" />
     <EmbeddedResource Include="User\ResetPassword.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResetPassword.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\ResetPasswordConfirmation.pl.resx" />
     <EmbeddedResource Include="User\ResetPasswordConfirmation.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResetPasswordConfirmation.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\ResetPasswordMailSent.pl.resx" />
     <EmbeddedResource Include="User\ResetPasswordMailSent.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResetPasswordMailSent.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="User\_Greetings.pl.resx" />
     <EmbeddedResource Include="User\_Greetings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>_Greetings.Designer.cs</LastGenOutput>

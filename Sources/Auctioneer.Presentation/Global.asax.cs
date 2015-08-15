@@ -17,13 +17,13 @@ namespace Auctioneer.Presentation
 	{
 		protected void Application_Start()
 		{
+			ContainerConfig.RegisterTypes();
+
 			AreaRegistration.RegisterAllAreas();
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			ModelBinderConfig.RegisterModelBinders();
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-			ContainerConfig.RegisterTypes();
 		}
 	}
 

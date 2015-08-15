@@ -102,6 +102,7 @@
     <Compile Include="Users\UserServiceTests.cs" />
     <Compile Include="Utils\ImageExtensionsTests.cs" />
     <Compile Include="Utils\PropertyNameTests.cs" />
+    <Compile Include="ValueTypes\MoneyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

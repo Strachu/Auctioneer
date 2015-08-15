@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 
 using Auctioneer.Presentation.Infrastructure.Filters;
+using Auctioneer.Presentation.Infrastructure.Internationalization;
 using Auctioneer.Presentation.Infrastructure.Security;
 
 namespace Auctioneer.Presentation
@@ -12,6 +13,7 @@ namespace Auctioneer.Presentation
 		{
 			filters.Add(new RequireHttpsAttribute());
 			filters.Add(new BannedUserCheckAttribute("User", "Lockout"));
+			filters.Add(new LanguageFilterAttribute { LanguageService = DependencyResolver.Current.GetService<ILanguageService>() });
 			filters.Add(new ObjectNotFoundExceptionHandlerAttribute());
 			filters.Add(new HandleErrorAttribute());
 		}

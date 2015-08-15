@@ -25,6 +25,11 @@ namespace Auctioneer.Presentation.Infrastructure.Http
 			return request.ReadFromCookie<int?>(cookieKey, x => Int32.Parse(x));
 		}
 
+		public static string ReadStringFromCookie(this HttpRequestBase request, string cookieKey)
+		{
+			return request.ReadFromCookie(cookieKey, x => x);
+		}
+
 		public static TEnum? ReadEnumFromCookie<TEnum>(this HttpRequestBase request, string cookieKey) where TEnum : struct
 		{
 			return request.ReadFromCookie<TEnum?>(cookieKey, x => (TEnum)Enum.Parse(typeof(TEnum), x));
