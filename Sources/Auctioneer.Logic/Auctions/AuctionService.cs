@@ -87,6 +87,8 @@ namespace Auctioneer.Logic.Auctions
 					break;
 			}
 
+			auctions = auctions.Include(x => x.Price.Currency);
+
 			return Task.FromResult(auctions.ToPagedList(pageIndex, auctionsPerPage));
 		}
 
@@ -99,7 +101,8 @@ namespace Auctioneer.Logic.Auctions
 		{
 			var createdAfter = DateTime.Now.Subtract(createdIn);
 
-			var auctions = mContext.Auctions.Include(x => x.Category)
+			var auctions = mContext.Auctions.Include(x => x.Price.Currency)
+			                                .Include(x => x.Category)
 			                                .Where(x => x.SellerId == userId)
 			                                .Where(x => x.CreationDate >= createdAfter)
 			                                .Where(allowedStatuses: statusFilter);
@@ -116,7 +119,8 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults)
 		{
-			return await mContext.Auctions.Where(AuctionStatusFilter.Active)
+			return await mContext.Auctions.Include(x => x.Price.Currency)
+			                              .Where(AuctionStatusFilter.Active)
 			                              .OrderByDescending(x => x.CreationDate)
 			                              .Take(maxResults)
 			                              .ToListAsync();
@@ -124,7 +128,8 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<Auction> GetById(int id)
 		{
-			var auction = await mContext.Auctions.Include(x => x.Seller)
+			var auction = await mContext.Auctions.Include(x => x.Price.Currency)
+			                                     .Include(x => x.Seller)
 			                                     .Include(x => x.Buyer)
 			                                     .SingleOrDefaultAsync(x => x.Id == id)
 			                                     .ConfigureAwait(false);
@@ -152,6 +157,7 @@ namespace Auctioneer.Logic.Auctions
 			newAuction.Description = sanitizer.Sanitize(newAuction.Description);
 
 			mContext.Auctions.Add(newAuction);
+			mContext.Entry(newAuction.Price.Currency).State = EntityState.Unchanged; // Do not insert new currencies
 			await mContext.SaveChangesAsync();
 		}
 

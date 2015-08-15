@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using Auctioneer.Logic.ValueTypes;
+
 using Lang = Auctioneer.Resources.Auction.Buy;
 
 namespace Auctioneer.Presentation.Models
@@ -15,6 +17,6 @@ namespace Auctioneer.Presentation.Models
 		public string Title { get; set; }
 
 		[DataType(DataType.Currency)]
-		public decimal Price { get; set; }
+		public Money Price { get; set; }
 	}
 }

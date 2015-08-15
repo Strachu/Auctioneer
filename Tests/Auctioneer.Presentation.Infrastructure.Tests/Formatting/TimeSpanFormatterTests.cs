@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Auctioneer.Presentation.Infrastructure.Formatting;
@@ -13,6 +15,12 @@ namespace Auctioneer.Presentation.Infrastructure.Tests.Formatting
 	[TestFixture]
 	public class TimeSpanFormatterTests
 	{
+		[SetUp]
+		public void SetUp()
+		{
+			Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+		}
+
 		[Test]
 		public void WriteDaysIfTimeSpanIsMoreThanOneDay()
 		{

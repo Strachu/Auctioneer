@@ -238,6 +238,7 @@
     <Compile Include="Models\Category\CategoryListViewModel.cs" />
     <Compile Include="Models\Shared\ChooseLanguageViewModel.cs" />
     <Compile Include="Models\Shared\BreadcrumbViewModel.cs" />
+    <Compile Include="Models\Shared\MoneyEditViewModel.cs" />
     <Compile Include="Models\User\UserResetPasswordViewModel.cs" />
     <Compile Include="Models\User\UserForgotPasswordViewModel.cs" />
     <Compile Include="Models\User\UserLoginViewModel.cs" />
@@ -486,6 +487,7 @@
     <Content Include="Emails\Auction\Sold\AuctionSoldMail.cshtml" />
     <Content Include="Emails\Auction\Won\AuctionWonMail.cshtml" />
     <Content Include="Views\Shared\_ChooseLanguage.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Money.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -541,6 +543,7 @@
     <Content Include="Views\Auction\Buy.cshtml" />
     <Content Include="Views\Auction\OrderConfirmed.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MoneyEditViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

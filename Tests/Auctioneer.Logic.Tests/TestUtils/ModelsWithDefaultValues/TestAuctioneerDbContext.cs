@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues;
-
 namespace Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues
 {
 	internal class TestAuctioneerDbContext : AuctioneerDbContext

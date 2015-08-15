@@ -132,6 +132,7 @@
     <Compile Include="Http\HttpRequestBase.Extensions.cs" />
     <Compile Include="Http\HttpResponseBase.Extensions.cs" />
     <Compile Include="Internationalization\LanguageService.cs" />
+    <Compile Include="ModelBinders\CurrencyBinder.cs" />
     <Compile Include="ModelBinders\FlagsEnumModelBinder.cs" />
     <Compile Include="ModelBinders\ModelBinderConfig.cs" />
     <Compile Include="Http\NameValueCollection.Extensions.cs" />

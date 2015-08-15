@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using Auctioneer.Logic.ValueTypes;
+
 using Postal;
 
 namespace Auctioneer.Presentation.Emails
@@ -21,7 +23,7 @@ namespace Auctioneer.Presentation.Emails
 		public string AuctionTitle { get; set; }
 
 		[DataType(DataType.Currency)]
-		public decimal AuctionPrice { get; set; }
+		public Money AuctionPrice { get; set; }
 
 		public string SellerUserName { get; set; }
 

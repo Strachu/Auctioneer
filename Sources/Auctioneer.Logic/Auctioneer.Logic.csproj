@@ -125,6 +125,11 @@
     <Compile Include="Categories\CategoryMapping.cs" />
     <Compile Include="Categories\CategoryService.cs" />
     <Compile Include="Categories\ICategoryService.cs" />
+    <Compile Include="Currencies\CurrencyService.cs" />
+    <Compile Include="Currencies\ICurrencyService.Contracts.cs">
+      <DependentUpon>ICurrencyService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Currencies\ICurrencyService.cs" />
     <Compile Include="Validation\IValidationErrorNotifier.Contracts.cs">
       <DependentUpon>IValidationErrorNotifier.cs</DependentUpon>
     </Compile>
@@ -145,6 +150,10 @@
     <Compile Include="Validation\ErrorCollection.cs" />
     <Compile Include="Utils\Image.Extensions.cs" />
     <Compile Include="Utils\PropertyName.cs" />
+    <Compile Include="ValueTypes\MoneyMapping.cs" />
+    <Compile Include="Currencies\CurrencyMapping.cs" />
+    <Compile Include="Currencies\Currency.cs" />
+    <Compile Include="ValueTypes\Money.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

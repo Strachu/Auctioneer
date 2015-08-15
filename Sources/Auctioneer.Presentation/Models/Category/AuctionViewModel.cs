@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using Auctioneer.Logic.ValueTypes;
+
 namespace Auctioneer.Presentation.Models
 {
 	public class AuctionViewModel
@@ -16,7 +18,7 @@ namespace Auctioneer.Presentation.Models
 		public TimeSpan TimeTillEnd { get; set; }
 
 		[DataType(DataType.Currency)]
-		public decimal Price { get; set; }
+		public Money Price { get; set; }
 
 		public string Slug { get; set; }
 	}

@@ -81,10 +81,6 @@ namespace Auctioneer.Presentation.Infrastructure.Internationalization
 		{
 			var newCulture = new CultureInfo(languageCode);
 
-			// TODO add multiple currency support
-			newCulture.NumberFormat.CurrencySymbol          = "zł";
-			newCulture.NumberFormat.CurrencyPositivePattern = 3; // n zł
-
 			Thread.CurrentThread.CurrentCulture   = newCulture;
 			Thread.CurrentThread.CurrentUICulture = newCulture;
 		}

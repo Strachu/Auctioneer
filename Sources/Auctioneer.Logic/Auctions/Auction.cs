@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Auctioneer.Logic.Categories;
 using Auctioneer.Logic.Users;
+using Auctioneer.Logic.ValueTypes;
 
 namespace Auctioneer.Logic.Auctions
 {
@@ -19,7 +20,7 @@ namespace Auctioneer.Logic.Auctions
 		public DateTime CreationDate { get; set; }
 		public DateTime EndDate { get; set; }
 
-		public decimal Price { get; set; }
+		public virtual Money Price { get; set; }
 
 		public int PhotoCount { get; set; }
 

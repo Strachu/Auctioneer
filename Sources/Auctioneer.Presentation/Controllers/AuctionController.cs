@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
+using Auctioneer.Logic.Currencies;
 using Auctioneer.Presentation.Emails;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Infrastructure.Validation;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models;
+using Auctioneer.Presentation.Models.Shared;
 
 using Microsoft.AspNet.Identity;
 
@@ -25,18 +28,22 @@ namespace Auctioneer.Presentation.Controllers
 	{
 		private readonly IAuctionService    mAuctionService;
 		private readonly ICategoryService   mCategoryService;
+		private readonly ICurrencyService   mCurrencyService;
 		private readonly IBreadcrumbBuilder mBreadcrumbBuilder;
 
 		public AuctionController(IAuctionService auctionService,
 		                         ICategoryService categoryService,
+		                         ICurrencyService currencyService,
 		                         IBreadcrumbBuilder breadcrumbBuilder)
 		{
 			Contract.Requires(auctionService != null);
 			Contract.Requires(categoryService != null);
+			Contract.Requires(currencyService != null);
 			Contract.Requires(breadcrumbBuilder != null);
 
-			mAuctionService    = auctionService;
-			mCategoryService   = categoryService;
+			mAuctionService = auctionService;
+			mCategoryService = categoryService;
+			mCurrencyService = currencyService;
 			mBreadcrumbBuilder = breadcrumbBuilder;
 		}
 
@@ -79,6 +86,7 @@ namespace Auctioneer.Presentation.Controllers
 			var viewModel = new AuctionAddViewModel();
 
 			await PopulateAvailableCategoryList(viewModel);
+			await PopulateAvailableCurrencyList(viewModel.Price);
 			return View(viewModel);
 		}
 
@@ -90,6 +98,7 @@ namespace Auctioneer.Presentation.Controllers
 			if(!ModelState.IsValid)
 			{
 				await PopulateAvailableCategoryList(input);
+				await PopulateAvailableCurrencyList(input.Price);
 				return View(input);
 			}
 
@@ -109,6 +118,18 @@ namespace Auctioneer.Presentation.Controllers
 			{
 				Text  = new string(nbsp, count: x.HierarchyDepth * 3) + x.Category.Name,
 				Value = x.Category.Id.ToString()
+			});
+		}
+
+		private async Task PopulateAvailableCurrencyList(MoneyEditViewModel viewModel)
+		{
+			var currencies = await mCurrencyService.GetAllCurrencies();
+
+			viewModel.AvailableCurrencies = currencies.Select(x => new SelectListItem
+			{
+				Text     = x.Symbol,
+				Value    = x.Symbol,
+				Selected = x.Symbol == Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencySymbol
 			});
 		}
 

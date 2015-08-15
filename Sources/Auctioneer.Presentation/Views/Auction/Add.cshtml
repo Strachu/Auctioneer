@@ -27,7 +27,7 @@
 
 		<div class="form-group">
 			@Html.LabelFor(x => x.Price)
-			<span class="input-with-suffix">@Html.EditorFor(x => x.Price) PLN</span>
+			@Html.EditorFor(x => x.Price)
 			@Html.ValidationMessageFor(x => x.Price)
 		</div>
 

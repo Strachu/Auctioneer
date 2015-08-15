@@ -115,6 +115,19 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 			return new HtmlString(builder.ToString());
 		}
 
+		public static IHtmlString NumberInputFor<TModel, TProperty>(this HtmlHelper<TModel> html,
+		                                                            Expression<Func<TModel, TProperty>> expression,
+		                                                            string cssClass = "",
+		                                                            int? min = null,
+		                                                            int? max = null,
+		                                                            object htmlAttributes = null)
+		{
+			var name  = ExpressionHelper.GetExpressionText(expression);
+			var value = ModelMetadata.FromLambdaExpression(expression, html.ViewData).Model;
+
+			return html.NumberInput(name, value, cssClass: cssClass, min: min, max: max, htmlAttributes: htmlAttributes);
+		}
+
 		public static IHtmlString NumberInput<T>(this HtmlHelper html,
 		                                         string name,
 		                                         T value,
