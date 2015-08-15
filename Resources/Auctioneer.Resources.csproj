@@ -262,10 +262,14 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MyAuctions.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Admin\Layout.pl.resx" />
     <EmbeddedResource Include="Admin\Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Layout.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Admin\Users\Ban.pl.resx" />
+    <EmbeddedResource Include="Admin\Users\Index.pl.resx" />
+    <EmbeddedResource Include="Admin\Users\Unban.pl.resx" />
     <EmbeddedResource Include="Admin\Users\Unban.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Unban.Designer.cs</LastGenOutput>

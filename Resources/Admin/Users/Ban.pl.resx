@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Header" xml:space="preserve">
-    <value>Twoje konto zostało tymczasowo zawieszone.</value>
+  <data name="BanDuration" xml:space="preserve">
+    <value>Okres trwania bana</value>
+  </data>
+  <data name="ConfirmationMessage" xml:space="preserve">
+    <value>{0} został zbanowany ze względu na {1}.</value>
+  </data>
+  <data name="FormHeader" xml:space="preserve">
+    <value>Banowanie użytkownika {0} ({1})</value>
   </data>
   <data name="Reason" xml:space="preserve">
-    <value>Powód blokady konta:</value>
+    <value>Powód</value>
   </data>
-  <data name="TimeLeft" xml:space="preserve">
-    <value>Blokada zostanie zdjęta w dniu {0} (pozostało {1}).</value>
-  </data>
-  <data name="TooManyInvalidLoginAttempts" xml:space="preserve">
-    <value>Zbyt duża liczba nieudanych prób logowania.</value>
+  <data name="SubmitText" xml:space="preserve">
+    <value>Zbanuj</value>
   </data>
 </root>

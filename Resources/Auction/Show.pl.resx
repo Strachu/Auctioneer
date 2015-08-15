@@ -135,4 +135,13 @@
   <data name="SellerUserName" xml:space="preserve">
     <value>Sprzedający</value>
   </data>
+  <data name="AuctionMoved" xml:space="preserve">
+    <value>Przeniesiono aukcję do nowej kategorii.</value>
+  </data>
+  <data name="CannotMove" xml:space="preserve">
+    <value>Nie masz uprawnień do przenoszenia aukcji do innego kategorii.</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
 </root>

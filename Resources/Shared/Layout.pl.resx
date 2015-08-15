@@ -135,4 +135,7 @@
   <data name="Language" xml:space="preserve">
     <value>Język</value>
   </data>
+  <data name="AdminPanel" xml:space="preserve">
+    <value>Panel administracyjny</value>
+  </data>
 </root>
