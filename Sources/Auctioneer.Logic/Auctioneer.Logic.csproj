@@ -195,7 +195,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuctioneerDbContext.cs" />
-    <Compile Include="AuctioneerDbContextInitializer.cs" />
+    <Compile Include="TestDbData\Currencies.cs" />
+    <Compile Include="TestDbData\Categories.cs" />
+    <Compile Include="TestDbData\Auctions.cs" />
+    <Compile Include="TestDbData\Users.cs" />
+    <Compile Include="TestDbData\DbContextInitializer.cs" />
     <Compile Include="Auctions\Auction.cs" />
     <Compile Include="Auctions\AuctionMapping.cs" />
     <Compile Include="Auctions\AuctionService.cs" />

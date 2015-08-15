@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -9,207 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Auctioneer.Logic.Auctions;
-using Auctioneer.Logic.Categories;
-using Auctioneer.Logic.Currencies;
-using Auctioneer.Logic.Users;
 using Auctioneer.Logic.ValueTypes;
 
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-
-namespace Auctioneer.Logic
+namespace Auctioneer.Logic.TestDbData
 {
-	internal class AuctioneerDbContextInitializer : DropCreateDatabaseIfModelChanges<AuctioneerDbContext>
+	internal static class Auctions
 	{
-		protected override void Seed(AuctioneerDbContext context)
-		{
-			AddUsers(context);
-			AddCategories(context);
-			AddCurrencies(context);
-			AddAuctions(context);
-
-			base.Seed(context);
-		}
-
-		private void AddUsers(AuctioneerDbContext context)
-		{
-			var rndGenerator = new Random(Seed: 2934228);
-			var userService  = new UserService(context, new NullUserNotifier());
-			var firstNames   = new string[] { "Alexa", "Amanda", "Olivia", "Jacob", "William", "Michael", "John" };
-			var lastNames    = new string[] { "Smith", "Johnson", "Williams", "Brown", "Miller", "King", "Kelly", "Foster" };
-			
-			for(int i = 0; i < 50; ++i)
-			{
-				var user = new User();
-
-				user.FirstName      = firstNames[rndGenerator.Next(firstNames.Length)];
-				user.LastName       = lastNames[rndGenerator.Next(lastNames.Length)];
-				user.Address        = "ul. Wawelska 84/32\n45-345 Warszawa";
-				user.Email          = user.FirstName + user.LastName + "@mail.abc";
-				user.EmailConfirmed = true;
-				user.UserName       = String.Format("{0}_{1}", user.FirstName, user.LastName).ToLower();
-
-				userService.Create(user, "Password");
-			}
-
-			var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-			roleManager.Create(new IdentityRole { Name = "Admin" });
-
-			var admin = new User
-			{
-				UserName       = "Admin",
-				FirstName      = "Mr. Admin",
-				LastName       = "Admin",
-				Address        = "Administrator Panel",
-				Email          = "admin@admins.com",
-				EmailConfirmed = true,
-			};
-
-			userService.Create(admin, "Admin");
-			userService.AddToRole(admin.Id, "Admin");
-		}
-
-		private void AddCategories(AuctioneerDbContext context)
-		{
-			var categories = new Category[]
-			{
-				new Category
-				{
-					Name          = "Computers",
-					SubCategories = new Category[]
-					{
-						new Category { Name = "Desktop computers" },
-						new Category
-						{
-							Name          = "Mobile computers",
-							SubCategories = new Category[]
-							{
-								new Category { Name = "Tablets" },
-								new Category { Name = "Netbooks" },
-								new Category { Name = "Notebooks" },
-							}
-						},
-						new Category
-						{
-							Name          = "Components",
-							SubCategories = new Category[]
-							{
-								new Category { Name = "Hard drives" },
-								new Category { Name = "Graphics cards" },
-								new Category { Name = "Motherboards" },
-								new Category { Name = "Processors" },
-								new Category { Name = "RAM memory" },
-								new Category { Name = "Power supplies" },
-								new Category { Name = "Cases" },
-							}
-						}
-					}
-				},
-				new Category
-				{
-					Name          = "Sport",
-					SubCategories = new Category[]
-					{
-						new Category
-						{
-							Name          = "Cycling",
-							SubCategories = new Category[]
-							{
-								new Category { Name = "Bicycles" },
-								new Category { Name = "Accessories" },
-								new Category { Name = "Clothing" }
-							}
-						},
-						new Category
-						{
-							Name          = "Team sports",
-							SubCategories = new Category[]
-							{
-								new Category { Name = "Baseball" },
-								new Category { Name = "Soccer" },
-								new Category { Name = "Hockey" },
-							}
-						},
-						new Category { Name = "Weightlifting" }
-					}
-				},
-				new Category
-				{
-					Name          = "Software",
-					SubCategories = new Category[]
-					{
-						new Category
-						{
-							Name          = "Operating systems",
-							SubCategories = new Category[]
-							{
-								new Category { Name = "Microsoft Windows" },
-								new Category { Name = "Apple OS X" },
-								new Category { Name = "Linux" },
-								new Category { Name = "Other" },
-							}
-						},
-						new Category { Name = "Office" },
-						new Category { Name = "Security" },
-						new Category
-						{
-							Name          = "Games",
-							SubCategories = new Category[]
-							{
-								new Category { Name = "XBox One" },
-								new Category { Name = "Xbox 360" },
-								new Category { Name = "PlayStation 4" },
-								new Category { Name = "PlayStation 3" },
-								new Category { Name = "PC" },
-								new Category { Name = "Other" },
-							}
-						},
-						new Category { Name = "Programming software" },
-						new Category { Name = "Other" },
-					}
-				}
-			};
-
-			InitializeNestedSetProperties(categories);
-
-			context.Categories.AddRange(categories);
-			context.SaveChanges();
-		}
-
-		private void InitializeNestedSetProperties(IEnumerable<Category> categories)
-		{
-			int counter = 1;
-			foreach(var category in categories)
-			{
-				InitializeNestedSetPropertiesForCategory(category, ref counter);
-			}		
-		}
-
-		private void InitializeNestedSetPropertiesForCategory(Category category, ref int counter)
-		{
-			category.Left = counter++;
-			foreach(var subCategory in category.SubCategories)
-			{
-				InitializeNestedSetPropertiesForCategory(subCategory, ref counter);
-			}
-			category.Right = counter++;
-		}
-
-		private void AddCurrencies(AuctioneerDbContext context)
-		{
-			var currencies = new Currency[]
-			{
-				new Currency("$",  CurrencySymbolPosition.BeforeAmount),
-				new Currency("€",  CurrencySymbolPosition.AfterAmountWithSpace),
-				new Currency("zł", CurrencySymbolPosition.AfterAmountWithSpace),
-				new Currency("£",  CurrencySymbolPosition.BeforeAmount),
-			};
-
-			context.Currencies.AddRange(currencies);
-			context.SaveChanges();
-		}
-
-		private void AddAuctions(AuctioneerDbContext context)
+		public static void Add(AuctioneerDbContext context)
 		{
 			var rndGenerator     = new Random(Seed: 746293114);
 			var imageInitializer = new AuctionImageInitializer();
@@ -263,7 +68,7 @@ namespace Auctioneer.Logic
 			InsertAuctions(context, auctions);
 		}
 
-		private void InsertAuctions(AuctioneerDbContext context, IList<Auction> auctions)
+		private static void InsertAuctions(AuctioneerDbContext context, IList<Auction> auctions)
 		{
 			// It's the fastest way to correctly insert a lot of auctions.
 			// Plain SQL Insert took more than 4 minutes while this method takes only 16 seconds.
@@ -311,7 +116,7 @@ namespace Auctioneer.Logic
 			bulkInsert.WriteToServer(table);
 		}
 
-		private void InsertMoneys(AuctioneerDbContext context, IEnumerable<Money> moneys)
+		private static void InsertMoneys(AuctioneerDbContext context, IEnumerable<Money> moneys)
 		{
 			var table = new DataTable();
 
@@ -425,29 +230,6 @@ namespace Auctioneer.Logic
 					return 0;
 
 				return Directory.EnumerateFiles(photosDirectory, "*.jpg").Count();
-			}
-		}
-
-		private class NullUserNotifier : IUserNotifier
-		{
-			public Task SendActivationToken(User user, string token)
-			{
-				return Task.FromResult(0);
-			}
-
-			public Task SendPasswordResetToken(User user, string token)
-			{
-				return Task.FromResult(0);
-			}
-
-			public Task NotifyAuctionSold(User user, Auction auction)
-			{
-				return Task.FromResult(0);
-			}
-
-			public Task NotifyAuctionWon(User user, Auction auction)
-			{
-				return Task.FromResult(0);
 			}
 		}
 	}
