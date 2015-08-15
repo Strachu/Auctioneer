@@ -37,6 +37,7 @@ namespace Auctioneer.Presentation.Controllers
 		public PartialViewResult ChooseLanguage()
 		{
 			var currentRoute       = ControllerContext.ParentActionViewContext.RouteData.Values;
+			currentRoute["area"]   = ControllerContext.ParentActionViewContext.RouteData.DataTokens["area"];
 			var supportedLanguages = mLanguageService.GetAllLanguages().OrderBy(x => x.DisplayName);
 
 			var viewModel = new ChooseLanguageViewModel
