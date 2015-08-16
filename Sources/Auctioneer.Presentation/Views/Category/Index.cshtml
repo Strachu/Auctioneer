@@ -1,4 +1,5 @@
 ﻿@model CategoryIndexViewModel
+@using Lang = Auctioneer.Resources.Category.Index;
 
 @{
 	Layout        = "~/Views/Shared/_Layout_with_search_and_breadcrumb.cshtml";
@@ -10,11 +11,16 @@
 	@{ Html.RenderPartial("_List", Model.Category); }
 	
 	<main class="auction-list">
-		
-		@{ Html.RenderPartial("_AuctionSortOrder", Model.CurrentSortOrder); }
-		@Html.DisplayFor(x => x.Auctions)
-		@{ Html.RenderPartial("_AuctionPagination", Model.Auctions); }
-
+		@if(Model.Auctions.Any())
+		{
+			Html.RenderPartial("_AuctionSortOrder", Model.CurrentSortOrder);
+			@Html.DisplayFor(x => x.Auctions)
+			Html.RenderPartial("_AuctionPagination", Model.Auctions);
+		}
+		else
+		{
+			<p class="no-results">@Lang.NoResultsFound</p>
+		}
 	</main>
 </div>
 

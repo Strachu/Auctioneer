@@ -120,6 +120,9 @@
   <data name="Header" xml:space="preserve">
     <value>Categories:</value>
   </data>
+  <data name="NoResultsFound" xml:space="preserve">
+    <value>No results</value>
+  </data>
   <data name="PageNumber" xml:space="preserve">
     <value>Page:</value>
   </data>

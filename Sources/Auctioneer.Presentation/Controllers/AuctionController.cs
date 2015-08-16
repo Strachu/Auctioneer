@@ -13,7 +13,6 @@ using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Infrastructure.Validation;
 using Auctioneer.Presentation.Mappers;
 using Auctioneer.Presentation.Models;
-using Auctioneer.Presentation.Models.Shared;
 
 using Microsoft.AspNet.Identity;
 
