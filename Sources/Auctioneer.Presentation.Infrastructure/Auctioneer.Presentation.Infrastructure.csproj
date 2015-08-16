@@ -209,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Html\SortOrderLink.cs" />
+    <Compile Include="Http\RouteValueDictionary.Extensions.cs" />
     <Compile Include="Internationalization\ILanguageService.Contracts.cs">
       <DependentUpon>ILanguageService.cs</DependentUpon>
     </Compile>

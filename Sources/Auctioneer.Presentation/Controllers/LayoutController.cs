@@ -8,10 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+using Auctioneer.Presentation.Infrastructure.Http;
 using Auctioneer.Presentation.Infrastructure.Internationalization;
 using Auctioneer.Presentation.Models;
-
-using DevTrends.MvcDonutCaching;
 
 namespace Auctioneer.Presentation.Controllers
 {
@@ -36,8 +35,7 @@ namespace Auctioneer.Presentation.Controllers
 		[ChildActionOnly]
 		public PartialViewResult ChooseLanguage()
 		{
-			var currentRoute       = ControllerContext.ParentActionViewContext.RouteData.Values;
-			currentRoute["area"]   = ControllerContext.ParentActionViewContext.RouteData.DataTokens["area"];
+			var currentRoute       = GetAllRouteValues();
 			var supportedLanguages = mLanguageService.GetAllLanguages().OrderBy(x => x.DisplayName);
 
 			var viewModel = new ChooseLanguageViewModel
@@ -56,6 +54,18 @@ namespace Auctioneer.Presentation.Controllers
 			};
 
 			return PartialView("_ChooseLanguage", viewModel);
+		}
+
+		private RouteValueDictionary GetAllRouteValues()
+		{
+			var routeValues = ControllerContext.ParentActionViewContext.RouteData.Values;
+			var areaName    = ControllerContext.ParentActionViewContext.RouteData.DataTokens["area"];
+			var queryParams = ControllerContext.ParentActionViewContext.HttpContext.Request.QueryString;
+
+			routeValues["area"] = areaName;
+			routeValues.Merge(queryParams.ToRouteDictionary());
+
+			return routeValues;
 		}
 	}
 }
