@@ -18,7 +18,7 @@ namespace Auctioneer.Logic.TestDbData
 		public static void Add(AuctioneerDbContext context)
 		{
 			var rndGenerator = new Random(Seed: 2934228);
-			var userManager  = new UserManager<User>(new UserStore<User>(context));
+			var userManager  = CreateUserManagerWithoutValidation(context);
 			var roleManager  = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 			var firstNames   = new string[] { "Alexa", "Amanda", "Olivia", "Jacob", "William", "Michael", "John" };
 			var lastNames    = new string[] { "Smith", "Johnson", "Williams", "Brown", "Miller", "King", "Kelly", "Foster" };
@@ -51,6 +51,28 @@ namespace Auctioneer.Logic.TestDbData
 
 			userManager.Create(admin, password: "Admin");
 			userManager.AddToRole(admin.Id, "Admin");
+		}
+
+		private static UserManager<User> CreateUserManagerWithoutValidation(AuctioneerDbContext context)
+		{
+			var userManager = new UserManager<User>(new UserStore<User>(context));
+
+			userManager.PasswordValidator = new PasswordValidator
+			{
+				RequiredLength          = 0,
+				RequireDigit            = false,
+				RequireLowercase        = false,
+				RequireNonLetterOrDigit = false,
+				RequireUppercase        = false
+			};
+			
+			userManager.UserValidator = new UserValidator<User>(userManager)
+			{
+				AllowOnlyAlphanumericUserNames = true,
+				RequireUniqueEmail             = false
+			};
+
+			return userManager;
 		}
 	}
 }
