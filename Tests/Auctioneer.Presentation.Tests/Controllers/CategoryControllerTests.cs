@@ -47,7 +47,7 @@ namespace Auctioneer.Presentation.Tests.Controllers
 			var fakePagedList = A.Fake<IPagedList<Auction>>();
 			A.CallTo(() => fakePagedList.PageNumber).Returns(1);
 			A.CallTo(() => fakePagedList.PageSize).Returns(1);
-			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(0, 0, 0, 0)).WithAnyArguments().Returns(fakePagedList);
+			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(0, null, 0, 0, 0)).WithAnyArguments().Returns(fakePagedList);
 		}
 
 		[Test]
@@ -55,7 +55,7 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		{
 			A.CallTo(() => mRequestMock.Cookies).Returns(new HttpCookieCollection { new HttpCookie("pageSize", "30") });
 
-			await mTestedController.Index(id: 2, page: 2, pageSize: null, sortOrder: null);
+			await mTestedController.Index(id: 2, page: 2);
 
 			AssertThatUsedPageSizeIsEqualTo(30);
 		}
@@ -65,7 +65,7 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		{
 			A.CallTo(() => mRequestMock.Cookies).Returns(new HttpCookieCollection { new HttpCookie("pageSize", "30") });
 
-			await mTestedController.Index(id: 2, page: 2, pageSize: 40, sortOrder: null);
+			await mTestedController.Index(id: 2, page: 2, pageSize: 40);
 
 			AssertThatUsedPageSizeIsEqualTo(40);
 			A.CallTo(() => mResponseMock.SetCookie(A<HttpCookie>.That.Matches(x => x.Value == "40")));
@@ -74,7 +74,7 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		[Test]
 		public async Task DoNotAllowMoreThan50ResultsPerPage()
 		{
-			await mTestedController.Index(id: 2, page: 2, pageSize: 1000, sortOrder: null);
+			await mTestedController.Index(id: 2, page: 2, pageSize: 1000);
 
 			AssertThatUsedPageSizeIsEqualTo(50);
 		}
@@ -84,16 +84,51 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		{
 			A.CallTo(() => mRequestMock.Cookies).Returns(new HttpCookieCollection { new HttpCookie("pageSize", "1000") });
 
-			await mTestedController.Index(id: 2, page: 2, pageSize: null, sortOrder: null);
+			await mTestedController.Index(id: 2, page: 2);
 
 			AssertThatUsedPageSizeIsEqualTo(50);
 		}
 
+		[Test]
+		public async Task WhenNotSearching_EmptyCategoriesAreShown()
+		{
+			A.CallTo(() => mCategoryServiceMock.GetSubcategories(0, null)).WithAnyArguments().Returns(new Category[]
+			{
+				new Category { Id = 1, AuctionCount = 10 },
+				new Category { Id = 2, AuctionCount =  0 },
+				new Category { Id = 3, AuctionCount =  1 },
+			});
+
+			var viewResult  = await mTestedController.Index(id: 1);
+			var viewModel   = viewResult.GetModel<CategoryIndexViewModel>();
+			var categoryIds = viewModel.Category.Categories.Select(x => x.Id);
+
+			Assert.That(categoryIds, Is.EquivalentTo(new int[] { 1, 2, 3 }));
+		}
+
+		[Test]
+		public async Task WhenSearching_EmptyCategoriesAreNotShown()
+		{
+			A.CallTo(() => mCategoryServiceMock.GetSubcategories(0, null)).WithAnyArguments().Returns(new Category[]
+			{
+				new Category { Id = 1, AuctionCount = 10 },
+				new Category { Id = 2, AuctionCount =  0 },
+				new Category { Id = 3, AuctionCount =  1 },
+			});
+
+			var viewResult  = await mTestedController.Index(id: 1, searchString: "Test");
+			var viewModel   = viewResult.GetModel<CategoryIndexViewModel>();
+			var categoryIds = viewModel.Category.Categories.Select(x => x.Id);
+
+			Assert.That(categoryIds, Is.EquivalentTo(new int[] { 1, 3 }));
+		}
+
 		private void AssertThatUsedPageSizeIsEqualTo(int expectedPageSize)
 		{
-			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(A<int>._,
-			                                                               A<AuctionSortOrder>._,
-			                                                               A<int>._,
+			A.CallTo(() => mAuctionServiceMock.GetActiveAuctionsInCategory(A<int>.Ignored,
+			                                                               A<string>.Ignored,
+			                                                               A<AuctionSortOrder>.Ignored,
+			                                                               A<int>.Ignored,
 			                                                               expectedPageSize))
 			 .MustHaveHappened();
 		}

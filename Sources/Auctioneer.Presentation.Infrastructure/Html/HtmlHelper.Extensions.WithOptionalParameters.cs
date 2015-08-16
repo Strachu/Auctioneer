@@ -72,14 +72,27 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 			var routeDictionary         = new RouteValueDictionary(routeValues);
 			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
 
+			return html.BeginForm(controllerName: controllerName, actionName: actionName, routeValues: routeDictionary,
+			                      method: method, cssClass: cssClass, htmlAttributes: htmlAttibutesDictionary);
+		}
+
+		public static MvcForm BeginForm(this HtmlHelper html,
+		                                RouteValueDictionary routeValues,
+		                                string controllerName = null,
+		                                string actionName = null,
+		                                FormMethod method = FormMethod.Post,
+		                                string cssClass = "",
+		                                IDictionary<string, object> htmlAttributes = null)
+		{
+			var htmlAttibutesDictionary = htmlAttributes ?? new Dictionary<string, object>();
+
 			if(!String.IsNullOrWhiteSpace(cssClass))
 			{
 				htmlAttibutesDictionary["class"] = cssClass;
 			}
 
 			return FormExtensions.BeginForm(html, controllerName: controllerName, actionName: actionName,
-			                                routeValues: routeDictionary,
-			                                method: method, htmlAttributes: htmlAttibutesDictionary);
+			                                routeValues: routeValues, method: method, htmlAttributes: htmlAttibutesDictionary);
 		}
 
 		public static MvcHtmlString ValidationSummary(this HtmlHelper html,

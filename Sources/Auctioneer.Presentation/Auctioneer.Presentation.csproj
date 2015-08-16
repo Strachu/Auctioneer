@@ -651,6 +651,7 @@
     <Content Include="Views\Shared\DisplayTemplates\MultilineText.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Duration.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MoneyEditViewModel.cshtml" />
+    <Content Include="Views\Shared\_Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

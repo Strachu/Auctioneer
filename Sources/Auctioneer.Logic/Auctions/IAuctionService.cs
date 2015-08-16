@@ -15,10 +15,16 @@ namespace Auctioneer.Logic.Auctions
 	[ContractClass(typeof(IAuctionServiceContractClass))]
 	public interface IAuctionService
 	{
+		Task<IPagedList<Auction>> GetAllActiveAuctions(string titleFilter = null,
+		                                               AuctionSortOrder sortBy = AuctionSortOrder.TitleAscending,
+		                                               int pageIndex = 1,
+		                                               int auctionsPerPage = int.MaxValue);
+
 		Task<IPagedList<Auction>> GetActiveAuctionsInCategory(int categoryId,
-		                                                      AuctionSortOrder sortBy,
-		                                                      int pageIndex,
-		                                                      int auctionsPerPage);
+		                                                      string titleFilter = null,
+		                                                      AuctionSortOrder sortBy = AuctionSortOrder.TitleAscending,
+		                                                      int pageIndex = 1,
+		                                                      int auctionsPerPage = int.MaxValue);
 
 		Task<IPagedList<Auction>> GetAuctionsByUser(string userId,
 		                                            TimeSpan createdIn,

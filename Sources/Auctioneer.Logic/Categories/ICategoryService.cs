@@ -7,8 +7,10 @@ namespace Auctioneer.Logic.Categories
 	{
 		Task<IEnumerable<CategoryHierarchyLevelPair>> GetAllCategoriesWithHierarchyLevel();
 
-		Task<IEnumerable<Category>> GetTopLevelCategories();
-		Task<IEnumerable<Category>> GetSubcategories(int parentCategoryId);
+		// TODO auctionTitleFilter looks weird here - calculating the number of auctions in category should be
+		// split into another function.
+		Task<IEnumerable<Category>> GetTopLevelCategories(string auctionTitleFilter = null);
+		Task<IEnumerable<Category>> GetSubcategories(int parentCategoryId, string auctionTitleFilter = null);
 		Task<IEnumerable<Category>> GetCategoryHierarchy(int leafCategoryId);
 	}
 }

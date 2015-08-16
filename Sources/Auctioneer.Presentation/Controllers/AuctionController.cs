@@ -80,6 +80,15 @@ namespace Auctioneer.Presentation.Controllers
 			return View(viewModel);
 		}
 
+		public ActionResult Search(string searchString)
+		{
+			return RedirectToAction(controllerName: "Category", actionName: "Index", routeValues: new
+			{
+				id           = (int?)null,
+				searchString = searchString
+			});
+		}
+
 		[ChildActionOnly]
 		public ActionResult Breadcrumb(int id)
 		{

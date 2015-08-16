@@ -33,6 +33,11 @@ namespace Auctioneer.Presentation.Controllers
 			return View(viewModels);
 		}
 
+		public ActionResult Search(string searchString)
+		{
+			return RedirectToAction(controllerName: "Category", actionName: "Index", routeValues: new { searchString });
+		}
+
 		[ChildActionOnly]
 		public PartialViewResult Breadcrumb()
 		{

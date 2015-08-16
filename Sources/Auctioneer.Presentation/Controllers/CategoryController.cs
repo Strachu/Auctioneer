@@ -13,6 +13,8 @@ using Auctioneer.Presentation.Infrastructure.Http;
 
 using DevTrends.MvcDonutCaching;
 
+using PagedList;
+
 namespace Auctioneer.Presentation.Controllers
 {
 	public class CategoryController : Controller
@@ -41,9 +43,11 @@ namespace Auctioneer.Presentation.Controllers
 			mResponse          = response;
 		}
 
-		[Route("{lang:language}/Category/{id:int}/{slug?}", Order = 1)]
-		[Route("Category/{id:int}/{slug?}", Order = 2)]
-		public async Task<ActionResult> Index(int id, int? page, int? pageSize, AuctionSortOrder? sortOrder)
+		// TODO Is it better to extract searching to a different method?
+		[Route("{lang:language}/Category/{id:int?}/{slug?}", Order = 1)]
+		[Route("Category/{id:int?}/{slug?}", Order = 2)]
+		public async Task<ActionResult> Index(int? id, string searchString = null, int? page = null, int? pageSize = null,
+		                                      AuctionSortOrder? sortOrder = null)
 		{
 			mResponse.SaveToCookieIfNotNull(COOKIE_PAGE_SIZE_KEY,  pageSize);
 			mResponse.SaveToCookieIfNotNull(COOKIE_SORT_ORDER_KEY, sortOrder);
@@ -53,10 +57,29 @@ namespace Auctioneer.Presentation.Controllers
 
 			pageSize  = Math.Min(pageSize.Value, MAX_PAGE_SIZE);
 
-			var categories = await mCategoryService.GetSubcategories(parentCategoryId: id);
-			var auctions   = await mAuctionService.GetActiveAuctionsInCategory(id, sortOrder.Value, page ?? 1, pageSize.Value);
-			var viewModel  = CategoryIndexViewModelMapper.FromCategoriesAndAuctions(categories, auctions, sortOrder.Value);
+			IEnumerable<Category> categories;
+			IPagedList<Auction>   auctions;
 
+			// TODO should this condition be moved to a service?
+			if(id != null)
+			{
+				categories = await mCategoryService.GetSubcategories(parentCategoryId: id.Value, auctionTitleFilter: searchString);
+				auctions   = await mAuctionService.GetActiveAuctionsInCategory(id.Value, searchString, sortOrder.Value,
+				                                                               page ?? 1, pageSize.Value);
+			}
+			else
+			{
+				categories = await mCategoryService.GetTopLevelCategories(searchString);
+				auctions   = await mAuctionService.GetAllActiveAuctions(searchString, sortOrder.Value, page ?? 1, pageSize.Value);				
+			}
+
+			if(!String.IsNullOrWhiteSpace(searchString))
+			{
+				categories = categories.Where(x => x.AuctionCount > 0);
+			}
+
+			var viewModel = CategoryIndexViewModelMapper.FromCategoriesAndAuctions(categories, auctions, searchString,
+			                                                                       sortOrder.Value);
 			return View(viewModel);
 		}
 
@@ -70,15 +93,28 @@ namespace Auctioneer.Presentation.Controllers
 			return PartialView("_List", viewModel);
 		}
 
-		[ChildActionOnly]
-		[DonutOutputCache(Duration = Constants.DAY, VaryByParam = "id")]
-		public ActionResult Breadcrumb(int id)
+		// TODO change searchString to title??
+		public ActionResult Search(int? id, string searchString)
 		{
-			var breadcrumb = mBreadcrumbBuilder.WithHomepageLink()
-			                                   .WithCategoryHierarchy(id)
-			                                   .Build();
+			return RedirectToAction("Index", routeValues: new { id, searchString });
+		}
 
-			return PartialView("_Breadcrumb", breadcrumb);
+		[ChildActionOnly]
+		public ActionResult Breadcrumb(int? id = null, string searchString = null)
+		{
+			var breadcrumb = mBreadcrumbBuilder.WithHomepageLink();
+
+			if(id != null)
+			{
+				breadcrumb.WithCategoryHierarchy(id.Value, searchString);
+			}
+
+			if(searchString != null)
+			{
+				breadcrumb.WithSearchResults(searchString);
+			}
+			
+			return PartialView("_Breadcrumb", breadcrumb.Build());
 		}
 	}
 }

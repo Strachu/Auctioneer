@@ -79,6 +79,15 @@ namespace Auctioneer.Resources.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Searching for &quot;{0}&quot;.
+        /// </summary>
+        public static string Breadcrumb_SearchingFor {
+            get {
+                return ResourceManager.GetString("Breadcrumb_SearchingFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create an account.
         /// </summary>
         public static string CreateAccount {
@@ -120,6 +129,24 @@ namespace Auctioneer.Resources.Shared {
         public static string MyAccount {
             get {
                 return ResourceManager.GetString("MyAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What do you seek?.
+        /// </summary>
+        public static string Search_Placeholder {
+            get {
+                return ResourceManager.GetString("Search_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string SearchSubmitText {
+            get {
+                return ResourceManager.GetString("SearchSubmitText", resourceCulture);
             }
         }
     }

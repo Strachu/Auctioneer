@@ -1,4 +1,19 @@
-﻿.breadcrumb
+﻿.search-box
+{
+	text-align       : center;
+	background-color : #eeeeee;
+	border-radius    : 10px;		
+	margin-bottom    : 20px;	
+	padding-bottom   : 10px;
+	padding-top      : 10px;
+}
+
+.search-box #searchString
+{
+	width: 40%;
+}
+
+.breadcrumb
 {
 	font-size     : 90%;
 	padding-top   : 5px;

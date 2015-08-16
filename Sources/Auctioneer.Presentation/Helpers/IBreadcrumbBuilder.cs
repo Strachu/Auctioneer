@@ -9,8 +9,9 @@ namespace Auctioneer.Presentation.Helpers
 	public interface IBreadcrumbBuilder
 	{
 		IBreadcrumbBuilder WithHomepageLink();
-		IBreadcrumbBuilder WithCategoryHierarchy(int leafCategoryId);
+		IBreadcrumbBuilder WithCategoryHierarchy(int leafCategoryId, string searchString = null);
 		IBreadcrumbBuilder WithAuctionLink(Auction auction);
+		IBreadcrumbBuilder WithSearchResults(string searchString);
 
 		BreadcrumbViewModel Build();
 	}

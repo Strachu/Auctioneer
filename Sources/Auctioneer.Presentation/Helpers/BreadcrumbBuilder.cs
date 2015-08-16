@@ -11,6 +11,8 @@ using Auctioneer.Logic.Categories;
 using Auctioneer.Presentation.Infrastructure;
 using Auctioneer.Presentation.Models;
 
+using Lang = Auctioneer.Resources.Shared.Layout;
+
 namespace Auctioneer.Presentation.Helpers
 {
 	public class BreadcrumbBuilder : IBreadcrumbBuilder
@@ -40,7 +42,7 @@ namespace Auctioneer.Presentation.Helpers
 			return this;
 		}
 
-		public IBreadcrumbBuilder WithCategoryHierarchy(int leafCategoryId)
+		public IBreadcrumbBuilder WithCategoryHierarchy(int leafCategoryId, string searchString)
 		{
 			var categoryHierarchy = mCategoryService.GetCategoryHierarchy(leafCategoryId).Result;
 
@@ -51,8 +53,9 @@ namespace Auctioneer.Presentation.Helpers
 					Name      = category.Name,
 					TargetUrl = mUrlHelper.Action(controllerName: "Category", actionName: "Index", routeValues: new
 					{
-						id   = category.Id,
-						slug = SlugGenerator.SlugFromTitle(category.Name)
+						id           = category.Id,
+						slug         = SlugGenerator.SlugFromTitle(category.Name),
+						searchString = searchString
 					})
 				});
 			}
@@ -73,6 +76,17 @@ namespace Auctioneer.Presentation.Helpers
 			});
 
 			return this;		
+		}
+
+		public IBreadcrumbBuilder WithSearchResults(string searchString)
+		{
+			mItems.Add(new BreadcrumbViewModel.Item
+			{
+				Name      = String.Format(Lang.Breadcrumb_SearchingFor, searchString),
+				TargetUrl = mUrlHelper.Action()
+			});
+
+			return this;
 		}
 
 		public BreadcrumbViewModel Build()

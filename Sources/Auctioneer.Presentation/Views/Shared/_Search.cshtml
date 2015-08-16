@@ -1,0 +1,18 @@
+﻿@using Lang = Auctioneer.Resources.Shared.Layout
+
+<div class="search-box">
+	
+	@using(Html.BeginForm(actionName: "Search", method: FormMethod.Get, routeValues: ViewContext.RouteData.Values))
+	{
+		var searchString = ViewContext.HttpContext.Request.QueryString["searchString"];
+
+		@Html.TextBox("searchString", value: searchString, htmlAttributes: new
+		{
+			type        = "search",
+			placeholder = @Lang.Search_Placeholder
+		})
+		
+		<input type="submit" value="@Lang.SearchSubmitText" />
+	}
+
+</div>

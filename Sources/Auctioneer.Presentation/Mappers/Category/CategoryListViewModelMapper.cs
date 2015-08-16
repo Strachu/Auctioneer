@@ -10,7 +10,8 @@ namespace Auctioneer.Presentation.Mappers.Category
 {
 	public class CategoryListViewModelMapper
 	{
-		public static CategoryListViewModel FromCategories(IEnumerable<Logic.Categories.Category> categories)
+		public static CategoryListViewModel FromCategories(IEnumerable<Logic.Categories.Category> categories,
+		                                                   string searchString = null)
 		{
 			Contract.Requires(categories != null);
 
@@ -22,6 +23,7 @@ namespace Auctioneer.Presentation.Mappers.Category
 					Name         = x.Name,
 					AuctionCount = x.AuctionCount
 				}),
+				SearchString = searchString
 			};
 		}
 	}

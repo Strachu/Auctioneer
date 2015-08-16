@@ -123,6 +123,9 @@
   <data name="AdminPanel" xml:space="preserve">
     <value>Administration panel</value>
   </data>
+  <data name="Breadcrumb_SearchingFor" xml:space="preserve">
+    <value>Searching for "{0}"</value>
+  </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Create an account</value>
   </data>
@@ -137,5 +140,11 @@
   </data>
   <data name="MyAccount" xml:space="preserve">
     <value>My account</value>
+  </data>
+  <data name="SearchSubmitText" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Search_Placeholder" xml:space="preserve">
+    <value>What do you seek?</value>
   </data>
 </root>

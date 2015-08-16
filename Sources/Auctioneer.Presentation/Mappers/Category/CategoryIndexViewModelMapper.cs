@@ -15,6 +15,7 @@ namespace Auctioneer.Presentation.Mappers.Category
 	{
 		public static CategoryIndexViewModel FromCategoriesAndAuctions(IEnumerable<Logic.Categories.Category> categories,
 		                                                               IPagedList<Auction> auctions,
+		                                                               string searchString,
 		                                                               AuctionSortOrder currentSortOrder)
 		{
 			Contract.Requires(categories != null);
@@ -23,7 +24,7 @@ namespace Auctioneer.Presentation.Mappers.Category
 			return new CategoryIndexViewModel
 			{
 				CurrentSortOrder = currentSortOrder,
-				Category         = CategoryListViewModelMapper.FromCategories(categories),
+				Category         = CategoryListViewModelMapper.FromCategories(categories, searchString),
 				Auctions         = new StaticPagedList<AuctionViewModel>(auctions.Select(AuctionViewModelMapper.FromAuction),
 				                                                         auctions)
 			};

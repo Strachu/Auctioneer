@@ -6,10 +6,12 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
+using Auctioneer.Logic.Categories;
 using Auctioneer.Logic.Users;
 using Auctioneer.Logic.Validation;
 
@@ -52,13 +54,31 @@ namespace Auctioneer.Logic.Auctions
 			mAuctionThumbnailDirectoryPath = thumbnailDirectoryPath;
 		}
 
+		public Task<IPagedList<Auction>> GetAllActiveAuctions(string titleFilter,
+		                                                      AuctionSortOrder sortBy,
+		                                                      int pageIndex,
+		                                                      int auctionsPerPage)
+		{
+			return GetAuctions(cat => cat.ParentId == null, titleFilter, sortBy, pageIndex, auctionsPerPage);
+		}
+
 		public Task<IPagedList<Auction>> GetActiveAuctionsInCategory(int categoryId,
+		                                                             string titleFilter,
 		                                                             AuctionSortOrder sortBy,
 		                                                             int pageIndex,
 		                                                             int auctionsPerPage)
 		{
+			return GetAuctions(cat => cat.Id == categoryId, titleFilter, sortBy, pageIndex, auctionsPerPage);
+		}
+
+		public Task<IPagedList<Auction>> GetAuctions(Expression<Func<Category, bool>> rootCategoryFilter,
+		                                             string titleFilter,
+		                                             AuctionSortOrder sortBy,
+		                                             int pageIndex,
+		                                             int auctionsPerPage)
+		{
 			var auctions = from auction      in mContext.Auctions.Where(AuctionStatusFilter.Active)
-			               from rootCategory in mContext.Categories.Where(x => x.Id == categoryId)
+			               from rootCategory in mContext.Categories.Where(rootCategoryFilter)
 
 			               from subCategory  in mContext.Categories
 			               where subCategory.Left  >= rootCategory.Left &&
@@ -66,6 +86,11 @@ namespace Auctioneer.Logic.Auctions
 
 			               where auction.CategoryId == subCategory.Id
 			               select auction;
+
+			if(!String.IsNullOrWhiteSpace(titleFilter))
+			{
+				auctions = auctions.Where(x => x.Title.Contains(titleFilter));
+			}
 
 			switch(sortBy)
 			{

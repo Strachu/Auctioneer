@@ -15,7 +15,7 @@ namespace Auctioneer.Logic.Tests.Categories
 	[TestFixture]
 	class CategoryServiceTest
 	{
-		private CategoryService mTestedService;
+		private ICategoryService mTestedService;
 
 		[SetUp]
 		public void SetUp()

@@ -15,7 +15,7 @@ namespace Auctioneer.Presentation.Helpers
 			throw new NotImplementedException();
 		}
 
-		IBreadcrumbBuilder IBreadcrumbBuilder.WithCategoryHierarchy(int leafCategoryId)
+		IBreadcrumbBuilder IBreadcrumbBuilder.WithCategoryHierarchy(int leafCategoryId, string searchString)
 		{
 			throw new NotImplementedException();
 		}
@@ -29,6 +29,14 @@ namespace Auctioneer.Presentation.Helpers
 
 		Models.BreadcrumbViewModel IBreadcrumbBuilder.Build()
 		{
+			throw new NotImplementedException();
+		}
+
+
+		public IBreadcrumbBuilder WithSearchResults(string searchString)
+		{
+			Contract.Requires(searchString != null);
+
 			throw new NotImplementedException();
 		}
 	}

@@ -138,4 +138,13 @@
   <data name="AdminPanel" xml:space="preserve">
     <value>Panel administracyjny</value>
   </data>
+  <data name="Breadcrumb_SearchingFor" xml:space="preserve">
+    <value>Szukanie "{0}"</value>
+  </data>
+  <data name="Search_Placeholder" xml:space="preserve">
+    <value>Czego szukasz?</value>
+  </data>
+  <data name="SearchSubmitText" xml:space="preserve">
+    <value>Szukaj</value>
+  </data>
 </root>

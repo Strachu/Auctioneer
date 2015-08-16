@@ -9,6 +9,8 @@ namespace Auctioneer.Presentation.Models
 	{
 		public IEnumerable<Category> Categories { get; set; }
 
+		public string SearchString { get; set; }
+
 		public class Category
 		{
 			public int Id { get; set; }

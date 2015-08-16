@@ -38,25 +38,33 @@ namespace Auctioneer.Logic.Categories
 			return await query.ToListAsync();
 		}
 
-		public Task<IEnumerable<Category>> GetTopLevelCategories()
+		public Task<IEnumerable<Category>> GetTopLevelCategories(string auctionTitleFilter)
 		{
-			return GetCategoriesAlongWithAuctionCount(x => x.ParentId == null);
+			return GetCategoriesAlongWithAuctionCount(x => x.ParentId == null, auctionTitleFilter);
 		}
 
-		public Task<IEnumerable<Category>> GetSubcategories(int parentCategoryId)
+		public Task<IEnumerable<Category>> GetSubcategories(int parentCategoryId, string auctionTitleFilter)
 		{
-			return GetCategoriesAlongWithAuctionCount(x => x.ParentId == parentCategoryId);
+			return GetCategoriesAlongWithAuctionCount(x => x.ParentId == parentCategoryId, auctionTitleFilter);
 		}
 
 		private async Task<IEnumerable<Category>> GetCategoriesAlongWithAuctionCount(
-			Expression<Func<Category, bool>> categoryFilter)
+			Expression<Func<Category, bool>> categoryFilter,
+			string auctionTitleFilter)
 		{
+			var auctions = mContext.Auctions.Where(AuctionStatusFilter.Active);
+
+			if(!String.IsNullOrWhiteSpace(auctionTitleFilter))
+			{
+				auctions = auctions.Where(x => x.Title.Contains(auctionTitleFilter));
+			}
+
 			var query = from rootCategory in mContext.Categories.Where(categoryFilter)
 			            from subCategory  in mContext.Categories
 			            where subCategory.Left  >= rootCategory.Left &&
 			                  subCategory.Right <= rootCategory.Right
 
-			            join auction in mContext.Auctions.Where(AuctionStatusFilter.Active)
+			            join auction in auctions
 			            on subCategory.Id equals auction.CategoryId into outerJoin
 			            from auction in outerJoin.DefaultIfEmpty()
 

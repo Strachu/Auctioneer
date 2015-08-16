@@ -6,7 +6,17 @@
 	<ul>
 		@foreach(var category in Model.Categories)
 		{
-			<li>@Html.ActionLinkWithSlug(category.Name, "Index", routeValues: new { id = category.Id }) (@category.AuctionCount)</li>
+			<li>
+				@{
+					var categoryLink = Html.ActionLinkWithSlug(category.Name, "Index", routeValues: new
+					                   {
+					                      id           = category.Id,
+					                      searchString = Model.SearchString
+					                   });
+				}
+
+				@Html.Raw(String.Format("{0} ({1})", categoryLink, category.AuctionCount))
+			</li>
 		}
 	</ul>
 </nav>
