@@ -11,9 +11,10 @@ namespace Auctioneer.Presentation.Models
 {
 	public class CategoryIndexViewModel
 	{
-		public AuctionSortOrder CurrentSortOrder { get; set; }
+		public int? CategoryId { get; set; }
 
-		public CategoryListViewModel Category { get; set; }
 		public IPagedList<AuctionViewModel> Auctions { get; set; }
+
+		public AuctionSortOrder CurrentSortOrder { get; set; }
 	}
 }

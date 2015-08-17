@@ -13,20 +13,18 @@ namespace Auctioneer.Presentation.Mappers.Category
 {
 	public class CategoryIndexViewModelMapper
 	{
-		public static CategoryIndexViewModel FromCategoriesAndAuctions(IEnumerable<Logic.Categories.Category> categories,
-		                                                               IPagedList<Auction> auctions,
-		                                                               string searchString,
-		                                                               AuctionSortOrder currentSortOrder)
+		public static CategoryIndexViewModel FromAuctions(IPagedList<Auction> auctions,
+		                                                  int? categoryId,
+		                                                  AuctionSortOrder currentSortOrder)
 		{
-			Contract.Requires(categories != null);
 			Contract.Requires(auctions != null);
 
 			return new CategoryIndexViewModel
 			{
-				CurrentSortOrder = currentSortOrder,
-				Category         = CategoryListViewModelMapper.FromCategories(categories, searchString),
+				CategoryId       = categoryId,
 				Auctions         = new StaticPagedList<AuctionViewModel>(auctions.Select(AuctionViewModelMapper.FromAuction),
-				                                                         auctions)
+				                                                         auctions),
+				CurrentSortOrder = currentSortOrder,
 			};
 		}
 	}

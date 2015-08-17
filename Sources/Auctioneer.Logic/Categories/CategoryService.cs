@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Data.Entity;
 using System.Linq.Expressions;
@@ -16,6 +17,8 @@ namespace Auctioneer.Logic.Categories
 
 		public CategoryService(AuctioneerDbContext context)
 		{
+			Contract.Requires(context != null);
+
 			mContext = context;
 		}
 
@@ -38,19 +41,8 @@ namespace Auctioneer.Logic.Categories
 			return await query.ToListAsync();
 		}
 
-		public Task<IEnumerable<Category>> GetTopLevelCategories(string auctionTitleFilter)
-		{
-			return GetCategoriesAlongWithAuctionCount(x => x.ParentId == null, auctionTitleFilter);
-		}
-
-		public Task<IEnumerable<Category>> GetSubcategories(int parentCategoryId, string auctionTitleFilter)
-		{
-			return GetCategoriesAlongWithAuctionCount(x => x.ParentId == parentCategoryId, auctionTitleFilter);
-		}
-
-		private async Task<IEnumerable<Category>> GetCategoriesAlongWithAuctionCount(
-			Expression<Func<Category, bool>> categoryFilter,
-			string auctionTitleFilter)
+		public async Task<IEnumerable<CategoryAuctionCountPair>> GetCategoriesAlongWithAuctionCount(int? parentCategoryId,
+		                                                                                            string auctionTitleFilter)
 		{
 			var auctions = mContext.Auctions.Where(AuctionStatusFilter.Active);
 
@@ -59,7 +51,7 @@ namespace Auctioneer.Logic.Categories
 				auctions = auctions.Where(x => x.Title.Contains(auctionTitleFilter));
 			}
 
-			var query = from rootCategory in mContext.Categories.Where(categoryFilter)
+			var query = from rootCategory in mContext.Categories.Where(x => x.ParentId == parentCategoryId)
 			            from subCategory  in mContext.Categories
 			            where subCategory.Left  >= rootCategory.Left &&
 			                  subCategory.Right <= rootCategory.Right
@@ -70,21 +62,13 @@ namespace Auctioneer.Logic.Categories
 
 			            group auction by rootCategory into auctionByRootCategory
 			            orderby auctionByRootCategory.Key.Name ascending
-			            select new
+			            select new CategoryAuctionCountPair
 			            {
-			               Category     = auctionByRootCategory.Key,
-			               AuctionCount = auctionByRootCategory.Count(x => x != null)
-			            };			
+				            Category     = auctionByRootCategory.Key,
+				            AuctionCount = auctionByRootCategory.Count(x => x != null)
+			            };
 
-			var categoriesWithAuctionCount = await query.ToListAsync().ConfigureAwait(false);
-
-			return categoriesWithAuctionCount.Select(x =>
-			{
-				var category = x.Category;
-
-				category.AuctionCount = x.AuctionCount;
-				return category;
-			});
+			return await query.ToListAsync().ConfigureAwait(false);
 		}
 
 		public async Task<IEnumerable<Category>> GetCategoryHierarchy(int leafCategoryId)

@@ -8,7 +8,6 @@ using System.Web.Mvc;
 
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
-using Auctioneer.Logic.Utils;
 using Auctioneer.Presentation.Controllers;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Models;
@@ -51,6 +50,40 @@ namespace Auctioneer.Presentation.Tests.Controllers
 		}
 
 		[Test]
+		public void WhenNotSearching_EmptyCategoriesAreShown()
+		{
+			A.CallTo(() => mCategoryServiceMock.GetCategoriesAlongWithAuctionCount(0, null)).WithAnyArguments().Returns(
+			new CategoryAuctionCountPair[]
+			{
+				new CategoryAuctionCountPair { Category = new Category { Id = 1 }, AuctionCount = 10 },
+				new CategoryAuctionCountPair { Category = new Category { Id = 2 }, AuctionCount =  0 },
+				new CategoryAuctionCountPair { Category = new Category { Id = 3 }, AuctionCount =  1 },
+			});
+
+			var viewModel   = mTestedController.Categories().GetModel<CategoryListViewModel>();
+			var categoryIds = viewModel.Categories.Select(x => x.Id);
+
+			Assert.That(categoryIds, Is.EquivalentTo(new int[] { 1, 2, 3 }));
+		}
+
+		[Test]
+		public void WhenSearching_EmptyCategoriesAreNotShown()
+		{
+			A.CallTo(() => mCategoryServiceMock.GetCategoriesAlongWithAuctionCount(0, null)).WithAnyArguments().Returns(
+			new CategoryAuctionCountPair[]
+			{
+				new CategoryAuctionCountPair { Category = new Category { Id = 1 }, AuctionCount = 10 },
+				new CategoryAuctionCountPair { Category = new Category { Id = 2 }, AuctionCount =  0 },
+				new CategoryAuctionCountPair { Category = new Category { Id = 3 }, AuctionCount =  1 },
+			});
+
+			var viewModel   = mTestedController.Categories(searchString: "Test").GetModel<CategoryListViewModel>();
+			var categoryIds = viewModel.Categories.Select(x => x.Id);
+
+			Assert.That(categoryIds, Is.EquivalentTo(new int[] { 1, 3 }));
+		}
+
+		[Test]
 		public async Task PageSizeIsReadFromACookieIfItsThere()
 		{
 			A.CallTo(() => mRequestMock.Cookies).Returns(new HttpCookieCollection { new HttpCookie("pageSize", "30") });
@@ -87,40 +120,6 @@ namespace Auctioneer.Presentation.Tests.Controllers
 			await mTestedController.Index(id: 2, page: 2);
 
 			AssertThatUsedPageSizeIsEqualTo(50);
-		}
-
-		[Test]
-		public async Task WhenNotSearching_EmptyCategoriesAreShown()
-		{
-			A.CallTo(() => mCategoryServiceMock.GetSubcategories(0, null)).WithAnyArguments().Returns(new Category[]
-			{
-				new Category { Id = 1, AuctionCount = 10 },
-				new Category { Id = 2, AuctionCount =  0 },
-				new Category { Id = 3, AuctionCount =  1 },
-			});
-
-			var viewResult  = await mTestedController.Index(id: 1);
-			var viewModel   = viewResult.GetModel<CategoryIndexViewModel>();
-			var categoryIds = viewModel.Category.Categories.Select(x => x.Id);
-
-			Assert.That(categoryIds, Is.EquivalentTo(new int[] { 1, 2, 3 }));
-		}
-
-		[Test]
-		public async Task WhenSearching_EmptyCategoriesAreNotShown()
-		{
-			A.CallTo(() => mCategoryServiceMock.GetSubcategories(0, null)).WithAnyArguments().Returns(new Category[]
-			{
-				new Category { Id = 1, AuctionCount = 10 },
-				new Category { Id = 2, AuctionCount =  0 },
-				new Category { Id = 3, AuctionCount =  1 },
-			});
-
-			var viewResult  = await mTestedController.Index(id: 1, searchString: "Test");
-			var viewModel   = viewResult.GetModel<CategoryIndexViewModel>();
-			var categoryIds = viewModel.Category.Categories.Select(x => x.Id);
-
-			Assert.That(categoryIds, Is.EquivalentTo(new int[] { 1, 3 }));
 		}
 
 		private void AssertThatUsedPageSizeIsEqualTo(int expectedPageSize)

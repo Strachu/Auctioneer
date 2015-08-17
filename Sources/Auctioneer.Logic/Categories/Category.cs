@@ -17,8 +17,6 @@ namespace Auctioneer.Logic.Categories
 		public int Id { get; set; }
 		public string Name { get; set; }
 
-		public int AuctionCount { get; set; }
-
 		public int? ParentId { get; set; }
 		public virtual Category Parent { get; set; }
 		public virtual ICollection<Category> SubCategories { get; set; }

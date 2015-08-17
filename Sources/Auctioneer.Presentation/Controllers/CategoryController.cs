@@ -11,8 +11,6 @@ using Auctioneer.Presentation.Mappers.Category;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Infrastructure.Http;
 
-using DevTrends.MvcDonutCaching;
-
 using PagedList;
 
 namespace Auctioneer.Presentation.Controllers
@@ -43,10 +41,24 @@ namespace Auctioneer.Presentation.Controllers
 			mResponse          = response;
 		}
 
+		[ChildActionOnly]
+		public PartialViewResult Categories(int? parentCategoryId = null, string searchString = null)
+		{
+			var categories = mCategoryService.GetCategoriesAlongWithAuctionCount(parentCategoryId, searchString).Result;
+
+			if(!String.IsNullOrWhiteSpace(searchString))
+			{
+				categories = categories.Where(x => x.AuctionCount > 0);
+			}
+
+			var viewModel = CategoryListViewModelMapper.FromCategoriesWithAuctionCount(categories, searchString);
+			return PartialView("_List", viewModel);
+		}
+
 		// TODO Is it better to extract searching to a different method?
 		[Route("{lang:language}/Category/{id:int?}/{slug?}", Order = 1)]
 		[Route("Category/{id:int?}/{slug?}", Order = 2)]
-		public async Task<ActionResult> Index(int? id, string searchString = null, int? page = null, int? pageSize = null,
+		public async Task<ActionResult> Index(int? id, string searchString = null, int page = 1, int? pageSize = null,
 		                                      AuctionSortOrder? sortOrder = null)
 		{
 			mResponse.SaveToCookieIfNotNull(COOKIE_PAGE_SIZE_KEY,  pageSize);
@@ -57,40 +69,21 @@ namespace Auctioneer.Presentation.Controllers
 
 			pageSize  = Math.Min(pageSize.Value, MAX_PAGE_SIZE);
 
-			IEnumerable<Category> categories;
-			IPagedList<Auction>   auctions;
+			IPagedList<Auction> auctions;
 
 			// TODO should this condition be moved to a service?
 			if(id != null)
 			{
-				categories = await mCategoryService.GetSubcategories(parentCategoryId: id.Value, auctionTitleFilter: searchString);
-				auctions   = await mAuctionService.GetActiveAuctionsInCategory(id.Value, searchString, sortOrder.Value,
-				                                                               page ?? 1, pageSize.Value);
+				auctions = await mAuctionService.GetActiveAuctionsInCategory(id.Value, searchString, sortOrder.Value,
+				                                                             page, pageSize.Value);
 			}
 			else
 			{
-				categories = await mCategoryService.GetTopLevelCategories(searchString);
-				auctions   = await mAuctionService.GetAllActiveAuctions(searchString, sortOrder.Value, page ?? 1, pageSize.Value);				
+				auctions = await mAuctionService.GetAllActiveAuctions(searchString, sortOrder.Value, page, pageSize.Value);				
 			}
 
-			if(!String.IsNullOrWhiteSpace(searchString))
-			{
-				categories = categories.Where(x => x.AuctionCount > 0);
-			}
-
-			var viewModel = CategoryIndexViewModelMapper.FromCategoriesAndAuctions(categories, auctions, searchString,
-			                                                                       sortOrder.Value);
+			var viewModel = CategoryIndexViewModelMapper.FromAuctions(auctions, id, sortOrder.Value);
 			return View(viewModel);
-		}
-
-		[ChildActionOnly]
-		[DonutOutputCache(Duration = 7200)]
-		public PartialViewResult TopCategories()
-		{
-			var categories = mCategoryService.GetTopLevelCategories().Result;
-			var viewModel  = CategoryListViewModelMapper.FromCategories(categories);
-
-			return PartialView("_List", viewModel);
 		}
 
 		public ActionResult Search(int? id, string searchString)

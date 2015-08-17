@@ -144,31 +144,31 @@ namespace Auctioneer.Logic.Tests.Categories
 		}
 
 		[Test]
-		public async Task GetTopLevelCategories_ReturnsAllTopLevelCategoriesAndNothingElse()
+		public async Task GetCategoriesWithoutParentId_ReturnsAllTopLevelCategoriesAndNothingElse()
 		{
-			var categories = await mTestedService.GetTopLevelCategories();
+			var categories = await mTestedService.GetCategoriesAlongWithAuctionCount();
 
-			var returnedCategoryNames = categories.Select(x => x.Name);
+			var returnedCategoryNames = categories.Select(x => x.Category.Name);
 			var expectedCategoryNames = new string[] { "Computers", "Software" };
 
 			Assert.That(returnedCategoryNames, Is.EqualTo(expectedCategoryNames));
 		}
 
 		[Test]
-		public async Task GetTopLevelCategories_ReturnsAlsoCorrectInfoAboutAuctionCount()
+		public async Task GetCategoriesWithoutParentId_ReturnsAlsoCorrectInfoAboutAuctionCount()
 		{
-			var categories = (await mTestedService.GetTopLevelCategories()).ToDictionary(x => x.Name);
+			var categories = (await mTestedService.GetCategoriesAlongWithAuctionCount()).ToDictionary(x => x.Category.Name);
 
 			Assert.That(categories["Computers"].AuctionCount, Is.EqualTo(17));
 			Assert.That(categories["Software"].AuctionCount,  Is.EqualTo(13));
 		}
 
 		[Test]
-		public async Task GetSubcategories_ReturnsTheCorrectSubcategoriesInAlphabeticalOrder()
+		public async Task GetCategories_ReturnsTheCategoriesInAlphabeticalOrder()
 		{
-			var categories = await mTestedService.GetSubcategories(4);
+			var categories = await mTestedService.GetCategoriesAlongWithAuctionCount(parentCategoryId: 4);
 
-			var returnedSubCategoryNames = categories.Select(x => x.Name);
+			var returnedSubCategoryNames = categories.Select(x => x.Category.Name);
 			var expectedSubCategoryNames = new string[]
 			{
 				"Cases", "Graphics cards", "Hard drives", "Motherboards", "Power supplies", "Processors", "RAM memory", 
@@ -178,20 +178,21 @@ namespace Auctioneer.Logic.Tests.Categories
 		}
 
 		[Test]
-		public async Task GetSubcategories_ReturnsAlsoCategoriesWithOnlyInactiveAuctions()
+		public async Task GetCategories_ReturnsAlsoCategoriesWithOnlyInactiveAuctions()
 		{
-			var categories = await mTestedService.GetSubcategories(1);
+			var categories = await mTestedService.GetCategoriesAlongWithAuctionCount(parentCategoryId: 1);
 
-			var returnedSubCategoryNames = categories.Select(x => x.Name);
+			var returnedSubCategoryNames = categories.Select(x => x.Category.Name);
 			var expectedSubCategoryNames = new string[] { "Desktop computers", "Mobile computers", "Components" };
 
 			Assert.That(returnedSubCategoryNames, Is.EquivalentTo(expectedSubCategoryNames));
 		}
 
 		[Test]
-		public async Task GetSubcategories_ReturnsAlsoCorrectInfoAboutAuctionCount()
+		public async Task GetCategories_ReturnsAlsoCorrectInfoAboutAuctionCountForLeafCategories()
 		{
-			var categories = (await mTestedService.GetSubcategories(12)).ToDictionary(x => x.Name);
+			var categories = (await mTestedService.GetCategoriesAlongWithAuctionCount(parentCategoryId: 12))
+			                                      .ToDictionary(x => x.Category.Name);
 
 			Assert.That(categories["Operating systems"].AuctionCount, Is.EqualTo(0));
 			Assert.That(categories["Office"].AuctionCount,            Is.EqualTo(0));
