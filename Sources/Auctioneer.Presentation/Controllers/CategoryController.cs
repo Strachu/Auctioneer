@@ -93,7 +93,6 @@ namespace Auctioneer.Presentation.Controllers
 			return PartialView("_List", viewModel);
 		}
 
-		// TODO change searchString to title??
 		public ActionResult Search(int? id, string searchString)
 		{
 			return RedirectToAction("Index", routeValues: new { id, searchString });
@@ -103,15 +102,15 @@ namespace Auctioneer.Presentation.Controllers
 		public ActionResult Breadcrumb(int? id = null, string searchString = null)
 		{
 			var breadcrumb = mBreadcrumbBuilder.WithHomepageLink();
+			
+			if(searchString != null)
+			{
+				breadcrumb.WithSearchResults(searchString);
+			}
 
 			if(id != null)
 			{
 				breadcrumb.WithCategoryHierarchy(id.Value, searchString);
-			}
-
-			if(searchString != null)
-			{
-				breadcrumb.WithSearchResults(searchString);
 			}
 			
 			return PartialView("_Breadcrumb", breadcrumb.Build());
