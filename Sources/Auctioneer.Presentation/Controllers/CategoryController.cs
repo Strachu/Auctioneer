@@ -11,16 +11,12 @@ using Auctioneer.Presentation.Mappers.Category;
 using Auctioneer.Presentation.Helpers;
 using Auctioneer.Presentation.Infrastructure.Http;
 
-using PagedList;
-
 namespace Auctioneer.Presentation.Controllers
 {
 	public class CategoryController : Controller
 	{
 		private const string COOKIE_SORT_ORDER_KEY = "sortOrder";
 		private const string COOKIE_PAGE_SIZE_KEY  = "pageSize";
-		private const int    DEFAULT_PAGE_SIZE     = 20;
-		private const int    MAX_PAGE_SIZE         = 50;
 
 		private readonly ICategoryService   mCategoryService;
 		private readonly IAuctionService    mAuctionService;
@@ -55,40 +51,52 @@ namespace Auctioneer.Presentation.Controllers
 			return PartialView("_List", viewModel);
 		}
 
-		// TODO Is it better to extract searching to a different method?
+		public async Task<ActionResult> All(string searchString = null, AuctionSortOrder? sortOrder = null, int page = 1,
+		                                    int? pageSize = null)
+		{
+			InitializeAuctionListingParameters(ref pageSize, ref sortOrder);
+
+			var auctions  = await mAuctionService.GetAllActiveAuctions(searchString, sortOrder.Value, page, pageSize.Value);				
+			var viewModel = CategoryIndexViewModelMapper.FromAuctions(auctions, currentSortOrder: sortOrder.Value);
+
+			return View("Index", viewModel);
+		}
+
 		[Route("{lang:language}/Category/{id:int?}/{slug?}", Order = 1)]
 		[Route("Category/{id:int?}/{slug?}", Order = 2)]
-		public async Task<ActionResult> Index(int? id, string searchString = null, int page = 1, int? pageSize = null,
-		                                      AuctionSortOrder? sortOrder = null)
+		public async Task<ActionResult> Index(int id, string searchString = null, AuctionSortOrder? sortOrder = null,
+		                                      int page = 1, int? pageSize = null)
+		{
+			InitializeAuctionListingParameters(ref pageSize, ref sortOrder);
+
+			var auctions  = await mAuctionService.GetActiveAuctionsInCategory(id, searchString, sortOrder.Value, page,
+			                                                                  pageSize.Value);
+			var viewModel = CategoryIndexViewModelMapper.FromAuctions(auctions, sortOrder.Value, categoryId: id);
+
+			return View(viewModel);
+		}
+
+		private void InitializeAuctionListingParameters(ref int? pageSize, ref AuctionSortOrder? sortOrder)
 		{
 			mResponse.SaveToCookieIfNotNull(COOKIE_PAGE_SIZE_KEY,  pageSize);
 			mResponse.SaveToCookieIfNotNull(COOKIE_SORT_ORDER_KEY, sortOrder);
 
-			pageSize  = pageSize  ?? mRequest.ReadIntFromCookie(COOKIE_PAGE_SIZE_KEY)                     ?? DEFAULT_PAGE_SIZE;
+			pageSize  = pageSize  ?? mRequest.ReadIntFromCookie(COOKIE_PAGE_SIZE_KEY)                     ?? 20;
 			sortOrder = sortOrder ?? mRequest.ReadEnumFromCookie<AuctionSortOrder>(COOKIE_SORT_ORDER_KEY) ?? AuctionSortOrder.EndDateAscending;
 
-			pageSize  = Math.Min(pageSize.Value, MAX_PAGE_SIZE);
-
-			IPagedList<Auction> auctions;
-
-			// TODO should this condition be moved to a service?
-			if(id != null)
-			{
-				auctions = await mAuctionService.GetActiveAuctionsInCategory(id.Value, searchString, sortOrder.Value,
-				                                                             page, pageSize.Value);
-			}
-			else
-			{
-				auctions = await mAuctionService.GetAllActiveAuctions(searchString, sortOrder.Value, page, pageSize.Value);				
-			}
-
-			var viewModel = CategoryIndexViewModelMapper.FromAuctions(auctions, id, sortOrder.Value);
-			return View(viewModel);
+			pageSize  = Math.Min(pageSize.Value, 50);
 		}
 
 		public ActionResult Search(int? id, string searchString)
 		{
-			return RedirectToAction("Index", routeValues: new { id, searchString });
+			if(id != null)
+			{
+				return RedirectToAction("Index", routeValues: new { id, searchString });
+			}
+			else
+			{
+				return RedirectToAction("All", routeValues: new { searchString });
+			}
 		}
 
 		[ChildActionOnly]

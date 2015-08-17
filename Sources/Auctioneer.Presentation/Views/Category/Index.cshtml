@@ -8,10 +8,7 @@
 
 <div class="category-auction-container">
 
-	@Html.Action(controllerName: "Category", actionName: "Categories", routeValues: new
-	{
-		parentCategoryId = Model.CategoryId
-	})
+	@{ Html.RenderAction("Categories", routeValues: new { parentCategoryId = Model.CategoryId }); }
 	
 	<main class="auction-list">
 		@if(Model.Auctions.Any())

@@ -83,12 +83,7 @@ namespace Auctioneer.Presentation.Helpers
 			mItems.Add(new BreadcrumbViewModel.Item
 			{
 				Name      = String.Format(Lang.Breadcrumb_SearchingFor, searchString),
-				TargetUrl = mUrlHelper.Action(controllerName: "Category", actionName: "Index", routeValues: new
-				{
-					id           = (int?)null,
-					slug         = (string)null,
-					searchString = searchString
-				})
+				TargetUrl = mUrlHelper.Action(controllerName: "Category", actionName: "All", routeValues: new { searchString })
 			});
 
 			return this;

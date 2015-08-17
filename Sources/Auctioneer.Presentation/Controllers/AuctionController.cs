@@ -81,7 +81,7 @@ namespace Auctioneer.Presentation.Controllers
 
 		public ActionResult Search(string searchString)
 		{
-			return RedirectToAction(controllerName: "Category", actionName: "Index", routeValues: new
+			return RedirectToAction(controllerName: "Category", actionName: "All", routeValues: new
 			{
 				id           = (int?)null,
 				searchString = searchString

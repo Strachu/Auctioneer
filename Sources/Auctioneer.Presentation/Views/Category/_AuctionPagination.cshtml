@@ -4,7 +4,7 @@
 <div class="pagination-box">
 	<span class="page-text">@Lang.PageNumber</span>
 
-	@Html.PagedListPager(Model, page => Url.ActionWithCurrentParameters("Index", routeValues: new { page = page }),
+	@Html.PagedListPager(Model, page => Url.ActionWithCurrentParameters(routeValues: new { page }),
 	                     new PagedListRenderOptions
 	                     {
 	                        MaximumPageNumbersToDisplay = 5
@@ -23,7 +23,7 @@
 				}
 				else
 				{
-					@Html.ActionLinkWithCurrentParameters(pageSize.ToString(), "Index", routeValues: new
+					@Html.ActionLinkWithCurrentParameters(pageSize.ToString(), routeValues: new
 					{
 						page     = 1,
 						pageSize = pageSize

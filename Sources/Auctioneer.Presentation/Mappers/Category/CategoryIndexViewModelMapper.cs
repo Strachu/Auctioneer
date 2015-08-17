@@ -14,8 +14,8 @@ namespace Auctioneer.Presentation.Mappers.Category
 	public class CategoryIndexViewModelMapper
 	{
 		public static CategoryIndexViewModel FromAuctions(IPagedList<Auction> auctions,
-		                                                  int? categoryId,
-		                                                  AuctionSortOrder currentSortOrder)
+		                                                  AuctionSortOrder currentSortOrder,
+		                                                  int? categoryId = null)
 		{
 			Contract.Requires(auctions != null);
 
