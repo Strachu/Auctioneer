@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BestOffer" xml:space="preserve">
+    <value>Best offer</value>
+  </data>
+  <data name="BuyoutPrice" xml:space="preserve">
+    <value>Buyout price</value>
+  </data>
   <data name="CategoryName" xml:space="preserve">
     <value>Category</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="Header" xml:space="preserve">
     <value>Your auctions</value>
+  </data>
+  <data name="NoOffer" xml:space="preserve">
+    <value>No offer</value>
   </data>
   <data name="NoResultsFound" xml:space="preserve">
     <value>No auctions matching specified criteria have been found.</value>

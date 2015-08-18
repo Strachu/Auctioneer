@@ -120,11 +120,17 @@
   <data name="AuctionMoved" xml:space="preserve">
     <value>Auction has been moved to a new category.</value>
   </data>
+  <data name="BestOffer" xml:space="preserve">
+    <value>Best offer:</value>
+  </data>
   <data name="Buy" xml:space="preserve">
     <value>Buy</value>
   </data>
   <data name="BuyerUserName" xml:space="preserve">
     <value>Bought by</value>
+  </data>
+  <data name="BuyoutPrice" xml:space="preserve">
+    <value>Buyout price:</value>
   </data>
   <data name="CannotMove" xml:space="preserve">
     <value>You are not allowed to move the auction to different category.</value>

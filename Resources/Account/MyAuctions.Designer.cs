@@ -61,6 +61,24 @@ namespace Auctioneer.Resources.Account {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Best offer.
+        /// </summary>
+        public static string BestOffer {
+            get {
+                return ResourceManager.GetString("BestOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buyout price.
+        /// </summary>
+        public static string BuyoutPrice {
+            get {
+                return ResourceManager.GetString("BuyoutPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string CategoryName {
@@ -102,6 +120,15 @@ namespace Auctioneer.Resources.Account {
         public static string Header {
             get {
                 return ResourceManager.GetString("Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No offer.
+        /// </summary>
+        public static string NoOffer {
+            get {
+                return ResourceManager.GetString("NoOffer", resourceCulture);
             }
         }
         

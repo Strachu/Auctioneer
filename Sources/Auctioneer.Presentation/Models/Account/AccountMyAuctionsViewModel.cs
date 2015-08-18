@@ -34,8 +34,12 @@ namespace Auctioneer.Presentation.Models.Account
 			public TimeSpan TimeTillEnd { get; set; }
 
 			[DataType(DataType.Currency)]
-			[Display(Name = "Price", ResourceType = typeof(Lang))]
-			public Money Price { get; set; }
+			[Display(Name = "BuyoutPrice", ResourceType = typeof(Lang))]
+			public Money BuyoutPrice { get; set; }
+
+			[DataType(DataType.Currency)]
+			[Display(Name = "BestOffer", ResourceType = typeof(Lang))]
+			public Money BestOffer { get; set; }
 
 			public int Id { get; set; }
 			public int CategoryId { get; set; }

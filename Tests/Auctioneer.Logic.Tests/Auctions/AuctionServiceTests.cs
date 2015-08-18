@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
@@ -88,7 +89,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 			context.Auctions.Add(new TestAuction { Id = 4,  Title = "4",  CategoryId = 2, CreationDate = new DateTime(2014, 9, 16),
 			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)), SellerId = "1",
 																BuyoutPrice = new Money(100, new Currency("$", CurrencySymbolPosition.BeforeAmount)),
-																Offers = new TestBuyOffer[] { new TestBuyOffer { UserId = "2", Amount = 100 } } });
+																Offers = new Collection<BuyOffer> { new TestBuyOffer { UserId = "2", Amount = 100 } } });
 
 			context.Auctions.Add(new TestAuction { Id = 5,  Title = "5",  CategoryId = 2, CreationDate = new DateTime(2013, 9, 5),
 			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)), SellerId = "1" });

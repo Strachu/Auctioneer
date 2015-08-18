@@ -1,3 +1,6 @@
 ﻿@model Auctioneer.Logic.ValueTypes.Money
 
-@Model.ToString()
+@if(Model != null)
+{
+	@Model.ToString()
+}

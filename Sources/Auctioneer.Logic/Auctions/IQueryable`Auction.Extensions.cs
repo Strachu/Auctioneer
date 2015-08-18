@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,6 +38,29 @@ namespace Auctioneer.Logic.Auctions
 			}
 
 			return auctionQuery;
+		}
+
+		public static IOrderedQueryable<Auction> OrderByMinimumPrice(this IQueryable<Auction> auctionQuery)
+		{
+			Contract.Requires(auctionQuery != null);
+
+			return auctionQuery.OrderBy(MinimumPrice).ThenBy(x => x.BuyoutPrice.Amount);
+		}
+
+		public static IOrderedQueryable<Auction> OrderByMinimumPriceDescending(this IQueryable<Auction> auctionQuery)
+		{
+			Contract.Requires(auctionQuery != null);
+
+			return auctionQuery.OrderByDescending(MinimumPrice).ThenByDescending(x => x.BuyoutPrice.Amount);;
+		}
+
+		private static Expression<Func<Auction, decimal>> MinimumPrice
+		{
+			get
+			{
+				return x => (x.MinBid == null) ? x.BuyoutPrice.Amount
+				                               : (x.Offers.Any() ? x.Offers.Max(y => y.Amount) : x.MinBid.Amount);
+			}
 		}
 	}
 }

@@ -28,7 +28,8 @@ namespace Auctioneer.Presentation.Mappers.Account
 				CategoryId   = x.Category.Id,
 				Status       = x.Status,
 				TimeTillEnd  = x.EndDate - DateTime.Now,
-				Price        = x.Price
+				BuyoutPrice  = x.BuyoutPrice,
+				BestOffer    = x.BestOffer
 			});
 
 			return new AccountMyAuctionsViewModel

@@ -144,4 +144,10 @@
   <data name="Category" xml:space="preserve">
     <value>Kategoria</value>
   </data>
+  <data name="BestOffer" xml:space="preserve">
+    <value>Najwyższa oferta:</value>
+  </data>
+  <data name="BuyoutPrice" xml:space="preserve">
+    <value>Kup teraz:</value>
+  </data>
 </root>

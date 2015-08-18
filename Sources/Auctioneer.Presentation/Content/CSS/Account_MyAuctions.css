@@ -73,7 +73,8 @@
 
 .my-auctions .category, .my-auctions .time, .my-auctions .price
 {
-	text-align : center;
+	text-align  : center;
+	white-space : nowrap
 }
 
 .my-auctions .selected-items-control-panel

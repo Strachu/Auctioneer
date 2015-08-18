@@ -18,7 +18,10 @@ namespace Auctioneer.Presentation.Models
 		public TimeSpan TimeTillEnd { get; set; }
 
 		[DataType(DataType.Currency)]
-		public Money Price { get; set; }
+		public Money BuyoutPrice { get; set; }
+
+		[DataType(DataType.Currency)]
+		public Money BestBid { get; set; }
 
 		public string Slug { get; set; }
 	}

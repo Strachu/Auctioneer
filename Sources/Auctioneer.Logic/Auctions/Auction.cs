@@ -75,5 +75,17 @@ namespace Auctioneer.Logic.Auctions
 				return AuctionStatus.Active;
 			}
 		}
+
+		public Money BestOffer
+		{
+			get
+			{
+				var bestOffer = Offers.OrderByDescending(x => x.Amount).FirstOrDefault();
+				if(bestOffer == null)
+					return null;
+
+				return new Money(bestOffer.Amount, (MinBid != null) ? MinBid.Currency : BuyoutPrice.Currency);
+			}
+		}
 	}
 }

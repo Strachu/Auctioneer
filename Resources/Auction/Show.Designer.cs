@@ -70,6 +70,15 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Best offer:.
+        /// </summary>
+        public static string BestOffer {
+            get {
+                return ResourceManager.GetString("BestOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Buy.
         /// </summary>
         public static string Buy {
@@ -84,6 +93,15 @@ namespace Auctioneer.Resources.Auction {
         public static string BuyerUserName {
             get {
                 return ResourceManager.GetString("BuyerUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buyout price:.
+        /// </summary>
+        public static string BuyoutPrice {
+            get {
+                return ResourceManager.GetString("BuyoutPrice", resourceCulture);
             }
         }
         

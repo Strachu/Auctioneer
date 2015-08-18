@@ -152,15 +152,29 @@
 
 .auction-list .auction-info .price
 {
-	font-size  : 120%;
-	color      : red;
-	font-weight: bold;
-	display    : inline-block;
-	
 	position   : absolute;
 	top        : 50%;
 	right      : 10%;
 	transform  : translateY(-50%);
+}
+
+.auction-list .auction-info .price p
+{
+	text-align : center;
+	margin     : 0;
+}
+
+.auction-list .auction-info .price p .header
+{
+	font-size  : 110%;
+	color      : black;
+}
+
+.auction-list .auction-info .price p .value
+{
+	font-size  : 120%;
+	color      : red;
+	font-weight: bold;
 }
 
 .auction-list .auction-info .time-till-end

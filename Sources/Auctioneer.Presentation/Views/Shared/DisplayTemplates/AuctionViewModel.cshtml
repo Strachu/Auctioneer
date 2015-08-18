@@ -13,7 +13,21 @@
 			</h1>
 
 			<div class="price">
-				@Html.DisplayFor(x => Model.Price)
+				@if(Model.BestBid != null)
+				{
+					<p>
+						<span class="header">@Lang.BestOffer</span>
+						<span class="value">@Html.DisplayFor(x => Model.BestBid)</span>
+					</p>
+				}
+				
+				@if(Model.BuyoutPrice != null)
+				{
+					<p>
+						<span class="header">@Lang.BuyoutPrice</span>
+						<span class="value">@Html.DisplayFor(x => Model.BuyoutPrice)</span>
+					</p>
+				}
 			</div>
 
 			<div class="time-till-end">

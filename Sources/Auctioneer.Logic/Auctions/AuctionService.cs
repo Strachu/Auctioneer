@@ -110,12 +110,10 @@ namespace Auctioneer.Logic.Auctions
 
 				case AuctionSortOrder.PriceAscending:
 					// TODO sorting should take into account relative value of currencies
-				//	auctions = auctions.OrderBy(x => x.Price.Amount); TODO
-					throw new NotImplementedException();
+					auctions = auctions.OrderByMinimumPrice();
 					break;
 				case AuctionSortOrder.PriceDescending:
-				//	auctions = auctions.OrderByDescending(x => x.Price.Amount); TODO
-					throw new NotImplementedException();
+					auctions = auctions.OrderByMinimumPriceDescending();
 					break;
 			}
 
