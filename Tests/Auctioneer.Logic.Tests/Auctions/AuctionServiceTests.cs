@@ -232,6 +232,21 @@ namespace Auctioneer.Logic.Tests.Auctions
 		}
 
 		[Test]
+		public async Task RemovalOfAuctionsAfterSomeoneRaisedAnOfferIsNotAllowed()
+		{
+			var auction = new TestAuction
+			{
+				SellerId = "2",
+				EndDate  = DateTime.Now.Add(TimeSpan.FromDays(2)),
+				Offers   = new Collection<BuyOffer> { new TestBuyOffer() }
+			};
+
+			var result = await mTestedService.CanBeRemoved(auction, userId: "2");
+
+			Assert.That(result, Is.False);
+		}
+
+		[Test]
 		public async Task UserCannotBuyHisOwnAuctions()
 		{
 			var auction = await mTestedService.GetById(2);

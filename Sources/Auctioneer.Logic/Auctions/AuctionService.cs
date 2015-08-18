@@ -265,6 +265,12 @@ namespace Auctioneer.Logic.Auctions
 				return false;
 			}
 
+			if(auction.Offers.Any())
+			{
+				errors.AddError(Lang.Delete.BuyOfferHasBeenMade);
+				return false;				
+			}
+
 			if(auction.Status != AuctionStatus.Active)
 			{
 				errors.AddError(Lang.Delete.AuctionIsInactive);
@@ -276,7 +282,7 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task RemoveAuctions(IReadOnlyCollection<int> ids, string removingUserId, IValidationErrorNotifier errors)
 		{
-			var auctions = await mContext.Auctions.Where(x => ids.Contains(x.Id)).ToListAsync();
+			var auctions = await mContext.Auctions.Include(x => x.Offers).Where(x => ids.Contains(x.Id)).ToListAsync();
 			if(!await auctions.All(async x => await CanBeRemoved(x, removingUserId, errors)))
 				return;
 
