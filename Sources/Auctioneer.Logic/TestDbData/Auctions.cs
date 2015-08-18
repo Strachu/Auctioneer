@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using EntityFramework.BulkInsert.Extensions;
+
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.ValueTypes;
 
@@ -46,14 +48,77 @@ namespace Auctioneer.Logic.TestDbData
 					SellerId     = userIds[rndGenerator.Next(userIds.Count)],
 					CreationDate = creationDate,
 					EndDate      = creationDate.AddDays(rndGenerator.NextDouble() * 14),
-					Price        = new Money(rndGenerator.Next(1, 1000), currencies[rndGenerator.Next(currencies.Count)]),
 					PhotoCount   = 0
 				};
 
-				bool sold = (rndGenerator.Next(100) + 1) < 75;
-				if(sold)
+				bool hasBuyoutPrice = (rndGenerator.Next(100) + 1) < 90;
+				if(hasBuyoutPrice)
 				{
-					auctions[i].BuyerId = userIds[rndGenerator.Next(userIds.Count)];
+					auctions[i].BuyoutPrice = new Money(rndGenerator.Next(1, 1000), currencies[rndGenerator.Next(currencies.Count)]);
+				}
+
+				bool isBiddingEnabled = !hasBuyoutPrice || ((rndGenerator.Next(100) + 1) < 30 && (auctions[i].BuyoutPrice.Amount >= 10.0m));
+				if(isBiddingEnabled)
+				{
+					auctions[i].MinBid = new Money(rndGenerator.Next(1, 1000), currencies[rndGenerator.Next(currencies.Count)]);
+				}
+
+				if(isBiddingEnabled && hasBuyoutPrice)
+				{
+					var fixedAmount = Math.Min(auctions[i].MinBid.Amount, auctions[i].BuyoutPrice.Amount * 0.5m);
+
+					auctions[i].MinBid = new Money(fixedAmount, auctions[i].BuyoutPrice.Currency);
+				}
+
+				bool hasBidOffer = (rndGenerator.Next(100) + 1) < 90;
+				if(isBiddingEnabled && hasBidOffer)
+				{
+					var offerCountProbability = new int[100];
+					for(int x =  0; x <  30; ++x) offerCountProbability[x] = 1;
+					for(int x = 30; x <  60; ++x) offerCountProbability[x] = 2;
+					for(int x = 60; x <  80; ++x) offerCountProbability[x] = 3;
+					for(int x = 80; x <  95; ++x) offerCountProbability[x] = 4;
+					for(int x = 95; x < 100; ++x) offerCountProbability[x] = 5;
+
+					var offerCount          = offerCountProbability[rndGenerator.Next(offerCountProbability.Length)];
+					var previousOfferDate   = auctions[i].CreationDate.AddDays(1);
+					var previousOfferAmount = 0.0m;
+					for(int x = 0; x < offerCount; ++x)
+					{
+						var minimumPossibleOffer = Math.Max(Math.Ceiling(auctions[i].MinBid.Amount), previousOfferAmount + 1);
+						var maximumPossibleOffer = Math.Floor(hasBuyoutPrice ? auctions[i].BuyoutPrice.Amount * 0.9m : 1000.0m);
+						if(minimumPossibleOffer >= maximumPossibleOffer)
+							break;
+
+						var offer = new BuyOffer
+						{
+							AuctionId = i + 1,
+							UserId    = userIds[rndGenerator.Next(userIds.Count)],
+							Date      = previousOfferDate.AddHours(rndGenerator.Next(1, 24)),
+							Amount    = rndGenerator.Next((int)minimumPossibleOffer, (int)maximumPossibleOffer)
+						};
+
+						previousOfferDate   = offer.Date;
+						previousOfferAmount = offer.Amount;
+
+						auctions[i].Offers.Add(offer);
+					}
+				}
+
+				bool hasBeenBoughtOut = (rndGenerator.Next(100) + 1) < 75;
+				if(hasBeenBoughtOut && hasBuyoutPrice)
+				{
+					var lastOfferDate = (auctions[i].Offers.Any()) ? auctions[i].Offers.Last().Date : auctions[i].CreationDate;
+
+					var buyoutOffer = new BuyOffer
+					{
+						AuctionId = i + 1,
+						UserId    = userIds[rndGenerator.Next(userIds.Count)],
+						Date      = lastOfferDate.AddHours(rndGenerator.Next(1, 24)),
+						Amount    = auctions[i].BuyoutPrice.Amount
+					};
+					
+					auctions[i].Offers.Add(buyoutOffer);
 				}
 
 				if(auctions[i].Status == AuctionStatus.Active)
@@ -75,25 +140,28 @@ namespace Auctioneer.Logic.TestDbData
 			// EntityFramework.AddRange() was way too slow and BulkInsert requires foreign key property on entity to
 			// relate the entities properly (which I don't want to add because it is not needed).
 
-			InsertMoneys(context, auctions.Select(x => x.Price));
+			var minBids      = auctions.Select(x => x.MinBid).Where(x => x != null).ToList();
+			var buyoutPrices = auctions.Select(x => x.BuyoutPrice).Where(x => x != null).ToList();
+			InsertMoneys(context, minBids.Concat(buyoutPrices));
 
-			var table = new DataTable();
+			var table = new DataTable("Auctions");
 
-			table.Columns.Add("Id",           typeof(int));
-			table.Columns.Add("Title",        typeof(string));
-			table.Columns.Add("Description",  typeof(string));
-			table.Columns.Add("CreationDate", typeof(DateTime));
-			table.Columns.Add("EndDate",      typeof(DateTime));
-			table.Columns.Add("PhotoCount",   typeof(int));
-			table.Columns.Add("CategoryId",   typeof(int));
-			table.Columns.Add("SellerId",     typeof(string));
-			table.Columns.Add("BuyerId",      typeof(string));
-			table.Columns.Add("Price_Id",     typeof(int));
+			table.Columns.Add("Id",             typeof(int));
+			table.Columns.Add("Title",          typeof(string));
+			table.Columns.Add("Description",    typeof(string));
+			table.Columns.Add("CreationDate",   typeof(DateTime));
+			table.Columns.Add("EndDate",        typeof(DateTime));
+			table.Columns.Add("PhotoCount",     typeof(int));
+			table.Columns.Add("CategoryId",     typeof(int));
+			table.Columns.Add("SellerId",       typeof(string));
+			table.Columns.Add("MinBid_Id",      typeof(int));
+			table.Columns.Add("BuyoutPrice_Id", typeof(int));
 
-			for(int i = 0; i < auctions.Count ;++i)
+			int minBidId      = 1;
+			int buyoutPriceId = minBids.Count + 1;
+			foreach(var auction in auctions)
 			{
-				var auction = auctions[i];
-				var row     = table.NewRow();
+				var row = table.NewRow();
 
 				row[1] = auction.Title;
 				row[2] = auction.Description;
@@ -102,23 +170,28 @@ namespace Auctioneer.Logic.TestDbData
 				row[5] = auction.PhotoCount;
 				row[6] = auction.CategoryId;
 				row[7] = auction.SellerId;
-				row[8] = auction.BuyerId;
-				row[9] = i + 1;
+
+				if(auction.MinBid != null)
+				{
+					row[8] = minBidId++;
+				}
+
+				if(auction.BuyoutPrice != null)
+				{
+					row[9] = buyoutPriceId++;
+				}
 
 				table.Rows.Add(row);
 			}
 
-			var bulkInsert = new SqlBulkCopy(context.Database.Connection.ConnectionString, SqlBulkCopyOptions.TableLock)
-			{
-				DestinationTableName = "Auctions"
-			};
+			BulkInsert(context, table);
 
-			bulkInsert.WriteToServer(table);
+			InsertBuyOffers(context, auctions.SelectMany(x => x.Offers));
 		}
 
 		private static void InsertMoneys(AuctioneerDbContext context, IEnumerable<Money> moneys)
 		{
-			var table = new DataTable();
+			var table = new DataTable("Moneys");
 
 			table.Columns.Add("Id",              typeof(int));
 			table.Columns.Add("Amount",          typeof(decimal));
@@ -134,12 +207,27 @@ namespace Auctioneer.Logic.TestDbData
 				table.Rows.Add(row);
 			}
 
+			BulkInsert(context, table);
+		}
+
+		private static void BulkInsert(AuctioneerDbContext context, DataTable data)
+		{
 			var bulkInsert = new SqlBulkCopy(context.Database.Connection.ConnectionString, SqlBulkCopyOptions.TableLock)
 			{
-				DestinationTableName = "Moneys"
+				DestinationTableName = data.TableName
 			};
 
-			bulkInsert.WriteToServer(table);
+			foreach(var column in data.Columns.Cast<DataColumn>())
+			{
+				bulkInsert.ColumnMappings.Add(column.ColumnName, column.ColumnName);
+			}
+
+			bulkInsert.WriteToServer(data);
+		}
+
+		private static void InsertBuyOffers(AuctioneerDbContext context, IEnumerable<BuyOffer> offers)
+		{
+			context.BulkInsert(offers);
 		}
 
 		private class AuctionImageInitializer

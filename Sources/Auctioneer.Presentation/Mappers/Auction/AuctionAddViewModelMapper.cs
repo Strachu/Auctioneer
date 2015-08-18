@@ -23,7 +23,7 @@ namespace Auctioneer.Presentation.Mappers
 				CreationDate = DateTime.Now,
 				EndDate      = DateTime.Now.AddDays(viewModel.DaysToEnd),
 				CategoryId   = viewModel.CategoryId,
-				Price        = new Money(viewModel.Price.Amount, viewModel.Price.Currency),
+				BuyoutPrice  = new Money(viewModel.Price.Amount, viewModel.Price.Currency),
 				PhotoCount   = viewModel.Photos.Count(),
 				SellerId     = sellerId
 			};

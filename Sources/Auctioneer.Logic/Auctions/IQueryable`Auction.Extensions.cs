@@ -15,17 +15,25 @@ namespace Auctioneer.Logic.Auctions
 
 			if(allowedStatuses.HasFlag(AuctionStatusFilter.Active) == false)
 			{
-				auctionQuery = auctionQuery.Where(x => x.EndDate <= DateTime.Now || x.BuyerId != null);
+				auctionQuery = auctionQuery.Where(x => !
+				(
+					 x.EndDate > DateTime.Now && 
+					(x.BuyoutPrice == null || x.Offers.All(offer => offer.Amount < x.BuyoutPrice.Amount)))
+				);
 			}
 
 			if(allowedStatuses.HasFlag(AuctionStatusFilter.Expired) == false)
 			{
-				auctionQuery = auctionQuery.Where(x => x.EndDate > DateTime.Now || x.BuyerId != null);
+				auctionQuery = auctionQuery.Where(x => !(x.EndDate <= DateTime.Now && !x.Offers.Any()));
 			}
 
 			if(allowedStatuses.HasFlag(AuctionStatusFilter.Sold) == false)
 			{
-				auctionQuery = auctionQuery.Where(x => x.BuyerId == null);
+				auctionQuery = auctionQuery.Where(x => !
+				(
+					(x.EndDate <= DateTime.Now && x.Offers.Any()) ||
+				    x.Offers.Any(offer => offer.Amount >= x.BuyoutPrice.Amount))
+				);
 			}
 
 			return auctionQuery;

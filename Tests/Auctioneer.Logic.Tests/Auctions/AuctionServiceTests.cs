@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Logic.Currencies;
 using Auctioneer.Logic.Tests.TestUtils;
 using Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues;
 using Auctioneer.Logic.Users;
+using Auctioneer.Logic.ValueTypes;
 
 using FakeItEasy;
 
@@ -19,19 +22,20 @@ namespace Auctioneer.Logic.Tests.Auctions
 {
 	internal class AuctionServiceTests
 	{
-		private IAuctionService mTestedService;
-		private IUserNotifier   mUserNotifierMock;
+		private IAuctionService     mTestedService;
+		private AuctioneerDbContext mDbContext;
+		private IUserNotifier       mUserNotifierMock;
 
 		[SetUp]
 		public void SetUp()
 		{
-			var context = new TestAuctioneerDbContext(Effort.DbConnectionFactory.CreateTransient());
+			mDbContext = new TestAuctioneerDbContext(Effort.DbConnectionFactory.CreateTransient());
 
-			AddTestData(context);
+			AddTestData(mDbContext);
 
 			mUserNotifierMock = A.Fake<IUserNotifier>();
-			var userService   = new UserService(context, mUserNotifierMock);
-			mTestedService    = new AuctionService(context, mUserNotifierMock, userService, "Ignored", "Ignored");
+			var userService   = new UserService(mDbContext, mUserNotifierMock);
+			mTestedService    = new AuctionService(mDbContext, mUserNotifierMock, userService, "Ignored", "Ignored");
 		}
 
 		private void AddTestData(AuctioneerDbContext context)
@@ -82,7 +86,9 @@ namespace Auctioneer.Logic.Tests.Auctions
 			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)), SellerId = "2" });
 
 			context.Auctions.Add(new TestAuction { Id = 4,  Title = "4",  CategoryId = 2, CreationDate = new DateTime(2014, 9, 16),
-			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)), SellerId = "1", BuyerId = "2" });
+			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)), SellerId = "1",
+																BuyoutPrice = new Money(100, new Currency("$", CurrencySymbolPosition.BeforeAmount)),
+																Offers = new TestBuyOffer[] { new TestBuyOffer { UserId = "2", Amount = 100 } } });
 
 			context.Auctions.Add(new TestAuction { Id = 5,  Title = "5",  CategoryId = 2, CreationDate = new DateTime(2013, 9, 5),
 			                                       EndDate = DateTime.Now.Add(TimeSpan.FromDays(2)), SellerId = "1" });
@@ -106,8 +112,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(1)), SellerId = "2" });
 
 			context.Auctions.Add(new TestAuction { Id = 12, Title = "12",  CategoryId = 3, CreationDate = new DateTime(2013, 2, 1),
-			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(1)), SellerId = "1",
-			                                       BuyerId = "2" });
+			                                       EndDate = DateTime.Now.Subtract(TimeSpan.FromDays(1)), SellerId = "1" });
 			context.SaveChanges();
 		}
 
@@ -190,55 +195,6 @@ namespace Auctioneer.Logic.Tests.Auctions
 		}
 		
 		[Test]
-		public async Task WhenOnlyExpiredStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnActiveNorSoldAuctions()
-		{
-			var auctions = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: AuctionStatusFilter.Expired,
-			                                                      createdIn: TimeSpan.FromDays(9999));
-
-			var returnedAuctionTitles = auctions.Select(x => x.Title);
-			var expectedAuctionTitles = new string[] { "1", "6" };
-
-			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
-		}
-		
-		[Test]
-		public async Task WhenOnlyActiveStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnInactiveNorSoldAuctions()
-		{
-			var auctions = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: AuctionStatusFilter.Active,
-			                                                      createdIn: TimeSpan.FromDays(9999));
-
-			var returnedAuctionTitles = auctions.Select(x => x.Title);
-			var expectedAuctionTitles = new string[] { "2", "5", "7", "8", "10" };
-
-			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
-		}
-		
-		[Test]
-		public async Task WhenOnlySoldStatusFlagHasBeenSpecified_GetAuctionsByUser_DoesNotReturnNotSoldAuctions()
-		{
-			var auctions = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: AuctionStatusFilter.Sold,
-			                                                      createdIn: TimeSpan.FromDays(9999));
-
-			var returnedAuctionTitles = auctions.Select(x => x.Title);
-			var expectedAuctionTitles = new string[] { "4", "12" };
-
-			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
-		}
-		
-		[Test]
-		public async Task WhenBothExpiredAndSoldStatusFlagsBeenSpecified_GetAuctionsByUser_ReturnsOnlyInactiveAuctions()
-		{
-			var statusFilters = AuctionStatusFilter.Expired | AuctionStatusFilter.Sold;
-			var auctions      = await mTestedService.GetAuctionsByUser(userId: "1", statusFilter: statusFilters,
-			                                                           createdIn: TimeSpan.FromDays(9999));
-
-			var returnedAuctionTitles = auctions.Select(x => x.Title);
-			var expectedAuctionTitles = new string[] { "1", "4", "6", "12" };
-
-			Assert.That(returnedAuctionTitles, Is.EquivalentTo(expectedAuctionTitles));
-		}
-		
-		[Test]
 		public async Task WhenUserIsNotTheCreaterOfTheAuction_CanBeRemovedByUser_ReturnsFalse()
 		{
 			var auction = await mTestedService.GetById(5);
@@ -302,19 +258,41 @@ namespace Auctioneer.Logic.Tests.Auctions
 		}
 
 		[Test]
-		public async Task BuyingAuctionSetsTheBuyerId()
+		public async Task BuyingAuctionAddsOfferWithBuyoutPrice()
 		{
-			await mTestedService.Buy(3, buyerId: "1", errors: new FakeErrorNotifier());
+			var auction = new TestAuction
+			{
+				SellerId    = "2",
+				EndDate     = DateTime.Now.Add(TimeSpan.FromDays(2)),
+				BuyoutPrice = new Money(10, mDbContext.Currencies.First())
+			};
 
-			var boughtAction = await mTestedService.GetById(3);
+			mDbContext.Auctions.Add(auction);
+			mDbContext.SaveChanges();
 
-			Assert.That(boughtAction.BuyerId, Is.EqualTo("1"));
+			await mTestedService.Buy(auction.Id, buyerId: "1", errors: new FakeErrorNotifier());
+
+			var boughtAction = await mTestedService.GetById(auction.Id);
+
+			Assert.That(boughtAction.Status, Is.EqualTo(AuctionStatus.Sold));
+			Assert.That(boughtAction.Offers.Single().UserId, Is.EqualTo("1"));
+			Assert.That(boughtAction.Offers.Single().Amount, Is.EqualTo(10));
 		}
 
 		[Test]
 		public async Task SellerIsNotifiedAfterHisAuctionHasBeenSold()
 		{
-			await mTestedService.Buy(3, buyerId: "1", errors: new FakeErrorNotifier());
+			var auction = new TestAuction
+			{
+				SellerId    = "2",
+				EndDate     = DateTime.Now.Add(TimeSpan.FromDays(2)),
+				BuyoutPrice = new Money(10, mDbContext.Currencies.First())
+			};
+
+			mDbContext.Auctions.Add(auction);
+			mDbContext.SaveChanges();
+
+			await mTestedService.Buy(auction.Id, buyerId: "1", errors: new FakeErrorNotifier());
 
 			A.CallTo(() => mUserNotifierMock.NotifyAuctionSold(A<User>.That.Matches(x => x.Id == "2"), A<Auction>._))
 			 .MustHaveHappened();
@@ -323,9 +301,18 @@ namespace Auctioneer.Logic.Tests.Auctions
 		[Test]
 		public async Task BuyerIsNotifiedWhenHeBuysAnAuction()
 		{
-			await mTestedService.Buy(3, buyerId: "1", errors: new FakeErrorNotifier());
+			var auction = new TestAuction
+			{
+				EndDate     = DateTime.Now.Add(TimeSpan.FromDays(2)),
+				BuyoutPrice = new Money(10, mDbContext.Currencies.First())
+			};
 
-			A.CallTo(() => mUserNotifierMock.NotifyAuctionWon(A<User>.That.Matches(x => x.Id == "1"), A<Auction>._))
+			mDbContext.Auctions.Add(auction);
+			mDbContext.SaveChanges();
+
+			await mTestedService.Buy(auction.Id, buyerId: "2", errors: new FakeErrorNotifier());
+
+			A.CallTo(() => mUserNotifierMock.NotifyAuctionWon(A<User>.That.Matches(x => x.Id == "2"), A<Auction>._))
 			 .MustHaveHappened();
 		}
 	}

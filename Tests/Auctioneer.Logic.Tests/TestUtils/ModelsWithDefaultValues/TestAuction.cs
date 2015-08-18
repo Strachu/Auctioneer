@@ -20,9 +20,9 @@ namespace Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues
 			Title        = "Not important";
 			Description  = "Not important";
 
+			CategoryId   = 1;
 			CreationDate = DateTime.Now;
-			EndDate      = DateTime.Now;
-			Price        = new Money(nextId, new Currency(nextId.ToString(), CurrencySymbolPosition.AfterAmount));
+			EndDate      = DateTime.Now.AddDays(1);
 			SellerId     = "1";
 		}
 	}

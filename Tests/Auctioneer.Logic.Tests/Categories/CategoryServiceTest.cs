@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues;
+using Auctioneer.Logic.ValueTypes;
 
 using NUnit.Framework;
 
@@ -90,14 +91,15 @@ namespace Auctioneer.Logic.Tests.Categories
 			{
 				var auction = new TestAuction
 				{
-					CategoryId = categoryId,
-					EndDate    = (status != AuctionStatus.Expired) ? DateTime.Now.Add(TimeSpan.FromDays(1))
-					                                               : DateTime.Now.Subtract(TimeSpan.FromDays(1))
+					CategoryId  = categoryId,
+					EndDate     = (status != AuctionStatus.Expired) ? DateTime.Now.Add(TimeSpan.FromDays(1))
+					                                                : DateTime.Now.Subtract(TimeSpan.FromDays(1)),
+					BuyoutPrice = new Money(10, new TestCurrency())
 				};
 
 				if(status == AuctionStatus.Sold)
 				{
-					auction.BuyerId = "1";
+					auction.Offers.Add(new TestBuyOffer { Amount = 10 } );
 				}
 
 				context.Auctions.Add(auction);

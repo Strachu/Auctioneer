@@ -110,14 +110,18 @@ namespace Auctioneer.Logic.Auctions
 
 				case AuctionSortOrder.PriceAscending:
 					// TODO sorting should take into account relative value of currencies
-					auctions = auctions.OrderBy(x => x.Price.Amount);
+				//	auctions = auctions.OrderBy(x => x.Price.Amount); TODO
+					throw new NotImplementedException();
 					break;
 				case AuctionSortOrder.PriceDescending:
-					auctions = auctions.OrderByDescending(x => x.Price.Amount);
+				//	auctions = auctions.OrderByDescending(x => x.Price.Amount); TODO
+					throw new NotImplementedException();
 					break;
 			}
 
-			auctions = auctions.Include(x => x.Price.Currency);
+			auctions = auctions.Include(x => x.MinBid.Currency)
+			                   .Include(x => x.BuyoutPrice.Currency)
+			                   .Include(x => x.Offers);
 
 			return Task.FromResult(auctions.ToPagedList(pageIndex, auctionsPerPage));
 		}
@@ -131,7 +135,9 @@ namespace Auctioneer.Logic.Auctions
 		{
 			var createdAfter = DateTime.Now.Subtract(createdIn);
 
-			var auctions = mContext.Auctions.Include(x => x.Price.Currency)
+			var auctions = mContext.Auctions.Include(x => x.MinBid.Currency)
+			                                .Include(x => x.BuyoutPrice.Currency)
+			                                .Include(x => x.Offers)
 			                                .Include(x => x.Category)
 			                                .Where(x => x.SellerId == userId)
 			                                .Where(x => x.CreationDate >= createdAfter)
@@ -149,7 +155,9 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults)
 		{
-			return await mContext.Auctions.Include(x => x.Price.Currency)
+			return await mContext.Auctions.Include(x => x.MinBid.Currency)
+			                              .Include(x => x.BuyoutPrice.Currency)
+			                              .Include(x => x.Offers)
 			                              .Where(AuctionStatusFilter.Active)
 			                              .OrderByDescending(x => x.CreationDate)
 			                              .Take(maxResults)
@@ -158,9 +166,10 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<Auction> GetById(int id)
 		{
-			var auction = await mContext.Auctions.Include(x => x.Price.Currency)
+			var auction = await mContext.Auctions.Include(x => x.MinBid.Currency)
+			                                     .Include(x => x.BuyoutPrice.Currency)
+			                                     .Include(x => x.Offers)
 			                                     .Include(x => x.Seller)
-			                                     .Include(x => x.Buyer)
 			                                     .SingleOrDefaultAsync(x => x.Id == id)
 			                                     .ConfigureAwait(false);
 			if(auction == null)
@@ -186,8 +195,23 @@ namespace Auctioneer.Logic.Auctions
 			
 			newAuction.Description = sanitizer.Sanitize(newAuction.Description);
 
-			mContext.Auctions.Add(newAuction);
-			mContext.Entry(newAuction.Price.Currency).State = EntityState.Unchanged; // Do not insert new currencies
+			await InsertAuction(newAuction);
+		}
+
+		private async Task InsertAuction(Auction auction)
+		{
+			// Do not insert new currencies
+			if(auction.MinBid != null)
+			{
+				mContext.Entry(auction.MinBid.Currency).State = EntityState.Unchanged; 
+			}
+
+			if(auction.BuyoutPrice != null)
+			{
+				mContext.Entry(auction.BuyoutPrice.Currency).State = EntityState.Unchanged;
+			}
+
+			mContext.Auctions.Add(auction);
 			await mContext.SaveChangesAsync();
 		}
 
@@ -284,6 +308,8 @@ namespace Auctioneer.Logic.Auctions
 
 		private bool CanBeBought(Auction auction, string buyerId, IValidationErrorNotifier errors)
 		{
+			// TODO Cannot be bought if no buyout price has been set
+
 			if(auction.Status != AuctionStatus.Active)
 			{
 				errors.AddError(Lang.Buy.AuctionIsInactive);
@@ -304,8 +330,13 @@ namespace Auctioneer.Logic.Auctions
 			var auction = await GetById(auctionId);
 			if(!CanBeBought(auction, buyerId, errors))
 				return;
-
-			auction.BuyerId = buyerId;
+			
+			auction.Offers.Add(new BuyOffer
+			{
+				UserId = buyerId,
+				Date   = DateTime.Now,
+				Amount = auction.BuyoutPrice.Amount,
+			});
 
 			await mContext.SaveChangesAsync();
 

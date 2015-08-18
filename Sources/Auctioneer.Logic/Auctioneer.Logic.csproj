@@ -195,6 +195,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuctioneerDbContext.cs" />
+    <Compile Include="Auctions\BuyOfferMapping.cs" />
+    <Compile Include="Auctions\BuyOffer.cs" />
     <Compile Include="Categories\CategoryAuctionCountPair.cs" />
     <Compile Include="TestDbData\Currencies.cs" />
     <Compile Include="TestDbData\Categories.cs" />
