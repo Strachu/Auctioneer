@@ -35,17 +35,13 @@ namespace Auctioneer.Presentation.Emails
 
 			public string Render(Email email, string viewName)
 			{
-				var oldContext      = HttpContext.Current;
-				HttpContext.Current = new HttpContext(new HttpRequest(String.Empty, Constants.ROOT_URL, String.Empty),
-				                                      new HttpResponse(TextWriter.Null));
-				try
+				if(HttpContext.Current == null)
 				{
-					return mImplementation.Render(email, viewName);
+					HttpContext.Current = new HttpContext(new HttpRequest(String.Empty, Constants.ROOT_URL, String.Empty),
+					                                      new HttpResponse(TextWriter.Null));
 				}
-				finally
-				{
-					HttpContext.Current = oldContext;
-				}
+
+				return mImplementation.Render(email, viewName);
 			}
 		}
 	}
