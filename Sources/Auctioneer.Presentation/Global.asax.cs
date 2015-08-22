@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+using Auctioneer.Logic.BackgroundTasks;
 using Auctioneer.Presentation.Infrastructure.ModelBinders;
 using Auctioneer.Presentation.Infrastructure.Security;
 
@@ -32,6 +34,9 @@ namespace Auctioneer.Presentation
 		public void Configuration(IAppBuilder app)
 		{
 			AuthenticationConfig.Configure(app);
+
+			var backgroundTaskExecutor = new BackgroundTaskExecutor(DependencyResolver.Current.GetServices<IBackgroundTask>());
+			backgroundTaskExecutor.StartAllTasks();
 		}
 	}
 }

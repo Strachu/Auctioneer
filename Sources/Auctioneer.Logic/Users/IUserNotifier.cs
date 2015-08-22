@@ -13,6 +13,7 @@ namespace Auctioneer.Logic.Users
 		Task SendActivationToken(User user, string token);
 		Task SendPasswordResetToken(User user, string token);
 
+		Task NotifyAuctionExpired(User user, Auction auction);
 		Task NotifyAuctionSold(User user, Auction auction);
 		Task NotifyAuctionWon(User user, Auction auction);
 	}

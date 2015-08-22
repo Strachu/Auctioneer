@@ -43,6 +43,18 @@ namespace Auctioneer.Presentation.Emails
 				PasswordResetToken = token
 			});
 		}
+		
+		public async Task NotifyAuctionExpired(User user, Auction auction)
+		{
+			await mMailService.SendAsync(new AuctionExpiredMail
+			{
+				UserMail             = user.Email,
+				UserFirstName        = user.FirstName,
+
+				AuctionId            = auction.Id,
+				AuctionTitle         = auction.Title
+			});
+		}
 
 		public async Task NotifyAuctionSold(User user, Auction auction)
 		{
@@ -53,7 +65,7 @@ namespace Auctioneer.Presentation.Emails
 
 				AuctionId            = auction.Id,
 				AuctionTitle         = auction.Title,
-				AuctionPrice         = auction.Price,
+				AuctionPrice         = auction.BestOffer,
 
 				BuyerEmail           = auction.Buyer.Email,
 				BuyerUserName        = auction.Buyer.UserName,
@@ -71,7 +83,7 @@ namespace Auctioneer.Presentation.Emails
 
 				AuctionId      = auction.Id,
 				AuctionTitle   = auction.Title,
-				AuctionPrice   = auction.Price,
+				AuctionPrice   = auction.BestOffer,
 
 				SellerEmail    = auction.Seller.Email,
 				SellerUserName = auction.Seller.UserName,

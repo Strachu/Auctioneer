@@ -1,0 +1,23 @@
+@model AuctionExpiredMail
+
+@{
+	Layout = null;
+
+	var auctionLink = Html.ActionLinkWithSlug(Model.AuctionTitle, controllerName: "Auction", actionName: "Show",
+	                                          protocol: Request.Url.Scheme, routeValues: new
+	                                          {
+		                                          id = Model.AuctionId
+	                                          });
+}
+
+To: @Model.UserMail
+Subject: @Model.AuctionTitle has expired
+Content-Type: text/html; charset=utf-8
+
+<html>
+	<body>
+		<p>Hello @Model.UserFirstName,</p>
+		<p>Your "@auctionLink" auction at Auctioneer has expired without any buy offer.</p>
+		<p>Try to lower the minimum price or describe your auction more accurately.</p>
+	</body>
+</html>

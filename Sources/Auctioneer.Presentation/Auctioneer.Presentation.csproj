@@ -300,11 +300,13 @@
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Emails\Auction\Expired\AuctionExpiredMail.cs" />
     <Compile Include="Emails\Auction\Won\AuctionWonMail.cs" />
     <Compile Include="Emails\Auction\Sold\AuctionSoldMail.cs" />
     <Compile Include="Emails\EmailUserNotifier.cs" />
     <Compile Include="Emails\User\ForgotPassword\ForgotPasswordMail.cs" />
     <Compile Include="Emails\User\ConfirmationMail\ConfirmationMail.cs" />
+    <Compile Include="Emails\WorkaroundEmailService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -594,6 +596,7 @@
     <Content Include="Views\Shared\_ChooseLanguage.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Money.cshtml" />
     <Content Include="Views\Auction\Show.ControlPanel.cshtml" />
+    <Content Include="Emails\Auction\Expired\AuctionExpiredMail.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

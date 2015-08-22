@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Logic.BackgroundTasks;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Logic.Currencies;
 using Auctioneer.Logic.Users;
@@ -17,9 +18,14 @@ namespace Auctioneer.Logic
 {
 	public class AuctioneerDbContext : IdentityDbContext<User>
 	{
-		public DbSet<Category> Categories { get; set; }
 		public DbSet<Auction> Auctions { get; set; }
+		public DbSet<Category> Categories { get; set; }
 		public DbSet<Currency> Currencies { get; set; }
+
+		public BackgroundTasksData BackgroundTasksData
+		{
+			get { return base.Set<BackgroundTasksData>().Single(); }
+		}
 
 		public AuctioneerDbContext() : base("AuctioneerDbContext")
 		{
