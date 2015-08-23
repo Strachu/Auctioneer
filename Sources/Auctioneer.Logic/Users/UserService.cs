@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
+using EntityFramework.Extensions;
+
+using Auctioneer.Logic.Auctions;
 using Auctioneer.Logic.Validation;
 
 using Microsoft.AspNet.Identity;
@@ -203,13 +206,12 @@ namespace Auctioneer.Logic.Users
 
 				await base.UpdateAsync(user);
 
-				await mContext.Database.ExecuteSqlCommandAsync
-				(
-					"UPDATE Auctions "   + 
-				   "SET EndDate = {0} " +
-					"WHERE SellerId = {1} AND EndDate > {0} AND BuyerId IS NULL",
-					DateTime.Now, userId
-				);
+				await mContext.Auctions.Where(x => x.SellerId == userId)
+				                       .Where(AuctionStatusFilter.Active)
+				                       .UpdateAsync(x => new Auction
+				                       {
+					                       EndDate = DateTime.Now
+				                       });
 
 				transaction.Complete();
 			}

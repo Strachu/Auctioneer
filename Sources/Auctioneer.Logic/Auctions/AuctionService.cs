@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
+using EntityFramework.Extensions;
+
 using Auctioneer.Logic.Categories;
 using Auctioneer.Logic.Users;
 using Auctioneer.Logic.Validation;
@@ -258,9 +260,7 @@ namespace Auctioneer.Logic.Auctions
 			if(!await auctions.All(async x => await CanBeRemoved(x, removingUserId, errors)))
 				return;
 
-			// Cannot use an array with ExecuteSqlCommandAsync(), concatenating int elements should be safe.
-			var sql = String.Format("DELETE FROM Auctions WHERE id IN ({0})", String.Join(",", ids));
-			await mContext.Database.ExecuteSqlCommandAsync(sql);
+			await mContext.Auctions.Where(x => ids.Contains(x.Id)).DeleteAsync();
 
 			foreach(var auctionId in ids)
 			{
