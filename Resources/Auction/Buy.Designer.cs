@@ -79,11 +79,38 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bidding for the auction is not enabled..
+        /// </summary>
+        public static string BiddingNotEnabled {
+            get {
+                return ResourceManager.GetString("BiddingNotEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buyout for the auction is not enabled..
+        /// </summary>
+        public static string BuyoutNotEnabled {
+            get {
+                return ResourceManager.GetString("BuyoutNotEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The auction cannot be bought by its seller..
         /// </summary>
         public static string CannotBuyOwnAuctions {
             get {
                 return ResourceManager.GetString("CannotBuyOwnAuctions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your offer has been added..
+        /// </summary>
+        public static string OfferAccepted {
+            get {
+                return ResourceManager.GetString("OfferAccepted", resourceCulture);
             }
         }
         
@@ -102,6 +129,15 @@ namespace Auctioneer.Resources.Auction {
         public static string ThumbnailAltText {
             get {
                 return ResourceManager.GetString("ThumbnailAltText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The minimum allowed bid amount is {0}..
+        /// </summary>
+        public static string TooLowBid {
+            get {
+                return ResourceManager.GetString("TooLowBid", resourceCulture);
             }
         }
     }

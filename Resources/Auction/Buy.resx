@@ -123,13 +123,25 @@
   <data name="AuctionIsInactive" xml:space="preserve">
     <value>Only active auctions can be bought.</value>
   </data>
+  <data name="BiddingNotEnabled" xml:space="preserve">
+    <value>Bidding for the auction is not enabled.</value>
+  </data>
+  <data name="BuyoutNotEnabled" xml:space="preserve">
+    <value>Buyout for the auction is not enabled.</value>
+  </data>
   <data name="CannotBuyOwnAuctions" xml:space="preserve">
     <value>The auction cannot be bought by its seller.</value>
+  </data>
+  <data name="OfferAccepted" xml:space="preserve">
+    <value>Your offer has been added.</value>
   </data>
   <data name="SubmitText" xml:space="preserve">
     <value>Buy</value>
   </data>
   <data name="ThumbnailAltText" xml:space="preserve">
     <value>Thumbnail</value>
+  </data>
+  <data name="TooLowBid" xml:space="preserve">
+    <value>The minimum allowed bid amount is {0}.</value>
   </data>
 </root>

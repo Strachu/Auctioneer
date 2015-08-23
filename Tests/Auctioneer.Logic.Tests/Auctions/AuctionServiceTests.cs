@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
@@ -11,6 +11,7 @@ using Auctioneer.Logic.Currencies;
 using Auctioneer.Logic.Tests.TestUtils;
 using Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues;
 using Auctioneer.Logic.Users;
+using Auctioneer.Logic.Utils;
 using Auctioneer.Logic.ValueTypes;
 
 using FakeItEasy;
@@ -274,6 +275,25 @@ namespace Auctioneer.Logic.Tests.Auctions
 		}
 
 		[Test]
+		public async Task WhenTryingToBuyoutAnAuctionWithoutBuyoutEnabled_ValidationErrorIsReturned()
+		{
+			var auction = new TestAuction
+			{
+				SellerId = "2",
+				EndDate  = DateTime.Now.Add(TimeSpan.FromDays(2)),
+			};
+
+			mDbContext.Auctions.Add(auction);
+			mDbContext.SaveChanges();
+
+			var errors = new FakeErrorNotifier();
+
+			await mTestedService.Buyout(auction.Id, buyerId: "1", errors: errors);
+
+			Assert.That(errors.IsInErrorState, Is.True);
+		}
+
+		[Test]
 		public async Task BuyingAuctionAddsOfferWithBuyoutPrice()
 		{
 			var auction = new TestAuction
@@ -286,7 +306,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 			mDbContext.Auctions.Add(auction);
 			mDbContext.SaveChanges();
 
-			await mTestedService.Buy(auction.Id, buyerId: "1", errors: new FakeErrorNotifier());
+			await mTestedService.Buyout(auction.Id, buyerId: "1", errors: new FakeErrorNotifier());
 
 			var boughtAction = await mTestedService.GetById(auction.Id);
 
@@ -308,7 +328,7 @@ namespace Auctioneer.Logic.Tests.Auctions
 			mDbContext.Auctions.Add(auction);
 			mDbContext.SaveChanges();
 
-			await mTestedService.Buy(auction.Id, buyerId: "1", errors: new FakeErrorNotifier());
+			await mTestedService.Buyout(auction.Id, buyerId: "1", errors: new FakeErrorNotifier());
 
 			A.CallTo(() => mUserNotifierMock.NotifyAuctionSold(A<User>.That.Matches(x => x.Id == "2"), A<Auction>._))
 			 .MustHaveHappened();
@@ -326,10 +346,95 @@ namespace Auctioneer.Logic.Tests.Auctions
 			mDbContext.Auctions.Add(auction);
 			mDbContext.SaveChanges();
 
-			await mTestedService.Buy(auction.Id, buyerId: "2", errors: new FakeErrorNotifier());
+			await mTestedService.Buyout(auction.Id, buyerId: "2", errors: new FakeErrorNotifier());
 
 			A.CallTo(() => mUserNotifierMock.NotifyAuctionWon(A<User>.That.Matches(x => x.Id == "2"), A<Auction>._))
 			 .MustHaveHappened();
+		}
+
+		[Test]
+		public async Task WhenTryingToBidOnAuctionWithoutBiddingEnabled_ValidationErrorIsReturned()
+		{
+			var auction = new TestAuction
+			{
+				SellerId = "2",
+				EndDate  = DateTime.Now.Add(TimeSpan.FromDays(2)),
+			};
+
+			mDbContext.Auctions.Add(auction);
+			mDbContext.SaveChanges();
+
+			var errors = new FakeErrorNotifier();
+
+			await mTestedService.Bid(auction.Id, buyerId: "1", bidAmount: 100, errors: errors);
+
+			Assert.That(errors.IsInErrorState, Is.True);
+		}
+
+		[Test]
+		public async Task WhenBidAmountIsLowerThanMinimumAllowedBid_ValidationErrorIsReturned()
+		{
+			var auction = new TestAuction
+			{
+				SellerId     = "2",
+				EndDate      = DateTime.Now.Add(TimeSpan.FromDays(2)),
+				MinimumPrice = new Money(100.0m, new TestCurrency()),
+				Offers       = new BuyOffer[] { new TestBuyOffer { Amount = 150.0m } }
+			};
+
+			mDbContext.Auctions.Add(auction);
+			mDbContext.SaveChanges();
+
+			var errors = new FakeErrorNotifier();
+
+			await mTestedService.Bid(auction.Id, buyerId: "1", bidAmount: 150.0m, errors: errors);
+
+			Assert.That(errors.IsInErrorState, Is.True);
+		}
+
+		[Test]
+		public async Task WhenAuctionCannotBeBought_BidReturnsValidationError()
+		{
+			var auction = new TestAuction
+			{
+				SellerId     = "1",
+				EndDate      = DateTime.Now.Add(TimeSpan.FromDays(2)),
+				MinimumPrice = new Money(100.0m, new TestCurrency()),
+			};
+
+			mDbContext.Auctions.Add(auction);
+			mDbContext.SaveChanges();
+
+			var errors = new FakeErrorNotifier();
+
+			await mTestedService.Bid(auction.Id, buyerId: "1", bidAmount: 110.0m, errors: errors);
+
+			Assert.That(errors.IsInErrorState, Is.True);
+		}
+
+		[Test]
+		public async Task BidAddsNewOfferWhenValidationPasses()
+		{
+			var auction = new TestAuction
+			{
+				SellerId     = "2",
+				EndDate      = DateTime.Now.Add(TimeSpan.FromDays(2)),
+				MinimumPrice = new Money(100.0m, new TestCurrency()),
+				Offers       = new Collection<BuyOffer> { new TestBuyOffer { Amount = 150.0m } }
+			};
+
+			mDbContext.Auctions.Add(auction);
+			mDbContext.SaveChanges();
+
+			await mTestedService.Bid(auction.Id, buyerId: "1", bidAmount: 200.0m, errors: new FakeErrorNotifier());
+
+			var bidAuction = await mTestedService.GetById(auction.Id);
+			var newOffer   = bidAuction.Offers.Single(x => x.Amount == 200.0m);
+
+			Assert.That(newOffer.AuctionId, Is.EqualTo(auction.Id));
+			Assert.That(newOffer.UserId,    Is.EqualTo("1"));
+			Assert.That(newOffer.Amount,    Is.EqualTo(200.0m));
+			Assert.That(newOffer.Date,      Is.EqualTo(DateTime.Now).Within(1).Minutes);
 		}
 	}
 }

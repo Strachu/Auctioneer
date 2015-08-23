@@ -32,8 +32,24 @@ namespace Auctioneer.Presentation.Models
 			get { return EndDate - DateTime.Now; }
 		}
 
+		public bool IsBiddingEnabled { get; set; }
+
 		[DataType(DataType.Currency)]
-		public Money Price { get; set; }
+		public Money BestOffer { get; set; }
+
+		[DataType(DataType.Currency)]
+		public Money MinPrice { get; set; }
+
+		[DataType(DataType.Currency)]
+		public decimal MinAllowedBid { get; set; }
+
+		[DataType(DataType.Currency)]
+		public decimal? MaxAllowedBid { get; set; }
+
+		public bool IsBuyoutEnabled { get; set; }
+
+		[DataType(DataType.Currency)]
+		public Money BuyoutPrice { get; set; }
 
 		[Display(Name = "SellerUserName", ResourceType = typeof(Lang))]
 		public string SellerUserName { get; set; }

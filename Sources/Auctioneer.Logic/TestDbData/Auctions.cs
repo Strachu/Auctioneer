@@ -60,14 +60,14 @@ namespace Auctioneer.Logic.TestDbData
 				bool isBiddingEnabled = !hasBuyoutPrice || ((rndGenerator.Next(100) + 1) < 30 && (auctions[i].BuyoutPrice.Amount >= 10.0m));
 				if(isBiddingEnabled)
 				{
-					auctions[i].MinBid = new Money(rndGenerator.Next(1, 1000), currencies[rndGenerator.Next(currencies.Count)]);
+					auctions[i].MinimumPrice = new Money(rndGenerator.Next(1, 1000), currencies[rndGenerator.Next(currencies.Count)]);
 				}
 
 				if(isBiddingEnabled && hasBuyoutPrice)
 				{
-					var fixedAmount = Math.Min(auctions[i].MinBid.Amount, auctions[i].BuyoutPrice.Amount * 0.5m);
+					var fixedAmount = Math.Min(auctions[i].MinimumPrice.Amount, auctions[i].BuyoutPrice.Amount * 0.5m);
 
-					auctions[i].MinBid = new Money(fixedAmount, auctions[i].BuyoutPrice.Currency);
+					auctions[i].MinimumPrice = new Money(fixedAmount, auctions[i].BuyoutPrice.Currency);
 				}
 
 				bool hasBidOffer = (rndGenerator.Next(100) + 1) < 90;
@@ -85,7 +85,7 @@ namespace Auctioneer.Logic.TestDbData
 					var previousOfferAmount = 0.0m;
 					for(int x = 0; x < offerCount; ++x)
 					{
-						var minimumPossibleOffer = Math.Max(Math.Ceiling(auctions[i].MinBid.Amount), previousOfferAmount + 1);
+						var minimumPossibleOffer = Math.Max(Math.Ceiling(auctions[i].MinimumPrice.Amount), previousOfferAmount + 1);
 						var maximumPossibleOffer = Math.Floor(hasBuyoutPrice ? auctions[i].BuyoutPrice.Amount * 0.9m : 1000.0m);
 						if(minimumPossibleOffer >= maximumPossibleOffer)
 							break;
@@ -140,25 +140,25 @@ namespace Auctioneer.Logic.TestDbData
 			// EntityFramework.AddRange() was way too slow and BulkInsert requires foreign key property on entity to
 			// relate the entities properly (which I don't want to add because it is not needed).
 
-			var minBids      = auctions.Select(x => x.MinBid).Where(x => x != null).ToList();
+			var minPrices    = auctions.Select(x => x.MinimumPrice).Where(x => x != null).ToList();
 			var buyoutPrices = auctions.Select(x => x.BuyoutPrice).Where(x => x != null).ToList();
-			InsertMoneys(context, minBids.Concat(buyoutPrices));
+			InsertMoneys(context, minPrices.Concat(buyoutPrices));
 
 			var table = new DataTable("Auctions");
 
-			table.Columns.Add("Id",             typeof(int));
-			table.Columns.Add("Title",          typeof(string));
-			table.Columns.Add("Description",    typeof(string));
-			table.Columns.Add("CreationDate",   typeof(DateTime));
-			table.Columns.Add("EndDate",        typeof(DateTime));
-			table.Columns.Add("PhotoCount",     typeof(int));
-			table.Columns.Add("CategoryId",     typeof(int));
-			table.Columns.Add("SellerId",       typeof(string));
-			table.Columns.Add("MinBid_Id",      typeof(int));
-			table.Columns.Add("BuyoutPrice_Id", typeof(int));
+			table.Columns.Add("Id",              typeof(int));
+			table.Columns.Add("Title",           typeof(string));
+			table.Columns.Add("Description",     typeof(string));
+			table.Columns.Add("CreationDate",    typeof(DateTime));
+			table.Columns.Add("EndDate",         typeof(DateTime));
+			table.Columns.Add("PhotoCount",      typeof(int));
+			table.Columns.Add("CategoryId",      typeof(int));
+			table.Columns.Add("SellerId",        typeof(string));
+			table.Columns.Add("MinimumPrice_Id", typeof(int));
+			table.Columns.Add("BuyoutPrice_Id",  typeof(int));
 
-			int minBidId      = 1;
-			int buyoutPriceId = minBids.Count + 1;
+			int minPriceId    = 1;
+			int buyoutPriceId = minPrices.Count + 1;
 			foreach(var auction in auctions)
 			{
 				var row = table.NewRow();
@@ -171,9 +171,9 @@ namespace Auctioneer.Logic.TestDbData
 				row[6] = auction.CategoryId;
 				row[7] = auction.SellerId;
 
-				if(auction.MinBid != null)
+				if(auction.MinimumPrice != null)
 				{
-					row[8] = minBidId++;
+					row[8] = minPriceId++;
 				}
 
 				if(auction.BuyoutPrice != null)

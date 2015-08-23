@@ -1,10 +1,6 @@
 ﻿@model AuctionShowViewModel
 @using Lang = Auctioneer.Resources.Auction.Show;
 
-<div class="message inline">
-	@ViewBag.Message
-</div>
-
 @if(Model.CanBeRemoved || Model.CanBeMovedToDifferentCategory)
 {
 	<div class="control-panel">

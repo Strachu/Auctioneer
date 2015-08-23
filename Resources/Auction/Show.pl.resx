@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Buy" xml:space="preserve">
-    <value>Kup</value>
+  <data name="Buyout" xml:space="preserve">
+    <value>Kup teraz za {0}</value>
   </data>
   <data name="BuyerUserName" xml:space="preserve">
     <value>Kupiona przez</value>
@@ -149,5 +149,14 @@
   </data>
   <data name="BuyoutPrice" xml:space="preserve">
     <value>Kup teraz:</value>
+  </data>
+  <data name="BidButtonText" xml:space="preserve">
+    <value>Licytuj</value>
+  </data>
+  <data name="CurrentOffer" xml:space="preserve">
+    <value>Najlepsza oferta: {0}</value>
+  </data>
+  <data name="MinimalOffer" xml:space="preserve">
+    <value>Cena minimalna: {0}</value>
   </data>
 </root>

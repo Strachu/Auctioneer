@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -36,15 +36,15 @@ namespace Auctioneer.Logic.Tests.Auctions
 
 			context.Auctions.Add(new TestAuction
 			{
-				Id          = 1,
-				BuyoutPrice = new Money(10, new TestCurrency()),
-				MinBid      = new Money( 5, new TestCurrency()),
+				Id           = 1,
+				BuyoutPrice  = new Money(10, new TestCurrency()),
+				MinimumPrice = new Money( 5, new TestCurrency()),
 			});
 
 			context.Auctions.Add(new TestAuction
 			{
-				Id     = 2,
-				MinBid = new Money(1, new TestCurrency()),
+				Id           = 2,
+				MinimumPrice = new Money(1, new TestCurrency()),
 				Offers = new Collection<BuyOffer>
 				{
 					new TestBuyOffer { Amount = 5 },
@@ -60,10 +60,10 @@ namespace Auctioneer.Logic.Tests.Auctions
 
 			context.Auctions.Add(new TestAuction
 			{
-				Id          = 4,
-				BuyoutPrice = new Money(50, new TestCurrency()),
-				MinBid      = new Money(2, new TestCurrency()),
-				Offers      = new Collection<BuyOffer>
+				Id           = 4,
+				BuyoutPrice  = new Money(50, new TestCurrency()),
+				MinimumPrice = new Money(2, new TestCurrency()),
+				Offers       = new Collection<BuyOffer>
 				{
 					new TestBuyOffer { Amount = 3 },
 					new TestBuyOffer { Amount = 4 },
@@ -101,21 +101,21 @@ namespace Auctioneer.Logic.Tests.Auctions
 
 			mDbContext.Auctions.Add(new TestAuction
 			{
-				Id          = 1,
-				BuyoutPrice = new Money(10, new TestCurrency()),
-				MinBid      = new Money( 5, new TestCurrency()),
+				Id           = 1,
+				BuyoutPrice  = new Money(10, new TestCurrency()),
+				MinimumPrice = new Money( 5, new TestCurrency()),
 			});
 			mDbContext.Auctions.Add(new TestAuction
 			{
-				Id          = 2,
-				BuyoutPrice = new Money(15, new TestCurrency()),
-				MinBid      = new Money( 5, new TestCurrency()),
+				Id           = 2,
+				BuyoutPrice  = new Money(15, new TestCurrency()),
+				MinimumPrice = new Money( 5, new TestCurrency()),
 			});
 			mDbContext.Auctions.Add(new TestAuction
 			{
-				Id          = 3,
-				BuyoutPrice = new Money(12, new TestCurrency()),
-				MinBid      = new Money( 5, new TestCurrency()),
+				Id           = 3,
+				BuyoutPrice  = new Money(12, new TestCurrency()),
+				MinimumPrice = new Money( 5, new TestCurrency()),
 			});
 
 			mDbContext.SaveChanges();

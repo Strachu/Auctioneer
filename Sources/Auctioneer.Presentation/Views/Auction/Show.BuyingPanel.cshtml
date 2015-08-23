@@ -1,0 +1,54 @@
+﻿@model AuctionShowViewModel
+@using Auctioneer.Logic.ValueTypes
+@using Lang = Auctioneer.Resources.Auction.Show;
+
+@helper PriceSpan(Money money)
+{
+	<span class="price">@Html.DisplayFor(x => money)</span>
+}
+
+@if(Model.IsBiddingEnabled)
+{
+	<div class="bidding">
+		@if(Model.BestOffer != null)
+		{
+			<p>@Html.Raw(String.Format(Lang.CurrentOffer, PriceSpan(Model.BestOffer)))</p>
+		}
+		else
+		{
+			<p>@Html.Raw(String.Format(Lang.MinimalOffer, PriceSpan(Model.MinPrice)))</p>
+		}
+
+		@if(Model.CanBeBought)
+		{
+			using(Html.BeginForm(actionName: "Bid", routeValues: new { id = Model.Id }))
+			{
+				@Html.AntiForgeryToken()
+				@Html.NumberInput("bidAmount", value: Model.MinAllowedBid, min: Model.MinAllowedBid, max: Model.MaxAllowedBid,
+				                  step: "any")
+
+				<button type="submit" class="btn btn-primary">@Lang.BidButtonText</button>
+			}
+		}
+		else
+		{
+			// Cannot use disabled button due to https://stackoverflow.com/questions/27597870/using-display-flex-on-a-button-makes-it-wrap-in-firefox/27627318
+			<div class="btn btn-primary disabled">@Lang.BidButtonText</div>
+		}
+	</div>
+}
+
+@if(Model.IsBuyoutEnabled)
+{
+	var buttonContent = Html.Raw(String.Format(Lang.Buyout, PriceSpan(Model.BuyoutPrice)));
+	if(Model.CanBeBought)
+	{
+		<a href="@Url.Action("Buyout", routeValues: new { id = Model.Id })" class="btn btn-primary buy-button">
+			@buttonContent
+		</a>
+	}
+	else
+	{
+		<div class="btn btn-primary buy-button disabled">@buttonContent</div>
+	}
+}

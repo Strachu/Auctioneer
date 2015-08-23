@@ -14,6 +14,7 @@ using System.Transactions;
 using Auctioneer.Logic.Categories;
 using Auctioneer.Logic.Users;
 using Auctioneer.Logic.Validation;
+using Auctioneer.Logic.ValueTypes;
 
 using Ganss.XSS;
 
@@ -117,7 +118,7 @@ namespace Auctioneer.Logic.Auctions
 					break;
 			}
 
-			auctions = auctions.Include(x => x.MinBid.Currency)
+			auctions = auctions.Include(x => x.MinimumPrice.Currency)
 			                   .Include(x => x.BuyoutPrice.Currency)
 			                   .Include(x => x.Offers);
 
@@ -133,7 +134,7 @@ namespace Auctioneer.Logic.Auctions
 		{
 			var createdAfter = DateTime.Now.Subtract(createdIn);
 
-			var auctions = mContext.Auctions.Include(x => x.MinBid.Currency)
+			var auctions = mContext.Auctions.Include(x => x.MinimumPrice.Currency)
 			                                .Include(x => x.BuyoutPrice.Currency)
 			                                .Include(x => x.Offers)
 			                                .Include(x => x.Category)
@@ -153,7 +154,7 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<IEnumerable<Auction>> GetRecentAuctions(int maxResults)
 		{
-			return await mContext.Auctions.Include(x => x.MinBid.Currency)
+			return await mContext.Auctions.Include(x => x.MinimumPrice.Currency)
 			                              .Include(x => x.BuyoutPrice.Currency)
 			                              .Include(x => x.Offers)
 			                              .Where(AuctionStatusFilter.Active)
@@ -164,7 +165,7 @@ namespace Auctioneer.Logic.Auctions
 
 		public async Task<Auction> GetById(int id)
 		{
-			var auction = await mContext.Auctions.Include(x => x.MinBid.Currency)
+			var auction = await mContext.Auctions.Include(x => x.MinimumPrice.Currency)
 			                                     .Include(x => x.BuyoutPrice.Currency)
 			                                     .Include(x => x.Offers)
 			                                     .Include(x => x.Seller)
@@ -199,9 +200,9 @@ namespace Auctioneer.Logic.Auctions
 		private async Task InsertAuction(Auction auction)
 		{
 			// Do not insert new currencies
-			if(auction.MinBid != null)
+			if(auction.MinimumPrice != null)
 			{
-				mContext.Entry(auction.MinBid.Currency).State = EntityState.Unchanged; 
+				mContext.Entry(auction.MinimumPrice.Currency).State = EntityState.Unchanged; 
 			}
 
 			if(auction.BuyoutPrice != null)
@@ -312,8 +313,6 @@ namespace Auctioneer.Logic.Auctions
 
 		private bool CanBeBought(Auction auction, string buyerId, IValidationErrorNotifier errors)
 		{
-			// TODO Cannot be bought if no buyout price has been set
-
 			if(auction.Status != AuctionStatus.Active)
 			{
 				errors.AddError(Lang.Buy.AuctionIsInactive);
@@ -329,9 +328,43 @@ namespace Auctioneer.Logic.Auctions
 			return true;
 		}
 
-		public async Task Buy(int auctionId, string buyerId, IValidationErrorNotifier errors)
+		public async Task Bid(int auctionId, string buyerId, decimal bidAmount, IValidationErrorNotifier errors)
 		{
 			var auction = await GetById(auctionId);
+			if(!auction.IsBiddingEnabled)
+			{
+				errors.AddError(Lang.Buy.BiddingNotEnabled);
+				return;
+			}
+
+			if(!CanBeBought(auction, buyerId, errors))
+				return;
+
+			if(bidAmount < auction.MinBidAllowed)
+			{
+				errors.AddError(String.Format(Lang.Buy.TooLowBid, new Money(auction.MinBidAllowed, auction.MinimumPrice.Currency)));
+				return;
+			}
+			
+			auction.Offers.Add(new BuyOffer
+			{
+				UserId = buyerId,
+				Date   = DateTime.Now,
+				Amount = bidAmount,
+			});
+
+			await mContext.SaveChangesAsync();
+		}
+
+		public async Task Buyout(int auctionId, string buyerId, IValidationErrorNotifier errors)
+		{
+			var auction = await GetById(auctionId);
+			if(!auction.IsBuyoutEnabled)
+			{
+				errors.AddError(Lang.Buy.BuyoutNotEnabled);
+				return;
+			}
+
 			if(!CanBeBought(auction, buyerId, errors))
 				return;
 			

@@ -43,7 +43,8 @@ namespace Auctioneer.Logic.Auctions
 		Task RemoveAuctions(IReadOnlyCollection<int> ids, string removingUserId, IValidationErrorNotifier errors);
 
 		bool CanBeBought(Auction auction, string buyerId);
-		Task Buy(int auctionId, string buyerId, IValidationErrorNotifier errors);
+		Task Bid(int auctionId, string buyerId, decimal bidAmount, IValidationErrorNotifier errors);
+		Task Buyout(int auctionId, string buyerId, IValidationErrorNotifier errors);
 
 		Task<bool> CanBeMoved(Auction auction, string userId);
 		Task MoveAuction(int auctionId, int newCategoryId, string movingUserId, IValidationErrorNotifier errors);

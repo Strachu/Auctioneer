@@ -597,6 +597,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Money.cshtml" />
     <Content Include="Views\Auction\Show.ControlPanel.cshtml" />
     <Content Include="Emails\Auction\Expired\AuctionExpiredMail.cshtml" />
+    <Content Include="Views\Auction\Show.BuyingPanel.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -649,7 +650,7 @@
     <Content Include="Views\Account\MyAuctions.cshtml" />
     <Content Include="Views\Auction\Delete.cshtml" />
     <Content Include="Views\Account\MyAuctions.FilteringOptions.cshtml" />
-    <Content Include="Views\Auction\Buy.cshtml" />
+    <Content Include="Views\Auction\Buyout.cshtml" />
     <Content Include="Views\Auction\OrderConfirmed.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MultilineText.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Duration.cshtml" />

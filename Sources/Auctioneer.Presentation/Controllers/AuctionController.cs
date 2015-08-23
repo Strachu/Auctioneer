@@ -201,21 +201,21 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[Authorize]
-		public async Task<ActionResult> Buy(int id)
+		public async Task<ActionResult> Buyout(int id)
 		{
 			var auction   = await mAuctionService.GetById(id);
-			var viewModel = new AuctionBuyViewModel { Id = id, Title = auction.Title, Price = auction.Price };
+			var viewModel = new AuctionBuyViewModel { Id = id, Title = auction.Title, Price = auction.BuyoutPrice };
 
 			return View(viewModel);
 		}
 
 		[HttpPost]
 		[Authorize]
-		[ActionName("Buy")]
+		[ActionName("Buyout")]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> BuyPost(int id)
+		public async Task<ActionResult> BuyoutPost(int id)
 		{
-			await mAuctionService.Buy(id, User.Identity.GetUserId(), new ValidationErrorNotifierAdapter(ModelState));
+			await mAuctionService.Buyout(id, User.Identity.GetUserId(), new ValidationErrorNotifierAdapter(ModelState));
 
 			if(!ModelState.IsValid)
 				return View("Error");
@@ -226,6 +226,20 @@ namespace Auctioneer.Presentation.Controllers
 		public ActionResult OrderConfirmed()
 		{
 			return View();
+		}
+
+		[HttpPost]
+		[Authorize]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> Bid(int id, decimal bidAmount)
+		{
+			await mAuctionService.Bid(id, User.Identity.GetUserId(), bidAmount, new ValidationErrorNotifierAdapter(ModelState));
+
+			if(!ModelState.IsValid)
+				return View("Error");
+
+			TempData["ConfirmationMessage"] = Lang.Buy.OfferAccepted;
+			return RedirectToAction("Show", routeValues: new { id });
 		}
 	}
 }

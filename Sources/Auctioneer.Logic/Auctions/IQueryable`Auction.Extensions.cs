@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -58,8 +58,8 @@ namespace Auctioneer.Logic.Auctions
 		{
 			get
 			{
-				return x => (x.MinBid == null) ? x.BuyoutPrice.Amount
-				                               : (x.Offers.Any() ? x.Offers.Max(y => y.Amount) : x.MinBid.Amount);
+				return x => (x.MinimumPrice == null) ? x.BuyoutPrice.Amount
+				                                     : (x.Offers.Any() ? x.Offers.Max(y => y.Amount) : x.MinimumPrice.Amount);
 			}
 		}
 	}

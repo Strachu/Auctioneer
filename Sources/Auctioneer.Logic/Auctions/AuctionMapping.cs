@@ -16,7 +16,7 @@ namespace Auctioneer.Logic.Auctions
 			base.Property(x => x.Description).IsRequired();
 
 			base.HasOptional(x => x.BuyoutPrice).WithMany();
-			base.HasOptional(x => x.MinBid).WithMany();
+			base.HasOptional(x => x.MinimumPrice).WithMany();
 
 			base.Property(x => x.PhotoCount).IsRequired();
 

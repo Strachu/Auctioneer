@@ -94,7 +94,16 @@ namespace Auctioneer.Logic.Auctions
 			throw new NotImplementedException();
 		}
 
-		Task IAuctionService.Buy(int auctionId, string buyerId, IValidationErrorNotifier errors)
+		Task IAuctionService.Bid(int auctionId, string buyerId, decimal bidAmount, IValidationErrorNotifier errors)
+		{
+			Contract.Requires(auctionId > 0);
+			Contract.Requires(buyerId != null);
+			Contract.Requires(errors != null);
+
+			throw new NotImplementedException();
+		}
+
+		Task IAuctionService.Buyout(int auctionId, string buyerId, IValidationErrorNotifier errors)
 		{
 			Contract.Requires(auctionId > 0);
 			Contract.Requires(buyerId != null);
