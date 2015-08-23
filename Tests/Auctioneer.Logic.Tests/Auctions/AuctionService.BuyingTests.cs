@@ -79,6 +79,8 @@ namespace Auctioneer.Logic.Tests.Auctions
 				Offers      = new Collection<BuyOffer> { new TestBuyOffer { UserId = "3", Amount = 100 } }
 			};
 
+			auction.Offers.Single().Auction = auction;
+
 			var result = mTestedService.CanBeBought(auction, buyerId: "2");
 
 			Assert.That(result, Is.False);
@@ -221,6 +223,58 @@ namespace Auctioneer.Logic.Tests.Auctions
 			Assert.That(newOffer.UserId,    Is.EqualTo("1"));
 			Assert.That(newOffer.Amount,    Is.EqualTo(200.0m));
 			Assert.That(newOffer.Date,      Is.EqualTo(DateTime.Now).Within(1).Minutes);
+		}
+
+		[Test]
+		public async Task UserIsNotifiedWhenHeBids()
+		{
+			var auction = AddAuctionToDatabase(new TestAuction
+			{
+				SellerId     = "1",
+				EndDate      = DateTime.Now.Add(TimeSpan.FromDays(2)),
+				MinimumPrice = new Money(100.0m, new TestCurrency()),
+			});
+
+			await mTestedService.Bid(auction.Id, buyerId: "2", bidAmount: 150.0m, errors: new FakeErrorNotifier());
+
+			A.CallTo(() => mUserNotifierMock.NotifyOfferAdded(A<User>.That.Matches(x => x.Id == "2"), A<BuyOffer>._, A<Auction>._))
+			 .MustHaveHappened();
+		}
+
+		[Test]
+		public async Task UserIsNotifiedWhenHeIsOutbid()
+		{
+			var auction = AddAuctionToDatabase(new TestAuction
+			{
+				SellerId     = "1",
+				EndDate      = DateTime.Now.Add(TimeSpan.FromDays(2)),
+				MinimumPrice = new Money(100.0m, new TestCurrency()),
+				Offers       = new Collection<BuyOffer>
+				{
+					new TestBuyOffer { Amount = 150.0m, UserId = "2" },
+					new TestBuyOffer { Amount = 170.0m, UserId = "3" },
+				}
+			});
+
+			await mTestedService.Bid(auction.Id, buyerId: "2", bidAmount: 200.0m, errors: new FakeErrorNotifier());
+
+			A.CallTo(() => mUserNotifierMock.NotifyOutbid(A<User>.That.Matches(x => x.Id == "3"), A<Auction>._))
+			 .MustHaveHappened();
+		}
+
+		[Test]
+		public async Task WhenThereWereNoOffers_NoOutbidNotificationIsSent()
+		{
+			var auction = AddAuctionToDatabase(new TestAuction
+			{
+				SellerId     = "1",
+				EndDate      = DateTime.Now.Add(TimeSpan.FromDays(2)),
+				MinimumPrice = new Money(100.0m, new TestCurrency()),
+			});
+
+			await mTestedService.Bid(auction.Id, buyerId: "2", bidAmount: 150.0m, errors: new FakeErrorNotifier());
+
+			A.CallTo(() => mUserNotifierMock.NotifyOutbid(null, null)).WithAnyArguments().MustNotHaveHappened();
 		}
 
 		private Auction AddAuctionToDatabase(Auction auction)

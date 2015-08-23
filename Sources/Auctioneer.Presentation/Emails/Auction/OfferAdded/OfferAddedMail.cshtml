@@ -1,0 +1,20 @@
+@model OfferAddedMail
+
+@{
+	Layout = null;
+}
+
+To: @Model.UserMail
+Subject: You added a buy offer to @Model.AuctionTitle
+Content-Type: text/html; charset=utf-8
+
+<html>
+	<body>
+		<p>Hello @Model.UserFirstName,</p>
+		<p>
+			Your offer of @Html.DisplayFor(x => x.OfferMoney) has been added to
+			"@Html.AuctionLink(Model.AuctionId, Model.AuctionTitle)" auction.
+		</p>
+		<p>You will be notified when auction ends or someone raises better offer.</p>
+	</body>
+</html>

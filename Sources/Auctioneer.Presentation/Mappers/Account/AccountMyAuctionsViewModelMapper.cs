@@ -29,7 +29,7 @@ namespace Auctioneer.Presentation.Mappers.Account
 				Status       = x.Status,
 				TimeTillEnd  = x.EndDate - DateTime.Now,
 				BuyoutPrice  = x.BuyoutPrice,
-				BestOffer    = x.BestOffer
+				BestOffer    = x.BestOffer != null ? x.BestOffer.Money : null
 			});
 
 			return new AccountMyAuctionsViewModel

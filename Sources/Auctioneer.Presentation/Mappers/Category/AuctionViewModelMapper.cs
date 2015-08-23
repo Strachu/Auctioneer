@@ -22,7 +22,7 @@ namespace Auctioneer.Presentation.Mappers.Category
 				Id          = auction.Id,
 				Title       = auction.Title,
 				BuyoutPrice = auction.BuyoutPrice,
-				BestBid     = auction.BestOffer ?? auction.MinimumPrice,
+				BestBid     = auction.BestOffer != null ? auction.BestOffer.Money : auction.MinimumPrice,
 				TimeTillEnd = auction.EndDate - DateTime.Now,
 				Slug        = SlugGenerator.SlugFromTitle(auction.Title)
 			};

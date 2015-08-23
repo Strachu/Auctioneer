@@ -65,7 +65,7 @@ namespace Auctioneer.Presentation.Emails
 
 				AuctionId            = auction.Id,
 				AuctionTitle         = auction.Title,
-				AuctionPrice         = auction.BestOffer,
+				AuctionPrice         = auction.BestOffer.Money,
 
 				BuyerEmail           = auction.Buyer.Email,
 				BuyerUserName        = auction.Buyer.UserName,
@@ -83,11 +83,37 @@ namespace Auctioneer.Presentation.Emails
 
 				AuctionId      = auction.Id,
 				AuctionTitle   = auction.Title,
-				AuctionPrice   = auction.BestOffer,
+				AuctionPrice   = auction.BestOffer.Money,
 
 				SellerEmail    = auction.Seller.Email,
 				SellerUserName = auction.Seller.UserName,
 				SellerFullName = auction.Seller.FirstName + " " + auction.Seller.LastName,
+			});
+		}
+
+		public async Task NotifyOfferAdded(User user, BuyOffer offer, Auction auction)
+		{
+			await mMailService.SendAsync(new OfferAddedMail
+			{
+				UserMail       = user.Email,
+				UserFirstName  = user.FirstName,
+
+				AuctionId      = auction.Id,
+				AuctionTitle   = auction.Title,
+
+				OfferMoney     = offer.Money
+			});
+		}
+
+		public async Task NotifyOutbid(User user, Auction auction)
+		{
+			await mMailService.SendAsync(new OutbidMail
+			{
+				UserMail       = user.Email,
+				UserFirstName  = user.FirstName,
+
+				AuctionId      = auction.Id,
+				AuctionTitle   = auction.Title,
 			});
 		}
 	}

@@ -345,15 +345,25 @@ namespace Auctioneer.Logic.Auctions
 				errors.AddError(String.Format(Lang.Buy.TooLowBid, new Money(auction.MinBidAllowed, auction.MinimumPrice.Currency)));
 				return;
 			}
-			
-			auction.Offers.Add(new BuyOffer
+
+			var previouslyBestOffer = auction.BestOffer;
+			var userOffer           = new BuyOffer
 			{
 				UserId = buyerId,
 				Date   = DateTime.Now,
 				Amount = bidAmount,
-			});
+			};
+
+			auction.Offers.Add(userOffer);
 
 			await mContext.SaveChangesAsync();
+
+			await mUserNotifier.NotifyOfferAdded(userOffer.User, userOffer, auction);
+
+			if(previouslyBestOffer != null)
+			{
+				await mUserNotifier.NotifyOutbid(previouslyBestOffer.User, auction);
+			}
 		}
 
 		public async Task Buyout(int auctionId, string buyerId, IValidationErrorNotifier errors)

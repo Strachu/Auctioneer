@@ -1,0 +1,16 @@
+@model OutbidMail
+
+@{
+	Layout = null;
+}
+
+To: @Model.UserMail
+Subject: You have been outbid on @Model.AuctionTitle
+Content-Type: text/html; charset=utf-8
+
+<html>
+	<body>
+		<p>Hello @Model.UserFirstName,</p>
+		<p>Someone has raised better offer than you on "@Html.AuctionLink(Model.AuctionId, Model.AuctionTitle)" auction.</p>
+	</body>
+</html>

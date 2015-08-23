@@ -67,6 +67,11 @@ namespace Auctioneer.Logic.Auctions
 
 		public virtual ICollection<BuyOffer> Offers { get; set; }
 
+		public BuyOffer BestOffer
+		{
+			get { return Offers.OrderByDescending(x => x.Amount).FirstOrDefault(); }
+		}
+
 		public User Buyer
 		{
 			get
@@ -74,7 +79,7 @@ namespace Auctioneer.Logic.Auctions
 				if(Status != AuctionStatus.Sold)
 					return null;
 
-				var bestOffer = Offers.OrderByDescending(x => x.Amount).FirstOrDefault();
+				var bestOffer = BestOffer;
 				if(bestOffer == null)
 					return null;
 
@@ -86,25 +91,13 @@ namespace Auctioneer.Logic.Auctions
 		{
 			get
 			{
-				if(BuyoutPrice != null && Offers.Any(x => x.Amount >= BuyoutPrice.Amount))
+				if(BuyoutPrice != null && Offers.Any(x => x.IsBuyout))
 					return AuctionStatus.Sold;
 
 				if(EndDate < DateTime.Now)
 					return Offers.Any() ? AuctionStatus.Sold : AuctionStatus.Expired;
 
 				return AuctionStatus.Active;
-			}
-		}
-
-		public Money BestOffer
-		{
-			get
-			{
-				var bestOffer = Offers.OrderByDescending(x => x.Amount).FirstOrDefault();
-				if(bestOffer == null)
-					return null;
-
-				return new Money(bestOffer.Amount, (MinimumPrice != null) ? MinimumPrice.Currency : BuyoutPrice.Currency);
 			}
 		}
 	}

@@ -300,6 +300,9 @@
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Emails\Auction\HtmlHelper.Extensions.cs" />
+    <Compile Include="Emails\Auction\Outbid\OutbidMail.cs" />
+    <Compile Include="Emails\Auction\OfferAdded\OfferAddedMail.cs" />
     <Compile Include="Emails\Auction\Expired\AuctionExpiredMail.cs" />
     <Compile Include="Emails\Auction\Won\AuctionWonMail.cs" />
     <Compile Include="Emails\Auction\Sold\AuctionSoldMail.cs" />
@@ -598,6 +601,8 @@
     <Content Include="Views\Auction\Show.ControlPanel.cshtml" />
     <Content Include="Emails\Auction\Expired\AuctionExpiredMail.cshtml" />
     <Content Include="Views\Auction\Show.BuyingPanel.cshtml" />
+    <Content Include="Emails\Auction\OfferAdded\OfferAddedMail.cshtml" />
+    <Content Include="Emails\Auction\Outbid\OutbidMail.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

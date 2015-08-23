@@ -233,6 +233,9 @@
       <DependentUpon>ICurrencyService.cs</DependentUpon>
     </Compile>
     <Compile Include="Currencies\ICurrencyService.cs" />
+    <Compile Include="Users\IUserNotifier.Contracts.cs">
+      <DependentUpon>IUserNotifier.cs</DependentUpon>
+    </Compile>
     <Compile Include="Validation\IValidationErrorNotifier.Contracts.cs">
       <DependentUpon>IValidationErrorNotifier.cs</DependentUpon>
     </Compile>

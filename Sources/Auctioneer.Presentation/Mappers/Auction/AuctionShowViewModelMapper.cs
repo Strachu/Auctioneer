@@ -23,7 +23,7 @@ namespace Auctioneer.Presentation.Mappers
 				Status           = auction.Status,
 				EndDate          = auction.EndDate,
 				IsBiddingEnabled = auction.IsBiddingEnabled,
-				BestOffer        = auction.BestOffer,
+				BestOffer        = auction.BestOffer != null ? auction.BestOffer.Money : null,
 				MinPrice         = auction.MinimumPrice,
 				MinAllowedBid    = auction.MinBidAllowed,
 				MaxAllowedBid    = auction.IsBuyoutEnabled ? auction.BuyoutPrice.Amount : (decimal?)null,

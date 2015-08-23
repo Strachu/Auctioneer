@@ -2,12 +2,6 @@
 
 @{
 	Layout = null;
-
-	var auctionLink = Html.ActionLinkWithSlug(Model.AuctionTitle, controllerName: "Auction", actionName: "Show",
-	                                          protocol: Request.Url.Scheme, routeValues: new
-	                                          {
-		                                          id = Model.AuctionId
-	                                          });
 }
 
 To: @Model.UserMail
@@ -18,7 +12,10 @@ Content-Type: text/html; charset=utf-8
 <html>
 	<body>
 		<p>Hello @Model.UserFirstName,</p>
-		<p>You won "@auctionLink" auction at Auctioneer for a price of @Html.DisplayFor(x => x.AuctionPrice).</p>
+		<p>
+			You won "@Html.AuctionLink(Model.AuctionId, Model.AuctionTitle)" auction at Auctioneer for a price of
+			@Html.DisplayFor(x => x.AuctionPrice).
+		</p>
 		<p>The auction has been added by @Model.SellerUserName (@Model.SellerFullName).</p>
 		<p>You can contact him by e-mail by replying to this e-mail or sending an e-mail to @Html.DisplayFor(x => x.SellerEmail).</p>
 	</body>
