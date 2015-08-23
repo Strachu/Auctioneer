@@ -31,7 +31,7 @@ namespace Auctioneer.Logic.Auctions
 			var currentRunTime            = DateTime.Now;
 			var auctionsEndedSinceLastRun = mContext.Auctions.Include(x => x.Seller)
 			                                                 .Include(x => x.BuyoutPrice.Currency)
-			                                                 .Include(x => x.MinBid.Currency)
+			                                                 .Include(x => x.MinimumPrice.Currency)
 			                                                 .Include(x => x.Offers)
 			                                                 .Where(x => x.EndDate > lastRunTime && x.EndDate <= currentRunTime)
 			                                                 .Where(x => x.Offers.All(offer => offer.Amount < x.BuyoutPrice.Amount));

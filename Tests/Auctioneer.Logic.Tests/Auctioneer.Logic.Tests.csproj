@@ -91,6 +91,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Auctions\AuctionService.BuyingTests.cs" />
     <Compile Include="Auctions\AuctionTests.cs" />
     <Compile Include="Auctions\IQueryable`Auction.ExtensionsTests.cs" />
     <Compile Include="Auctions\AuctionStatusDeterminingTests.cs" />
