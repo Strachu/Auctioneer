@@ -131,27 +131,31 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 		public static IHtmlString NumberInputFor<TModel, TProperty>(this HtmlHelper<TModel> html,
 		                                                            Expression<Func<TModel, TProperty>> expression,
 		                                                            string cssClass = "",
-		                                                            int? min = null,
-		                                                            int? max = null,
+		                                                            object min = null,
+		                                                            object max = null,
+		                                                            object step = null,
 		                                                            object htmlAttributes = null)
 		{
 			var name  = ExpressionHelper.GetExpressionText(expression);
 			var value = ModelMetadata.FromLambdaExpression(expression, html.ViewData).Model;
 
-			return html.NumberInput(name, value, cssClass: cssClass, min: min, max: max, htmlAttributes: htmlAttributes);
+			return html.NumberInput(name, value, cssClass: cssClass, min: min, max: max, step: step,
+			                        htmlAttributes: htmlAttributes);
 		}
 
 		public static IHtmlString NumberInput<T>(this HtmlHelper html,
 		                                         string name,
 		                                         T value,
 		                                         string cssClass = "",
-		                                         int? min = null,
-		                                         int? max = null,
+		                                         object min = null,
+		                                         object max = null,
+		                                         object step = null,
 		                                         object htmlAttributes = null)
 		{
 			var htmlAttibutesDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
 
-			return html.NumberInput(name, value: value, cssClass: cssClass, min: min, max: max, htmlAttibutes: htmlAttibutesDictionary);
+			return html.NumberInput(name, value: value, cssClass: cssClass, min: min, max: max, step: step,
+			                        htmlAttibutes: htmlAttibutesDictionary);
 		}
 
 		public static IHtmlString NumberInput<T>(this HtmlHelper html,
@@ -159,8 +163,9 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 		                                         T value,
 		                                         IDictionary<string, object> htmlAttibutes,
 		                                         string cssClass = "",
-		                                         int? min = null,
-		                                         int? max = null)
+		                                         object min = null,
+		                                         object max = null,
+		                                         object step = null)
 		{
 			htmlAttibutes = htmlAttibutes ?? new Dictionary<string, object>();
 
@@ -171,14 +176,19 @@ namespace Auctioneer.Presentation.Infrastructure.Html
 				htmlAttibutes["class"] = cssClass;
 			}
 
-			if(min.HasValue)
+			if(min != null)
 			{
 				htmlAttibutes["min"] = min;
 			}
 
-			if(max.HasValue)
+			if(max != null)
 			{
 				htmlAttibutes["max"] = max;
+			}
+
+			if(step != null)
+			{
+				htmlAttibutes["step"] = step;
 			}
 
 			return html.TextBox(name, value: value, htmlAttributes: htmlAttibutes);

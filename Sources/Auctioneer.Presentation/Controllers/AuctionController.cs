@@ -109,8 +109,9 @@ namespace Auctioneer.Presentation.Controllers
 				AvailableCategories = await GetAvailableCategoryList()
 			};
 
-			var currentCultureCurrencySymbol    = Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencySymbol;
-			viewModel.Price.AvailableCurrencies = await GetAvailableCurrencyList(currentCultureCurrencySymbol);
+			var currentCultureCurrencySymbol                  = Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencySymbol;
+			viewModel.MinimumBiddingPrice.AvailableCurrencies = await GetAvailableCurrencyList(currentCultureCurrencySymbol);
+			viewModel.BuyoutPrice.AvailableCurrencies         = viewModel.MinimumBiddingPrice.AvailableCurrencies;
 
 			return View(viewModel);
 		}
@@ -122,9 +123,11 @@ namespace Auctioneer.Presentation.Controllers
 		{
 			if(!ModelState.IsValid)
 			{
-				input.AvailableCategories       = await GetAvailableCategoryList();
-				input.Price.AvailableCurrencies = await GetAvailableCurrencyList(input.Price.Currency.Symbol);
-				input.Price.Currency            = null; // Prevents the ignoring of Selected property in AvailableCurrencies
+				input.AvailableCategories                     = await GetAvailableCategoryList();
+				input.MinimumBiddingPrice.AvailableCurrencies = await GetAvailableCurrencyList(input.MinimumBiddingPrice.Currency.Symbol);
+				input.BuyoutPrice.AvailableCurrencies         = input.MinimumBiddingPrice.AvailableCurrencies;
+				input.MinimumBiddingPrice.Currency            = null; // Prevents the ignoring of Selected property in AvailableCurrencies
+				input.BuyoutPrice.Currency                    = null;
 				return View(input);
 			}
 
@@ -201,21 +204,21 @@ namespace Auctioneer.Presentation.Controllers
 		}
 
 		[Authorize]
-		public async Task<ActionResult> Buy(int id)
+		public async Task<ActionResult> Buyout(int id)
 		{
 			var auction   = await mAuctionService.GetById(id);
-			var viewModel = new AuctionBuyViewModel { Id = id, Title = auction.Title, Price = auction.Price };
+			var viewModel = new AuctionBuyViewModel { Id = id, Title = auction.Title, Price = auction.BuyoutPrice };
 
 			return View(viewModel);
 		}
 
 		[HttpPost]
 		[Authorize]
-		[ActionName("Buy")]
+		[ActionName("Buyout")]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> BuyPost(int id)
+		public async Task<ActionResult> BuyoutPost(int id)
 		{
-			await mAuctionService.Buy(id, User.Identity.GetUserId(), new ValidationErrorNotifierAdapter(ModelState));
+			await mAuctionService.Buyout(id, User.Identity.GetUserId(), new ValidationErrorNotifierAdapter(ModelState));
 
 			if(!ModelState.IsValid)
 				return View("Error");
@@ -226,6 +229,20 @@ namespace Auctioneer.Presentation.Controllers
 		public ActionResult OrderConfirmed()
 		{
 			return View();
+		}
+
+		[HttpPost]
+		[Authorize]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> Bid(int id, decimal bidAmount)
+		{
+			await mAuctionService.Bid(id, User.Identity.GetUserId(), bidAmount, new ValidationErrorNotifierAdapter(ModelState));
+
+			if(!ModelState.IsValid)
+				return View("Error");
+
+			TempData["ConfirmationMessage"] = Lang.Buy.OfferAccepted;
+			return RedirectToAction("Show", routeValues: new { id });
 		}
 	}
 }

@@ -17,6 +17,8 @@ namespace Auctioneer.Logic.TestDbData
 			Currencies.Add(context);
 			Auctions.Add(context);
 
+			BackgroundTasksData.Add(context);
+
 			base.Seed(context);
 		}
 	}

@@ -91,12 +91,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Auctions\AuctionService.BuyingTests.cs" />
+    <Compile Include="Auctions\BuyOfferTests.cs" />
+    <Compile Include="Auctions\AuctionTests.cs" />
+    <Compile Include="Auctions\IQueryable`Auction.ExtensionsTests.cs" />
+    <Compile Include="Auctions\AuctionStatusDeterminingTests.cs" />
     <Compile Include="Auctions\AuctionServiceTests.cs" />
     <Compile Include="Categories\CategoryServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtils\FakeErrorNotifier.cs" />
     <Compile Include="TestUtils\ModelsWithDefaultValues\TestAuctioneerDbContext.cs" />
     <Compile Include="TestUtils\ModelsWithDefaultValues\TestAuction.cs" />
+    <Compile Include="TestUtils\ModelsWithDefaultValues\TestCurrency.cs" />
+    <Compile Include="TestUtils\ModelsWithDefaultValues\TestBuyOffer.cs" />
     <Compile Include="TestUtils\ModelsWithDefaultValues\TestUser.cs" />
     <Compile Include="TestUtils\ModelsWithDefaultValues\TestCategory.cs" />
     <Compile Include="Users\UserServiceTests.cs" />

@@ -1,0 +1,20 @@
+@model AuctionExpiredMail
+
+@{
+	Layout = null;
+}
+
+To: @Model.UserMail
+Subject: @Model.AuctionTitle has expired
+Content-Type: text/html; charset=utf-8
+
+<html>
+	<body>
+		<p>Hello @Model.UserFirstName,</p>
+		<p>
+			Your "@Html.AuctionLink(Model.AuctionId, Model.AuctionTitle)" auction at Auctioneer has expired without any
+			buy offer.
+		</p>
+		<p>Try to lower the minimum price or describe your auction more accurately.</p>
+	</body>
+</html>

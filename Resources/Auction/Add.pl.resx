@@ -153,4 +153,16 @@
   <data name="Title" xml:space="preserve">
     <value>Tytuł</value>
   </data>
+  <data name="BiddingOrCheckoutRequired" xml:space="preserve">
+    <value>Conajmniej jedna z opcji "licytacja" lub "kup teraz" musi zostać zaznaczona.</value>
+  </data>
+  <data name="EnableBidding" xml:space="preserve">
+    <value>Licytacja</value>
+  </data>
+  <data name="EnableBuyout" xml:space="preserve">
+    <value>Kup teraz</value>
+  </data>
+  <data name="MinimumPrice" xml:space="preserve">
+    <value>Cena minimalna</value>
+  </data>
 </root>

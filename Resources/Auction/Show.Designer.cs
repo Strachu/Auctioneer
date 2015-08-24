@@ -70,11 +70,20 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Buy.
+        ///   Looks up a localized string similar to Best offer:.
         /// </summary>
-        public static string Buy {
+        public static string BestOffer {
             get {
-                return ResourceManager.GetString("Buy", resourceCulture);
+                return ResourceManager.GetString("BestOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bid.
+        /// </summary>
+        public static string BidButtonText {
+            get {
+                return ResourceManager.GetString("BidButtonText", resourceCulture);
             }
         }
         
@@ -84,6 +93,24 @@ namespace Auctioneer.Resources.Auction {
         public static string BuyerUserName {
             get {
                 return ResourceManager.GetString("BuyerUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy now for {0}.
+        /// </summary>
+        public static string Buyout {
+            get {
+                return ResourceManager.GetString("Buyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buyout price:.
+        /// </summary>
+        public static string BuyoutPrice {
+            get {
+                return ResourceManager.GetString("BuyoutPrice", resourceCulture);
             }
         }
         
@@ -102,6 +129,15 @@ namespace Auctioneer.Resources.Auction {
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current offer: {0}.
+        /// </summary>
+        public static string CurrentOffer {
+            get {
+                return ResourceManager.GetString("CurrentOffer", resourceCulture);
             }
         }
         
@@ -129,6 +165,15 @@ namespace Auctioneer.Resources.Auction {
         public static string EndingIn {
             get {
                 return ResourceManager.GetString("EndingIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimal offer: {0}.
+        /// </summary>
+        public static string MinimalOffer {
+            get {
+                return ResourceManager.GetString("MinimalOffer", resourceCulture);
             }
         }
         

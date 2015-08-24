@@ -199,7 +199,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuctioneerDbContext.cs" />
+    <Compile Include="BackgroundTasks\BackgroundTasksDataMapping.cs" />
+    <Compile Include="BackgroundTasks\BackgroundTasksData.cs" />
+    <Compile Include="Auctions\AuctionExpireCheckBackgroundTask.cs" />
+    <Compile Include="Auctions\BuyOfferMapping.cs" />
+    <Compile Include="Auctions\BuyOffer.cs" />
+    <Compile Include="BackgroundTasks\BackgroundTaskExecutor.cs" />
+    <Compile Include="BackgroundTasks\IBackgroundTask.Contracts.cs">
+      <DependentUpon>IBackgroundTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BackgroundTasks\IBackgroundTask.cs" />
     <Compile Include="Categories\CategoryAuctionCountPair.cs" />
+    <Compile Include="TestDbData\BackgroundTasksData.cs" />
     <Compile Include="TestDbData\Currencies.cs" />
     <Compile Include="TestDbData\Categories.cs" />
     <Compile Include="TestDbData\Auctions.cs" />
@@ -226,6 +237,9 @@
       <DependentUpon>ICurrencyService.cs</DependentUpon>
     </Compile>
     <Compile Include="Currencies\ICurrencyService.cs" />
+    <Compile Include="Users\IUserNotifier.Contracts.cs">
+      <DependentUpon>IUserNotifier.cs</DependentUpon>
+    </Compile>
     <Compile Include="Validation\IValidationErrorNotifier.Contracts.cs">
       <DependentUpon>IValidationErrorNotifier.cs</DependentUpon>
     </Compile>

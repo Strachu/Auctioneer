@@ -38,7 +38,10 @@
 						@Html.DisplayNameFor(x => x.Auctions.First().TimeTillEnd)
 					</th>
 					<th class="price">
-						@Html.DisplayNameFor(x => x.Auctions.First().Price)
+						@Html.DisplayNameFor(x => x.Auctions.First().BuyoutPrice)
+					</th>
+					<th class="price">
+						@Html.DisplayNameFor(x => x.Auctions.First().BestOffer)
 					</th>
 				</tr>
 
@@ -72,7 +75,17 @@
 							}
 						</td>
 						<td class="price">
-							@Html.DisplayFor(x => auction.Price)
+							@Html.DisplayFor(x => auction.BuyoutPrice)
+						</td>
+						<td class="price">
+							@if(auction.BestOffer != null)
+							{
+								@Html.DisplayFor(x => auction.BestOffer)
+							}
+							else
+							{
+								@Html.Raw(Lang.NoOffer)
+							}
 						</td>
 					</tr>
 				}

@@ -17,15 +17,21 @@ namespace Auctioneer.Presentation.Mappers
 
 			return new AuctionShowViewModel
 			{
-				Id             = auction.Id,
-				Title          = auction.Title,
-				Description    = auction.Description,
-				Status         = auction.Status,
-				EndDate        = auction.EndDate,
-				Price          = auction.Price,
-				SellerUserName = auction.Seller.UserName,
-				BuyerUserName  = (auction.Buyer != null) ? auction.Buyer.UserName : null,
-				Photos         = photoUrls.Select(x => new AuctionShowViewModel.Photo { Url = x })
+				Id               = auction.Id,
+				Title            = auction.Title,
+				Description      = auction.Description,
+				Status           = auction.Status,
+				EndDate          = auction.EndDate,
+				IsBiddingEnabled = auction.IsBiddingEnabled,
+				BestOffer        = auction.BestOffer != null ? auction.BestOffer.Money : null,
+				MinPrice         = auction.MinimumPrice,
+				MinAllowedBid    = auction.MinBidAllowed,
+				MaxAllowedBid    = auction.IsBuyoutEnabled ? auction.BuyoutPrice.Amount : (decimal?)null,
+				IsBuyoutEnabled  = auction.IsBuyoutEnabled,
+				BuyoutPrice      = auction.BuyoutPrice,
+				SellerUserName   = auction.Seller.UserName,
+				BuyerUserName    = (auction.Buyer != null) ? auction.Buyer.UserName : null,
+				Photos           = photoUrls.Select(x => new AuctionShowViewModel.Photo { Url = x })
 			};
 		}
 	}

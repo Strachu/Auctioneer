@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 using Auctioneer.Logic;
 using Auctioneer.Logic.Auctions;
+using Auctioneer.Logic.BackgroundTasks;
 using Auctioneer.Logic.Users;
 using Auctioneer.Presentation.Emails;
 using Auctioneer.Presentation.Helpers;
@@ -37,9 +39,10 @@ namespace Auctioneer.Presentation
 			builder.RegisterFilterProvider();
 
 			builder.Register(x => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
-			builder.RegisterType<EmailService>().As<IEmailService>().SingleInstance();
+			builder.RegisterType<WorkaroundEmailService>().As<IEmailService>().SingleInstance();
 
 			RegisterServices(builder);
+			RegisterBackgroundTasks(builder);
 
 			builder.RegisterType<AuctioneerDbContext>().InstancePerRequest();
 
@@ -65,6 +68,13 @@ namespace Auctioneer.Presentation
 					 .AsSelf()
 			       .AsImplementedInterfaces()
 			       .InstancePerRequest();
+		}
+
+		private static void RegisterBackgroundTasks(ContainerBuilder builder)
+		{
+			builder.RegisterAssemblyTypes(typeof(IBackgroundTask).Assembly)
+			       .Where(t => t.IsAssignableTo<IBackgroundTask>())
+			       .As<IBackgroundTask>();
 		}
 	}
 }

@@ -15,6 +15,10 @@
 <main class="auction-details">
 	
 	<header>
+		<div class="message inline">
+			@ViewBag.Message
+		</div>
+
 		@{ Html.RenderPartial("Show.ControlPanel"); }
 
 		<h1>@Html.DisplayFor(x => x.Title)</h1>
@@ -68,19 +72,7 @@
 			</div>
 
 			<div class="column">
-				<span class="price">@Html.DisplayFor(x => x.Price)</span>
-				
-				@if(Model.CanBeBought)
-				{
-					@Html.ActionLink(Lang.Buy, actionName: "Buy", cssClass: "btn btn-primary buy-button", routeValues: new
-					{
-						id = Model.Id
-					})
-				}
-				else
-				{
-					<button type="button" class="btn btn-primary buy-button" disabled="true">@Lang.Buy</button>
-				}
+				@{ Html.RenderPartial("Show.BuyingPanel"); }
 			</div>
 		</div>
 				

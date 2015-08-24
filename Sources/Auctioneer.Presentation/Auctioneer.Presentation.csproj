@@ -300,11 +300,16 @@
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Emails\Auction\HtmlHelper.Extensions.cs" />
+    <Compile Include="Emails\Auction\Outbid\OutbidMail.cs" />
+    <Compile Include="Emails\Auction\OfferAdded\OfferAddedMail.cs" />
+    <Compile Include="Emails\Auction\Expired\AuctionExpiredMail.cs" />
     <Compile Include="Emails\Auction\Won\AuctionWonMail.cs" />
     <Compile Include="Emails\Auction\Sold\AuctionSoldMail.cs" />
     <Compile Include="Emails\EmailUserNotifier.cs" />
     <Compile Include="Emails\User\ForgotPassword\ForgotPasswordMail.cs" />
     <Compile Include="Emails\User\ConfirmationMail\ConfirmationMail.cs" />
+    <Compile Include="Emails\WorkaroundEmailService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -594,6 +599,10 @@
     <Content Include="Views\Shared\_ChooseLanguage.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Money.cshtml" />
     <Content Include="Views\Auction\Show.ControlPanel.cshtml" />
+    <Content Include="Emails\Auction\Expired\AuctionExpiredMail.cshtml" />
+    <Content Include="Views\Auction\Show.BuyingPanel.cshtml" />
+    <Content Include="Emails\Auction\OfferAdded\OfferAddedMail.cshtml" />
+    <Content Include="Emails\Auction\Outbid\OutbidMail.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -646,7 +655,7 @@
     <Content Include="Views\Account\MyAuctions.cshtml" />
     <Content Include="Views\Auction\Delete.cshtml" />
     <Content Include="Views\Account\MyAuctions.FilteringOptions.cshtml" />
-    <Content Include="Views\Auction\Buy.cshtml" />
+    <Content Include="Views\Auction\Buyout.cshtml" />
     <Content Include="Views\Auction\OrderConfirmed.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MultilineText.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Duration.cshtml" />

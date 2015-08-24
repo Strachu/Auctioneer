@@ -129,4 +129,7 @@
   <data name="WrongUser" xml:space="preserve">
     <value>Nie można usunąć aukcji innego użytkownika.</value>
   </data>
+  <data name="BuyOfferHasBeenMade" xml:space="preserve">
+    <value>Nie można usunąć aukcji, która posiada chociaż jedną ofertę kupna.</value>
+  </data>
 </root>

@@ -70,20 +70,29 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        public static string SubmitText {
-            get {
-                return ResourceManager.GetString("SubmitText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Inactive auctions cannot be removed..
         /// </summary>
         public static string AuctionIsInactive {
             get {
                 return ResourceManager.GetString("AuctionIsInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auction be removed if someone has made an buy offer..
+        /// </summary>
+        public static string BuyOfferHasBeenMade {
+            get {
+                return ResourceManager.GetString("BuyOfferHasBeenMade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string SubmitText {
+            get {
+                return ResourceManager.GetString("SubmitText", resourceCulture);
             }
         }
         

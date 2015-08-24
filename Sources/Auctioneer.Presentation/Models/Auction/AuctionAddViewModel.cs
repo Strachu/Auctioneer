@@ -6,9 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 
 using Auctioneer.Presentation.Infrastructure.Validation;
-using Auctioneer.Presentation.Models.Shared;
-
-using DataAnnotationsExtensions;
 
 using Lang = Auctioneer.Resources.Auction.Add;
 
@@ -18,9 +15,10 @@ namespace Auctioneer.Presentation.Models
 	{
 		public AuctionAddViewModel()
 		{
-			DaysToEnd          = 7;
-			AvailableDaysToEnd = new SelectList(Enumerable.Range(1, 14));
-			Price              = new MoneyEditViewModel();
+			DaysToEnd           = 7;
+			AvailableDaysToEnd  = new SelectList(Enumerable.Range(1, 14));
+			MinimumBiddingPrice = new MoneyEditViewModel();
+			BuyoutPrice         = new MoneyEditViewModel();
 		}
 
 		[Required]
@@ -35,11 +33,24 @@ namespace Auctioneer.Presentation.Models
 		public int DaysToEnd { get; set; }
 		public SelectList AvailableDaysToEnd { get; set; }
 
+		[Display(Name = "EnableBidding", ResourceType = typeof(Lang))]
+		[AtLeastOneEnabled("Price", ErrorMessageResourceName = "BiddingOrCheckoutRequired", ErrorMessageResourceType = typeof(Lang))]
+		public bool IsBiddingEnabled { get; set; }
+
 		[Required]
 	//	[Min(1.0)] TODO add validation support to MoneyEditViewModel
 		[DataType(DataType.Currency)]
+		[Display(Name = "MinimumPrice", ResourceType = typeof(Lang))]
+		public MoneyEditViewModel MinimumBiddingPrice { get; set; }
+
+		[Display(Name = "EnableBuyout", ResourceType = typeof(Lang))]
+		[AtLeastOneEnabled("Price", ErrorMessageResourceName = "BiddingOrCheckoutRequired", ErrorMessageResourceType = typeof(Lang))]
+		public bool IsBuyoutEnabled { get; set; }
+
+		[Required]
+		[DataType(DataType.Currency)]
 		[Display(Name = "Price", ResourceType = typeof(Lang))]
-		public MoneyEditViewModel Price { get; set; }
+		public MoneyEditViewModel BuyoutPrice { get; set; }
 
 		[Required]
 		[Display(Name = "Category", ResourceType = typeof(Lang))]

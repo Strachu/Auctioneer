@@ -19,11 +19,14 @@ namespace Auctioneer.Logic.Tests.TestUtils.ModelsWithDefaultValues
 			base.OnModelCreating(modelBuilder);
 
 			// A bit hacky way to provide default values for properties not needed for tests but still satisfy constraints.
+			modelBuilder.RegisterEntityType(typeof(TestCurrency));
 			modelBuilder.RegisterEntityType(typeof(TestAuction));
+			modelBuilder.RegisterEntityType(typeof(TestBuyOffer));
 			modelBuilder.RegisterEntityType(typeof(TestCategory));
 			modelBuilder.RegisterEntityType(typeof(TestUser));
 
 			modelBuilder.Entity<TestAuction>().Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+			modelBuilder.Entity<TestBuyOffer>().Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 			modelBuilder.Entity<TestCategory>().Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 			modelBuilder.Entity<TestUser>().Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 		}

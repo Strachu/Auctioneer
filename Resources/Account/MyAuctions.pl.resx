@@ -156,4 +156,13 @@
   <data name="TitleFilterPlaceholderText" xml:space="preserve">
     <value>Filtruj po tytule...</value>
   </data>
+  <data name="BestOffer" xml:space="preserve">
+    <value>Najwyższa oferta</value>
+  </data>
+  <data name="BuyoutPrice" xml:space="preserve">
+    <value>Cena kup teraz</value>
+  </data>
+  <data name="NoOffer" xml:space="preserve">
+    <value>Brak ofert</value>
+  </data>
 </root>

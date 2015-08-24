@@ -132,4 +132,16 @@
   <data name="ThumbnailAltText" xml:space="preserve">
     <value>Miniatura</value>
   </data>
+  <data name="BiddingNotEnabled" xml:space="preserve">
+    <value>Licytacja nie jest dozwolona na tej aukcji.</value>
+  </data>
+  <data name="BuyoutNotEnabled" xml:space="preserve">
+    <value>Opcja kup teraz nie jest dostępna na tej aukcji.</value>
+  </data>
+  <data name="OfferAccepted" xml:space="preserve">
+    <value>Twoja oferta została dodana.</value>
+  </data>
+  <data name="TooLowBid" xml:space="preserve">
+    <value>Minimalna wartość oferty to {0}.</value>
+  </data>
 </root>
