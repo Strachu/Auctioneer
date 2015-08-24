@@ -91,7 +91,7 @@ namespace Auctioneer.Logic.Auctions
 		{
 			get
 			{
-				if(BuyoutPrice != null && Offers.Any(x => x.IsBuyout))
+				if(IsBuyoutEnabled && Offers.Any(x => x.IsBuyout))
 					return AuctionStatus.Sold;
 
 				if(EndDate < DateTime.Now)

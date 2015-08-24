@@ -240,6 +240,7 @@
     <Compile Include="Users\IUserNotifier.Contracts.cs">
       <DependentUpon>IUserNotifier.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Expression.Extensions.cs" />
     <Compile Include="Validation\IValidationErrorNotifier.Contracts.cs">
       <DependentUpon>IValidationErrorNotifier.cs</DependentUpon>
     </Compile>
