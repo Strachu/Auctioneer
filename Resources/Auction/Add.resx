@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BiddingOrCheckoutRequired" xml:space="preserve">
+    <value>You have to enable either bidding or buyout.</value>
+  </data>
   <data name="Category" xml:space="preserve">
     <value>Category</value>
   </data>
@@ -135,8 +138,17 @@
   <data name="DescriptionRequired" xml:space="preserve">
     <value>A description of the auction is required.</value>
   </data>
+  <data name="EnableBidding" xml:space="preserve">
+    <value>Enable bidding</value>
+  </data>
+  <data name="EnableBuyout" xml:space="preserve">
+    <value>Allow buyout</value>
+  </data>
   <data name="FormHeader" xml:space="preserve">
     <value>Add an auction</value>
+  </data>
+  <data name="MinimumPrice" xml:space="preserve">
+    <value>Minimum price</value>
   </data>
   <data name="OnlyJPEGImagesSupported" xml:space="preserve">
     <value>Only images in a JPEG format are supported.</value>

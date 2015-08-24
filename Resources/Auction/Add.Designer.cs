@@ -61,6 +61,15 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have to enable either bidding or buyout..
+        /// </summary>
+        public static string BiddingOrCheckoutRequired {
+            get {
+                return ResourceManager.GetString("BiddingOrCheckoutRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string Category {
@@ -115,11 +124,38 @@ namespace Auctioneer.Resources.Auction {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable bidding.
+        /// </summary>
+        public static string EnableBidding {
+            get {
+                return ResourceManager.GetString("EnableBidding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow buyout.
+        /// </summary>
+        public static string EnableBuyout {
+            get {
+                return ResourceManager.GetString("EnableBuyout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add an auction.
         /// </summary>
         public static string FormHeader {
             get {
                 return ResourceManager.GetString("FormHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum price.
+        /// </summary>
+        public static string MinimumPrice {
+            get {
+                return ResourceManager.GetString("MinimumPrice", resourceCulture);
             }
         }
         

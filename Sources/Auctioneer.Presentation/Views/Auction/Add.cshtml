@@ -25,12 +25,34 @@
 			@Html.ValidationMessageFor(x => x.DaysToEnd)
 		</div>
 
-		<div class="form-group">
-			@Html.LabelFor(x => x.Price)
-			@Html.EditorFor(x => x.Price)
-			@Html.ValidationMessageFor(x => x.Price)
+		<div class="form-group-with-checkbox">
+			<div class="checkbox">
+				@Html.CheckBoxFor(model => model.IsBiddingEnabled)
+				@Html.LabelFor(model => model.IsBiddingEnabled)
+				@Html.ValidationMessageFor(model => model.IsBiddingEnabled)
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(x => x.MinimumBiddingPrice)
+				@Html.EditorFor(x => x.MinimumBiddingPrice)
+				@Html.ValidationMessageFor(x => x.MinimumBiddingPrice)
+			</div>
 		</div>
 
+		<div class="form-group-with-checkbox">
+			<div class="checkbox">
+				@Html.CheckBoxFor(model => model.IsBuyoutEnabled)
+				@Html.LabelFor(model => model.IsBuyoutEnabled)
+				@Html.ValidationMessageFor(model => model.IsBuyoutEnabled)
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(x => x.BuyoutPrice)
+				@Html.EditorFor(x => x.BuyoutPrice)
+				@Html.ValidationMessageFor(x => x.BuyoutPrice)
+			</div>
+		</div>		
+		
 		<div class="form-group">
 			@Html.LabelFor(x => x.CategoryId)
 			@Html.DropDownListFor(x => x.CategoryId, Model.AvailableCategories, Lang.CategoryDropdownDefaultValue)

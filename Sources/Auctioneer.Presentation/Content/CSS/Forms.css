@@ -55,6 +55,35 @@
 	min-height : 200px;
 }
 
+.form-group-with-checkbox
+{
+	margin-bottom : 15px;
+	border        : 1px solid #aaa;
+}
+
+.form-group-with-checkbox > .checkbox
+{
+	margin-left   : 2%;
+	margin-top    : 5px;
+	margin-bottom : 5px;
+}
+
+.form-group-with-checkbox > .form-group
+{
+	padding : 2px;
+}
+
+.form-group-with-checkbox > .form-group > label
+{
+	margin-left : 10px;
+	flex        : 0 1 190px;
+}
+
+.form-group-with-checkbox > *:last-child
+{
+	margin-bottom : 0;
+}
+
 .form-container .input-with-suffix
 {
 	display          : flex;

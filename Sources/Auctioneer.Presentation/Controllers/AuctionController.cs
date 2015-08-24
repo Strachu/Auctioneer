@@ -109,8 +109,9 @@ namespace Auctioneer.Presentation.Controllers
 				AvailableCategories = await GetAvailableCategoryList()
 			};
 
-			var currentCultureCurrencySymbol    = Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencySymbol;
-			viewModel.Price.AvailableCurrencies = await GetAvailableCurrencyList(currentCultureCurrencySymbol);
+			var currentCultureCurrencySymbol                  = Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencySymbol;
+			viewModel.MinimumBiddingPrice.AvailableCurrencies = await GetAvailableCurrencyList(currentCultureCurrencySymbol);
+			viewModel.BuyoutPrice.AvailableCurrencies         = viewModel.MinimumBiddingPrice.AvailableCurrencies;
 
 			return View(viewModel);
 		}
@@ -122,9 +123,11 @@ namespace Auctioneer.Presentation.Controllers
 		{
 			if(!ModelState.IsValid)
 			{
-				input.AvailableCategories       = await GetAvailableCategoryList();
-				input.Price.AvailableCurrencies = await GetAvailableCurrencyList(input.Price.Currency.Symbol);
-				input.Price.Currency            = null; // Prevents the ignoring of Selected property in AvailableCurrencies
+				input.AvailableCategories                     = await GetAvailableCategoryList();
+				input.MinimumBiddingPrice.AvailableCurrencies = await GetAvailableCurrencyList(input.MinimumBiddingPrice.Currency.Symbol);
+				input.BuyoutPrice.AvailableCurrencies         = input.MinimumBiddingPrice.AvailableCurrencies;
+				input.MinimumBiddingPrice.Currency            = null; // Prevents the ignoring of Selected property in AvailableCurrencies
+				input.BuyoutPrice.Currency                    = null;
 				return View(input);
 			}
 

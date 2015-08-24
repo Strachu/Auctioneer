@@ -243,6 +243,7 @@
     <Compile Include="Html\UrlHelper.Extensions.cs" />
     <Compile Include="Security\BannedUserCheck.cs" />
     <Compile Include="SlugGenerator.cs" />
+    <Compile Include="Validation\AtLeastOneEnabledAttribute.cs" />
     <Compile Include="Validation\ContentTypeAttribute.cs" />
     <Compile Include="Validation\ValidationErrorNotifierAdapter.cs" />
   </ItemGroup>
