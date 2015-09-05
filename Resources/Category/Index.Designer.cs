@@ -61,7 +61,7 @@ namespace Auctioneer.Resources.Category {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categories:.
+        ///   Looks up a localized string similar to Categories.
         /// </summary>
         public static string Header {
             get {

@@ -59,3 +59,17 @@ footer
 {
 	text-align: center;
 }
+
+@media screen and (max-width: 768px)
+{
+	.navbar-nav
+	{
+		margin : 0;
+	}
+
+	.language-selector
+	{
+		left      : 50%;
+		transform : translate(-50%, -50%);
+	}
+}

@@ -2,8 +2,13 @@
 @using Lang = Auctioneer.Resources.Category.Index;
 
 <nav class="category-list">
-	<h1>@Lang.Header</h1>
-	<ul>
+	<h1 class="hidden-xs">@Lang.Header</h1>
+	
+	<button type="button" class="visible-xs" data-toggle="collapse" data-target=".category-list ul">
+		@Lang.Header
+	</button>
+
+	<ul class="collapse">
 		@foreach(var category in Model.Categories)
 		{
 			<li>

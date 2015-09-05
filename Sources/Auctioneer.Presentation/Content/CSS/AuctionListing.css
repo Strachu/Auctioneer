@@ -40,6 +40,11 @@
 	margin-left: 3px;
 	margin-top : 3px;
 }
+	
+.category-list h1:after
+{
+	content: ':';
+}
 
 .category-list ul
 {
@@ -47,6 +52,11 @@
 	font-size      : 120%;
 	margin-left    : 1em;
 	padding-left   : 0;
+}
+
+.category-list ul.collapse
+{
+	display : block;
 }
 
 .category-list a
@@ -215,4 +225,89 @@
 	margin-right  : 15px;
 
 	text-align    : right;
+}
+
+@media screen and (max-width: 768px)
+{
+	.category-auction-container
+	{
+		flex-direction : column;
+	}
+
+	.category-list
+	{
+		background-color : #82ee84;
+
+		width            : 100%;
+		margin-bottom    : 10px;
+	}
+
+	.category-list button
+	{
+		color        : black;
+		font-size    : 120%;
+		font-weight  : bold;
+
+		width        : 100%;
+		margin-bottom: 3px;
+		border       : 0;
+		background   : none;
+	}
+
+	.category-list ul
+	{
+		text-align : center;
+	}
+
+	.category-list ul.collapse
+	{
+		display : none;
+	}
+
+	.auction-list .auction-info
+	{
+		display        : flex;
+		flex-direction : column;
+		text-align     : center;
+	}
+
+	.auction-list .auction-info h1,
+	.auction-list .auction-info .price,
+	.auction-list .auction-info .time-till-end
+	{
+		position    : static;
+		line-height : initial;
+		transform   : none;
+	}
+
+	.auction-list .auction-info .price
+	{
+		order : 0;
+	}
+
+	.auction-list .auction-info .price p .header
+	{
+		font-size  : 90%;
+	}
+
+	.auction-list .auction-info .price p .value
+	{
+		font-size  : 95%;
+	}
+
+	.auction-list .auction-info h1
+	{
+		font-size  : 150%;
+
+		flex       : 1 1 auto;
+		order      : 1;
+		margin     : 0;
+		padding    : 0;
+	}
+
+	.auction-list .auction-info .time-till-end
+	{
+		order       : 2;
+		margin-left : 0;
+	}
 }
