@@ -27,12 +27,15 @@
 
 		<div class="form-group-with-checkbox">
 			<div class="checkbox">
-				@Html.CheckBoxFor(model => model.IsBiddingEnabled)
+				@Html.CheckBoxFor(model => model.IsBiddingEnabled, htmlAttributes: new
+				{
+					data_visibility_control_for = "#bidding-price-form-group"
+				})
 				@Html.LabelFor(model => model.IsBiddingEnabled)
 				@Html.ValidationMessageFor(model => model.IsBiddingEnabled)
 			</div>
 
-			<div class="form-group">
+			<div class="form-group" id="bidding-price-form-group">
 				@Html.LabelFor(x => x.MinimumBiddingPrice)
 				@Html.EditorFor(x => x.MinimumBiddingPrice)
 				@Html.ValidationMessageFor(x => x.MinimumBiddingPrice)
@@ -41,12 +44,15 @@
 
 		<div class="form-group-with-checkbox">
 			<div class="checkbox">
-				@Html.CheckBoxFor(model => model.IsBuyoutEnabled)
+				@Html.CheckBoxFor(model => model.IsBuyoutEnabled, htmlAttributes: new
+				{
+					data_visibility_control_for = "#buyout-price-form-group"
+				})
 				@Html.LabelFor(model => model.IsBuyoutEnabled)
 				@Html.ValidationMessageFor(model => model.IsBuyoutEnabled)
 			</div>
 
-			<div class="form-group">
+			<div class="form-group" id="buyout-price-form-group">
 				@Html.LabelFor(x => x.BuyoutPrice)
 				@Html.EditorFor(x => x.BuyoutPrice)
 				@Html.ValidationMessageFor(x => x.BuyoutPrice)
@@ -82,6 +88,7 @@
 
 @section scripts
 {
+	<script src="~/Scripts/FormGroupEnabling.js"></script>
 	<script src="~/Content/Libraries/ckeditor/ckeditor.js"></script>
 	<script>
 		CKEDITOR.replace("Description", {

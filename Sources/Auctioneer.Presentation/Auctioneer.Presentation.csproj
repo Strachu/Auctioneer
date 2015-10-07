@@ -577,6 +577,7 @@
     <Content Include="CodeTemplates\MvcView\Imports.include.t4" />
     <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
     <Content Include="CodeTemplates\MvcViewWithoutModel\Imports.include.t4" />
+    <Content Include="Scripts\FormGroupEnabling.js" />
     <Content Include="smtp.config">
       <SubType>Designer</SubType>
     </Content>
