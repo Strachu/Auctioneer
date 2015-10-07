@@ -27,6 +27,7 @@
 			<table class="table table-hover">
 				<tr>
 					<th>
+						<input type="checkbox" id="select-all" />
 					</th>
 					<th class="title">
 						@Html.DisplayNameFor(x => x.Auctions.First().Title)
@@ -117,9 +118,31 @@
 	<script src="~/Content/Libraries/Chosen/chosen.jquery.min.js"></script>
 
 	<script>
-		$('#status').chosen({
-			placeholder_text_multiple: "@Lang.StatusFilterNotSelectedText",
-			inherit_select_classes   : true
-		})
+		$(function()
+		{
+			$("#status").chosen(
+			{
+				placeholder_text_multiple: "@Lang.StatusFilterNotSelectedText",
+				inherit_select_classes   : true
+			});
+
+			var selectAllCheckbox = $("input#select-all");
+			var enabledCheckboxes = $("input#ids").filter(":enabled");
+			var form              = enabledCheckboxes.first().closest("form");
+
+			selectAllCheckbox.on("change", function()
+			{
+				enabledCheckboxes.prop("checked", this.checked);
+			});
+
+			form.on("change", "input#ids", function()
+			{
+				var anyChecked = Array.prototype.some.call(enabledCheckboxes, function(c) { return c.checked; });
+				if(!anyChecked)
+				{
+					selectAllCheckbox.prop("checked", false);
+				}
+			});
+		});
 	</script>
 }
